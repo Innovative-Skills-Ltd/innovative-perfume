@@ -1,0 +1,53 @@
+@import url("https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&display=swap");
+/* Helvetica Neue Light */
+@font-face {
+  font-family: "Helvetica Neue";
+  src: url("../assets/fonts/HelveticaNeue/HelveticaNeueLight.otf") format("otf");
+  font-weight: 300; /* Light */
+  font-style: normal;
+}
+
+/* Helvetica Neue Medium */
+@font-face {
+  font-family: "Helvetica Neue";
+  src: url("../assets/fonts/HelveticaNeue/HelveticaNeueMedium.otf")
+    format("otf");
+  font-weight: 500; /* Medium */
+  font-style: normal;
+}
+
+/* Helvetica Neue Bold */
+@font-face {
+  font-family: "Helvetica Neue";
+  src: url("../assets/fonts/HelveticaNeue/HelveticaNeueBold.otf") format("otf");
+  font-weight: 700; /* Bold */
+  font-style: normal;
+}
+
+/* Helvetica Neue Heavy */
+@font-face {
+  font-family: "Helvetica Neue";
+  src: url("../assets/fonts/HelveticaNeue/HelveticaNeueHeavy.otf") format("otf");
+  font-weight: 900; /* Heavy */
+  font-style: normal;
+}
+
+html{
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: "Jost", sans-serif;
+  font-weight: 400; /* Light */
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Jost", sans-serif;
+}
+
+/* #ab8e66 */
