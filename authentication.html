@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="./assets/css/style.css" />
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              primary: "#ab8e66",
+              secondary: "#888",
+              hard: "#666",
+              tertiary: "#f3f3f3",
+            },
+          },
+        },
+      };
+    </script>
+    <!-- Alpine.js CDN -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"
+      defer
+    ></script>
+  </head>
+  <body>
+    <!-- Top Bar Start -->
+    <section class="bg-primary py-5">
+      <div
+        class="container mx-auto px-2 md:px-0 flex items-center justify-between text-white"
+      >
+        <span class="">Welcome to our online store!</span>
+        <div class="flex items-center gap-2">
+          <a href="authentication.html">
+            <button
+              class="cursor-pointer hover:italic hover:underline transition-all duration-300 ease-in-out"
+            >
+              Login
+            </button>
+          </a>
+          <span>or</span>
+          <a href="authentication.html">
+            <button
+              class="cursor-pointer hover:italic hover:underline transition-all duration-300 ease-in-out"
+            >
+              Register
+            </button>
+          </a>
+        </div>
+      </div>
+    </section>
+    <!-- Top Bar End -->
+    <!-- Top Header Start -->
+    <section>
+      <div
+        class="container mx-auto px-2 md:px-0 flex items-center justify-between py-10"
+      >
+        <div>
+          <a href="index.html"
+            ><h2 class="font-bold text-primary text-2xl">SIGNORCHOICE</h2></a
+          >
+        </div>
+        <div class="relative hidden md:block">
+          <input
+            class="px-5 py-2 w-96 border rounded-full outline-none"
+            placeholder="Search here"
+          />
+          <div class="absolute right-0 top-0 flex items-center h-full">
+            <div
+              @mouseenter="open = true"
+              @mouseleave="open = false"
+              class="px-5 py-2 border"
+              x-data="{ open: false, selectedCategory: 'Accessories' }"
+            >
+              <!-- Title that dynamically updates -->
+              <h3 class="selected-category" x-text="selectedCategory"></h3>
+
+              <!-- Main Dropdown Menu -->
+              <div
+                x-show="open"
+                x-transition
+                class="absolute top-full left-0 mt-2 bg-white text-black shadow-lg rounded w-56"
+              >
+                <ul class="p-4">
+                  <!-- Category 1 -->
+                  <li
+                    x-data="{ subOpen: false }"
+                    class="relative"
+                    @mouseenter="subOpen = true"
+                    @mouseleave="subOpen = false"
+                  >
+                    <div
+                      class="w-full text-left hover:bg-gray-200 cursor-pointer border-b p-4 flex justify-between"
+                      @click="selectedCategory = 'Category 1'"
+                    >
+                      Category 1
+                      <span>&#9656;</span>
+                    </div>
+                    <!-- Submenu -->
+                    <ul
+                      x-show="subOpen"
+                      x-transition
+                      class="absolute left-full top-0 mt-0 bg-gray-100 shadow-lg w-56"
+                    >
+                      <li
+                        class="hover:bg-gray-200 cursor-pointer border-b p-4"
+                        @click="selectedCategory = 'Subcategory 1-1'"
+                      >
+                        <a href="shop.html">Subcategory 1-1</a>
+                      </li>
+                      <li
+                        class="hover:bg-gray-200 cursor-pointer border-b p-4"
+                        @click="selectedCategory = 'Subcategory 1-2'"
+                      >
+                        <a href="shop.html">Subcategory 1-2</a>
+                      </li>
+                    </ul>
+                  </li>
+
+                  <!-- Category 2 -->
+                  <li
+                    x-data="{ subOpen: false }"
+                    class="relative"
+                    @mouseenter="subOpen = true"
+                    @mouseleave="subOpen = false"
+                  >
+                    <div
+                      class="w-full text-left hover:bg-gray-200 cursor-pointer border-b p-4 flex justify-between"
+                      @click="selectedCategory = 'Category 2'"
+                    >
+                      Category 2
+                      <span>&#9656;</span>
+                    </div>
+                    <!-- Submenu -->
+                    <ul
+                      x-show="subOpen"
+                      x-transition
+                      class="absolute left-full top-0 mt-0 bg-gray-100 shadow-lg w-56"
+                    >
+                      <li
+                        class="hover:bg-gray-200 cursor-pointer border-b p-4"
+                        @click="selectedCategory = 'Subcategory 2-1'"
+                      >
+                        <a href="shop.html">Subcategory 2-1</a>
+                      </li>
+                      <li
+                        class="hover:bg-gray-200 cursor-pointer border-b p-4"
+                        @click="selectedCategory = 'Subcategory 2-2'"
+                      >
+                        <a href="shop.html">Subcategory 2-2</a>
+                      </li>
+                    </ul>
+                  </li>
+
+                  <!-- Single Category without submenu -->
+                  <li
+                    class="hover:bg-gray-200 cursor-pointer border-b p-4"
+                    @click="selectedCategory = 'Category 3'"
+                  >
+                    <a href="#">Category 3</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            <!-- Search Button -->
+
+            <div>
+              <a href="shop.html">
+                <button
+                  class="w-14 h-full py-2 rounded-r-full bg-primary text-secondary flex items-center justify-center"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                  >
+                    <g
+                      fill="none"
+                      stroke="#fff"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                    >
+                      <circle cx="11" cy="11" r="8" />
+                      <path d="m21 21l-4.3-4.3" />
+                    </g>
+                  </svg>
+                </button>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="flex items-center justify-between gap-4">
+          <div class="relative">
+            <a href="shopping_cart.html">
+              <span
+                class="bg-primary absolute -top-3 -right-2 p-[2px] w-[20px] h-[20px] text-sm flex items-center justify-center text-white rounded-full"
+                >0</span
+              >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="26"
+                height="26"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  fill="#000"
+                  d="M2.5 2a.5.5 0 0 0 0 1h.246a.5.5 0 0 1 .48.363l1.586 5.55A1.5 1.5 0 0 0 6.254 10h4.569a1.5 1.5 0 0 0 1.393-.943l1.474-3.686A1 1 0 0 0 12.762 4H4.448l-.261-.912A1.5 1.5 0 0 0 2.746 2zm3.274 6.637L4.734 5h8.028l-1.475 3.686a.5.5 0 0 1-.464.314H6.254a.5.5 0 0 1-.48-.363M6.5 14a1.5 1.5 0 1 0 0-3a1.5 1.5 0 0 0 0 3m0-1a.5.5 0 1 1 0-1a.5.5 0 0 1 0 1m4 1a1.5 1.5 0 1 0 0-3a1.5 1.5 0 0 0 0 3m0-1a.5.5 0 1 1 0-1a.5.5 0 0 1 0 1"
+                />
+              </svg>
+            </a>
+          </div>
+          <div>
+            <a href="authentication.html">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="26"
+                height="26"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  fill="#000"
+                  d="M10.561 8.073a6 6 0 0 1 3.432 5.142a.75.75 0 1 1-1.498.07a4.5 4.5 0 0 0-8.99 0a.75.75 0 0 1-1.498-.07a6 6 0 0 1 3.431-5.142a3.999 3.999 0 1 1 5.123 0M10.5 5a2.5 2.5 0 1 0-5 0a2.5 2.5 0 0 0 5 0"
+                />
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- Top Header End -->
+    <!-- Navbar Start -->
+
+    <nav class="bg-tertiary">
+      <div
+        class="container mx-auto px-2 md:px-0 text-sm flex items-center justify-between md:justify-start gap-10"
+      >
+        <!-- Dropdown Wrapper -->
+        <div
+          x-data="{ open: false }"
+          class="relative px-7 py-4 flex items-center font-bold gap-3 bg-primary text-white w-54"
+          @mouseenter="open = true"
+          @mouseleave="open = false"
+        >
+          <!-- Dropdown Toggle -->
+          <div class="flex items-center gap-3">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+            >
+              <path
+                fill="#fff"
+                fill-rule="evenodd"
+                d="M3 16h18v2H3zm0-5h18v2H3zm0-5h18v2H3z"
+              />
+            </svg>
+            <button>ALL CATEGORIES</button>
+          </div>
+
+          <!-- Main Dropdown Menu -->
+          <div
+            x-show="open"
+            x-transition
+            class="absolute top-full left-0 mt-2 bg-white text-black shadow-lg rounded w-56"
+          >
+            <ul class="p-4">
+              <!-- Category 1 -->
+              <li
+                x-data="{ subOpen: false }"
+                class="relative"
+                @mouseenter="subOpen = true"
+                @mouseleave="subOpen = false"
+              >
+                <a href="shop.html"
+                  ><div
+                    class="w-full text-left hover:bg-gray-200 cursor-pointer border-b p-4 flex justify-between"
+                  >
+                    Category 1
+                    <!-- Chevron Icon -->
+                    <span>&#9656;</span>
+                  </div></a
+                >
+
+                <!-- Submenu -->
+                <ul
+                  x-show="subOpen"
+                  x-transition
+                  class="absolute left-full top-0 mt-0 bg-gray-100 shadow-lg w-56"
+                >
+                  <li class="hover:bg-gray-200 cursor-pointer border-b p-4">
+                    <a href="shop.html">Subcategory 1-1</a>
+                  </li>
+                  <li class="hover:bg-gray-200 cursor-pointer border-b p-4">
+                    <a href="shop.html">Subcategory 1-2</a>
+                  </li>
+                </ul>
+              </li>
+
+              <!-- Category 2 -->
+              <li
+                x-data="{ subOpen: false }"
+                class="relative"
+                @mouseenter="subOpen = true"
+                @mouseleave="subOpen = false"
+              >
+                <a href="shop.html"
+                  ><div
+                    class="w-full text-left hover:bg-gray-200 cursor-pointer border-b p-4 flex justify-between"
+                  >
+                    Category 2
+                    <!-- Chevron Icon -->
+                    <span>&#9656;</span>
+                  </div></a
+                >
+
+                <!-- Submenu -->
+                <ul
+                  x-show="subOpen"
+                  x-transition
+                  class="absolute left-full top-0 mt-0 bg-gray-100 shadow-lg w-56"
+                >
+                  <li class="hover:bg-gray-200 cursor-pointer border-b p-4">
+                    <a href="shop.html">Subcategory 2-1</a>
+                  </li>
+                  <li class="hover:bg-gray-200 cursor-pointer border-b p-4">
+                    <a href="shop.html">Subcategory 2-2</a>
+                  </li>
+                </ul>
+              </li>
+
+              <!-- Single Category without submenu -->
+              <li class="hover:bg-gray-200 cursor-pointer border-b p-4">
+                <a href="shop.html">Category 3</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Navigation Menu -->
+        <div>
+          <div
+            class="text-right w-full relative md:hidden"
+            x-data="{ open: false }"
+          >
+            <!-- SVG Icon Button -->
+            <svg
+              @click.stop="open = !open"
+              class="cursor-pointer"
+              xmlns="http://www.w3.org/2000/svg"
+              width="34"
+              height="34"
+              viewBox="0 0 24 24"
+            >
+              <path
+                fill="#ab8e66"
+                fill-rule="evenodd"
+                d="M3 16h18v2H3zm0-5h18v2H3zm0-5h18v2H3z"
+              />
+            </svg>
+
+            <!-- Main Dropdown Menu -->
+            <div
+              x-show="open"
+              x-transition
+              @click.away="open = false"
+              class="absolute top-full right-0 mt-2 bg-white text-black shadow-lg rounded w-40"
+            >
+              <ul class="p-4">
+                <!-- Category 1 -->
+                <li class="hover:bg-gray-200 cursor-pointer border-b p-4">
+                  <a href="index.html">Home</a>
+                </li>
+
+                <!-- Category 2 -->
+                <li class="hover:bg-gray-200 cursor-pointer border-b p-4">
+                  <a href="shop.html">Shop</a>
+                </li>
+
+                <!-- Single Category without submenu -->
+                <li class="hover:bg-gray-200 cursor-pointer border-b p-4">
+                  <a href="about.html">About</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <ul class="hidden md:flex items-center gap-10 font-bold uppercase">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="shop.html">Shop</a></li>
+            <li><a href="about_us.html">About</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Navbar End -->
+    <!-- Authentication Start -->
+    <section class="container mx-auto px-2 md:px-0 pb-20">
+      <div class="py-8 flex items-center gap-2 text-sm">
+        <a href="#">Home</a>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="14"
+          height="14"
+          viewBox="0 0 1024 1024"
+        >
+          <path
+            fill=""
+            d="M452.864 149.312a29.12 29.12 0 0 1 41.728.064L826.24 489.664a32 32 0 0 1 0 44.672L494.592 874.624a29.12 29.12 0 0 1-41.728 0a30.59 30.59 0 0 1 0-42.752L764.736 512L452.864 192a30.59 30.59 0 0 1 0-42.688m-256 0a29.12 29.12 0 0 1 41.728.064L570.24 489.664a32 32 0 0 1 0 44.672L238.592 874.624a29.12 29.12 0 0 1-41.728 0a30.59 30.59 0 0 1 0-42.752L508.736 512L196.864 192a30.59 30.59 0 0 1 0-42.688"
+          />
+        </svg>
+        <span>Authentication</span>
+      </div>
+      <h2 class="text-xl font-semibold mb-10 uppercase">Authentication</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-7">
+        <form action="#">
+          <h3 class="px-10 py-6 border rounded-t-lg">Login your Account</h3>
+          <div class="px-10 py-6 border border-t-0 rounded-b-lg">
+            <p class="text-secondary mb-5">Login with social account</p>
+            <div class="flex items-center gap-10 mb-5">
+              <a href="#" class="text-sm flex items-center gap-2">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="14"
+                  height="14"
+                  viewBox="0 0 24 24"
+                >
+                  <g fill="none">
+                    <path
+                      d="m12.593 23.258l-.011.002l-.071.035l-.02.004l-.014-.004l-.071-.035q-.016-.005-.024.005l-.004.01l-.017.428l.005.02l.01.013l.104.074l.015.004l.012-.004l.104-.074l.012-.016l.004-.017l-.017-.427q-.004-.016-.017-.018m.265-.113l-.013.002l-.185.093l-.01.01l-.003.011l.018.43l.005.012l.008.007l.201.093q.019.005.029-.008l.004-.014l-.034-.614q-.005-.018-.02-.022m-.715.002a.02.02 0 0 0-.027.006l-.006.014l-.034.614q.001.018.017.024l.015-.002l.201-.093l.01-.008l.004-.011l.017-.43l-.003-.012l-.01-.01z"
+                    />
+                    <path
+                      fill="currentColor"
+                      d="M4.594 4.984a1 1 0 0 1 .941.429C7.011 7.572 8.783 8.47 10.75 8.674c.096-.841.323-1.672.75-2.404c.626-1.074 1.644-1.864 3.098-2.156c2.01-.404 3.54.324 4.427 1.215l1.792-.335a1 1 0 0 1 1.053 1.478l-1.72 3.022c.157 4.361-1.055 7.405-3.639 9.502c-1.37 1.112-3.332 1.743-5.485 1.938c-2.17.196-4.623-.041-7.061-.753a1 1 0 0 1 .007-1.922c1.226-.349 2.16-.65 3.003-1.177c-1.199-.636-2.082-1.468-2.707-2.416c-.868-1.318-1.19-2.788-1.254-4.113S3.141 8 3.343 7.115c.115-.505.249-1.011.434-1.495a1 1 0 0 1 .818-.636Z"
+                    />
+                  </g>
+                </svg>
+                <span>TWITTER</span></a
+              >
+              <a href="#" class="text-sm flex items-center gap-2">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="14"
+                  height="14"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    fill="currentColor"
+                    fill-rule="evenodd"
+                    d="M13.135 6H15V3h-1.865a4.147 4.147 0 0 0-4.142 4.142V9H7v3h2v9.938h3V12h2.021l.592-3H12V6.591A.6.6 0 0 1 12.592 6z"
+                    clip-rule="evenodd"
+                  />
+                </svg>
+                <span>Facebook</span></a
+              >
+            </div>
+            <div>
+              <div class="mb-5">
+                <label class="text-sm mb-1">Username</label>
+                <input
+                  class="py-2 px-5 border w-full rounded-full"
+                  type="text"
+                />
+              </div>
+              <div class="mb-5">
+                <label class="text-sm mb-1">Password</label>
+                <input
+                  class="py-2 px-5 border w-full rounded-full"
+                  type="password"
+                />
+              </div>
+              <div class="mb-5 flex items-center justify-between">
+                <div class="flex items-center gap-1">
+                  <input type="checkbox" />
+                  <span class="text-sm text-secondary">Remember Me</span>
+                </div>
+                <a href="#" class="text-sm">Forgot password?</a>
+              </div>
+              <button
+                class="py-2 px-5 text-white bg-primary rounded-full text-sm"
+              >
+                LOGIN
+              </button>
+            </div>
+          </div>
+        </form>
+        <form action="#">
+          <h3 class="px-10 py-6 border rounded-t-lg">Register now</h3>
+          <div class="px-10 py-6 border border-t-0 rounded-b-lg">
+            <p class="text-secondary mb-5">Login with social account</p>
+            <div>
+              <div class="mb-5">
+                <label class="text-sm mb-1">Your email</label>
+                <input
+                  class="py-2 px-5 border w-full rounded-full"
+                  type="text"
+                />
+              </div>
+              <div class="mb-5">
+                <label class="text-sm mb-1">Username</label>
+                <input
+                  class="py-2 px-5 border w-full rounded-full"
+                  type="text"
+                />
+              </div>
+              <div class="mb-5">
+                <label class="text-sm mb-1">Password</label>
+                <input
+                  class="py-2 px-5 border w-full rounded-full"
+                  type="password"
+                />
+              </div>
+              <div class="mb-5">
+                <div class="flex items-center gap-1">
+                  <input type="checkbox" />
+                  <p class="text-sm text-secondary">
+                    I agree to
+                    <span class="text-black">Terms & Conditions</span>
+                  </p>
+                </div>
+              </div>
+              <button
+                class="py-2 px-5 text-white bg-primary rounded-full text-sm"
+              >
+                Register Now
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </section>
+    <!-- Authentication End -->
+
+    <!-- Footer Section Start  -->
+    <footer class="py-20 bg-tertiary">
+      <div class="grid grid-cols-2 gap-5 md:grid-cols-3">
+        <div class="md:order-1">
+          <ul class="flex items-center flex-col justify-center gap-1">
+            <li class="text-sm font-medium uppercase">
+              <a href="#">Quick Menu</a>
+            </li>
+            <li class=""><a href="index.html">Home</a></li>
+            <li class=""><a href="about.html">About</a></li>
+            <li class=""><a href="shop.html">Shop</a></li>
+            <li class=""><a href="authentication.html">Login</a></li>
+          </ul>
+        </div>
+        <div class="order-3 col-span-2 md:col-span-1 md:order-2 p-5 md:p-0">
+          <h3 class="text-sm font-medium uppercase mb-4 text-center">
+            Newsletter
+          </h3>
+          <p class="text-center mb-5 text-hard">
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+            Consequatur, eaque!
+          </p>
+          <input
+            class="py-2 h-14 px-5 w-full text-hard rounded-full mb-2 shadow"
+            placeholder="Your email letter"
+          />
+          <button
+            class="h-14 py-2 px-5 w-full text-white bg-primary uppercase font-bold text-xs rounded-full mb-2"
+          >
+            Subscribe
+          </button>
+          <div class="pt-5 flex items-center justify-evenly mb-5">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+            >
+              <path
+                fill="#000"
+                d="M14 13.5h2.5l1-4H14v-2c0-1.03 0-2 2-2h1.5V2.14c-.326-.043-1.557-.14-2.857-.14C11.928 2 10 3.657 10 6.7v2.8H7v4h3V22h4z"
+              />
+            </svg>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+            >
+              <g fill="none">
+                <path
+                  d="m12.593 23.258l-.011.002l-.071.035l-.02.004l-.014-.004l-.071-.035q-.016-.005-.024.005l-.004.01l-.017.428l.005.02l.01.013l.104.074l.015.004l.012-.004l.104-.074l.012-.016l.004-.017l-.017-.427q-.004-.016-.017-.018m.265-.113l-.013.002l-.185.093l-.01.01l-.003.011l.018.43l.005.012l.008.007l.201.093q.019.005.029-.008l.004-.014l-.034-.614q-.005-.018-.02-.022m-.715.002a.02.02 0 0 0-.027.006l-.006.014l-.034.614q.001.018.017.024l.015-.002l.201-.093l.01-.008l.004-.011l.017-.43l-.003-.012l-.01-.01z"
+                />
+                <path
+                  fill="#000"
+                  d="M4.594 4.984a1 1 0 0 1 .941.429C7.011 7.572 8.783 8.47 10.75 8.674c.096-.841.323-1.672.75-2.404c.626-1.074 1.644-1.864 3.098-2.156c2.01-.404 3.54.324 4.427 1.215l1.792-.335a1 1 0 0 1 1.053 1.478l-1.72 3.022c.157 4.361-1.055 7.405-3.639 9.502c-1.37 1.112-3.332 1.743-5.485 1.938c-2.17.196-4.623-.041-7.061-.753a1 1 0 0 1 .007-1.922c1.226-.349 2.16-.65 3.003-1.177c-1.199-.636-2.082-1.468-2.707-2.416c-.868-1.318-1.19-2.788-1.254-4.113S3.141 8 3.343 7.115c.115-.505.249-1.011.434-1.495a1 1 0 0 1 .818-.636Z"
+                />
+              </g>
+            </svg>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+            >
+              <g fill="none" stroke="#000" stroke-width="1.5">
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M12 16a4 4 0 1 0 0-8a4 4 0 0 0 0 8"
+                />
+                <path
+                  d="M3 16V8a5 5 0 0 1 5-5h8a5 5 0 0 1 5 5v8a5 5 0 0 1-5 5H8a5 5 0 0 1-5-5Z"
+                />
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="m17.5 6.51l.01-.011"
+                />
+              </g>
+            </svg>
+          </div>
+          <p class="pb-5 text-center text-hard">
+            Copyright C 2020 Steline. All Rights Reserved
+          </p>
+        </div>
+        <div class="order-2 md:order-3">
+          <ul class="flex items-center flex-col justify-center gap-1">
+            <li class="text-sm font-medium uppercase">
+              <a href="#">Information</a>
+            </li>
+            <!--<li class=""><a href="#">FAQS</a></li>
+            <li class=""><a href="#">Track Order</a></li>
+            <li class=""><a href="#">Delivery</a></li>-->
+            <li class=""><a href="contact_us.html">Contact Us</a></li>
+            <!-- <li class=""><a href="#">Return</a></li> -->
+          </ul>
+        </div>
+      </div>
+    </footer>
+    <!-- Footer Section End -->
+    <!-- Back To TOP Start -->
+    <div
+      class="w-12 h-12 rounded-full flex items-center justify-center fixed bottom-10 right-10 bg-primary"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 16 16"
+      >
+        <path
+          fill="#fff"
+          fill-rule="evenodd"
+          d="m8 4.293l3.854 3.853l-.707.708L8 5.707L4.854 8.854l-.708-.708zm0 3l3.854 3.853l-.707.708L8 8.707l-3.146 3.147l-.708-.707z"
+          clip-rule="evenodd"
+        />
+      </svg>
+    </div>
+    <!-- Back To TOP End -->
+  </body>
+</html>
