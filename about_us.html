@@ -63,11 +63,32 @@
             ><h2 class="font-bold text-primary text-2xl">SIGNORCHOICE</h2></a
           >
         </div>
-        <div class="relative hidden md:block">
+        <div
+          x-data="{ search: '', suggestions: ['Shoes', 'Shirts', 'Accessories', 'Hats', 'Bags'], filteredSuggestions: [] }"
+          class="relative hidden md:block"
+        >
           <input
+            type="text"
             class="px-5 py-2 w-96 border rounded-full outline-none"
             placeholder="Search here"
+            x-model="search"
+            @input="filteredSuggestions = suggestions.filter(item => item.toLowerCase().includes(search.toLowerCase()))"
           />
+          <div
+            x-show="search.length > 0 && filteredSuggestions.length > 0"
+            x-transition
+            class="absolute left-0 mt-1 bg-white text-black shadow-lg rounded w-96"
+          >
+            <ul>
+              <template x-for="item in filteredSuggestions" :key="item">
+                <li
+                  class="hover:bg-gray-200 cursor-pointer p-2"
+                  @click="search = item; filteredSuggestions = []"
+                  x-text="item"
+                ></li>
+              </template>
+            </ul>
+          </div>
           <div class="absolute right-0 top-0 flex items-center h-full">
             <div
               @mouseenter="open = true"
@@ -84,7 +105,7 @@
                 x-transition
                 class="absolute top-full left-0 mt-2 bg-white text-black shadow-lg rounded w-56"
               >
-                <ul class="p-4">
+                <ul class="p-0">
                   <!-- Category 1 -->
                   <li
                     x-data="{ subOpen: false }"
@@ -107,15 +128,15 @@
                     >
                       <li
                         class="hover:bg-gray-200 cursor-pointer border-b p-4"
-                        @click="selectedCategory = 'Subcategory 1-1'"
+                        @click="selectedCategory = 'Accessories'"
                       >
-                        <a href="shop.html">Subcategory 1-1</a>
+                        <span>Accessories</span>
                       </li>
                       <li
                         class="hover:bg-gray-200 cursor-pointer border-b p-4"
                         @click="selectedCategory = 'Subcategory 1-2'"
                       >
-                        <a href="shop.html">Subcategory 1-2</a>
+                        <span>Subcategory 1-2</span>
                       </li>
                     </ul>
                   </li>
@@ -144,13 +165,13 @@
                         class="hover:bg-gray-200 cursor-pointer border-b p-4"
                         @click="selectedCategory = 'Subcategory 2-1'"
                       >
-                        <a href="shop.html">Subcategory 2-1</a>
+                        <span>Subcategory 2-1</span>
                       </li>
                       <li
                         class="hover:bg-gray-200 cursor-pointer border-b p-4"
                         @click="selectedCategory = 'Subcategory 2-2'"
                       >
-                        <a href="shop.html">Subcategory 2-2</a>
+                        <span>Subcategory 2-2</span>
                       </li>
                     </ul>
                   </li>
@@ -160,7 +181,7 @@
                     class="hover:bg-gray-200 cursor-pointer border-b p-4"
                     @click="selectedCategory = 'Category 3'"
                   >
-                    <a href="#">Category 3</a>
+                    <span>Category 3</span>
                   </li>
                 </ul>
               </div>
@@ -270,7 +291,7 @@
             x-transition
             class="absolute top-full left-0 mt-2 bg-white text-black shadow-lg rounded w-56"
           >
-            <ul class="p-4">
+            <ul class="p-0">
               <!-- Category 1 -->
               <li
                 x-data="{ subOpen: false }"
@@ -295,7 +316,7 @@
                   class="absolute left-full top-0 mt-0 bg-gray-100 shadow-lg w-56"
                 >
                   <li class="hover:bg-gray-200 cursor-pointer border-b p-4">
-                    <a href="shop.html">Subcategory 1-1</a>
+                    <a href="shop.html">Accessories</a>
                   </li>
                   <li class="hover:bg-gray-200 cursor-pointer border-b p-4">
                     <a href="shop.html">Subcategory 1-2</a>
@@ -372,7 +393,7 @@
               @click.away="open = false"
               class="absolute top-full right-0 mt-2 bg-white text-black shadow-lg rounded w-40"
             >
-              <ul class="p-4">
+              <ul class="p-0">
                 <!-- Category 1 -->
                 <li class="hover:bg-gray-200 cursor-pointer border-b p-4">
                   <a href="index.html">Home</a>
@@ -575,14 +596,30 @@
             <li class="text-sm font-medium uppercase">
               <a href="#">Quick Menu</a>
             </li>
-            <li class=""><a href="index.html">Home</a></li>
-            <li class=""><a href="about.html">About</a></li>
-            <li class=""><a href="shop.html">Shop</a></li>
-            <li class=""><a href="authentication.html">Login</a></li>
+            <li
+              class="hover:underline hover:italic transition-all duration-150 cursor-pointer"
+            >
+              <a href="index.html">Home</a>
+            </li>
+            <li
+              class="hover:underline hover:italic transition-all duration-150 cursor-pointer"
+            >
+              <a href="about.html">About</a>
+            </li>
+            <li
+              class="hover:underline hover:italic transition-all duration-150 cursor-pointer"
+            >
+              <a href="shop.html">Shop</a>
+            </li>
+            <li
+              class="hover:underline hover:italic transition-all duration-150 cursor-pointer"
+            >
+              <a href="authentication.html">Login</a>
+            </li>
           </ul>
         </div>
         <div class="order-3 col-span-2 md:col-span-1 md:order-2 p-5 md:p-0">
-          <h3 class="text-sm font-medium uppercase mb-4 text-center">
+          <h3 class="text-sm font-semibold uppercase mb-4 text-center">
             Newsletter
           </h3>
           <p class="text-center mb-5 text-hard">
@@ -590,7 +627,7 @@
             Consequatur, eaque!
           </p>
           <input
-            class="py-2 h-14 px-5 w-full text-hard rounded-full mb-2 shadow"
+            class="py-2 h-14 px-5 w-full text-hard outline-primary outline-1 rounded-full mb-2 shadow"
             placeholder="Your email letter"
           />
           <button
@@ -650,7 +687,7 @@
             </svg>
           </div>
           <p class="pb-5 text-center text-hard">
-            Copyright C 2020 Steline. All Rights Reserved
+            Copyright &copy; 2025 SIGNORCHOICE. All Rights Reserved
           </p>
         </div>
         <div class="order-2 md:order-3">
@@ -658,11 +695,23 @@
             <li class="text-sm font-medium uppercase">
               <a href="#">Information</a>
             </li>
-            <!--<li class=""><a href="#">FAQS</a></li>
-            <li class=""><a href="#">Track Order</a></li>
-            <li class=""><a href="#">Delivery</a></li>-->
-            <li class=""><a href="contact_us.html">Contact Us</a></li>
-            <!-- <li class=""><a href="#">Return</a></li> -->
+            <!--<li
+              class="hover:underline hover:italic transition-all duration-150 cursor-pointer"
+            ><a href="#">FAQS</a></li>
+            <li
+              class="hover:underline hover:italic transition-all duration-150 cursor-pointer"
+            ><a href="#">Track Order</a></li>
+            <li
+              class="hover:underline hover:italic transition-all duration-150 cursor-pointer"
+            ><a href="#">Delivery</a></li>-->
+            <li
+              class="hover:underline hover:italic transition-all duration-150 cursor-pointer"
+            >
+              <a href="contact_us.html">Contact Us</a>
+            </li>
+            <!-- <li
+              class="hover:underline hover:italic transition-all duration-150 cursor-pointer"
+            ><a href="#">Return</a></li> -->
           </ul>
         </div>
       </div>

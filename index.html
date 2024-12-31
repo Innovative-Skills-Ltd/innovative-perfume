@@ -25,6 +25,41 @@
       src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"
       defer
     ></script>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <style>
+      .swiper {
+        width: 100%;
+        height: 100%;
+      }
+      .swiper-pagination-bullet-active {
+        background: none !important;
+        border: 1px solid #ab8e66 !important;
+        width: 16px !important;
+        height: 16px !important;
+      }
+      .deals-of-the-day-swiper-pagination {
+        display: flex !important;
+        align-items: center;
+        justify-content: center;
+      }
+      .hero-swiper-pagination {
+        display: flex !important;
+        align-items: center;
+        justify-content: center;
+        margin-top: -20px;
+        z-index: 20;
+        position: relative !important;
+      }
+      .news-swiper-pagination {
+        display: flex !important;
+        align-items: center;
+        justify-content: center;
+      }
+    </style>
   </head>
   <body>
     <!-- Top Bar Start -->
@@ -63,11 +98,32 @@
             ><h2 class="font-bold text-primary text-2xl">SIGNORCHOICE</h2></a
           >
         </div>
-        <div class="relative hidden md:block">
+        <div
+          x-data="{ search: '', suggestions: ['Shoes', 'Shirts', 'Accessories', 'Hats', 'Bags'], filteredSuggestions: [] }"
+          class="relative hidden md:block"
+        >
           <input
+            type="text"
             class="px-5 py-2 w-96 border rounded-full outline-none"
             placeholder="Search here"
+            x-model="search"
+            @input="filteredSuggestions = suggestions.filter(item => item.toLowerCase().includes(search.toLowerCase()))"
           />
+          <div
+            x-show="search.length > 0 && filteredSuggestions.length > 0"
+            x-transition
+            class="absolute left-0 mt-1 bg-white text-black shadow-lg rounded w-96"
+          >
+            <ul>
+              <template x-for="item in filteredSuggestions" :key="item">
+                <li
+                  class="hover:bg-gray-200 cursor-pointer p-2"
+                  @click="search = item; filteredSuggestions = []"
+                  x-text="item"
+                ></li>
+              </template>
+            </ul>
+          </div>
           <div class="absolute right-0 top-0 flex items-center h-full">
             <div
               @mouseenter="open = true"
@@ -84,7 +140,7 @@
                 x-transition
                 class="absolute top-full left-0 mt-2 bg-white text-black shadow-lg rounded w-56"
               >
-                <ul class="p-4">
+                <ul class="p-0">
                   <!-- Category 1 -->
                   <li
                     x-data="{ subOpen: false }"
@@ -107,15 +163,15 @@
                     >
                       <li
                         class="hover:bg-gray-200 cursor-pointer border-b p-4"
-                        @click="selectedCategory = 'Subcategory 1-1'"
+                        @click="selectedCategory = 'Accessories'"
                       >
-                        <a href="shop.html">Subcategory 1-1</a>
+                        <span>Accessories</span>
                       </li>
                       <li
                         class="hover:bg-gray-200 cursor-pointer border-b p-4"
                         @click="selectedCategory = 'Subcategory 1-2'"
                       >
-                        <a href="shop.html">Subcategory 1-2</a>
+                        <span>Subcategory 1-2</span>
                       </li>
                     </ul>
                   </li>
@@ -144,13 +200,13 @@
                         class="hover:bg-gray-200 cursor-pointer border-b p-4"
                         @click="selectedCategory = 'Subcategory 2-1'"
                       >
-                        <a href="shop.html">Subcategory 2-1</a>
+                        <span>Subcategory 2-1</span>
                       </li>
                       <li
                         class="hover:bg-gray-200 cursor-pointer border-b p-4"
                         @click="selectedCategory = 'Subcategory 2-2'"
                       >
-                        <a href="shop.html">Subcategory 2-2</a>
+                        <span>Subcategory 2-2</span>
                       </li>
                     </ul>
                   </li>
@@ -160,7 +216,7 @@
                     class="hover:bg-gray-200 cursor-pointer border-b p-4"
                     @click="selectedCategory = 'Category 3'"
                   >
-                    <a href="#">Category 3</a>
+                    <span>Category 3</span>
                   </li>
                 </ul>
               </div>
@@ -270,7 +326,7 @@
             x-transition
             class="absolute top-full left-0 mt-2 bg-white text-black shadow-lg rounded w-56"
           >
-            <ul class="p-4">
+            <ul class="p-0">
               <!-- Category 1 -->
               <li
                 x-data="{ subOpen: false }"
@@ -295,7 +351,7 @@
                   class="absolute left-full top-0 mt-0 bg-gray-100 shadow-lg w-56"
                 >
                   <li class="hover:bg-gray-200 cursor-pointer border-b p-4">
-                    <a href="shop.html">Subcategory 1-1</a>
+                    <a href="shop.html">Accessories</a>
                   </li>
                   <li class="hover:bg-gray-200 cursor-pointer border-b p-4">
                     <a href="shop.html">Subcategory 1-2</a>
@@ -372,7 +428,7 @@
               @click.away="open = false"
               class="absolute top-full right-0 mt-2 bg-white text-black shadow-lg rounded w-40"
             >
-              <ul class="p-4">
+              <ul class="p-0">
                 <!-- Category 1 -->
                 <li class="hover:bg-gray-200 cursor-pointer border-b p-4">
                   <a href="index.html">Home</a>
@@ -405,35 +461,77 @@
     <section class="mt-5 mb-10">
       <div class="container mx-auto px-2 md:px-0">
         <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
-          <div class="col-span-1 md:col-span-2 row-span-2 border w-full">
-            <div
-              style="
-                background-image: url('https://dreamingtheme.kiendaotac.com/html/stelina/assets/images/banner-home-6.jpg');
-                /* height: 614px; */
-                width: 100%;
-                background-size: 100%;
-              "
-              class="bg-no-repeat bg- w-full p-5 md:pl-12 md:pt-44 md:pb-48 md:pr-96 flex flex-col gap-16"
-            >
-              <div>
-                <h3 class="font-semibold uppercase mb-3 text-primary">
-                  Sale Up To 40%
-                </h3>
-                <h1 class="mb-2 text-4xl font-medium">A Range of Perfume</h1>
-                <p class="text-lg font-medium">
-                  New Price:
-                  <span class="text-3xl font-semibold text-primary"
-                    >$170.00</span
-                  >
-                </p>
-              </div>
-              <div>
-                <button
-                  class="text-sm font-bold pb-2 border-b-2 uppercase border-black"
+          <div
+            class="col-span-1 md:col-span-2 row-span-2 border w-full overflow-hidden"
+          >
+            <div class="swiper hero-swiper">
+              <div class="swiper-wrapper">
+                <div
+                  style="
+                    background-image: url('https://dreamingtheme.kiendaotac.com/html/stelina/assets/images/banner-home-6.jpg');
+
+                    width: 100%;
+                    height: 100%;
+                    background-size: 100%;
+                  "
+                  class="swiper-slide bg-no-repeat object-cover bg- w-full p-5 md:pl-12 md:pt-44 md:pb-48 md:pr-12 flex flex-col gap-16"
                 >
-                  Shop Now
-                </button>
+                  <div>
+                    <h3 class="font-semibold uppercase mb-3 text-primary">
+                      Sale Up To 40%
+                    </h3>
+                    <h1 class="mb-2 text-4xl font-medium">
+                      A Range of Perfume
+                    </h1>
+                    <p class="text-lg font-medium">
+                      New Price:
+                      <span class="text-3xl font-semibold text-primary"
+                        >$170.00</span
+                      >
+                    </p>
+                  </div>
+                  <div>
+                    <button
+                      class="text-sm font-bold pb-2 border-b-2 uppercase border-black"
+                    >
+                      Shop Now
+                    </button>
+                  </div>
+                </div>
+                <div
+                  style="
+                    background-image: url('https://dreamingtheme.kiendaotac.com/html/stelina/assets/images/banner-home-6.jpg');
+
+                    width: 100%;
+                    height: 100%;
+                    background-size: 100%;
+                  "
+                  class="swiper-slide bg-no-repeat object-cover bg- w-full p-5 md:pl-12 md:pt-44 md:pb-48 md:pr-12 flex flex-col gap-16"
+                >
+                  <div>
+                    <h3 class="font-semibold uppercase mb-3 text-primary">
+                      Sale Up To 50%
+                    </h3>
+                    <h1 class="mb-2 text-4xl font-medium">
+                      A Range of Perfume
+                    </h1>
+                    <p class="text-lg font-medium">
+                      New Price:
+                      <span class="text-3xl font-semibold text-primary"
+                        >$170.00</span
+                      >
+                    </p>
+                  </div>
+                  <div>
+                    <button
+                      class="text-sm font-bold pb-2 border-b-2 uppercase border-black"
+                    >
+                      Shop Now
+                    </button>
+                  </div>
+                </div>
               </div>
+              <div class="hero-swiper-pagination"></div>
             </div>
           </div>
 
@@ -446,7 +544,7 @@
               "
               class="bg-no-repeat py-14 pl-7 pr-40"
             >
-              <h3 class="text-2xl mb-2">Pick Your Items</h3>
+              <h3 class="text-2xl mb-2 font-bold">Pick Your Items</h3>
               <p class="text-secondary mb-4">Adipiscing elit curabitur</p>
 
               <button
@@ -466,7 +564,7 @@
               "
               class="bg-no-repeat py-14 pl-7 pr-40"
             >
-              <h3 class="text-2xl mb-2">Pick Your Items</h3>
+              <h3 class="text-2xl mb-2 font-bold">Pick Your Items</h3>
               <p class="text-secondary mb-4">Adipiscing elit curabitur</p>
 
               <button
@@ -487,1383 +585,1418 @@
         <div class="text-center mb-14">
           <span class="w-16 bg-primary inline-block h-1"></span>
         </div>
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-5">
-          <a href="product_details.html"
-            ><div class="group cursor-pointer">
-              <div
-                class="border group-hover:border-[#ab8e66] transition-all duration-300"
-              >
-                <div class="relative w-full">
-                  <img
-                    src="https://dreamingtheme.kiendaotac.com/html/stelina/assets/images/product-item-17.jpg"
-                    class="w-full h-64 object-cover"
-                  />
-                  <div
-                    class="top-0 left-0 right-0 bottom-0 m-auto absolute h-full"
-                  >
-                    <div class="h-full flex items-center justify-center">
-                      <div
-                        class="bg-primary flex rounded-full group-hover:mt-0 transition-all duration-300 ease-in-out group-hover:opacity-100 opacity-0 mt-20"
-                      >
-                        <div class="w-11 h-11 flex items-center justify-end">
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="24"
-                            height="24"
-                            viewBox="0 0 24 24"
+        <div class="swiper deals-of-the-day-swiper pb-20">
+          <div class="swiper-wrapper pb-5">
+            <a class="swiper-slide" href="product_details.html"
+              ><div class="group cursor-pointer">
+                <div
+                  class="border group-hover:border-[#ab8e66] transition-all duration-300"
+                >
+                  <div class="relative w-full">
+                    <img
+                      src="https://dreamingtheme.kiendaotac.com/html/stelina/assets/images/product-item-17.jpg"
+                      class="w-full"
+                    />
+                    <div
+                      class="top-0 left-0 right-0 bottom-0 m-auto absolute h-full"
+                    >
+                      <div class="h-full flex items-center justify-center">
+                        <div
+                          class="bg-primary flex rounded-full group-hover:mt-0 transition-all duration-300 ease-in-out group-hover:opacity-100 opacity-0 mt-20"
+                        >
+                          <div class="w-11 h-11 flex items-center justify-end">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                            >
+                              <path
+                                fill="none"
+                                stroke="#fff"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="1.5"
+                                d="M7.75 3.5C5.127 3.5 3 5.76 3 8.547C3 14.125 12 20.5 12 20.5s9-6.375 9-11.953C21 5.094 18.873 3.5 16.25 3.5c-1.86 0-3.47 1.136-4.25 2.79c-.78-1.654-2.39-2.79-4.25-2.79"
+                              />
+                            </svg>
+                          </div>
+                          <div
+                            class="w-11 h-11 flex items-center justify-center"
                           >
-                            <path
-                              fill="none"
-                              stroke="#fff"
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                              stroke-width="1.5"
-                              d="M7.75 3.5C5.127 3.5 3 5.76 3 8.547C3 14.125 12 20.5 12 20.5s9-6.375 9-11.953C21 5.094 18.873 3.5 16.25 3.5c-1.86 0-3.47 1.136-4.25 2.79c-.78-1.654-2.39-2.79-4.25-2.79"
-                            />
-                          </svg>
-                        </div>
-                        <div class="w-11 h-11 flex items-center justify-center">
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="24"
-                            height="24"
-                            viewBox="0 0 24 24"
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                            >
+                              <path
+                                fill="none"
+                                stroke="#fff"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="1.5"
+                                d="m21 21l-4.343-4.343m0 0A8 8 0 1 0 5.343 5.343a8 8 0 0 0 11.314 11.314"
+                              />
+                            </svg>
+                          </div>
+                          <div
+                            class="w-11 h-11 flex items-center justify-start"
                           >
-                            <path
-                              fill="none"
-                              stroke="#fff"
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                              stroke-width="1.5"
-                              d="m21 21l-4.343-4.343m0 0A8 8 0 1 0 5.343 5.343a8 8 0 0 0 11.314 11.314"
-                            />
-                          </svg>
-                        </div>
-                        <div class="w-11 h-11 flex items-center justify-start">
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="24"
-                            height="24"
-                            viewBox="0 0 56 56"
-                          >
-                            <path
-                              fill="#fff"
-                              d="M14.559 51.953h27.586c4.218 0 6.656-2.437 6.656-7.266V20.43c0-4.828-2.461-7.266-7.36-7.266h-3.726c-.14-4.922-4.406-9.117-9.703-9.117c-5.32 0-9.586 4.195-9.727 9.117H14.56c-4.875 0-7.36 2.414-7.36 7.266v24.258c0 4.851 2.485 7.265 7.36 7.265M28.012 7.61c3.304 0 5.812 2.485 5.93 5.555h-11.86c.094-3.07 2.602-5.555 5.93-5.555M14.629 48.18c-2.344 0-3.656-1.242-3.656-3.679V20.617c0-2.437 1.312-3.68 3.656-3.68h26.766c2.296 0 3.632 1.243 3.632 3.68V44.5c0 2.438-1.336 3.68-2.953 3.68Z"
-                            />
-                          </svg>
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 56 56"
+                            >
+                              <path
+                                fill="#fff"
+                                d="M14.559 51.953h27.586c4.218 0 6.656-2.437 6.656-7.266V20.43c0-4.828-2.461-7.266-7.36-7.266h-3.726c-.14-4.922-4.406-9.117-9.703-9.117c-5.32 0-9.586 4.195-9.727 9.117H14.56c-4.875 0-7.36 2.414-7.36 7.266v24.258c0 4.851 2.485 7.265 7.36 7.265M28.012 7.61c3.304 0 5.812 2.485 5.93 5.555h-11.86c.094-3.07 2.602-5.555 5.93-5.555M14.629 48.18c-2.344 0-3.656-1.242-3.656-3.679V20.617c0-2.437 1.312-3.68 3.656-3.68h26.766c2.296 0 3.632 1.243 3.632 3.68V44.5c0 2.438-1.336 3.68-2.953 3.68Z"
+                              />
+                            </svg>
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                  <div
-                    class="items-center justify-center absolute top-2 left-2"
-                  >
                     <div
-                      class="bg-primary w-10 h-5 flex items-center justify-center text-white font-bold rounded-full"
+                      class="items-center justify-center absolute top-2 left-2"
                     >
-                      <span class="text-xs">New</span>
-                    </div>
-                  </div>
-                </div>
-                <div class="flex items-center justify-center gap-3 mb-3 m-3">
-                  <div
-                    class="bg-tertiary w-full h-full rounded-full text-xs flex flex-col items-center justify-center gap-1 py-3"
-                  >
-                    <h4 class="font-bold">00</h4>
-                    <span>DAYS</span>
-                  </div>
-                  <div
-                    class="bg-tertiary w-full h-full rounded-full text-xs flex flex-col items-center justify-center gap-1 py-3"
-                  >
-                    <h4 class="font-bold">00</h4>
-                    <span>HRS</span>
-                  </div>
-                  <div
-                    class="bg-tertiary w-full h-full rounded-full text-xs flex flex-col items-center justify-center gap-1 py-3"
-                  >
-                    <h4 class="font-bold">00</h4>
-                    <span>MINS</span>
-                  </div>
-                  <div
-                    class="bg-tertiary w-full h-full rounded-full text-xs flex flex-col items-center justify-center gap-1 py-3"
-                  >
-                    <h4 class="font-bold">00</h4>
-                    <span>SECS</span>
-                  </div>
-                </div>
-                <h3 class="text-primary text-lg font-medium text-center mb-2">
-                  Glorious Eau
-                </h3>
-                <div>
-                  <div class="flex items-center justify-center w-full">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        fill="#ffb933"
-                        d="m7.325 18.923l1.24-5.313l-4.123-3.572l5.431-.47L12 4.557l2.127 5.01l5.43.47l-4.123 3.572l1.241 5.313L12 16.102z"
-                      />
-                    </svg>
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        fill="#ffb933"
-                        d="m7.325 18.923l1.24-5.313l-4.123-3.572l5.431-.47L12 4.557l2.127 5.01l5.43.47l-4.123 3.572l1.241 5.313L12 16.102z"
-                      />
-                    </svg>
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        fill="#ffb933"
-                        d="m7.325 18.923l1.24-5.313l-4.123-3.572l5.431-.47L12 4.557l2.127 5.01l5.43.47l-4.123 3.572l1.241 5.313L12 16.102z"
-                      />
-                    </svg>
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        fill="#ffb933"
-                        d="m8.85 16.825l3.15-1.9l3.15 1.925l-.825-3.6l2.775-2.4l-3.65-.325l-1.45-3.4l-1.45 3.375l-3.65.325l2.775 2.425zm-1.525 2.098l1.24-5.313l-4.123-3.572l5.431-.47L12 4.557l2.127 5.01l5.43.47l-4.123 3.572l1.241 5.313L12 16.102zM12 12.25"
-                      />
-                    </svg>
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        fill="#ffb933"
-                        d="m8.85 16.825l3.15-1.9l3.15 1.925l-.825-3.6l2.775-2.4l-3.65-.325l-1.45-3.4l-1.45 3.375l-3.65.325l2.775 2.425zm-1.525 2.098l1.24-5.313l-4.123-3.572l5.431-.47L12 4.557l2.127 5.01l5.43.47l-4.123 3.572l1.241 5.313L12 16.102zM12 12.25"
-                      />
-                    </svg>
-                  </div>
-                  <h4 class="text-sm text-center pb-3">
-                    <del class="">$65</del>
-                    <span class="font-bold text-black">$45</span>
-                  </h4>
-                </div>
-              </div>
-            </div></a
-          >
-          <a href="product_details.html"
-            ><div class="group cursor-pointer">
-              <div
-                class="border group-hover:border-[#ab8e66] transition-all duration-300"
-              >
-                <div class="relative w-full">
-                  <img
-                    src="https://dreamingtheme.kiendaotac.com/html/stelina/assets/images/product-item-17.jpg"
-                    class="w-full h-64 object-cover"
-                  />
-                  <div
-                    class="top-0 left-0 right-0 bottom-0 m-auto absolute h-full"
-                  >
-                    <div class="h-full flex items-center justify-center">
                       <div
-                        class="bg-primary flex rounded-full group-hover:mt-0 transition-all duration-300 ease-in-out group-hover:opacity-100 opacity-0 mt-20"
+                        class="bg-primary w-10 h-5 flex items-center justify-center text-white font-bold rounded-full"
                       >
-                        <div class="w-11 h-11 flex items-center justify-end">
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="24"
-                            height="24"
-                            viewBox="0 0 24 24"
-                          >
-                            <path
-                              fill="none"
-                              stroke="#fff"
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                              stroke-width="1.5"
-                              d="M7.75 3.5C5.127 3.5 3 5.76 3 8.547C3 14.125 12 20.5 12 20.5s9-6.375 9-11.953C21 5.094 18.873 3.5 16.25 3.5c-1.86 0-3.47 1.136-4.25 2.79c-.78-1.654-2.39-2.79-4.25-2.79"
-                            />
-                          </svg>
-                        </div>
-                        <div class="w-11 h-11 flex items-center justify-center">
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="24"
-                            height="24"
-                            viewBox="0 0 24 24"
-                          >
-                            <path
-                              fill="none"
-                              stroke="#fff"
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                              stroke-width="1.5"
-                              d="m21 21l-4.343-4.343m0 0A8 8 0 1 0 5.343 5.343a8 8 0 0 0 11.314 11.314"
-                            />
-                          </svg>
-                        </div>
-                        <div class="w-11 h-11 flex items-center justify-start">
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="24"
-                            height="24"
-                            viewBox="0 0 56 56"
-                          >
-                            <path
-                              fill="#fff"
-                              d="M14.559 51.953h27.586c4.218 0 6.656-2.437 6.656-7.266V20.43c0-4.828-2.461-7.266-7.36-7.266h-3.726c-.14-4.922-4.406-9.117-9.703-9.117c-5.32 0-9.586 4.195-9.727 9.117H14.56c-4.875 0-7.36 2.414-7.36 7.266v24.258c0 4.851 2.485 7.265 7.36 7.265M28.012 7.61c3.304 0 5.812 2.485 5.93 5.555h-11.86c.094-3.07 2.602-5.555 5.93-5.555M14.629 48.18c-2.344 0-3.656-1.242-3.656-3.679V20.617c0-2.437 1.312-3.68 3.656-3.68h26.766c2.296 0 3.632 1.243 3.632 3.68V44.5c0 2.438-1.336 3.68-2.953 3.68Z"
-                            />
-                          </svg>
-                        </div>
+                        <span class="text-xs">New</span>
                       </div>
                     </div>
                   </div>
-                  <div
-                    class="items-center justify-center absolute top-2 left-2"
-                  >
+                  <div class="flex items-center justify-center gap-3 mb-3 m-3">
                     <div
-                      class="bg-primary w-10 h-5 flex items-center justify-center text-white font-bold rounded-full"
+                      class="bg-tertiary w-full h-full rounded-full text-xs flex flex-col items-center justify-center gap-1 py-3"
                     >
-                      <span class="text-xs">New</span>
+                      <h4 class="font-bold">00</h4>
+                      <span>DAYS</span>
+                    </div>
+                    <div
+                      class="bg-tertiary w-full h-full rounded-full text-xs flex flex-col items-center justify-center gap-1 py-3"
+                    >
+                      <h4 class="font-bold">00</h4>
+                      <span>HRS</span>
+                    </div>
+                    <div
+                      class="bg-tertiary w-full h-full rounded-full text-xs flex flex-col items-center justify-center gap-1 py-3"
+                    >
+                      <h4 class="font-bold">00</h4>
+                      <span>MINS</span>
+                    </div>
+                    <div
+                      class="bg-tertiary w-full h-full rounded-full text-xs flex flex-col items-center justify-center gap-1 py-3"
+                    >
+                      <h4 class="font-bold">00</h4>
+                      <span>SECS</span>
                     </div>
                   </div>
-                </div>
-                <div class="flex items-center justify-center gap-3 mb-3 m-3">
-                  <div
-                    class="bg-tertiary w-full h-full rounded-full text-xs flex flex-col items-center justify-center gap-1 py-3"
-                  >
-                    <h4 class="font-bold">00</h4>
-                    <span>DAYS</span>
-                  </div>
-                  <div
-                    class="bg-tertiary w-full h-full rounded-full text-xs flex flex-col items-center justify-center gap-1 py-3"
-                  >
-                    <h4 class="font-bold">00</h4>
-                    <span>HRS</span>
-                  </div>
-                  <div
-                    class="bg-tertiary w-full h-full rounded-full text-xs flex flex-col items-center justify-center gap-1 py-3"
-                  >
-                    <h4 class="font-bold">00</h4>
-                    <span>MINS</span>
-                  </div>
-                  <div
-                    class="bg-tertiary w-full h-full rounded-full text-xs flex flex-col items-center justify-center gap-1 py-3"
-                  >
-                    <h4 class="font-bold">00</h4>
-                    <span>SECS</span>
-                  </div>
-                </div>
-                <h3 class="text-primary text-lg font-medium text-center mb-2">
-                  Glorious Eau
-                </h3>
-                <div>
-                  <div class="flex items-center justify-center w-full">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        fill="#ffb933"
-                        d="m7.325 18.923l1.24-5.313l-4.123-3.572l5.431-.47L12 4.557l2.127 5.01l5.43.47l-4.123 3.572l1.241 5.313L12 16.102z"
-                      />
-                    </svg>
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        fill="#ffb933"
-                        d="m7.325 18.923l1.24-5.313l-4.123-3.572l5.431-.47L12 4.557l2.127 5.01l5.43.47l-4.123 3.572l1.241 5.313L12 16.102z"
-                      />
-                    </svg>
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        fill="#ffb933"
-                        d="m7.325 18.923l1.24-5.313l-4.123-3.572l5.431-.47L12 4.557l2.127 5.01l5.43.47l-4.123 3.572l1.241 5.313L12 16.102z"
-                      />
-                    </svg>
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        fill="#ffb933"
-                        d="m8.85 16.825l3.15-1.9l3.15 1.925l-.825-3.6l2.775-2.4l-3.65-.325l-1.45-3.4l-1.45 3.375l-3.65.325l2.775 2.425zm-1.525 2.098l1.24-5.313l-4.123-3.572l5.431-.47L12 4.557l2.127 5.01l5.43.47l-4.123 3.572l1.241 5.313L12 16.102zM12 12.25"
-                      />
-                    </svg>
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        fill="#ffb933"
-                        d="m8.85 16.825l3.15-1.9l3.15 1.925l-.825-3.6l2.775-2.4l-3.65-.325l-1.45-3.4l-1.45 3.375l-3.65.325l2.775 2.425zm-1.525 2.098l1.24-5.313l-4.123-3.572l5.431-.47L12 4.557l2.127 5.01l5.43.47l-4.123 3.572l1.241 5.313L12 16.102zM12 12.25"
-                      />
-                    </svg>
-                  </div>
-                  <h4 class="text-sm text-center pb-3">
-                    <del class="">$65</del>
-                    <span class="font-bold text-black">$45</span>
-                  </h4>
-                </div>
-              </div>
-            </div></a
-          >
-          <a href="product_details.html"
-            ><div class="group cursor-pointer">
-              <div
-                class="border group-hover:border-[#ab8e66] transition-all duration-300"
-              >
-                <div class="relative w-full">
-                  <img
-                    src="https://dreamingtheme.kiendaotac.com/html/stelina/assets/images/product-item-17.jpg"
-                    class="w-full h-64 object-cover"
-                  />
-                  <div
-                    class="top-0 left-0 right-0 bottom-0 m-auto absolute h-full"
-                  >
-                    <div class="h-full flex items-center justify-center">
-                      <div
-                        class="bg-primary flex rounded-full group-hover:mt-0 transition-all duration-300 ease-in-out group-hover:opacity-100 opacity-0 mt-20"
+                  <h3 class="text-primary text-lg font-medium text-center mb-2">
+                    Glorious Eau
+                  </h3>
+                  <div>
+                    <div class="flex items-center justify-center w-full">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
                       >
-                        <div class="w-11 h-11 flex items-center justify-end">
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="24"
-                            height="24"
-                            viewBox="0 0 24 24"
+                        <path
+                          fill="#ffb933"
+                          d="m7.325 18.923l1.24-5.313l-4.123-3.572l5.431-.47L12 4.557l2.127 5.01l5.43.47l-4.123 3.572l1.241 5.313L12 16.102z"
+                        />
+                      </svg>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          fill="#ffb933"
+                          d="m7.325 18.923l1.24-5.313l-4.123-3.572l5.431-.47L12 4.557l2.127 5.01l5.43.47l-4.123 3.572l1.241 5.313L12 16.102z"
+                        />
+                      </svg>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          fill="#ffb933"
+                          d="m7.325 18.923l1.24-5.313l-4.123-3.572l5.431-.47L12 4.557l2.127 5.01l5.43.47l-4.123 3.572l1.241 5.313L12 16.102z"
+                        />
+                      </svg>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          fill="#ffb933"
+                          d="m8.85 16.825l3.15-1.9l3.15 1.925l-.825-3.6l2.775-2.4l-3.65-.325l-1.45-3.4l-1.45 3.375l-3.65.325l2.775 2.425zm-1.525 2.098l1.24-5.313l-4.123-3.572l5.431-.47L12 4.557l2.127 5.01l5.43.47l-4.123 3.572l1.241 5.313L12 16.102zM12 12.25"
+                        />
+                      </svg>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          fill="#ffb933"
+                          d="m8.85 16.825l3.15-1.9l3.15 1.925l-.825-3.6l2.775-2.4l-3.65-.325l-1.45-3.4l-1.45 3.375l-3.65.325l2.775 2.425zm-1.525 2.098l1.24-5.313l-4.123-3.572l5.431-.47L12 4.557l2.127 5.01l5.43.47l-4.123 3.572l1.241 5.313L12 16.102zM12 12.25"
+                        />
+                      </svg>
+                    </div>
+                    <h4 class="text-sm text-center pb-3">
+                      <del class="">$65</del>
+                      <span class="font-bold text-black">$45</span>
+                    </h4>
+                  </div>
+                </div>
+              </div></a
+            >
+            <a class="swiper-slide" href="product_details.html"
+              ><div class="group cursor-pointer">
+                <div
+                  class="border group-hover:border-[#ab8e66] transition-all duration-300"
+                >
+                  <div class="relative w-full">
+                    <img
+                      src="https://dreamingtheme.kiendaotac.com/html/stelina/assets/images/product-item-17.jpg"
+                      class="w-full"
+                    />
+                    <div
+                      class="top-0 left-0 right-0 bottom-0 m-auto absolute h-full"
+                    >
+                      <div class="h-full flex items-center justify-center">
+                        <div
+                          class="bg-primary flex rounded-full group-hover:mt-0 transition-all duration-300 ease-in-out group-hover:opacity-100 opacity-0 mt-20"
+                        >
+                          <div class="w-11 h-11 flex items-center justify-end">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                            >
+                              <path
+                                fill="none"
+                                stroke="#fff"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="1.5"
+                                d="M7.75 3.5C5.127 3.5 3 5.76 3 8.547C3 14.125 12 20.5 12 20.5s9-6.375 9-11.953C21 5.094 18.873 3.5 16.25 3.5c-1.86 0-3.47 1.136-4.25 2.79c-.78-1.654-2.39-2.79-4.25-2.79"
+                              />
+                            </svg>
+                          </div>
+                          <div
+                            class="w-11 h-11 flex items-center justify-center"
                           >
-                            <path
-                              fill="none"
-                              stroke="#fff"
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                              stroke-width="1.5"
-                              d="M7.75 3.5C5.127 3.5 3 5.76 3 8.547C3 14.125 12 20.5 12 20.5s9-6.375 9-11.953C21 5.094 18.873 3.5 16.25 3.5c-1.86 0-3.47 1.136-4.25 2.79c-.78-1.654-2.39-2.79-4.25-2.79"
-                            />
-                          </svg>
-                        </div>
-                        <div class="w-11 h-11 flex items-center justify-center">
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="24"
-                            height="24"
-                            viewBox="0 0 24 24"
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                            >
+                              <path
+                                fill="none"
+                                stroke="#fff"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="1.5"
+                                d="m21 21l-4.343-4.343m0 0A8 8 0 1 0 5.343 5.343a8 8 0 0 0 11.314 11.314"
+                              />
+                            </svg>
+                          </div>
+                          <div
+                            class="w-11 h-11 flex items-center justify-start"
                           >
-                            <path
-                              fill="none"
-                              stroke="#fff"
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                              stroke-width="1.5"
-                              d="m21 21l-4.343-4.343m0 0A8 8 0 1 0 5.343 5.343a8 8 0 0 0 11.314 11.314"
-                            />
-                          </svg>
-                        </div>
-                        <div class="w-11 h-11 flex items-center justify-start">
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="24"
-                            height="24"
-                            viewBox="0 0 56 56"
-                          >
-                            <path
-                              fill="#fff"
-                              d="M14.559 51.953h27.586c4.218 0 6.656-2.437 6.656-7.266V20.43c0-4.828-2.461-7.266-7.36-7.266h-3.726c-.14-4.922-4.406-9.117-9.703-9.117c-5.32 0-9.586 4.195-9.727 9.117H14.56c-4.875 0-7.36 2.414-7.36 7.266v24.258c0 4.851 2.485 7.265 7.36 7.265M28.012 7.61c3.304 0 5.812 2.485 5.93 5.555h-11.86c.094-3.07 2.602-5.555 5.93-5.555M14.629 48.18c-2.344 0-3.656-1.242-3.656-3.679V20.617c0-2.437 1.312-3.68 3.656-3.68h26.766c2.296 0 3.632 1.243 3.632 3.68V44.5c0 2.438-1.336 3.68-2.953 3.68Z"
-                            />
-                          </svg>
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 56 56"
+                            >
+                              <path
+                                fill="#fff"
+                                d="M14.559 51.953h27.586c4.218 0 6.656-2.437 6.656-7.266V20.43c0-4.828-2.461-7.266-7.36-7.266h-3.726c-.14-4.922-4.406-9.117-9.703-9.117c-5.32 0-9.586 4.195-9.727 9.117H14.56c-4.875 0-7.36 2.414-7.36 7.266v24.258c0 4.851 2.485 7.265 7.36 7.265M28.012 7.61c3.304 0 5.812 2.485 5.93 5.555h-11.86c.094-3.07 2.602-5.555 5.93-5.555M14.629 48.18c-2.344 0-3.656-1.242-3.656-3.679V20.617c0-2.437 1.312-3.68 3.656-3.68h26.766c2.296 0 3.632 1.243 3.632 3.68V44.5c0 2.438-1.336 3.68-2.953 3.68Z"
+                              />
+                            </svg>
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                  <div
-                    class="items-center justify-center absolute top-2 left-2"
-                  >
                     <div
-                      class="bg-primary w-10 h-5 flex items-center justify-center text-white font-bold rounded-full"
+                      class="items-center justify-center absolute top-2 left-2"
                     >
-                      <span class="text-xs">New</span>
-                    </div>
-                  </div>
-                </div>
-                <div class="flex items-center justify-center gap-3 mb-3 m-3">
-                  <div
-                    class="bg-tertiary w-full h-full rounded-full text-xs flex flex-col items-center justify-center gap-1 py-3"
-                  >
-                    <h4 class="font-bold">00</h4>
-                    <span>DAYS</span>
-                  </div>
-                  <div
-                    class="bg-tertiary w-full h-full rounded-full text-xs flex flex-col items-center justify-center gap-1 py-3"
-                  >
-                    <h4 class="font-bold">00</h4>
-                    <span>HRS</span>
-                  </div>
-                  <div
-                    class="bg-tertiary w-full h-full rounded-full text-xs flex flex-col items-center justify-center gap-1 py-3"
-                  >
-                    <h4 class="font-bold">00</h4>
-                    <span>MINS</span>
-                  </div>
-                  <div
-                    class="bg-tertiary w-full h-full rounded-full text-xs flex flex-col items-center justify-center gap-1 py-3"
-                  >
-                    <h4 class="font-bold">00</h4>
-                    <span>SECS</span>
-                  </div>
-                </div>
-                <h3 class="text-primary text-lg font-medium text-center mb-2">
-                  Glorious Eau
-                </h3>
-                <div>
-                  <div class="flex items-center justify-center w-full">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        fill="#ffb933"
-                        d="m7.325 18.923l1.24-5.313l-4.123-3.572l5.431-.47L12 4.557l2.127 5.01l5.43.47l-4.123 3.572l1.241 5.313L12 16.102z"
-                      />
-                    </svg>
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        fill="#ffb933"
-                        d="m7.325 18.923l1.24-5.313l-4.123-3.572l5.431-.47L12 4.557l2.127 5.01l5.43.47l-4.123 3.572l1.241 5.313L12 16.102z"
-                      />
-                    </svg>
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        fill="#ffb933"
-                        d="m7.325 18.923l1.24-5.313l-4.123-3.572l5.431-.47L12 4.557l2.127 5.01l5.43.47l-4.123 3.572l1.241 5.313L12 16.102z"
-                      />
-                    </svg>
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        fill="#ffb933"
-                        d="m8.85 16.825l3.15-1.9l3.15 1.925l-.825-3.6l2.775-2.4l-3.65-.325l-1.45-3.4l-1.45 3.375l-3.65.325l2.775 2.425zm-1.525 2.098l1.24-5.313l-4.123-3.572l5.431-.47L12 4.557l2.127 5.01l5.43.47l-4.123 3.572l1.241 5.313L12 16.102zM12 12.25"
-                      />
-                    </svg>
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        fill="#ffb933"
-                        d="m8.85 16.825l3.15-1.9l3.15 1.925l-.825-3.6l2.775-2.4l-3.65-.325l-1.45-3.4l-1.45 3.375l-3.65.325l2.775 2.425zm-1.525 2.098l1.24-5.313l-4.123-3.572l5.431-.47L12 4.557l2.127 5.01l5.43.47l-4.123 3.572l1.241 5.313L12 16.102zM12 12.25"
-                      />
-                    </svg>
-                  </div>
-                  <h4 class="text-sm text-center pb-3">
-                    <del class="">$65</del>
-                    <span class="font-bold text-black">$45</span>
-                  </h4>
-                </div>
-              </div>
-            </div></a
-          >
-          <a href="product_details.html"
-            ><div class="group cursor-pointer">
-              <div
-                class="border group-hover:border-[#ab8e66] transition-all duration-300"
-              >
-                <div class="relative w-full">
-                  <img
-                    src="https://dreamingtheme.kiendaotac.com/html/stelina/assets/images/product-item-17.jpg"
-                    class="w-full h-64 object-cover"
-                  />
-                  <div
-                    class="top-0 left-0 right-0 bottom-0 m-auto absolute h-full"
-                  >
-                    <div class="h-full flex items-center justify-center">
                       <div
-                        class="bg-primary flex rounded-full group-hover:mt-0 transition-all duration-300 ease-in-out group-hover:opacity-100 opacity-0 mt-20"
+                        class="bg-primary w-10 h-5 flex items-center justify-center text-white font-bold rounded-full"
                       >
-                        <div class="w-11 h-11 flex items-center justify-end">
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="24"
-                            height="24"
-                            viewBox="0 0 24 24"
-                          >
-                            <path
-                              fill="none"
-                              stroke="#fff"
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                              stroke-width="1.5"
-                              d="M7.75 3.5C5.127 3.5 3 5.76 3 8.547C3 14.125 12 20.5 12 20.5s9-6.375 9-11.953C21 5.094 18.873 3.5 16.25 3.5c-1.86 0-3.47 1.136-4.25 2.79c-.78-1.654-2.39-2.79-4.25-2.79"
-                            />
-                          </svg>
-                        </div>
-                        <div class="w-11 h-11 flex items-center justify-center">
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="24"
-                            height="24"
-                            viewBox="0 0 24 24"
-                          >
-                            <path
-                              fill="none"
-                              stroke="#fff"
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                              stroke-width="1.5"
-                              d="m21 21l-4.343-4.343m0 0A8 8 0 1 0 5.343 5.343a8 8 0 0 0 11.314 11.314"
-                            />
-                          </svg>
-                        </div>
-                        <div class="w-11 h-11 flex items-center justify-start">
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="24"
-                            height="24"
-                            viewBox="0 0 56 56"
-                          >
-                            <path
-                              fill="#fff"
-                              d="M14.559 51.953h27.586c4.218 0 6.656-2.437 6.656-7.266V20.43c0-4.828-2.461-7.266-7.36-7.266h-3.726c-.14-4.922-4.406-9.117-9.703-9.117c-5.32 0-9.586 4.195-9.727 9.117H14.56c-4.875 0-7.36 2.414-7.36 7.266v24.258c0 4.851 2.485 7.265 7.36 7.265M28.012 7.61c3.304 0 5.812 2.485 5.93 5.555h-11.86c.094-3.07 2.602-5.555 5.93-5.555M14.629 48.18c-2.344 0-3.656-1.242-3.656-3.679V20.617c0-2.437 1.312-3.68 3.656-3.68h26.766c2.296 0 3.632 1.243 3.632 3.68V44.5c0 2.438-1.336 3.68-2.953 3.68Z"
-                            />
-                          </svg>
-                        </div>
+                        <span class="text-xs">New</span>
                       </div>
                     </div>
                   </div>
-                  <div
-                    class="items-center justify-center absolute top-2 left-2"
-                  >
+                  <div class="flex items-center justify-center gap-3 mb-3 m-3">
                     <div
-                      class="bg-primary w-10 h-5 flex items-center justify-center text-white font-bold rounded-full"
+                      class="bg-tertiary w-full h-full rounded-full text-xs flex flex-col items-center justify-center gap-1 py-3"
                     >
-                      <span class="text-xs">New</span>
+                      <h4 class="font-bold">00</h4>
+                      <span>DAYS</span>
+                    </div>
+                    <div
+                      class="bg-tertiary w-full h-full rounded-full text-xs flex flex-col items-center justify-center gap-1 py-3"
+                    >
+                      <h4 class="font-bold">00</h4>
+                      <span>HRS</span>
+                    </div>
+                    <div
+                      class="bg-tertiary w-full h-full rounded-full text-xs flex flex-col items-center justify-center gap-1 py-3"
+                    >
+                      <h4 class="font-bold">00</h4>
+                      <span>MINS</span>
+                    </div>
+                    <div
+                      class="bg-tertiary w-full h-full rounded-full text-xs flex flex-col items-center justify-center gap-1 py-3"
+                    >
+                      <h4 class="font-bold">00</h4>
+                      <span>SECS</span>
                     </div>
                   </div>
-                </div>
-                <div class="flex items-center justify-center gap-3 mb-3 m-3">
-                  <div
-                    class="bg-tertiary w-full h-full rounded-full text-xs flex flex-col items-center justify-center gap-1 py-3"
-                  >
-                    <h4 class="font-bold">00</h4>
-                    <span>DAYS</span>
-                  </div>
-                  <div
-                    class="bg-tertiary w-full h-full rounded-full text-xs flex flex-col items-center justify-center gap-1 py-3"
-                  >
-                    <h4 class="font-bold">00</h4>
-                    <span>HRS</span>
-                  </div>
-                  <div
-                    class="bg-tertiary w-full h-full rounded-full text-xs flex flex-col items-center justify-center gap-1 py-3"
-                  >
-                    <h4 class="font-bold">00</h4>
-                    <span>MINS</span>
-                  </div>
-                  <div
-                    class="bg-tertiary w-full h-full rounded-full text-xs flex flex-col items-center justify-center gap-1 py-3"
-                  >
-                    <h4 class="font-bold">00</h4>
-                    <span>SECS</span>
-                  </div>
-                </div>
-                <h3 class="text-primary text-lg font-medium text-center mb-2">
-                  Glorious Eau
-                </h3>
-                <div>
-                  <div class="flex items-center justify-center w-full">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        fill="#ffb933"
-                        d="m7.325 18.923l1.24-5.313l-4.123-3.572l5.431-.47L12 4.557l2.127 5.01l5.43.47l-4.123 3.572l1.241 5.313L12 16.102z"
-                      />
-                    </svg>
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        fill="#ffb933"
-                        d="m7.325 18.923l1.24-5.313l-4.123-3.572l5.431-.47L12 4.557l2.127 5.01l5.43.47l-4.123 3.572l1.241 5.313L12 16.102z"
-                      />
-                    </svg>
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        fill="#ffb933"
-                        d="m7.325 18.923l1.24-5.313l-4.123-3.572l5.431-.47L12 4.557l2.127 5.01l5.43.47l-4.123 3.572l1.241 5.313L12 16.102z"
-                      />
-                    </svg>
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        fill="#ffb933"
-                        d="m8.85 16.825l3.15-1.9l3.15 1.925l-.825-3.6l2.775-2.4l-3.65-.325l-1.45-3.4l-1.45 3.375l-3.65.325l2.775 2.425zm-1.525 2.098l1.24-5.313l-4.123-3.572l5.431-.47L12 4.557l2.127 5.01l5.43.47l-4.123 3.572l1.241 5.313L12 16.102zM12 12.25"
-                      />
-                    </svg>
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        fill="#ffb933"
-                        d="m8.85 16.825l3.15-1.9l3.15 1.925l-.825-3.6l2.775-2.4l-3.65-.325l-1.45-3.4l-1.45 3.375l-3.65.325l2.775 2.425zm-1.525 2.098l1.24-5.313l-4.123-3.572l5.431-.47L12 4.557l2.127 5.01l5.43.47l-4.123 3.572l1.241 5.313L12 16.102zM12 12.25"
-                      />
-                    </svg>
-                  </div>
-                  <h4 class="text-sm text-center pb-3">
-                    <del class="">$65</del>
-                    <span class="font-bold text-black">$45</span>
-                  </h4>
-                </div>
-              </div>
-            </div></a
-          >
-          <a href="product_details.html"
-            ><div class="group cursor-pointer">
-              <div
-                class="border group-hover:border-[#ab8e66] transition-all duration-300"
-              >
-                <div class="relative w-full">
-                  <img
-                    src="https://dreamingtheme.kiendaotac.com/html/stelina/assets/images/product-item-17.jpg"
-                    class="w-full h-64 object-cover"
-                  />
-                  <div
-                    class="top-0 left-0 right-0 bottom-0 m-auto absolute h-full"
-                  >
-                    <div class="h-full flex items-center justify-center">
-                      <div
-                        class="bg-primary flex rounded-full group-hover:mt-0 transition-all duration-300 ease-in-out group-hover:opacity-100 opacity-0 mt-20"
+                  <h3 class="text-primary text-lg font-medium text-center mb-2">
+                    Glorious Eau
+                  </h3>
+                  <div>
+                    <div class="flex items-center justify-center w-full">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
                       >
-                        <div class="w-11 h-11 flex items-center justify-end">
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="24"
-                            height="24"
-                            viewBox="0 0 24 24"
+                        <path
+                          fill="#ffb933"
+                          d="m7.325 18.923l1.24-5.313l-4.123-3.572l5.431-.47L12 4.557l2.127 5.01l5.43.47l-4.123 3.572l1.241 5.313L12 16.102z"
+                        />
+                      </svg>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          fill="#ffb933"
+                          d="m7.325 18.923l1.24-5.313l-4.123-3.572l5.431-.47L12 4.557l2.127 5.01l5.43.47l-4.123 3.572l1.241 5.313L12 16.102z"
+                        />
+                      </svg>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          fill="#ffb933"
+                          d="m7.325 18.923l1.24-5.313l-4.123-3.572l5.431-.47L12 4.557l2.127 5.01l5.43.47l-4.123 3.572l1.241 5.313L12 16.102z"
+                        />
+                      </svg>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          fill="#ffb933"
+                          d="m8.85 16.825l3.15-1.9l3.15 1.925l-.825-3.6l2.775-2.4l-3.65-.325l-1.45-3.4l-1.45 3.375l-3.65.325l2.775 2.425zm-1.525 2.098l1.24-5.313l-4.123-3.572l5.431-.47L12 4.557l2.127 5.01l5.43.47l-4.123 3.572l1.241 5.313L12 16.102zM12 12.25"
+                        />
+                      </svg>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          fill="#ffb933"
+                          d="m8.85 16.825l3.15-1.9l3.15 1.925l-.825-3.6l2.775-2.4l-3.65-.325l-1.45-3.4l-1.45 3.375l-3.65.325l2.775 2.425zm-1.525 2.098l1.24-5.313l-4.123-3.572l5.431-.47L12 4.557l2.127 5.01l5.43.47l-4.123 3.572l1.241 5.313L12 16.102zM12 12.25"
+                        />
+                      </svg>
+                    </div>
+                    <h4 class="text-sm text-center pb-3">
+                      <del class="">$65</del>
+                      <span class="font-bold text-black">$45</span>
+                    </h4>
+                  </div>
+                </div>
+              </div></a
+            >
+            <a class="swiper-slide" href="product_details.html"
+              ><div class="group cursor-pointer">
+                <div
+                  class="border group-hover:border-[#ab8e66] transition-all duration-300"
+                >
+                  <div class="relative w-full">
+                    <img
+                      src="https://dreamingtheme.kiendaotac.com/html/stelina/assets/images/product-item-17.jpg"
+                      class="w-full"
+                    />
+                    <div
+                      class="top-0 left-0 right-0 bottom-0 m-auto absolute h-full"
+                    >
+                      <div class="h-full flex items-center justify-center">
+                        <div
+                          class="bg-primary flex rounded-full group-hover:mt-0 transition-all duration-300 ease-in-out group-hover:opacity-100 opacity-0 mt-20"
+                        >
+                          <div class="w-11 h-11 flex items-center justify-end">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                            >
+                              <path
+                                fill="none"
+                                stroke="#fff"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="1.5"
+                                d="M7.75 3.5C5.127 3.5 3 5.76 3 8.547C3 14.125 12 20.5 12 20.5s9-6.375 9-11.953C21 5.094 18.873 3.5 16.25 3.5c-1.86 0-3.47 1.136-4.25 2.79c-.78-1.654-2.39-2.79-4.25-2.79"
+                              />
+                            </svg>
+                          </div>
+                          <div
+                            class="w-11 h-11 flex items-center justify-center"
                           >
-                            <path
-                              fill="none"
-                              stroke="#fff"
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                              stroke-width="1.5"
-                              d="M7.75 3.5C5.127 3.5 3 5.76 3 8.547C3 14.125 12 20.5 12 20.5s9-6.375 9-11.953C21 5.094 18.873 3.5 16.25 3.5c-1.86 0-3.47 1.136-4.25 2.79c-.78-1.654-2.39-2.79-4.25-2.79"
-                            />
-                          </svg>
-                        </div>
-                        <div class="w-11 h-11 flex items-center justify-center">
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="24"
-                            height="24"
-                            viewBox="0 0 24 24"
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                            >
+                              <path
+                                fill="none"
+                                stroke="#fff"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="1.5"
+                                d="m21 21l-4.343-4.343m0 0A8 8 0 1 0 5.343 5.343a8 8 0 0 0 11.314 11.314"
+                              />
+                            </svg>
+                          </div>
+                          <div
+                            class="w-11 h-11 flex items-center justify-start"
                           >
-                            <path
-                              fill="none"
-                              stroke="#fff"
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                              stroke-width="1.5"
-                              d="m21 21l-4.343-4.343m0 0A8 8 0 1 0 5.343 5.343a8 8 0 0 0 11.314 11.314"
-                            />
-                          </svg>
-                        </div>
-                        <div class="w-11 h-11 flex items-center justify-start">
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="24"
-                            height="24"
-                            viewBox="0 0 56 56"
-                          >
-                            <path
-                              fill="#fff"
-                              d="M14.559 51.953h27.586c4.218 0 6.656-2.437 6.656-7.266V20.43c0-4.828-2.461-7.266-7.36-7.266h-3.726c-.14-4.922-4.406-9.117-9.703-9.117c-5.32 0-9.586 4.195-9.727 9.117H14.56c-4.875 0-7.36 2.414-7.36 7.266v24.258c0 4.851 2.485 7.265 7.36 7.265M28.012 7.61c3.304 0 5.812 2.485 5.93 5.555h-11.86c.094-3.07 2.602-5.555 5.93-5.555M14.629 48.18c-2.344 0-3.656-1.242-3.656-3.679V20.617c0-2.437 1.312-3.68 3.656-3.68h26.766c2.296 0 3.632 1.243 3.632 3.68V44.5c0 2.438-1.336 3.68-2.953 3.68Z"
-                            />
-                          </svg>
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 56 56"
+                            >
+                              <path
+                                fill="#fff"
+                                d="M14.559 51.953h27.586c4.218 0 6.656-2.437 6.656-7.266V20.43c0-4.828-2.461-7.266-7.36-7.266h-3.726c-.14-4.922-4.406-9.117-9.703-9.117c-5.32 0-9.586 4.195-9.727 9.117H14.56c-4.875 0-7.36 2.414-7.36 7.266v24.258c0 4.851 2.485 7.265 7.36 7.265M28.012 7.61c3.304 0 5.812 2.485 5.93 5.555h-11.86c.094-3.07 2.602-5.555 5.93-5.555M14.629 48.18c-2.344 0-3.656-1.242-3.656-3.679V20.617c0-2.437 1.312-3.68 3.656-3.68h26.766c2.296 0 3.632 1.243 3.632 3.68V44.5c0 2.438-1.336 3.68-2.953 3.68Z"
+                              />
+                            </svg>
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                  <div
-                    class="items-center justify-center absolute top-2 left-2"
-                  >
                     <div
-                      class="bg-primary w-10 h-5 flex items-center justify-center text-white font-bold rounded-full"
+                      class="items-center justify-center absolute top-2 left-2"
                     >
-                      <span class="text-xs">New</span>
-                    </div>
-                  </div>
-                </div>
-                <div class="flex items-center justify-center gap-3 mb-3 m-3">
-                  <div
-                    class="bg-tertiary w-full h-full rounded-full text-xs flex flex-col items-center justify-center gap-1 py-3"
-                  >
-                    <h4 class="font-bold">00</h4>
-                    <span>DAYS</span>
-                  </div>
-                  <div
-                    class="bg-tertiary w-full h-full rounded-full text-xs flex flex-col items-center justify-center gap-1 py-3"
-                  >
-                    <h4 class="font-bold">00</h4>
-                    <span>HRS</span>
-                  </div>
-                  <div
-                    class="bg-tertiary w-full h-full rounded-full text-xs flex flex-col items-center justify-center gap-1 py-3"
-                  >
-                    <h4 class="font-bold">00</h4>
-                    <span>MINS</span>
-                  </div>
-                  <div
-                    class="bg-tertiary w-full h-full rounded-full text-xs flex flex-col items-center justify-center gap-1 py-3"
-                  >
-                    <h4 class="font-bold">00</h4>
-                    <span>SECS</span>
-                  </div>
-                </div>
-                <h3 class="text-primary text-lg font-medium text-center mb-2">
-                  Glorious Eau
-                </h3>
-                <div>
-                  <div class="flex items-center justify-center w-full">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        fill="#ffb933"
-                        d="m7.325 18.923l1.24-5.313l-4.123-3.572l5.431-.47L12 4.557l2.127 5.01l5.43.47l-4.123 3.572l1.241 5.313L12 16.102z"
-                      />
-                    </svg>
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        fill="#ffb933"
-                        d="m7.325 18.923l1.24-5.313l-4.123-3.572l5.431-.47L12 4.557l2.127 5.01l5.43.47l-4.123 3.572l1.241 5.313L12 16.102z"
-                      />
-                    </svg>
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        fill="#ffb933"
-                        d="m7.325 18.923l1.24-5.313l-4.123-3.572l5.431-.47L12 4.557l2.127 5.01l5.43.47l-4.123 3.572l1.241 5.313L12 16.102z"
-                      />
-                    </svg>
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        fill="#ffb933"
-                        d="m8.85 16.825l3.15-1.9l3.15 1.925l-.825-3.6l2.775-2.4l-3.65-.325l-1.45-3.4l-1.45 3.375l-3.65.325l2.775 2.425zm-1.525 2.098l1.24-5.313l-4.123-3.572l5.431-.47L12 4.557l2.127 5.01l5.43.47l-4.123 3.572l1.241 5.313L12 16.102zM12 12.25"
-                      />
-                    </svg>
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        fill="#ffb933"
-                        d="m8.85 16.825l3.15-1.9l3.15 1.925l-.825-3.6l2.775-2.4l-3.65-.325l-1.45-3.4l-1.45 3.375l-3.65.325l2.775 2.425zm-1.525 2.098l1.24-5.313l-4.123-3.572l5.431-.47L12 4.557l2.127 5.01l5.43.47l-4.123 3.572l1.241 5.313L12 16.102zM12 12.25"
-                      />
-                    </svg>
-                  </div>
-                  <h4 class="text-sm text-center pb-3">
-                    <del class="">$65</del>
-                    <span class="font-bold text-black">$45</span>
-                  </h4>
-                </div>
-              </div>
-            </div></a
-          >
-          <a href="product_details.html"
-            ><div class="group cursor-pointer">
-              <div
-                class="border group-hover:border-[#ab8e66] transition-all duration-300"
-              >
-                <div class="relative w-full">
-                  <img
-                    src="https://dreamingtheme.kiendaotac.com/html/stelina/assets/images/product-item-17.jpg"
-                    class="w-full h-64 object-cover"
-                  />
-                  <div
-                    class="top-0 left-0 right-0 bottom-0 m-auto absolute h-full"
-                  >
-                    <div class="h-full flex items-center justify-center">
                       <div
-                        class="bg-primary flex rounded-full group-hover:mt-0 transition-all duration-300 ease-in-out group-hover:opacity-100 opacity-0 mt-20"
+                        class="bg-primary w-10 h-5 flex items-center justify-center text-white font-bold rounded-full"
                       >
-                        <div class="w-11 h-11 flex items-center justify-end">
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="24"
-                            height="24"
-                            viewBox="0 0 24 24"
-                          >
-                            <path
-                              fill="none"
-                              stroke="#fff"
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                              stroke-width="1.5"
-                              d="M7.75 3.5C5.127 3.5 3 5.76 3 8.547C3 14.125 12 20.5 12 20.5s9-6.375 9-11.953C21 5.094 18.873 3.5 16.25 3.5c-1.86 0-3.47 1.136-4.25 2.79c-.78-1.654-2.39-2.79-4.25-2.79"
-                            />
-                          </svg>
-                        </div>
-                        <div class="w-11 h-11 flex items-center justify-center">
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="24"
-                            height="24"
-                            viewBox="0 0 24 24"
-                          >
-                            <path
-                              fill="none"
-                              stroke="#fff"
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                              stroke-width="1.5"
-                              d="m21 21l-4.343-4.343m0 0A8 8 0 1 0 5.343 5.343a8 8 0 0 0 11.314 11.314"
-                            />
-                          </svg>
-                        </div>
-                        <div class="w-11 h-11 flex items-center justify-start">
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="24"
-                            height="24"
-                            viewBox="0 0 56 56"
-                          >
-                            <path
-                              fill="#fff"
-                              d="M14.559 51.953h27.586c4.218 0 6.656-2.437 6.656-7.266V20.43c0-4.828-2.461-7.266-7.36-7.266h-3.726c-.14-4.922-4.406-9.117-9.703-9.117c-5.32 0-9.586 4.195-9.727 9.117H14.56c-4.875 0-7.36 2.414-7.36 7.266v24.258c0 4.851 2.485 7.265 7.36 7.265M28.012 7.61c3.304 0 5.812 2.485 5.93 5.555h-11.86c.094-3.07 2.602-5.555 5.93-5.555M14.629 48.18c-2.344 0-3.656-1.242-3.656-3.679V20.617c0-2.437 1.312-3.68 3.656-3.68h26.766c2.296 0 3.632 1.243 3.632 3.68V44.5c0 2.438-1.336 3.68-2.953 3.68Z"
-                            />
-                          </svg>
-                        </div>
+                        <span class="text-xs">New</span>
                       </div>
                     </div>
                   </div>
-                  <div
-                    class="items-center justify-center absolute top-2 left-2"
-                  >
+                  <div class="flex items-center justify-center gap-3 mb-3 m-3">
                     <div
-                      class="bg-primary w-10 h-5 flex items-center justify-center text-white font-bold rounded-full"
+                      class="bg-tertiary w-full h-full rounded-full text-xs flex flex-col items-center justify-center gap-1 py-3"
                     >
-                      <span class="text-xs">New</span>
+                      <h4 class="font-bold">00</h4>
+                      <span>DAYS</span>
+                    </div>
+                    <div
+                      class="bg-tertiary w-full h-full rounded-full text-xs flex flex-col items-center justify-center gap-1 py-3"
+                    >
+                      <h4 class="font-bold">00</h4>
+                      <span>HRS</span>
+                    </div>
+                    <div
+                      class="bg-tertiary w-full h-full rounded-full text-xs flex flex-col items-center justify-center gap-1 py-3"
+                    >
+                      <h4 class="font-bold">00</h4>
+                      <span>MINS</span>
+                    </div>
+                    <div
+                      class="bg-tertiary w-full h-full rounded-full text-xs flex flex-col items-center justify-center gap-1 py-3"
+                    >
+                      <h4 class="font-bold">00</h4>
+                      <span>SECS</span>
                     </div>
                   </div>
-                </div>
-                <div class="flex items-center justify-center gap-3 mb-3 m-3">
-                  <div
-                    class="bg-tertiary w-full h-full rounded-full text-xs flex flex-col items-center justify-center gap-1 py-3"
-                  >
-                    <h4 class="font-bold">00</h4>
-                    <span>DAYS</span>
-                  </div>
-                  <div
-                    class="bg-tertiary w-full h-full rounded-full text-xs flex flex-col items-center justify-center gap-1 py-3"
-                  >
-                    <h4 class="font-bold">00</h4>
-                    <span>HRS</span>
-                  </div>
-                  <div
-                    class="bg-tertiary w-full h-full rounded-full text-xs flex flex-col items-center justify-center gap-1 py-3"
-                  >
-                    <h4 class="font-bold">00</h4>
-                    <span>MINS</span>
-                  </div>
-                  <div
-                    class="bg-tertiary w-full h-full rounded-full text-xs flex flex-col items-center justify-center gap-1 py-3"
-                  >
-                    <h4 class="font-bold">00</h4>
-                    <span>SECS</span>
-                  </div>
-                </div>
-                <h3 class="text-primary text-lg font-medium text-center mb-2">
-                  Glorious Eau
-                </h3>
-                <div>
-                  <div class="flex items-center justify-center w-full">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        fill="#ffb933"
-                        d="m7.325 18.923l1.24-5.313l-4.123-3.572l5.431-.47L12 4.557l2.127 5.01l5.43.47l-4.123 3.572l1.241 5.313L12 16.102z"
-                      />
-                    </svg>
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        fill="#ffb933"
-                        d="m7.325 18.923l1.24-5.313l-4.123-3.572l5.431-.47L12 4.557l2.127 5.01l5.43.47l-4.123 3.572l1.241 5.313L12 16.102z"
-                      />
-                    </svg>
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        fill="#ffb933"
-                        d="m7.325 18.923l1.24-5.313l-4.123-3.572l5.431-.47L12 4.557l2.127 5.01l5.43.47l-4.123 3.572l1.241 5.313L12 16.102z"
-                      />
-                    </svg>
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        fill="#ffb933"
-                        d="m8.85 16.825l3.15-1.9l3.15 1.925l-.825-3.6l2.775-2.4l-3.65-.325l-1.45-3.4l-1.45 3.375l-3.65.325l2.775 2.425zm-1.525 2.098l1.24-5.313l-4.123-3.572l5.431-.47L12 4.557l2.127 5.01l5.43.47l-4.123 3.572l1.241 5.313L12 16.102zM12 12.25"
-                      />
-                    </svg>
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        fill="#ffb933"
-                        d="m8.85 16.825l3.15-1.9l3.15 1.925l-.825-3.6l2.775-2.4l-3.65-.325l-1.45-3.4l-1.45 3.375l-3.65.325l2.775 2.425zm-1.525 2.098l1.24-5.313l-4.123-3.572l5.431-.47L12 4.557l2.127 5.01l5.43.47l-4.123 3.572l1.241 5.313L12 16.102zM12 12.25"
-                      />
-                    </svg>
-                  </div>
-                  <h4 class="text-sm text-center pb-3">
-                    <del class="">$65</del>
-                    <span class="font-bold text-black">$45</span>
-                  </h4>
-                </div>
-              </div>
-            </div></a
-          >
-          <a href="product_details.html"
-            ><div class="group cursor-pointer">
-              <div
-                class="border group-hover:border-[#ab8e66] transition-all duration-300"
-              >
-                <div class="relative w-full">
-                  <img
-                    src="https://dreamingtheme.kiendaotac.com/html/stelina/assets/images/product-item-17.jpg"
-                    class="w-full h-64 object-cover"
-                  />
-                  <div
-                    class="top-0 left-0 right-0 bottom-0 m-auto absolute h-full"
-                  >
-                    <div class="h-full flex items-center justify-center">
-                      <div
-                        class="bg-primary flex rounded-full group-hover:mt-0 transition-all duration-300 ease-in-out group-hover:opacity-100 opacity-0 mt-20"
+                  <h3 class="text-primary text-lg font-medium text-center mb-2">
+                    Glorious Eau
+                  </h3>
+                  <div>
+                    <div class="flex items-center justify-center w-full">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
                       >
-                        <div class="w-11 h-11 flex items-center justify-end">
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="24"
-                            height="24"
-                            viewBox="0 0 24 24"
+                        <path
+                          fill="#ffb933"
+                          d="m7.325 18.923l1.24-5.313l-4.123-3.572l5.431-.47L12 4.557l2.127 5.01l5.43.47l-4.123 3.572l1.241 5.313L12 16.102z"
+                        />
+                      </svg>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          fill="#ffb933"
+                          d="m7.325 18.923l1.24-5.313l-4.123-3.572l5.431-.47L12 4.557l2.127 5.01l5.43.47l-4.123 3.572l1.241 5.313L12 16.102z"
+                        />
+                      </svg>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          fill="#ffb933"
+                          d="m7.325 18.923l1.24-5.313l-4.123-3.572l5.431-.47L12 4.557l2.127 5.01l5.43.47l-4.123 3.572l1.241 5.313L12 16.102z"
+                        />
+                      </svg>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          fill="#ffb933"
+                          d="m8.85 16.825l3.15-1.9l3.15 1.925l-.825-3.6l2.775-2.4l-3.65-.325l-1.45-3.4l-1.45 3.375l-3.65.325l2.775 2.425zm-1.525 2.098l1.24-5.313l-4.123-3.572l5.431-.47L12 4.557l2.127 5.01l5.43.47l-4.123 3.572l1.241 5.313L12 16.102zM12 12.25"
+                        />
+                      </svg>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          fill="#ffb933"
+                          d="m8.85 16.825l3.15-1.9l3.15 1.925l-.825-3.6l2.775-2.4l-3.65-.325l-1.45-3.4l-1.45 3.375l-3.65.325l2.775 2.425zm-1.525 2.098l1.24-5.313l-4.123-3.572l5.431-.47L12 4.557l2.127 5.01l5.43.47l-4.123 3.572l1.241 5.313L12 16.102zM12 12.25"
+                        />
+                      </svg>
+                    </div>
+                    <h4 class="text-sm text-center pb-3">
+                      <del class="">$65</del>
+                      <span class="font-bold text-black">$45</span>
+                    </h4>
+                  </div>
+                </div>
+              </div></a
+            >
+            <a class="swiper-slide" href="product_details.html"
+              ><div class="group cursor-pointer">
+                <div
+                  class="border group-hover:border-[#ab8e66] transition-all duration-300"
+                >
+                  <div class="relative w-full">
+                    <img
+                      src="https://dreamingtheme.kiendaotac.com/html/stelina/assets/images/product-item-17.jpg"
+                      class="w-full"
+                    />
+                    <div
+                      class="top-0 left-0 right-0 bottom-0 m-auto absolute h-full"
+                    >
+                      <div class="h-full flex items-center justify-center">
+                        <div
+                          class="bg-primary flex rounded-full group-hover:mt-0 transition-all duration-300 ease-in-out group-hover:opacity-100 opacity-0 mt-20"
+                        >
+                          <div class="w-11 h-11 flex items-center justify-end">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                            >
+                              <path
+                                fill="none"
+                                stroke="#fff"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="1.5"
+                                d="M7.75 3.5C5.127 3.5 3 5.76 3 8.547C3 14.125 12 20.5 12 20.5s9-6.375 9-11.953C21 5.094 18.873 3.5 16.25 3.5c-1.86 0-3.47 1.136-4.25 2.79c-.78-1.654-2.39-2.79-4.25-2.79"
+                              />
+                            </svg>
+                          </div>
+                          <div
+                            class="w-11 h-11 flex items-center justify-center"
                           >
-                            <path
-                              fill="none"
-                              stroke="#fff"
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                              stroke-width="1.5"
-                              d="M7.75 3.5C5.127 3.5 3 5.76 3 8.547C3 14.125 12 20.5 12 20.5s9-6.375 9-11.953C21 5.094 18.873 3.5 16.25 3.5c-1.86 0-3.47 1.136-4.25 2.79c-.78-1.654-2.39-2.79-4.25-2.79"
-                            />
-                          </svg>
-                        </div>
-                        <div class="w-11 h-11 flex items-center justify-center">
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="24"
-                            height="24"
-                            viewBox="0 0 24 24"
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                            >
+                              <path
+                                fill="none"
+                                stroke="#fff"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="1.5"
+                                d="m21 21l-4.343-4.343m0 0A8 8 0 1 0 5.343 5.343a8 8 0 0 0 11.314 11.314"
+                              />
+                            </svg>
+                          </div>
+                          <div
+                            class="w-11 h-11 flex items-center justify-start"
                           >
-                            <path
-                              fill="none"
-                              stroke="#fff"
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                              stroke-width="1.5"
-                              d="m21 21l-4.343-4.343m0 0A8 8 0 1 0 5.343 5.343a8 8 0 0 0 11.314 11.314"
-                            />
-                          </svg>
-                        </div>
-                        <div class="w-11 h-11 flex items-center justify-start">
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="24"
-                            height="24"
-                            viewBox="0 0 56 56"
-                          >
-                            <path
-                              fill="#fff"
-                              d="M14.559 51.953h27.586c4.218 0 6.656-2.437 6.656-7.266V20.43c0-4.828-2.461-7.266-7.36-7.266h-3.726c-.14-4.922-4.406-9.117-9.703-9.117c-5.32 0-9.586 4.195-9.727 9.117H14.56c-4.875 0-7.36 2.414-7.36 7.266v24.258c0 4.851 2.485 7.265 7.36 7.265M28.012 7.61c3.304 0 5.812 2.485 5.93 5.555h-11.86c.094-3.07 2.602-5.555 5.93-5.555M14.629 48.18c-2.344 0-3.656-1.242-3.656-3.679V20.617c0-2.437 1.312-3.68 3.656-3.68h26.766c2.296 0 3.632 1.243 3.632 3.68V44.5c0 2.438-1.336 3.68-2.953 3.68Z"
-                            />
-                          </svg>
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 56 56"
+                            >
+                              <path
+                                fill="#fff"
+                                d="M14.559 51.953h27.586c4.218 0 6.656-2.437 6.656-7.266V20.43c0-4.828-2.461-7.266-7.36-7.266h-3.726c-.14-4.922-4.406-9.117-9.703-9.117c-5.32 0-9.586 4.195-9.727 9.117H14.56c-4.875 0-7.36 2.414-7.36 7.266v24.258c0 4.851 2.485 7.265 7.36 7.265M28.012 7.61c3.304 0 5.812 2.485 5.93 5.555h-11.86c.094-3.07 2.602-5.555 5.93-5.555M14.629 48.18c-2.344 0-3.656-1.242-3.656-3.679V20.617c0-2.437 1.312-3.68 3.656-3.68h26.766c2.296 0 3.632 1.243 3.632 3.68V44.5c0 2.438-1.336 3.68-2.953 3.68Z"
+                              />
+                            </svg>
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                  <div
-                    class="items-center justify-center absolute top-2 left-2"
-                  >
                     <div
-                      class="bg-primary w-10 h-5 flex items-center justify-center text-white font-bold rounded-full"
+                      class="items-center justify-center absolute top-2 left-2"
                     >
-                      <span class="text-xs">New</span>
-                    </div>
-                  </div>
-                </div>
-                <div class="flex items-center justify-center gap-3 mb-3 m-3">
-                  <div
-                    class="bg-tertiary w-full h-full rounded-full text-xs flex flex-col items-center justify-center gap-1 py-3"
-                  >
-                    <h4 class="font-bold">00</h4>
-                    <span>DAYS</span>
-                  </div>
-                  <div
-                    class="bg-tertiary w-full h-full rounded-full text-xs flex flex-col items-center justify-center gap-1 py-3"
-                  >
-                    <h4 class="font-bold">00</h4>
-                    <span>HRS</span>
-                  </div>
-                  <div
-                    class="bg-tertiary w-full h-full rounded-full text-xs flex flex-col items-center justify-center gap-1 py-3"
-                  >
-                    <h4 class="font-bold">00</h4>
-                    <span>MINS</span>
-                  </div>
-                  <div
-                    class="bg-tertiary w-full h-full rounded-full text-xs flex flex-col items-center justify-center gap-1 py-3"
-                  >
-                    <h4 class="font-bold">00</h4>
-                    <span>SECS</span>
-                  </div>
-                </div>
-                <h3 class="text-primary text-lg font-medium text-center mb-2">
-                  Glorious Eau
-                </h3>
-                <div>
-                  <div class="flex items-center justify-center w-full">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        fill="#ffb933"
-                        d="m7.325 18.923l1.24-5.313l-4.123-3.572l5.431-.47L12 4.557l2.127 5.01l5.43.47l-4.123 3.572l1.241 5.313L12 16.102z"
-                      />
-                    </svg>
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        fill="#ffb933"
-                        d="m7.325 18.923l1.24-5.313l-4.123-3.572l5.431-.47L12 4.557l2.127 5.01l5.43.47l-4.123 3.572l1.241 5.313L12 16.102z"
-                      />
-                    </svg>
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        fill="#ffb933"
-                        d="m7.325 18.923l1.24-5.313l-4.123-3.572l5.431-.47L12 4.557l2.127 5.01l5.43.47l-4.123 3.572l1.241 5.313L12 16.102z"
-                      />
-                    </svg>
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        fill="#ffb933"
-                        d="m8.85 16.825l3.15-1.9l3.15 1.925l-.825-3.6l2.775-2.4l-3.65-.325l-1.45-3.4l-1.45 3.375l-3.65.325l2.775 2.425zm-1.525 2.098l1.24-5.313l-4.123-3.572l5.431-.47L12 4.557l2.127 5.01l5.43.47l-4.123 3.572l1.241 5.313L12 16.102zM12 12.25"
-                      />
-                    </svg>
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        fill="#ffb933"
-                        d="m8.85 16.825l3.15-1.9l3.15 1.925l-.825-3.6l2.775-2.4l-3.65-.325l-1.45-3.4l-1.45 3.375l-3.65.325l2.775 2.425zm-1.525 2.098l1.24-5.313l-4.123-3.572l5.431-.47L12 4.557l2.127 5.01l5.43.47l-4.123 3.572l1.241 5.313L12 16.102zM12 12.25"
-                      />
-                    </svg>
-                  </div>
-                  <h4 class="text-sm text-center pb-3">
-                    <del class="">$65</del>
-                    <span class="font-bold text-black">$45</span>
-                  </h4>
-                </div>
-              </div>
-            </div></a
-          >
-          <a href="product_details.html"
-            ><div class="group cursor-pointer">
-              <div
-                class="border group-hover:border-[#ab8e66] transition-all duration-300"
-              >
-                <div class="relative w-full">
-                  <img
-                    src="https://dreamingtheme.kiendaotac.com/html/stelina/assets/images/product-item-17.jpg"
-                    class="w-full h-64 object-cover"
-                  />
-                  <div
-                    class="top-0 left-0 right-0 bottom-0 m-auto absolute h-full"
-                  >
-                    <div class="h-full flex items-center justify-center">
                       <div
-                        class="bg-primary flex rounded-full group-hover:mt-0 transition-all duration-300 ease-in-out group-hover:opacity-100 opacity-0 mt-20"
+                        class="bg-primary w-10 h-5 flex items-center justify-center text-white font-bold rounded-full"
                       >
-                        <div class="w-11 h-11 flex items-center justify-end">
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="24"
-                            height="24"
-                            viewBox="0 0 24 24"
-                          >
-                            <path
-                              fill="none"
-                              stroke="#fff"
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                              stroke-width="1.5"
-                              d="M7.75 3.5C5.127 3.5 3 5.76 3 8.547C3 14.125 12 20.5 12 20.5s9-6.375 9-11.953C21 5.094 18.873 3.5 16.25 3.5c-1.86 0-3.47 1.136-4.25 2.79c-.78-1.654-2.39-2.79-4.25-2.79"
-                            />
-                          </svg>
-                        </div>
-                        <div class="w-11 h-11 flex items-center justify-center">
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="24"
-                            height="24"
-                            viewBox="0 0 24 24"
-                          >
-                            <path
-                              fill="none"
-                              stroke="#fff"
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                              stroke-width="1.5"
-                              d="m21 21l-4.343-4.343m0 0A8 8 0 1 0 5.343 5.343a8 8 0 0 0 11.314 11.314"
-                            />
-                          </svg>
-                        </div>
-                        <div class="w-11 h-11 flex items-center justify-start">
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="24"
-                            height="24"
-                            viewBox="0 0 56 56"
-                          >
-                            <path
-                              fill="#fff"
-                              d="M14.559 51.953h27.586c4.218 0 6.656-2.437 6.656-7.266V20.43c0-4.828-2.461-7.266-7.36-7.266h-3.726c-.14-4.922-4.406-9.117-9.703-9.117c-5.32 0-9.586 4.195-9.727 9.117H14.56c-4.875 0-7.36 2.414-7.36 7.266v24.258c0 4.851 2.485 7.265 7.36 7.265M28.012 7.61c3.304 0 5.812 2.485 5.93 5.555h-11.86c.094-3.07 2.602-5.555 5.93-5.555M14.629 48.18c-2.344 0-3.656-1.242-3.656-3.679V20.617c0-2.437 1.312-3.68 3.656-3.68h26.766c2.296 0 3.632 1.243 3.632 3.68V44.5c0 2.438-1.336 3.68-2.953 3.68Z"
-                            />
-                          </svg>
-                        </div>
+                        <span class="text-xs">New</span>
                       </div>
                     </div>
                   </div>
-                  <div
-                    class="items-center justify-center absolute top-2 left-2"
-                  >
+                  <div class="flex items-center justify-center gap-3 mb-3 m-3">
                     <div
-                      class="bg-primary w-10 h-5 flex items-center justify-center text-white font-bold rounded-full"
+                      class="bg-tertiary w-full h-full rounded-full text-xs flex flex-col items-center justify-center gap-1 py-3"
                     >
-                      <span class="text-xs">New</span>
+                      <h4 class="font-bold">00</h4>
+                      <span>DAYS</span>
+                    </div>
+                    <div
+                      class="bg-tertiary w-full h-full rounded-full text-xs flex flex-col items-center justify-center gap-1 py-3"
+                    >
+                      <h4 class="font-bold">00</h4>
+                      <span>HRS</span>
+                    </div>
+                    <div
+                      class="bg-tertiary w-full h-full rounded-full text-xs flex flex-col items-center justify-center gap-1 py-3"
+                    >
+                      <h4 class="font-bold">00</h4>
+                      <span>MINS</span>
+                    </div>
+                    <div
+                      class="bg-tertiary w-full h-full rounded-full text-xs flex flex-col items-center justify-center gap-1 py-3"
+                    >
+                      <h4 class="font-bold">00</h4>
+                      <span>SECS</span>
                     </div>
                   </div>
+                  <h3 class="text-primary text-lg font-medium text-center mb-2">
+                    Glorious Eau
+                  </h3>
+                  <div>
+                    <div class="flex items-center justify-center w-full">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          fill="#ffb933"
+                          d="m7.325 18.923l1.24-5.313l-4.123-3.572l5.431-.47L12 4.557l2.127 5.01l5.43.47l-4.123 3.572l1.241 5.313L12 16.102z"
+                        />
+                      </svg>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          fill="#ffb933"
+                          d="m7.325 18.923l1.24-5.313l-4.123-3.572l5.431-.47L12 4.557l2.127 5.01l5.43.47l-4.123 3.572l1.241 5.313L12 16.102z"
+                        />
+                      </svg>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          fill="#ffb933"
+                          d="m7.325 18.923l1.24-5.313l-4.123-3.572l5.431-.47L12 4.557l2.127 5.01l5.43.47l-4.123 3.572l1.241 5.313L12 16.102z"
+                        />
+                      </svg>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          fill="#ffb933"
+                          d="m8.85 16.825l3.15-1.9l3.15 1.925l-.825-3.6l2.775-2.4l-3.65-.325l-1.45-3.4l-1.45 3.375l-3.65.325l2.775 2.425zm-1.525 2.098l1.24-5.313l-4.123-3.572l5.431-.47L12 4.557l2.127 5.01l5.43.47l-4.123 3.572l1.241 5.313L12 16.102zM12 12.25"
+                        />
+                      </svg>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          fill="#ffb933"
+                          d="m8.85 16.825l3.15-1.9l3.15 1.925l-.825-3.6l2.775-2.4l-3.65-.325l-1.45-3.4l-1.45 3.375l-3.65.325l2.775 2.425zm-1.525 2.098l1.24-5.313l-4.123-3.572l5.431-.47L12 4.557l2.127 5.01l5.43.47l-4.123 3.572l1.241 5.313L12 16.102zM12 12.25"
+                        />
+                      </svg>
+                    </div>
+                    <h4 class="text-sm text-center pb-3">
+                      <del class="">$65</del>
+                      <span class="font-bold text-black">$45</span>
+                    </h4>
+                  </div>
                 </div>
-                <div class="flex items-center justify-center gap-3 mb-3 m-3">
-                  <div
-                    class="bg-tertiary w-full h-full rounded-full text-xs flex flex-col items-center justify-center gap-1 py-3"
-                  >
-                    <h4 class="font-bold">00</h4>
-                    <span>DAYS</span>
+              </div></a
+            >
+            <a class="swiper-slide" href="product_details.html"
+              ><div class="group cursor-pointer">
+                <div
+                  class="border group-hover:border-[#ab8e66] transition-all duration-300"
+                >
+                  <div class="relative w-full">
+                    <img
+                      src="https://dreamingtheme.kiendaotac.com/html/stelina/assets/images/product-item-17.jpg"
+                      class="w-full"
+                    />
+                    <div
+                      class="top-0 left-0 right-0 bottom-0 m-auto absolute h-full"
+                    >
+                      <div class="h-full flex items-center justify-center">
+                        <div
+                          class="bg-primary flex rounded-full group-hover:mt-0 transition-all duration-300 ease-in-out group-hover:opacity-100 opacity-0 mt-20"
+                        >
+                          <div class="w-11 h-11 flex items-center justify-end">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                            >
+                              <path
+                                fill="none"
+                                stroke="#fff"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="1.5"
+                                d="M7.75 3.5C5.127 3.5 3 5.76 3 8.547C3 14.125 12 20.5 12 20.5s9-6.375 9-11.953C21 5.094 18.873 3.5 16.25 3.5c-1.86 0-3.47 1.136-4.25 2.79c-.78-1.654-2.39-2.79-4.25-2.79"
+                              />
+                            </svg>
+                          </div>
+                          <div
+                            class="w-11 h-11 flex items-center justify-center"
+                          >
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                            >
+                              <path
+                                fill="none"
+                                stroke="#fff"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="1.5"
+                                d="m21 21l-4.343-4.343m0 0A8 8 0 1 0 5.343 5.343a8 8 0 0 0 11.314 11.314"
+                              />
+                            </svg>
+                          </div>
+                          <div
+                            class="w-11 h-11 flex items-center justify-start"
+                          >
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 56 56"
+                            >
+                              <path
+                                fill="#fff"
+                                d="M14.559 51.953h27.586c4.218 0 6.656-2.437 6.656-7.266V20.43c0-4.828-2.461-7.266-7.36-7.266h-3.726c-.14-4.922-4.406-9.117-9.703-9.117c-5.32 0-9.586 4.195-9.727 9.117H14.56c-4.875 0-7.36 2.414-7.36 7.266v24.258c0 4.851 2.485 7.265 7.36 7.265M28.012 7.61c3.304 0 5.812 2.485 5.93 5.555h-11.86c.094-3.07 2.602-5.555 5.93-5.555M14.629 48.18c-2.344 0-3.656-1.242-3.656-3.679V20.617c0-2.437 1.312-3.68 3.656-3.68h26.766c2.296 0 3.632 1.243 3.632 3.68V44.5c0 2.438-1.336 3.68-2.953 3.68Z"
+                              />
+                            </svg>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      class="items-center justify-center absolute top-2 left-2"
+                    >
+                      <div
+                        class="bg-primary w-10 h-5 flex items-center justify-center text-white font-bold rounded-full"
+                      >
+                        <span class="text-xs">New</span>
+                      </div>
+                    </div>
                   </div>
-                  <div
-                    class="bg-tertiary w-full h-full rounded-full text-xs flex flex-col items-center justify-center gap-1 py-3"
-                  >
-                    <h4 class="font-bold">00</h4>
-                    <span>HRS</span>
+                  <div class="flex items-center justify-center gap-3 mb-3 m-3">
+                    <div
+                      class="bg-tertiary w-full h-full rounded-full text-xs flex flex-col items-center justify-center gap-1 py-3"
+                    >
+                      <h4 class="font-bold">00</h4>
+                      <span>DAYS</span>
+                    </div>
+                    <div
+                      class="bg-tertiary w-full h-full rounded-full text-xs flex flex-col items-center justify-center gap-1 py-3"
+                    >
+                      <h4 class="font-bold">00</h4>
+                      <span>HRS</span>
+                    </div>
+                    <div
+                      class="bg-tertiary w-full h-full rounded-full text-xs flex flex-col items-center justify-center gap-1 py-3"
+                    >
+                      <h4 class="font-bold">00</h4>
+                      <span>MINS</span>
+                    </div>
+                    <div
+                      class="bg-tertiary w-full h-full rounded-full text-xs flex flex-col items-center justify-center gap-1 py-3"
+                    >
+                      <h4 class="font-bold">00</h4>
+                      <span>SECS</span>
+                    </div>
                   </div>
-                  <div
-                    class="bg-tertiary w-full h-full rounded-full text-xs flex flex-col items-center justify-center gap-1 py-3"
-                  >
-                    <h4 class="font-bold">00</h4>
-                    <span>MINS</span>
-                  </div>
-                  <div
-                    class="bg-tertiary w-full h-full rounded-full text-xs flex flex-col items-center justify-center gap-1 py-3"
-                  >
-                    <h4 class="font-bold">00</h4>
-                    <span>SECS</span>
+                  <h3 class="text-primary text-lg font-medium text-center mb-2">
+                    Glorious Eau
+                  </h3>
+                  <div>
+                    <div class="flex items-center justify-center w-full">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          fill="#ffb933"
+                          d="m7.325 18.923l1.24-5.313l-4.123-3.572l5.431-.47L12 4.557l2.127 5.01l5.43.47l-4.123 3.572l1.241 5.313L12 16.102z"
+                        />
+                      </svg>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          fill="#ffb933"
+                          d="m7.325 18.923l1.24-5.313l-4.123-3.572l5.431-.47L12 4.557l2.127 5.01l5.43.47l-4.123 3.572l1.241 5.313L12 16.102z"
+                        />
+                      </svg>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          fill="#ffb933"
+                          d="m7.325 18.923l1.24-5.313l-4.123-3.572l5.431-.47L12 4.557l2.127 5.01l5.43.47l-4.123 3.572l1.241 5.313L12 16.102z"
+                        />
+                      </svg>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          fill="#ffb933"
+                          d="m8.85 16.825l3.15-1.9l3.15 1.925l-.825-3.6l2.775-2.4l-3.65-.325l-1.45-3.4l-1.45 3.375l-3.65.325l2.775 2.425zm-1.525 2.098l1.24-5.313l-4.123-3.572l5.431-.47L12 4.557l2.127 5.01l5.43.47l-4.123 3.572l1.241 5.313L12 16.102zM12 12.25"
+                        />
+                      </svg>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          fill="#ffb933"
+                          d="m8.85 16.825l3.15-1.9l3.15 1.925l-.825-3.6l2.775-2.4l-3.65-.325l-1.45-3.4l-1.45 3.375l-3.65.325l2.775 2.425zm-1.525 2.098l1.24-5.313l-4.123-3.572l5.431-.47L12 4.557l2.127 5.01l5.43.47l-4.123 3.572l1.241 5.313L12 16.102zM12 12.25"
+                        />
+                      </svg>
+                    </div>
+                    <h4 class="text-sm text-center pb-3">
+                      <del class="">$65</del>
+                      <span class="font-bold text-black">$45</span>
+                    </h4>
                   </div>
                 </div>
-                <h3 class="text-primary text-lg font-medium text-center mb-2">
-                  Glorious Eau
-                </h3>
-                <div>
-                  <div class="flex items-center justify-center w-full">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
+              </div></a
+            >
+            <a class="swiper-slide" href="product_details.html"
+              ><div class="group cursor-pointer">
+                <div
+                  class="border group-hover:border-[#ab8e66] transition-all duration-300"
+                >
+                  <div class="relative w-full">
+                    <img
+                      src="https://dreamingtheme.kiendaotac.com/html/stelina/assets/images/product-item-17.jpg"
+                      class="w-full"
+                    />
+                    <div
+                      class="top-0 left-0 right-0 bottom-0 m-auto absolute h-full"
                     >
-                      <path
-                        fill="#ffb933"
-                        d="m7.325 18.923l1.24-5.313l-4.123-3.572l5.431-.47L12 4.557l2.127 5.01l5.43.47l-4.123 3.572l1.241 5.313L12 16.102z"
-                      />
-                    </svg>
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
+                      <div class="h-full flex items-center justify-center">
+                        <div
+                          class="bg-primary flex rounded-full group-hover:mt-0 transition-all duration-300 ease-in-out group-hover:opacity-100 opacity-0 mt-20"
+                        >
+                          <div class="w-11 h-11 flex items-center justify-end">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                            >
+                              <path
+                                fill="none"
+                                stroke="#fff"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="1.5"
+                                d="M7.75 3.5C5.127 3.5 3 5.76 3 8.547C3 14.125 12 20.5 12 20.5s9-6.375 9-11.953C21 5.094 18.873 3.5 16.25 3.5c-1.86 0-3.47 1.136-4.25 2.79c-.78-1.654-2.39-2.79-4.25-2.79"
+                              />
+                            </svg>
+                          </div>
+                          <div
+                            class="w-11 h-11 flex items-center justify-center"
+                          >
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                            >
+                              <path
+                                fill="none"
+                                stroke="#fff"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="1.5"
+                                d="m21 21l-4.343-4.343m0 0A8 8 0 1 0 5.343 5.343a8 8 0 0 0 11.314 11.314"
+                              />
+                            </svg>
+                          </div>
+                          <div
+                            class="w-11 h-11 flex items-center justify-start"
+                          >
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 56 56"
+                            >
+                              <path
+                                fill="#fff"
+                                d="M14.559 51.953h27.586c4.218 0 6.656-2.437 6.656-7.266V20.43c0-4.828-2.461-7.266-7.36-7.266h-3.726c-.14-4.922-4.406-9.117-9.703-9.117c-5.32 0-9.586 4.195-9.727 9.117H14.56c-4.875 0-7.36 2.414-7.36 7.266v24.258c0 4.851 2.485 7.265 7.36 7.265M28.012 7.61c3.304 0 5.812 2.485 5.93 5.555h-11.86c.094-3.07 2.602-5.555 5.93-5.555M14.629 48.18c-2.344 0-3.656-1.242-3.656-3.679V20.617c0-2.437 1.312-3.68 3.656-3.68h26.766c2.296 0 3.632 1.243 3.632 3.68V44.5c0 2.438-1.336 3.68-2.953 3.68Z"
+                              />
+                            </svg>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      class="items-center justify-center absolute top-2 left-2"
                     >
-                      <path
-                        fill="#ffb933"
-                        d="m7.325 18.923l1.24-5.313l-4.123-3.572l5.431-.47L12 4.557l2.127 5.01l5.43.47l-4.123 3.572l1.241 5.313L12 16.102z"
-                      />
-                    </svg>
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        fill="#ffb933"
-                        d="m7.325 18.923l1.24-5.313l-4.123-3.572l5.431-.47L12 4.557l2.127 5.01l5.43.47l-4.123 3.572l1.241 5.313L12 16.102z"
-                      />
-                    </svg>
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        fill="#ffb933"
-                        d="m8.85 16.825l3.15-1.9l3.15 1.925l-.825-3.6l2.775-2.4l-3.65-.325l-1.45-3.4l-1.45 3.375l-3.65.325l2.775 2.425zm-1.525 2.098l1.24-5.313l-4.123-3.572l5.431-.47L12 4.557l2.127 5.01l5.43.47l-4.123 3.572l1.241 5.313L12 16.102zM12 12.25"
-                      />
-                    </svg>
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        fill="#ffb933"
-                        d="m8.85 16.825l3.15-1.9l3.15 1.925l-.825-3.6l2.775-2.4l-3.65-.325l-1.45-3.4l-1.45 3.375l-3.65.325l2.775 2.425zm-1.525 2.098l1.24-5.313l-4.123-3.572l5.431-.47L12 4.557l2.127 5.01l5.43.47l-4.123 3.572l1.241 5.313L12 16.102zM12 12.25"
-                      />
-                    </svg>
+                      <div
+                        class="bg-primary w-10 h-5 flex items-center justify-center text-white font-bold rounded-full"
+                      >
+                        <span class="text-xs">New</span>
+                      </div>
+                    </div>
                   </div>
-                  <h4 class="text-sm text-center pb-3">
-                    <del class="">$65</del>
-                    <span class="font-bold text-black">$45</span>
-                  </h4>
+                  <div class="flex items-center justify-center gap-3 mb-3 m-3">
+                    <div
+                      class="bg-tertiary w-full h-full rounded-full text-xs flex flex-col items-center justify-center gap-1 py-3"
+                    >
+                      <h4 class="font-bold">00</h4>
+                      <span>DAYS</span>
+                    </div>
+                    <div
+                      class="bg-tertiary w-full h-full rounded-full text-xs flex flex-col items-center justify-center gap-1 py-3"
+                    >
+                      <h4 class="font-bold">00</h4>
+                      <span>HRS</span>
+                    </div>
+                    <div
+                      class="bg-tertiary w-full h-full rounded-full text-xs flex flex-col items-center justify-center gap-1 py-3"
+                    >
+                      <h4 class="font-bold">00</h4>
+                      <span>MINS</span>
+                    </div>
+                    <div
+                      class="bg-tertiary w-full h-full rounded-full text-xs flex flex-col items-center justify-center gap-1 py-3"
+                    >
+                      <h4 class="font-bold">00</h4>
+                      <span>SECS</span>
+                    </div>
+                  </div>
+                  <h3 class="text-primary text-lg font-medium text-center mb-2">
+                    Glorious Eau
+                  </h3>
+                  <div>
+                    <div class="flex items-center justify-center w-full">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          fill="#ffb933"
+                          d="m7.325 18.923l1.24-5.313l-4.123-3.572l5.431-.47L12 4.557l2.127 5.01l5.43.47l-4.123 3.572l1.241 5.313L12 16.102z"
+                        />
+                      </svg>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          fill="#ffb933"
+                          d="m7.325 18.923l1.24-5.313l-4.123-3.572l5.431-.47L12 4.557l2.127 5.01l5.43.47l-4.123 3.572l1.241 5.313L12 16.102z"
+                        />
+                      </svg>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          fill="#ffb933"
+                          d="m7.325 18.923l1.24-5.313l-4.123-3.572l5.431-.47L12 4.557l2.127 5.01l5.43.47l-4.123 3.572l1.241 5.313L12 16.102z"
+                        />
+                      </svg>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          fill="#ffb933"
+                          d="m8.85 16.825l3.15-1.9l3.15 1.925l-.825-3.6l2.775-2.4l-3.65-.325l-1.45-3.4l-1.45 3.375l-3.65.325l2.775 2.425zm-1.525 2.098l1.24-5.313l-4.123-3.572l5.431-.47L12 4.557l2.127 5.01l5.43.47l-4.123 3.572l1.241 5.313L12 16.102zM12 12.25"
+                        />
+                      </svg>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          fill="#ffb933"
+                          d="m8.85 16.825l3.15-1.9l3.15 1.925l-.825-3.6l2.775-2.4l-3.65-.325l-1.45-3.4l-1.45 3.375l-3.65.325l2.775 2.425zm-1.525 2.098l1.24-5.313l-4.123-3.572l5.431-.47L12 4.557l2.127 5.01l5.43.47l-4.123 3.572l1.241 5.313L12 16.102zM12 12.25"
+                        />
+                      </svg>
+                    </div>
+                    <h4 class="text-sm text-center pb-3">
+                      <del class="">$65</del>
+                      <span class="font-bold text-black">$45</span>
+                    </h4>
+                  </div>
                 </div>
-              </div>
-            </div></a
-          >
+              </div></a
+            >
+            <a class="swiper-slide" href="product_details.html"
+              ><div class="group cursor-pointer">
+                <div
+                  class="border group-hover:border-[#ab8e66] transition-all duration-300"
+                >
+                  <div class="relative w-full">
+                    <img
+                      src="https://dreamingtheme.kiendaotac.com/html/stelina/assets/images/product-item-17.jpg"
+                      class="w-full"
+                    />
+                    <div
+                      class="top-0 left-0 right-0 bottom-0 m-auto absolute h-full"
+                    >
+                      <div class="h-full flex items-center justify-center">
+                        <div
+                          class="bg-primary flex rounded-full group-hover:mt-0 transition-all duration-300 ease-in-out group-hover:opacity-100 opacity-0 mt-20"
+                        >
+                          <div class="w-11 h-11 flex items-center justify-end">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                            >
+                              <path
+                                fill="none"
+                                stroke="#fff"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="1.5"
+                                d="M7.75 3.5C5.127 3.5 3 5.76 3 8.547C3 14.125 12 20.5 12 20.5s9-6.375 9-11.953C21 5.094 18.873 3.5 16.25 3.5c-1.86 0-3.47 1.136-4.25 2.79c-.78-1.654-2.39-2.79-4.25-2.79"
+                              />
+                            </svg>
+                          </div>
+                          <div
+                            class="w-11 h-11 flex items-center justify-center"
+                          >
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                            >
+                              <path
+                                fill="none"
+                                stroke="#fff"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="1.5"
+                                d="m21 21l-4.343-4.343m0 0A8 8 0 1 0 5.343 5.343a8 8 0 0 0 11.314 11.314"
+                              />
+                            </svg>
+                          </div>
+                          <div
+                            class="w-11 h-11 flex items-center justify-start"
+                          >
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 56 56"
+                            >
+                              <path
+                                fill="#fff"
+                                d="M14.559 51.953h27.586c4.218 0 6.656-2.437 6.656-7.266V20.43c0-4.828-2.461-7.266-7.36-7.266h-3.726c-.14-4.922-4.406-9.117-9.703-9.117c-5.32 0-9.586 4.195-9.727 9.117H14.56c-4.875 0-7.36 2.414-7.36 7.266v24.258c0 4.851 2.485 7.265 7.36 7.265M28.012 7.61c3.304 0 5.812 2.485 5.93 5.555h-11.86c.094-3.07 2.602-5.555 5.93-5.555M14.629 48.18c-2.344 0-3.656-1.242-3.656-3.679V20.617c0-2.437 1.312-3.68 3.656-3.68h26.766c2.296 0 3.632 1.243 3.632 3.68V44.5c0 2.438-1.336 3.68-2.953 3.68Z"
+                              />
+                            </svg>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      class="items-center justify-center absolute top-2 left-2"
+                    >
+                      <div
+                        class="bg-primary w-10 h-5 flex items-center justify-center text-white font-bold rounded-full"
+                      >
+                        <span class="text-xs">New</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="flex items-center justify-center gap-3 mb-3 m-3">
+                    <div
+                      class="bg-tertiary w-full h-full rounded-full text-xs flex flex-col items-center justify-center gap-1 py-3"
+                    >
+                      <h4 class="font-bold">00</h4>
+                      <span>DAYS</span>
+                    </div>
+                    <div
+                      class="bg-tertiary w-full h-full rounded-full text-xs flex flex-col items-center justify-center gap-1 py-3"
+                    >
+                      <h4 class="font-bold">00</h4>
+                      <span>HRS</span>
+                    </div>
+                    <div
+                      class="bg-tertiary w-full h-full rounded-full text-xs flex flex-col items-center justify-center gap-1 py-3"
+                    >
+                      <h4 class="font-bold">00</h4>
+                      <span>MINS</span>
+                    </div>
+                    <div
+                      class="bg-tertiary w-full h-full rounded-full text-xs flex flex-col items-center justify-center gap-1 py-3"
+                    >
+                      <h4 class="font-bold">00</h4>
+                      <span>SECS</span>
+                    </div>
+                  </div>
+                  <h3 class="text-primary text-lg font-medium text-center mb-2">
+                    Glorious Eau
+                  </h3>
+                  <div>
+                    <div class="flex items-center justify-center w-full">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          fill="#ffb933"
+                          d="m7.325 18.923l1.24-5.313l-4.123-3.572l5.431-.47L12 4.557l2.127 5.01l5.43.47l-4.123 3.572l1.241 5.313L12 16.102z"
+                        />
+                      </svg>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          fill="#ffb933"
+                          d="m7.325 18.923l1.24-5.313l-4.123-3.572l5.431-.47L12 4.557l2.127 5.01l5.43.47l-4.123 3.572l1.241 5.313L12 16.102z"
+                        />
+                      </svg>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          fill="#ffb933"
+                          d="m7.325 18.923l1.24-5.313l-4.123-3.572l5.431-.47L12 4.557l2.127 5.01l5.43.47l-4.123 3.572l1.241 5.313L12 16.102z"
+                        />
+                      </svg>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          fill="#ffb933"
+                          d="m8.85 16.825l3.15-1.9l3.15 1.925l-.825-3.6l2.775-2.4l-3.65-.325l-1.45-3.4l-1.45 3.375l-3.65.325l2.775 2.425zm-1.525 2.098l1.24-5.313l-4.123-3.572l5.431-.47L12 4.557l2.127 5.01l5.43.47l-4.123 3.572l1.241 5.313L12 16.102zM12 12.25"
+                        />
+                      </svg>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          fill="#ffb933"
+                          d="m8.85 16.825l3.15-1.9l3.15 1.925l-.825-3.6l2.775-2.4l-3.65-.325l-1.45-3.4l-1.45 3.375l-3.65.325l2.775 2.425zm-1.525 2.098l1.24-5.313l-4.123-3.572l5.431-.47L12 4.557l2.127 5.01l5.43.47l-4.123 3.572l1.241 5.313L12 16.102zM12 12.25"
+                        />
+                      </svg>
+                    </div>
+                    <h4 class="text-sm text-center pb-3">
+                      <del class="">$65</del>
+                      <span class="font-bold text-black">$45</span>
+                    </h4>
+                  </div>
+                </div>
+              </div></a
+            >
+            <a class="swiper-slide" href="product_details.html"
+              ><div class="group cursor-pointer">
+                <div
+                  class="border group-hover:border-[#ab8e66] transition-all duration-300"
+                >
+                  <div class="relative w-full">
+                    <img
+                      src="https://dreamingtheme.kiendaotac.com/html/stelina/assets/images/product-item-17.jpg"
+                      class="w-full"
+                    />
+                    <div
+                      class="top-0 left-0 right-0 bottom-0 m-auto absolute h-full"
+                    >
+                      <div class="h-full flex items-center justify-center">
+                        <div
+                          class="bg-primary flex rounded-full group-hover:mt-0 transition-all duration-300 ease-in-out group-hover:opacity-100 opacity-0 mt-20"
+                        >
+                          <div class="w-11 h-11 flex items-center justify-end">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                            >
+                              <path
+                                fill="none"
+                                stroke="#fff"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="1.5"
+                                d="M7.75 3.5C5.127 3.5 3 5.76 3 8.547C3 14.125 12 20.5 12 20.5s9-6.375 9-11.953C21 5.094 18.873 3.5 16.25 3.5c-1.86 0-3.47 1.136-4.25 2.79c-.78-1.654-2.39-2.79-4.25-2.79"
+                              />
+                            </svg>
+                          </div>
+                          <div
+                            class="w-11 h-11 flex items-center justify-center"
+                          >
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                            >
+                              <path
+                                fill="none"
+                                stroke="#fff"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="1.5"
+                                d="m21 21l-4.343-4.343m0 0A8 8 0 1 0 5.343 5.343a8 8 0 0 0 11.314 11.314"
+                              />
+                            </svg>
+                          </div>
+                          <div
+                            class="w-11 h-11 flex items-center justify-start"
+                          >
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 56 56"
+                            >
+                              <path
+                                fill="#fff"
+                                d="M14.559 51.953h27.586c4.218 0 6.656-2.437 6.656-7.266V20.43c0-4.828-2.461-7.266-7.36-7.266h-3.726c-.14-4.922-4.406-9.117-9.703-9.117c-5.32 0-9.586 4.195-9.727 9.117H14.56c-4.875 0-7.36 2.414-7.36 7.266v24.258c0 4.851 2.485 7.265 7.36 7.265M28.012 7.61c3.304 0 5.812 2.485 5.93 5.555h-11.86c.094-3.07 2.602-5.555 5.93-5.555M14.629 48.18c-2.344 0-3.656-1.242-3.656-3.679V20.617c0-2.437 1.312-3.68 3.656-3.68h26.766c2.296 0 3.632 1.243 3.632 3.68V44.5c0 2.438-1.336 3.68-2.953 3.68Z"
+                              />
+                            </svg>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      class="items-center justify-center absolute top-2 left-2"
+                    >
+                      <div
+                        class="bg-primary w-10 h-5 flex items-center justify-center text-white font-bold rounded-full"
+                      >
+                        <span class="text-xs">New</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="flex items-center justify-center gap-3 mb-3 m-3">
+                    <div
+                      class="bg-tertiary w-full h-full rounded-full text-xs flex flex-col items-center justify-center gap-1 py-3"
+                    >
+                      <h4 class="font-bold">00</h4>
+                      <span>DAYS</span>
+                    </div>
+                    <div
+                      class="bg-tertiary w-full h-full rounded-full text-xs flex flex-col items-center justify-center gap-1 py-3"
+                    >
+                      <h4 class="font-bold">00</h4>
+                      <span>HRS</span>
+                    </div>
+                    <div
+                      class="bg-tertiary w-full h-full rounded-full text-xs flex flex-col items-center justify-center gap-1 py-3"
+                    >
+                      <h4 class="font-bold">00</h4>
+                      <span>MINS</span>
+                    </div>
+                    <div
+                      class="bg-tertiary w-full h-full rounded-full text-xs flex flex-col items-center justify-center gap-1 py-3"
+                    >
+                      <h4 class="font-bold">00</h4>
+                      <span>SECS</span>
+                    </div>
+                  </div>
+                  <h3 class="text-primary text-lg font-medium text-center mb-2">
+                    Glorious Eau
+                  </h3>
+                  <div>
+                    <div class="flex items-center justify-center w-full">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          fill="#ffb933"
+                          d="m7.325 18.923l1.24-5.313l-4.123-3.572l5.431-.47L12 4.557l2.127 5.01l5.43.47l-4.123 3.572l1.241 5.313L12 16.102z"
+                        />
+                      </svg>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          fill="#ffb933"
+                          d="m7.325 18.923l1.24-5.313l-4.123-3.572l5.431-.47L12 4.557l2.127 5.01l5.43.47l-4.123 3.572l1.241 5.313L12 16.102z"
+                        />
+                      </svg>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          fill="#ffb933"
+                          d="m7.325 18.923l1.24-5.313l-4.123-3.572l5.431-.47L12 4.557l2.127 5.01l5.43.47l-4.123 3.572l1.241 5.313L12 16.102z"
+                        />
+                      </svg>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          fill="#ffb933"
+                          d="m8.85 16.825l3.15-1.9l3.15 1.925l-.825-3.6l2.775-2.4l-3.65-.325l-1.45-3.4l-1.45 3.375l-3.65.325l2.775 2.425zm-1.525 2.098l1.24-5.313l-4.123-3.572l5.431-.47L12 4.557l2.127 5.01l5.43.47l-4.123 3.572l1.241 5.313L12 16.102zM12 12.25"
+                        />
+                      </svg>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          fill="#ffb933"
+                          d="m8.85 16.825l3.15-1.9l3.15 1.925l-.825-3.6l2.775-2.4l-3.65-.325l-1.45-3.4l-1.45 3.375l-3.65.325l2.775 2.425zm-1.525 2.098l1.24-5.313l-4.123-3.572l5.431-.47L12 4.557l2.127 5.01l5.43.47l-4.123 3.572l1.241 5.313L12 16.102zM12 12.25"
+                        />
+                      </svg>
+                    </div>
+                    <h4 class="text-sm text-center pb-3">
+                      <del class="">$65</del>
+                      <span class="font-bold text-black">$45</span>
+                    </h4>
+                  </div>
+                </div>
+              </div></a
+            >
+          </div>
+          <div class="deals-of-the-day-swiper-pagination"></div>
         </div>
       </div>
     </section>
@@ -1982,7 +2115,7 @@
                 <div class="relative w-full">
                   <img
                     src="https://dreamingtheme.kiendaotac.com/html/stelina/assets/images/product-item-17.jpg"
-                    class="w-full h-64 object-cover"
+                    class="w-full"
                   />
                   <div
                     class="top-0 left-0 right-0 bottom-0 m-auto absolute h-full"
@@ -2130,7 +2263,7 @@
                 <div class="relative w-full">
                   <img
                     src="https://dreamingtheme.kiendaotac.com/html/stelina/assets/images/product-item-17.jpg"
-                    class="w-full h-64 object-cover"
+                    class="w-full"
                   />
                   <div
                     class="top-0 left-0 right-0 bottom-0 m-auto absolute h-full"
@@ -2278,7 +2411,7 @@
                 <div class="relative w-full">
                   <img
                     src="https://dreamingtheme.kiendaotac.com/html/stelina/assets/images/product-item-17.jpg"
-                    class="w-full h-64 object-cover"
+                    class="w-full"
                   />
                   <div
                     class="top-0 left-0 right-0 bottom-0 m-auto absolute h-full"
@@ -2426,7 +2559,7 @@
                 <div class="relative w-full">
                   <img
                     src="https://dreamingtheme.kiendaotac.com/html/stelina/assets/images/product-item-17.jpg"
-                    class="w-full h-64 object-cover"
+                    class="w-full"
                   />
                   <div
                     class="top-0 left-0 right-0 bottom-0 m-auto absolute h-full"
@@ -2574,7 +2707,7 @@
                 <div class="relative w-full">
                   <img
                     src="https://dreamingtheme.kiendaotac.com/html/stelina/assets/images/product-item-17.jpg"
-                    class="w-full h-64 object-cover"
+                    class="w-full"
                   />
                   <div
                     class="top-0 left-0 right-0 bottom-0 m-auto absolute h-full"
@@ -2722,7 +2855,7 @@
                 <div class="relative w-full">
                   <img
                     src="https://dreamingtheme.kiendaotac.com/html/stelina/assets/images/product-item-17.jpg"
-                    class="w-full h-64 object-cover"
+                    class="w-full"
                   />
                   <div
                     class="top-0 left-0 right-0 bottom-0 m-auto absolute h-full"
@@ -2870,7 +3003,7 @@
                 <div class="relative w-full">
                   <img
                     src="https://dreamingtheme.kiendaotac.com/html/stelina/assets/images/product-item-17.jpg"
-                    class="w-full h-64 object-cover"
+                    class="w-full"
                   />
                   <div
                     class="top-0 left-0 right-0 bottom-0 m-auto absolute h-full"
@@ -3112,13 +3245,19 @@
         <div class="text-center mb-14">
           <span class="w-16 bg-primary inline-block h-1"></span>
         </div>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
-          <a href="product_details.html"
-            ><div>
-              <img
-                src="https://dreamingtheme.kiendaotac.com/html/stelina/assets/images/banner-home-6.jpg"
-                class="object-cover h-96"
-              />
+        <div class="swiper news-swiper pb-20">
+          <div class="swiper-wrapper pb-5">
+            <a  href="product_details.html" class="swiper-slide">
+            <div>
+              <div class="relative group">
+                <img
+                  src="https://dreamingtheme.kiendaotac.com/html/stelina/assets/images/slider-blog-thumb-2.jpg"
+                  class="object-cover h-96"
+                />
+                <div
+                  class="bg-black top-0 right-0 left-0 absolute w-full h-96 group-hover:opacity-75 opacity-0 transition-all duration-150"
+                ></div>
+              </div>
               <p class="text-hard mt-2 mb-1 text-xs font-medium">
                 August 17,9:14 AM
               </p>
@@ -3135,14 +3274,19 @@
               >
                 Shop Now
               </button>
-            </div></a
-          >
-          <a href="product_details.html"
-            ><div>
-              <img
-                src="https://dreamingtheme.kiendaotac.com/html/stelina/assets/images/banner-home-6.jpg"
-                class="object-cover h-96"
-              />
+            </div>
+          </a>
+          <a href="product_details.html" class="swiper-slide">
+            <div>
+              <div class="relative group">
+                <img
+                  src="https://dreamingtheme.kiendaotac.com/html/stelina/assets/images/slider-blog-thumb-2.jpg"
+                  class="object-cover h-96"
+                />
+                <div
+                  class="bg-black top-0 right-0 left-0 absolute w-full h-96 group-hover:opacity-75 opacity-0 transition-all duration-150"
+                ></div>
+              </div>
               <p class="text-hard mt-2 mb-1 text-xs font-medium">
                 August 17,9:14 AM
               </p>
@@ -3159,14 +3303,19 @@
               >
                 Shop Now
               </button>
-            </div></a
-          >
-          <a href="product_details.html"
-            ><div>
-              <img
-                src="https://dreamingtheme.kiendaotac.com/html/stelina/assets/images/banner-home-6.jpg"
-                class="object-cover h-96"
-              />
+            </div>
+          </a>
+          <a href="product_details.html" class="swiper-slide">
+            <div>
+              <div class="relative group">
+                <img
+                  src="https://dreamingtheme.kiendaotac.com/html/stelina/assets/images/slider-blog-thumb-2.jpg"
+                  class="object-cover h-96"
+                />
+                <div
+                  class="bg-black top-0 right-0 left-0 absolute w-full h-96 group-hover:opacity-75 opacity-0 transition-all duration-150"
+                ></div>
+              </div>
               <p class="text-hard mt-2 mb-1 text-xs font-medium">
                 August 17,9:14 AM
               </p>
@@ -3183,8 +3332,69 @@
               >
                 Shop Now
               </button>
-            </div></a
-          >
+            </div>
+          </a>
+          <a href="product_details.html" class="swiper-slide">
+            <div>
+              <div class="relative group">
+                <img
+                  src="https://dreamingtheme.kiendaotac.com/html/stelina/assets/images/slider-blog-thumb-2.jpg"
+                  class="object-cover h-96"
+                />
+                <div
+                  class="bg-black top-0 right-0 left-0 absolute w-full h-96 group-hover:opacity-75 opacity-0 transition-all duration-150"
+                ></div>
+              </div>
+              <p class="text-hard mt-2 mb-1 text-xs font-medium">
+                August 17,9:14 AM
+              </p>
+              <h3 class="mb-4 text-xl font-medium text-black">
+                We bring you the best
+              </h3>
+              <p class="text-hard mb-2">
+                Lorem ipsum dolor, sit amet consectetur adipisicing elit. A
+                fugiat reprehenderit odio consectetur sequi hic accusamus
+                explicabo ex repudiandae perspiciatis!
+              </p>
+              <button
+                class="text-sm font-bold pb-2 border-b-2 uppercase border-black"
+              >
+                Shop Now
+              </button>
+            </div>
+          </a>
+          <a href="product_details.html" class="swiper-slide">
+            <div>
+              <div class="relative group">
+                <img
+                  src="https://dreamingtheme.kiendaotac.com/html/stelina/assets/images/slider-blog-thumb-2.jpg"
+                  class="object-cover h-96"
+                />
+                <div
+                  class="bg-black top-0 right-0 left-0 absolute w-full h-96 group-hover:opacity-75 opacity-0 transition-all duration-150"
+                ></div>
+              </div>
+              <p class="text-hard mt-2 mb-1 text-xs font-medium">
+                August 17,9:14 AM
+              </p>
+              <h3 class="mb-4 text-xl font-medium text-black">
+                We bring you the best
+              </h3>
+              <p class="text-hard mb-2">
+                Lorem ipsum dolor, sit amet consectetur adipisicing elit. A
+                fugiat reprehenderit odio consectetur sequi hic accusamus
+                explicabo ex repudiandae perspiciatis!
+              </p>
+              <button
+                class="text-sm font-bold pb-2 border-b-2 uppercase border-black"
+              >
+                Shop Now
+              </button>
+            </div>
+          </a>
+          </div>
+          <div class="news-swiper-pagination"></div>
+
         </div>
       </div>
     </section>
@@ -3404,14 +3614,30 @@
             <li class="text-sm font-medium uppercase">
               <a href="#">Quick Menu</a>
             </li>
-            <li class=""><a href="index.html">Home</a></li>
-            <li class=""><a href="about.html">About</a></li>
-            <li class=""><a href="shop.html">Shop</a></li>
-            <li class=""><a href="authentication.html">Login</a></li>
+            <li
+              class="hover:underline hover:italic transition-all duration-150 cursor-pointer"
+            >
+              <a href="index.html">Home</a>
+            </li>
+            <li
+              class="hover:underline hover:italic transition-all duration-150 cursor-pointer"
+            >
+              <a href="about.html">About</a>
+            </li>
+            <li
+              class="hover:underline hover:italic transition-all duration-150 cursor-pointer"
+            >
+              <a href="shop.html">Shop</a>
+            </li>
+            <li
+              class="hover:underline hover:italic transition-all duration-150 cursor-pointer"
+            >
+              <a href="authentication.html">Login</a>
+            </li>
           </ul>
         </div>
         <div class="order-3 col-span-2 md:col-span-1 md:order-2 p-5 md:p-0">
-          <h3 class="text-sm font-medium uppercase mb-4 text-center">
+          <h3 class="text-sm font-semibold uppercase mb-4 text-center">
             Newsletter
           </h3>
           <p class="text-center mb-5 text-hard">
@@ -3419,7 +3645,7 @@
             Consequatur, eaque!
           </p>
           <input
-            class="py-2 h-14 px-5 w-full text-hard rounded-full mb-2 shadow"
+            class="py-2 h-14 px-5 w-full text-hard outline-primary outline-1 rounded-full mb-2 shadow"
             placeholder="Your email letter"
           />
           <button
@@ -3479,7 +3705,7 @@
             </svg>
           </div>
           <p class="pb-5 text-center text-hard">
-            Copyright C 2020 Steline. All Rights Reserved
+            Copyright &copy; 2025 SIGNORCHOICE. All Rights Reserved
           </p>
         </div>
         <div class="order-2 md:order-3">
@@ -3487,11 +3713,23 @@
             <li class="text-sm font-medium uppercase">
               <a href="#">Information</a>
             </li>
-            <!--<li class=""><a href="#">FAQS</a></li>
-            <li class=""><a href="#">Track Order</a></li>
-            <li class=""><a href="#">Delivery</a></li>-->
-            <li class=""><a href="contact_us.html">Contact Us</a></li>
-            <!-- <li class=""><a href="#">Return</a></li> -->
+            <!--<li
+              class="hover:underline hover:italic transition-all duration-150 cursor-pointer"
+            ><a href="#">FAQS</a></li>
+            <li
+              class="hover:underline hover:italic transition-all duration-150 cursor-pointer"
+            ><a href="#">Track Order</a></li>
+            <li
+              class="hover:underline hover:italic transition-all duration-150 cursor-pointer"
+            ><a href="#">Delivery</a></li>-->
+            <li
+              class="hover:underline hover:italic transition-all duration-150 cursor-pointer"
+            >
+              <a href="contact_us.html">Contact Us</a>
+            </li>
+            <!-- <li
+              class="hover:underline hover:italic transition-all duration-150 cursor-pointer"
+            ><a href="#">Return</a></li> -->
           </ul>
         </div>
       </div>
@@ -3516,5 +3754,71 @@
       </svg>
     </div>
     <!-- Back To TOP End -->
+    <script>
+      const swiper = new Swiper(".hero-swiper", {
+        // Optional parameters
+        // direction: "vertical",
+        loop: true,
+
+        autoplay: {
+          delay: 2500,
+          disableOnInteraction: false,
+        },
+
+        // If we need pagination
+        pagination: {
+          // clickable: true,
+          el: ".hero-swiper-pagination",
+          // renderBullet: function (index, className) {
+          //   return '<span class="' + className + '">' + (index + 1) + "</span>";
+          // },
+        },
+
+        // Navigation arrows
+        navigation: {
+          nextEl: ".swiper-button-next",
+          prevEl: ".swiper-button-prev",
+        },
+
+        // And if we need scrollbar
+        scrollbar: {
+          el: ".swiper-scrollbar",
+        },
+      });
+      const dealsOfTheDayswiper = new Swiper(".deals-of-the-day-swiper", {
+        // Optional parameters
+        // direction: "vertical",
+        slidesPerView: 4,
+        spaceBetween: 30,
+        loop: true,
+        autoplay: {
+          delay: 2500,
+          // disableOnInteraction: false,
+        },
+
+        // If we need pagination
+        pagination: {
+          el: ".deals-of-the-day-swiper-pagination",
+          // clickable: true,
+        },
+      });
+      const newsSwiper = new Swiper(".news-swiper", {
+        // Optional parameters
+        // direction: "vertical",
+        slidesPerView: 3,
+        spaceBetween: 30,
+        loop: true,
+        autoplay: {
+          delay: 2500,
+          // disableOnInteraction: false,
+        },
+
+        // If we need pagination
+        pagination: {
+          el: ".news-swiper-pagination",
+          // clickable: true,
+        },
+      });
+    </script>
   </body>
 </html>
