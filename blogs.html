@@ -426,7 +426,7 @@
     </nav>
 
     <!-- Navbar End -->
-    <!-- cHECKOUT Start -->
+    <!-- Blog Us Start -->
     <section class="pb-20">
       <div class="container mx-auto px-2 md:px-0">
         <div class="py-8 flex items-center gap-2 text-sm">
@@ -442,133 +442,314 @@
               d="M452.864 149.312a29.12 29.12 0 0 1 41.728.064L826.24 489.664a32 32 0 0 1 0 44.672L494.592 874.624a29.12 29.12 0 0 1-41.728 0a30.59 30.59 0 0 1 0-42.752L764.736 512L452.864 192a30.59 30.59 0 0 1 0-42.688m-256 0a29.12 29.12 0 0 1 41.728.064L570.24 489.664a32 32 0 0 1 0 44.672L238.592 874.624a29.12 29.12 0 0 1-41.728 0a30.59 30.59 0 0 1 0-42.752L508.736 512L196.864 192a30.59 30.59 0 0 1 0-42.688"
             />
           </svg>
-          <span>Checkout</span>
+          <span>Blogs</span>
         </div>
-        <h2 class="text-xl font-semibold mb-10 uppercase">Checkout</h2>
-        <div
-          x-data="{ 
-    step: 'shipping', 
-    shipping: { firstName: '', lastName: '', country: '', state: '', city: '', zipCode: '', address: '' },
-    payment: { method: 'CREDIT CARD', cardNumber: '', month: '', year: '', cvv: '' },
-    orderConfirmed: false 
-}"
-        >
-          <!-- Shipping Start -->
-          <div
-            x-show="step === 'shipping'"
-            class="container mx-auto px-2 md:px-0"
-          >
-            <div class="border rounded px-5 md:ps-7 py-10 mb-6">
-              <div class="grid grid-cols-1 md:grid-cols-3 gap-20">
-                <div class="md:col-span-2">
-                  <h3 class="pb-1 text-lg font-medium">Shipping Address</h3>
-                  <div class="mb-6">
-                    <span class="inline-block h-[2px] w-5 bg-primary"></span>
-                  </div>
-                  <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mb-5">
-                    <div>
-                      <label class="text-sm mb-1">First name</label>
-                      <input
-                        type="text"
-                        class="py-2 px-5 rounded-full w-full border"
-                      />
+        <div class="grid grid-cols-12">
+          <div class="col-span-12 md:col-span-10 pr-4">
+            <div>
+              <img
+                class="w-full"
+                src="https://dreamingtheme.kiendaotac.com/html/stelina/assets/images/blog1.jpg"
+              />
+              <span class="block mt-4 mb-3 text-xs font-medium text-secondary"
+                >LIFE STYLE</span
+              >
+              <h3 class="text-2xl font-medium mb-5">
+                New Designer Outdoor Items
+              </h3>
+              <p class="text-secondary mb-5">
+                Duis quis porta enim. Nunc molestie porta elit, sit amet mattis
+                lectus mollis et. Phasellus condimentum nulla a arcu lacinia, a
+                venenatis ex congue. Mauris nec ante magna. Duis lacus massa,
+                consequat at mollis gravida, ornare vel mi. Nam dignissim
+                sagittis quam nec consequat. Maecenas vel nulla eleifend,
+                euismod magna sed, tristique velit. Nam sed eleifend dui, eu
+                eleifend leo.
+                <br />
+                <br />
+                Mauris ornare eros quis placerat mollis. Duis ornare euismod
+                risus at dictum. Proin at porttitor metus. Nunc luctus nisl
+                suscipit, hendrerit ligula non, mattis dolor. In sit amet enim
+                in odio viverra maximus luctus vitae orci. Nunc faucibus ipsum
+                vel massa venenatis pretium. Suspendisse volutpat ac nisi at
+                commodo.
+              </p>
+            </div>
+            <div class="mt-2 mb-9 border-t border-b py-5">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="35"
+                height="35"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  fill="#888"
+                  d="M6.848 2.47a1 1 0 0 1-.318 1.378A7.3 7.3 0 0 0 3.75 7.01A3 3 0 1 1 1 10v-.027a4 4 0 0 1 .01-.232c.009-.15.027-.36.062-.618c.07-.513.207-1.22.484-2.014c.552-1.59 1.67-3.555 3.914-4.957a1 1 0 0 1 1.378.318m7 0a1 1 0 0 1-.318 1.378a7.3 7.3 0 0 0-2.78 3.162A3 3 0 1 1 8 10v-.027a4 4 0 0 1 .01-.232c.009-.15.027-.36.062-.618c.07-.513.207-1.22.484-2.014c.552-1.59 1.67-3.555 3.914-4.957a1 1 0 0 1 1.378.318"
+                />
+              </svg>
+              <blockquote class="mb-5 text-sm">
+                Maecenas vel nulla eleifend, euismod magna sed, tristique velit.
+                Nam sed eleifend dui, eu eleifend leo. Mauris ornare eros quis
+                placerat mollis. Duis ornare euismod risus at dictum. Proin at
+                porttitor metus. Nunc luctus nisl suscipit, hendrerit ligula
+                non, mattis dolor.
+              </blockquote>
+              <h4 class="font-medium">Koan Conella</h4>
+              <h6 class="text-sm text-secondary">Creative Copywriter</h6>
+            </div>
+            <div>
+              <div>
+                <div class="flex items-center justify-between mt-2 mb-10">
+                  <h3 class="text-lg font-semibold uppercase">
+                    Related Articles
+                  </h3>
+                  <div class="flex gap-1">
+                    <div
+                      class="w-9 h-9 rounded-full border bg-white flex items-center justify-center"
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="10.5"
+                        height="24"
+                        viewBox="0 0 7 16"
+                      >
+                        <path
+                          fill="#888"
+                          d="M5.5 13a.47.47 0 0 1-.35-.15l-4.5-4.5c-.2-.2-.2-.51 0-.71l4.5-4.49c.2-.2.51-.2.71 0s.2.51 0 .71L1.71 8l4.15 4.15c.2.2.2.51 0 .71c-.1.1-.23.15-.35.15Z"
+                        />
+                      </svg>
                     </div>
-                    <div>
-                      <label class="text-sm mb-1">Last name</label>
-                      <input
-                        type="text"
-                        class="py-2 px-5 rounded-full w-full border"
-                      />
-                    </div>
-                  </div>
-                  <div class="grid grid-cols-1 md:grid-cols-3 gap-5 mb-5">
-                    <div>
-                      <label class="text-sm mb-1">Country</label>
-                      <select class="py-2 px-5 rounded-md w-full border">
-                        <option>BD</option>
-                        <option>India</option>
-                        <option>Malaysian</option>
-                      </select>
-                    </div>
-                    <div>
-                      <label class="text-sm mb-1">State</label>
-                      <select class="py-2 px-5 rounded-md w-full border">
-                        <option>BD</option>
-                        <option>India</option>
-                        <option>Malaysian</option>
-                      </select>
-                    </div>
-                    <div>
-                      <label class="text-sm mb-1">City</label>
-                      <select class="py-2 px-5 rounded-md w-full border">
-                        <option>BD</option>
-                        <option>India</option>
-                        <option>Malaysian</option>
-                      </select>
-                    </div>
-                  </div>
-                  <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mb-5">
-                    <div>
-                      <label class="text-sm mb-1">Zip Code</label>
-                      <input
-                        type="text"
-                        class="py-2 px-5 rounded-full w-full border"
-                      />
-                    </div>
-                    <div>
-                      <label class="text-sm mb-1">Address</label>
-                      <input
-                        type="text"
-                        class="py-2 px-5 rounded-full w-full border"
-                      />
+                    <div
+                      class="w-9 h-9 rounded-full border bg-white flex items-center justify-center"
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="10.5"
+                        height="24"
+                        viewBox="0 0 7 16"
+                      >
+                        <path
+                          fill="#888"
+                          d="M1.5 13a.47.47 0 0 1-.35-.15c-.2-.2-.2-.51 0-.71L5.3 7.99L1.15 3.85c-.2-.2-.2-.51 0-.71s.51-.2.71 0l4.49 4.51c.2.2.2.51 0 .71l-4.5 4.49c-.1.1-.23.15-.35.15"
+                        />
+                      </svg>
                     </div>
                   </div>
                 </div>
-                <div>
-                  <h3 class="pb-1 text-lg font-medium">Your Order</h3>
-                  <div class="mb-6">
-                    <span class="inline-block h-[2px] w-5 bg-primary"></span>
-                  </div>
-                  <div>
-                    <div class="flex items-center gap-7 pb-7 border-b mb-7">
-                      <img
-                        class="w-24 h-24"
-                        src="https://dreamingtheme.kiendaotac.com/html/stelina/assets/images/item-order1.jpg"
-                      />
-                      <div>
-                        <h4 class="py-1 font-medium">3D Dining Chair</h4>
-                        <p class="text-sm py-1 text-secondary">Black, XXL</p>
-                        <h4 class="font-semibold">
-                          $45 <span class="text-secondary">x1</span>
-                        </h4>
-                      </div>
-                    </div>
-                    <div class="flex items-center gap-7 pb-7">
-                      <img
-                        class="w-24 h-24"
-                        src="https://dreamingtheme.kiendaotac.com/html/stelina/assets/images/item-order1.jpg"
-                      />
-                      <div>
-                        <h4 class="py-1 font-medium">3D Dining Chair</h4>
-                        <p class="text-sm py-1 text-secondary">Black, XXL</p>
-                        <h4 class="font-semibold">
-                          $45 <span class="text-secondary">x1</span>
-                        </h4>
+                <div class="grid grid-cols-12">
+                  <div class="col-span-8 grid grid-cols-12">
+                    <img
+                      class="col-span-4 w-full"
+                      src="https://dreamingtheme.kiendaotac.com/html/stelina/assets/images/blog3.jpg"
+                    />
+                    <div class="col-span-8 pl-7 border">
+                      <h6 class="mt-5 mb-2 text-xs font-medium uppercase text">
+                        Life Style
+                      </h6>
+                      <h3 class="text-lg font-semibold mb-2">
+                        New Designer Outdoors Items
+                      </h3>
+                      <p class="mb-5 text-secondary">
+                        Lorem ipsum dolor sit amet, consectetur adipisicing
+                        elit. Ab quaerat similique enim iure dolore numquam
+                        corporis minus a harum omnis dicta, quod magni
+                        distinctio eos ducimus perferendis architecto aliquam
+                        modi.
+                      </p>
+                      <div class="flex items-center gap-1">
+                        <img
+                          class="w-8 h-8 rounded-full"
+                          src="https://dreamingtheme.kiendaotac.com/html/stelina/assets/images/avt-blog1.png"
+                        />
+                        <h4 class="text-sm font-medium">Adam Smith</h4>
                       </div>
                     </div>
                   </div>
-                  <h3 class="font-medium">
-                    Total Price: <span class="text-xl font-medium">$95</span>
-                  </h3>
+                </div>
+              </div>
+              <div>
+                <p class="py-10 text-secondary">
+                  Nam sed eleifend dui, eu eleifend leo.Mauris ornare eros quis
+                  placerat mollis. Duis ornare euismod risus at dictum. Proin at
+                  porttitor metus. Nunc luctus nisl suscipit, hendrerit ligula
+                  non, mattis dolor. In sit amet enim in odio viverra maximus
+                  luctus vitae orci. Nunc faucibus ipsum vel massa venenatis
+                  pretium. Suspendisse volutpat ac nisi at commodo.
+                  <br />
+                  <br />
+                  Mauris tempor eros vel velit condimentum venenatis. Aliquam ut
+                  viverra sapien. Sed condimentum semper faucibus. Maecenas
+                  feugiat purus eget interdum sagittis. Ut pellentesque gravida
+                  justo non rhoncus. Nunc ullamcorper tortor id aliquet luctus.
+                  Proin varius aliquam consequat. Curabitur a commodo diam,
+                  vitae pellentesque urna. Fusce posuere turpis arcu, fringilla
+                  varius nunc dictum in. Praesent pulvinar sit amet nulla nec
+                  elementum.
+                </p>
+                <div class="mb-4">
+                  <button
+                    class="my-1 mr-2 px-3 text-sm font-semibold text-secondary"
+                  >
+                    Tags:
+                  </button>
+                  <button
+                    class="border my-1 mr-2 px-3 text-sm font-semibold text-secondary"
+                  >
+                    Accessories
+                  </button>
+                  <button
+                    class="border my-1 mr-2 px-3 text-sm font-semibold text-secondary"
+                  >
+                    Accessories
+                  </button>
+                  <button
+                    class="border my-1 mr-2 px-3 text-sm font-semibold text-secondary"
+                  >
+                    Accessories
+                  </button>
+                  <button
+                    class="border my-1 mr-2 px-3 text-sm font-semibold text-secondary"
+                  >
+                    Accessories
+                  </button>
+                  <button
+                    class="border my-1 mr-2 px-3 text-sm font-semibold text-secondary"
+                  >
+                    Accessories
+                  </button>
+                </div>
+              </div>
+              <div
+                class="pt-5 pb-3 mb-12 flex items-center justify-between border-t border-b"
+              >
+                <div class="flex items-center gap-1">
+                  <img
+                    class="w-8 h-8 rounded-full"
+                    src="https://dreamingtheme.kiendaotac.com/html/stelina/assets/images/avt-blog1.png"
+                  />
+                  <h4 class="text-sm font-medium">Adam Smith</h4>
+                </div>
+                <div class="flex items-center gap-5">
+                  <span>Share</span>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      fill="currentColor"
+                      d="M20.9 2H3.1A1.1 1.1 0 0 0 2 3.1v17.8A1.1 1.1 0 0 0 3.1 22h9.58v-7.75h-2.6v-3h2.6V9a3.64 3.64 0 0 1 3.88-4a20 20 0 0 1 2.33.12v2.7H17.3c-1.26 0-1.5.6-1.5 1.47v1.93h3l-.39 3H15.8V22h5.1a1.1 1.1 0 0 0 1.1-1.1V3.1A1.1 1.1 0 0 0 20.9 2"
+                    />
+                  </svg>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 14 14"
+                  >
+                    <path
+                      fill="currentColor"
+                      fill-rule="evenodd"
+                      d="M3.39.787A2.604 2.604 0 0 0 .786 3.39v6.944a2.604 2.604 0 0 0 2.604 2.604h6.944a2.604 2.604 0 0 0 2.603-2.604V3.39A2.604 2.604 0 0 0 10.334.787zm7.693 2.607a.75.75 0 1 1-1.5 0a.75.75 0 0 1 1.5 0m-4.22 1.388a2.08 2.08 0 1 0 0 4.16a2.08 2.08 0 0 0 0-4.16m-3.081 2.08a3.08 3.08 0 1 1 6.16 0a3.08 3.08 0 0 1-6.16 0"
+                      clip-rule="evenodd"
+                    />
+                  </svg>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 16 16"
+                  >
+                    <path
+                      fill="currentColor"
+                      d="M9.294 6.928L14.357 1h-1.2L8.762 6.147L5.25 1H1.2l5.31 7.784L1.2 15h1.2l4.642-5.436L10.751 15h4.05zM7.651 8.852l-.538-.775L2.832 1.91h1.843l3.454 4.977l.538.775l4.491 6.47h-1.843z"
+                    />
+                  </svg>
+                </div>
+              </div>
+              <div>
+                <h3 class="mb-10 text-lg font-semibold uppercase">
+                  Comments (2)
+                </h3>
+                <div class="border mb-12">
+                  <div class="px-7">
+                    <textarea
+                      class="pt-7 w-full h-48 mb-5"
+                      placeholder="Write your comment"
+                    ></textarea>
+                  </div>
+                  <div
+                    class="flex items-center gap-10 justify-end border-t border-b py-5 px-7"
+                  >
+                    <div class="flex items-center gap-5">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                      >
+                        <g fill="currentColor">
+                          <path
+                            d="M15.5 10a1.5 1.5 0 1 0 0-3a1.5 1.5 0 0 0 0 3"
+                          />
+                          <path
+                            d="M3 5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2zm16 0H5v7.92l3.375-2.7a1 1 0 0 1 1.25 0l4.3 3.44l1.368-1.367a1 1 0 0 1 1.414 0L19 14.586zM5 19h14v-1.586l-3-3l-1.293 1.293a1 1 0 0 1-1.332.074L9 12.28l-4 3.2z"
+                          />
+                        </g>
+                      </svg>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 512 512"
+                      >
+                        <path
+                          fill="#8b8d8e"
+                          d="m138.058 296.404l-40.791-40.791l49.274-49.274c44.561-44.561 117.064-44.56 161.626 0l-40.791 40.791c-22.067-22.068-57.977-22.069-80.045 0z"
+                        />
+                        <path
+                          fill="#646768"
+                          d="M287.656 341.136c-30.527 0-59.227-11.888-80.812-33.475c-44.56-44.56-44.561-117.064 0-161.625l97.892-97.892c21.587-21.586 50.286-33.474 80.813-33.474s59.227 11.888 80.813 33.474s33.474 50.287 33.474 80.813s-11.888 59.227-33.474 80.813l-97.893 97.892c-21.585 21.586-50.284 33.474-80.813 33.474m97.893-268.78c-15.118 0-29.332 5.888-40.023 16.578l-97.892 97.892c-22.068 22.069-22.068 57.977 0 80.045c10.69 10.69 24.904 16.578 40.022 16.578c15.119 0 29.332-5.887 40.022-16.577l97.893-97.893c10.69-10.69 16.578-24.904 16.578-40.022c0-15.119-5.888-29.332-16.578-40.023c-10.69-10.69-24.904-16.578-40.022-16.578"
+                        />
+                        <path
+                          fill="#8b8d8e"
+                          d="M343.932 70.414c-5.605 0-11.037-2.976-13.923-8.237c-4.214-7.681-1.403-17.324 6.278-21.538c31.379-17.211 69.118-17.305 98.494-.244c7.576 4.4 10.15 14.109 5.75 21.686c-4.401 7.576-14.108 10.15-21.686 5.75c-19.52-11.338-45.938-11.094-67.299.625a15.8 15.8 0 0 1-7.614 1.958M129.461 499.277c-29.267 0-58.533-11.14-80.813-33.419c-44.56-44.561-44.56-117.066 0-161.627l70.465-70.464l40.79 40.791l-70.465 70.465c-22.068 22.068-22.068 57.977 0 80.045c11.033 11.033 25.53 16.55 40.022 16.551c14.496.002 28.987-5.516 40.023-16.551l97.892-97.893c10.69-10.69 16.578-24.904 16.578-40.022s-5.887-29.332-16.578-40.022l40.791-40.791c44.561 44.561 44.561 117.066 0 161.626l-97.892 97.893c-22.28 22.279-51.546 33.418-80.813 33.418"
+                        />
+                      </svg>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 32 32"
+                      >
+                        <g fill="currentColor">
+                          <path
+                            d="M16-.034C7.159-.034-.035 7.158-.035 16S7.159 32.034 16 32.034S32.035 24.842 32.035 16S24.841-.034 16-.034m0 31C7.748 30.966 1.035 24.252 1.035 16S7.748 1.034 16 1.034S30.965 7.748 30.965 16S24.252 30.966 16 30.966"
+                          />
+                          <path
+                            d="M10.5 16.5c1.103 0 2-.897 2-2s-.897-2-2-2s-2 .897-2 2s.897 2 2 2m0-3a1.001 1.001 0 1 1-1 1c0-.552.449-1 1-1m11 3c1.103 0 2-.897 2-2s-.897-2-2-2s-2 .897-2 2s.897 2 2 2m0-3a1.001 1.001 0 1 1-1 1c0-.552.449-1 1-1m1.323 8.575a9 9 0 0 1-6.588 2.891a8.98 8.98 0 0 1-6.656-2.967a.535.535 0 0 0-.794.717a10.05 10.05 0 0 0 7.45 3.318c2.788 0 5.476-1.179 7.373-3.234a.534.534 0 1 0-.785-.725"
+                          />
+                        </g>
+                      </svg>
+                    </div>
+                    <button
+                      class="py-2 px-5 text-white bg-primary uppercase font-bold text-xs rounded-full mb-2"
+                    >
+                      Post A Comment
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
-            <div class="flex items-end justify-end mb-12">
-              <button
-                class="flex items-center gpa-2 py-2 px-5 border rounded-full text-xs font-semibold uppercase"
-                @click="step = 'payment'"
-              >
-                <span>PAYMENT</span>
+          </div>
+          <div class="col-span-12 md:col-span-2 pl-4">
+            <div class="mb-12">
+              <div class="flex items-center pb-6 gap-2">
+                <span class="inline-block bg-primary w-6 h-[2px]"></span>
+                <h3 class="text-sm font-semibold uppercase">Follow us</h3>
+              </div>
+              <div class="flex items-center gap-5">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="24"
@@ -577,183 +758,192 @@
                 >
                   <path
                     fill="currentColor"
-                    d="M13.293 7.293a1 1 0 0 0 0 1.414L15.586 11H8a1 1 0 0 0 0 2h7.586l-2.293 2.293a.999.999 0 1 0 1.414 1.414L19.414 12l-4.707-4.707a1 1 0 0 0-1.414 0"
+                    d="M20.9 2H3.1A1.1 1.1 0 0 0 2 3.1v17.8A1.1 1.1 0 0 0 3.1 22h9.58v-7.75h-2.6v-3h2.6V9a3.64 3.64 0 0 1 3.88-4a20 20 0 0 1 2.33.12v2.7H17.3c-1.26 0-1.5.6-1.5 1.47v1.93h3l-.39 3H15.8V22h5.1a1.1 1.1 0 0 0 1.1-1.1V3.1A1.1 1.1 0 0 0 20.9 2"
                   />
                 </svg>
-              </button>
-            </div>
-          </div>
-          <!-- Shipping End -->
-          <!-- Pay Start -->
-          <div
-            x-show="step === 'payment'"
-            class="container mx-auto px-2 md:px-0"
-          >
-            <div class="border rounded px-5 md:ps-7 py-10 mb-6">
-              <div class="grid grid-cols-1 md:grid-cols-3 gap-20">
-                <div class="md:col-span-2">
-                  <h3 class="pb-1 text-lg font-medium">Payment Method</h3>
-                  <div class="mb-6">
-                    <span class="inline-block h-[2px] w-5 bg-primary"></span>
-                  </div>
-                  <div class="flex items-end mb-5 gap-5">
-                    <button
-                      class="flex items-center gpa-2 py-2 px-5 border bg-primary text-white rounded-full text-xs font-semibold uppercase"
-                    >
-                      <span>CREDIT CARD</span>
-                    </button>
-                    <button
-                      class="flex items-center gpa-5 py-2 px-5 border rounded-full text-xs font-semibold uppercase"
-                    >
-                      <span>PAYPAL</span>
-                    </button>
-                  </div>
-                  <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mb-5">
-                    <div>
-                      <label class="text-sm mb-1">Card number</label>
-                      <input
-                        type="text"
-                        class="py-2 px-5 rounded-full w-full border"
-                      />
-                    </div>
-                  </div>
-                  <div class="grid grid-cols-1 md:grid-cols-3 gap-5 mb-5">
-                    <div>
-                      <label class="text-sm mb-1">Month</label>
-                      <select class="py-2 px-5 rounded-md w-full border">
-                        <option>BD</option>
-                        <option>India</option>
-                        <option>Malaysian</option>
-                      </select>
-                    </div>
-                    <div>
-                      <label class="text-sm mb-1">Year</label>
-                      <select class="py-2 px-5 rounded-md w-full border">
-                        <option>BD</option>
-                        <option>India</option>
-                        <option>Malaysian</option>
-                      </select>
-                    </div>
-                    <div>
-                      <label class="text-sm mb-1">CVV</label>
-                      <select class="py-2 px-5 rounded-md w-full border">
-                        <option>BD</option>
-                        <option>India</option>
-                        <option>Malaysian</option>
-                      </select>
-                    </div>
-                  </div>
-                </div>
-                <div>
-                  <h3 class="pb-1 text-lg font-medium">Your Order</h3>
-                  <div class="mb-6">
-                    <span class="inline-block h-[2px] w-5 bg-primary"></span>
-                  </div>
-                  <div>
-                    <div class="flex items-center gap-7 pb-7 border-b mb-7">
-                      <img
-                        class="w-24 h-24"
-                        src="https://dreamingtheme.kiendaotac.com/html/stelina/assets/images/item-order1.jpg"
-                      />
-                      <div>
-                        <h4 class="py-1 font-medium">3D Dining Chair</h4>
-                        <p class="text-sm py-1 text-secondary">Black, XXL</p>
-                        <h4 class="font-semibold">
-                          $45 <span class="text-secondary">x1</span>
-                        </h4>
-                      </div>
-                    </div>
-                    <div class="flex items-center gap-7 pb-7">
-                      <img
-                        class="w-24 h-24"
-                        src="https://dreamingtheme.kiendaotac.com/html/stelina/assets/images/item-order1.jpg"
-                      />
-                      <div>
-                        <h4 class="py-1 font-medium">3D Dining Chair</h4>
-                        <p class="text-sm py-1 text-secondary">Black, XXL</p>
-                        <h4 class="font-semibold">
-                          $45 <span class="text-secondary">x1</span>
-                        </h4>
-                      </div>
-                    </div>
-                  </div>
-                  <h3 class="font-medium">
-                    Total Price: <span class="text-xl font-medium">$95</span>
-                  </h3>
-                </div>
-              </div>
-            </div>
-            <div class="flex items-end justify-end mb-12 gap-5">
-              <button
-                @click="step = 'shipping'"
-                class="flex items-center gpa-5 py-2 px-5 border rounded-full text-xs font-semibold uppercase"
-              >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  width="12"
-                  height="12"
-                  viewBox="0 0 24 24"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 14 14"
                 >
                   <path
                     fill="currentColor"
-                    d="M11.884 6.116a1.25 1.25 0 0 0-1.768 0l-5 5a1.25 1.25 0 0 0 0 1.768l5 5a1.25 1.25 0 0 0 1.768-1.768L9.018 13.25H18a1.25 1.25 0 1 0 0-2.5H9.018l2.866-2.866a1.25 1.25 0 0 0 0-1.768"
+                    fill-rule="evenodd"
+                    d="M3.39.787A2.604 2.604 0 0 0 .786 3.39v6.944a2.604 2.604 0 0 0 2.604 2.604h6.944a2.604 2.604 0 0 0 2.603-2.604V3.39A2.604 2.604 0 0 0 10.334.787zm7.693 2.607a.75.75 0 1 1-1.5 0a.75.75 0 0 1 1.5 0m-4.22 1.388a2.08 2.08 0 1 0 0 4.16a2.08 2.08 0 0 0 0-4.16m-3.081 2.08a3.08 3.08 0 1 1 6.16 0a3.08 3.08 0 0 1-6.16 0"
+                    clip-rule="evenodd"
                   />
                 </svg>
-                <span>BACK TO SHIPPING</span>
-              </button>
-              <button
-                @click="step = 'confirmation'"
-                class="flex items-center gpa-2 py-2 px-5 border bg-primary text-white rounded-full text-xs font-semibold uppercase"
-              >
-                <span>PAY NOW</span>
-              </button>
-            </div>
-          </div>
-          <!-- Pay End -->
-          <!-- Confirmation Start -->
-          <div
-            x-show="step === 'confirmation'"
-            class="container mx-auto px-2 md:px-0"
-          >
-            <div
-              class="border rounded px-5 md:ps-7 py-10 mb-6 flex flex-col items-center justify-center"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="92"
-                height="92"
-                class="mb-6"
-                viewBox="0 0 1200 1200"
-              >
-                <path
-                  fill="#000"
-                  d="M600 0C268.63 0 0 268.63 0 600s268.63 600 600 600s600-268.63 600-600S931.369 0 600 0m0 130.371c259.369 0 469.556 210.325 469.556 469.629S859.369 1069.556 600 1069.556c-259.37 0-469.556-210.251-469.556-469.556C130.445 340.696 340.63 130.371 600 130.371m229.907 184.717L482.153 662.915L369.36 550.122L258.691 660.718l112.793 112.793l111.401 111.401l110.597-110.669l347.826-347.754z"
-                />
-              </svg>
-              <h3 class="text-center text-xl font-medium mb-2">
-                Congratulation! Your order has been processed.
-              </h3>
-              <p class="text-center text-sm mb-10 text-secondary">
-                Aenean dui mi, tempus non volutpat eget, molestie a orci. Nullam
-                eget sem et eros laoreet rutrum. Quisque sem ante, feugiat quis
-                lorem in.
-              </p>
-              <div>
-                <a href="shop.html"
-                  ><button
-                    class="flex items-center gpa-2 py-2 px-5 border bg-primary text-white rounded-full text-xs font-semibold uppercase"
-                  >
-                    <span>RETURN TO STORE</span>
-                  </button></a
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 16 16"
                 >
+                  <path
+                    fill="currentColor"
+                    d="M9.294 6.928L14.357 1h-1.2L8.762 6.147L5.25 1H1.2l5.31 7.784L1.2 15h1.2l4.642-5.436L10.751 15h4.05zM7.651 8.852l-.538-.775L2.832 1.91h1.843l3.454 4.977l.538.775l4.491 6.47h-1.843z"
+                  />
+                </svg>
               </div>
             </div>
+            <div class="mb-12">
+              <div class="flex items-center pb-6 gap-2">
+                <span class="inline-block bg-primary w-6 h-[2px]"></span>
+                <h3 class="text-sm font-semibold uppercase">CATEGORIES</h3>
+              </div>
+              <div class="flex flex-col gap-1">
+                <div class="flex items-center gap-2">
+                  <input id="new-arrivals" type="checkbox" />
+                  <label for="new-arrivals" class="text-secondary"
+                    >New Arrivals</label
+                  >
+                </div>
+                <div class="flex items-center gap-2">
+                  <input id="new-arrivals" type="checkbox" />
+                  <label for="new-arrivals" class="text-secondary"
+                    >New Arrivals</label
+                  >
+                </div>
+                <div class="flex items-center gap-2">
+                  <input id="new-arrivals" type="checkbox" />
+                  <label for="new-arrivals" class="text-secondary"
+                    >New Arrivals</label
+                  >
+                </div>
+                <div class="flex items-center gap-2">
+                  <input id="new-arrivals" type="checkbox" />
+                  <label for="new-arrivals" class="text-secondary"
+                    >New Arrivals</label
+                  >
+                </div>
+              </div>
+            </div>
+            <div class="mb-12">
+              <div class="flex items-center pb-6 gap-2">
+                <span class="inline-block bg-primary w-6 h-[2px]"></span>
+                <h3 class="text-sm font-semibold uppercase">
+                  Popular Articles
+                </h3>
+              </div>
+              <div class="flex flex-col gap-1">
+                <div class="flex gap-2 mb-5">
+                  <img
+                    src="https://dreamingtheme.kiendaotac.com/html/stelina/assets/images/sidebar-post1.jpg"
+                    class="w-24 h-24 object-cover"
+                  />
+                  <div>
+                    <h3 class="text-xs font-semibold text-secondary">
+                      Life Style
+                    </h3>
+                    <h6 class="text-sm font-medium mt-1">
+                      9 Quicks Tips That Will Change
+                    </h6>
+                  </div>
+                </div>
+                <div class="flex gap-2 mb-5">
+                  <img
+                    src="https://dreamingtheme.kiendaotac.com/html/stelina/assets/images/sidebar-post1.jpg"
+                    class="w-24 h-24 object-cover"
+                  />
+                  <div>
+                    <h3 class="text-xs font-semibold text-secondary">
+                      Life Style
+                    </h3>
+                    <h6 class="text-sm font-medium mt-1">
+                      9 Quicks Tips That Will Change
+                    </h6>
+                  </div>
+                </div>
+                <div class="flex gap-2 mb-5">
+                  <img
+                    src="https://dreamingtheme.kiendaotac.com/html/stelina/assets/images/sidebar-post1.jpg"
+                    class="w-24 h-24 object-cover"
+                  />
+                  <div>
+                    <h3 class="text-xs font-semibold text-secondary">
+                      Life Style
+                    </h3>
+                    <h6 class="text-sm font-medium mt-1">
+                      9 Quicks Tips That Will Change
+                    </h6>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="mb-12">
+              <div class="flex items-center pb-6 gap-2">
+                <span class="inline-block bg-primary w-6 h-[2px]"></span>
+                <h3 class="text-sm font-semibold uppercase">Popular Tags</h3>
+              </div>
+              <div class="flex flex-wrap gap-1">
+                <button
+                  class="border my-1 mr-2 px-3 text-sm font-semibold text-secondary"
+                >
+                  Office
+                </button>
+                <button
+                  class="border my-1 mr-2 px-3 text-sm font-semibold text-secondary"
+                >
+                  Accessories
+                </button>
+                <button
+                  class="border my-1 mr-2 px-3 text-sm font-semibold text-secondary"
+                >
+                  Perfume
+                </button>
+                <button
+                  class="border my-1 mr-2 px-3 text-sm font-semibold text-secondary"
+                >
+                  Brand
+                </button>
+                <button
+                  class="border my-1 mr-2 px-3 text-sm font-semibold text-secondary"
+                >
+                  Office
+                </button>
+                <button
+                  class="border my-1 mr-2 px-3 text-sm font-semibold text-secondary"
+                >
+                  Office
+                </button>
+              </div>
+            </div>
+            <div class="border py-8 px-5 relative">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="absolute opacity-5 left-0 top-0 right-0 mx-auto rotate-45"
+                width="70%"
+                height="70%"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  fill="currentColor"
+                  fill-rule="evenodd"
+                  d="M14.95 3.684L8.637 8.912a1 1 0 0 1-1.276 0l-6.31-5.228A1 1 0 0 0 1 4v8a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4a1 1 0 0 0-.05-.316M2 2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2m-.21 1l5.576 4.603a1 1 0 0 0 1.27.003L14.268 3z"
+                />
+              </svg>
+              <h3 class="mb-3 text-2xl font-semibold">
+                Subscribe to Our Newsletter
+              </h3>
+              <p class="mb-14 text-secondary">
+                More special Deals, Events & Promotions
+              </p>
+              <input
+                class="py-2 px-5 w-full text-hard outline-primary outline-1 rounded-full mb-2 shadow"
+                placeholder="Your email letter"
+              />
+              <button
+                class="py-2 px-5 w-full text-white bg-primary uppercase font-bold text-xs rounded-full mb-2"
+              >
+                Subscribe
+              </button>
+            </div>
           </div>
-          <!-- Confirmation End -->
         </div>
       </div>
     </section>
-    <!-- cHECKOUT End -->
+    <!-- Blog End -->
 
     <!-- Footer Section Start  -->
     <footer class="py-20 bg-tertiary">
