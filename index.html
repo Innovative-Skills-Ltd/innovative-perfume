@@ -138,7 +138,7 @@
               <div
                 x-show="open"
                 x-transition
-                class="absolute top-full left-0 mt-2 bg-white text-black shadow-lg rounded w-56"
+                class="absolute top-full left-0 mt-2 bg-white text-black shadow-lg rounded w-56 z-50"
               >
                 <ul class="p-0">
                   <!-- Category 1 -->
@@ -324,7 +324,7 @@
           <div
             x-show="open"
             x-transition
-            class="absolute top-full left-0 mt-2 bg-white text-black shadow-lg rounded w-56"
+            class="absolute top-full left-0 mt-2 bg-white text-black shadow-lg rounded w-56 z-50"
           >
             <ul class="p-0">
               <!-- Category 1 -->
@@ -443,6 +443,9 @@
                 <li class="hover:bg-gray-200 cursor-pointer border-b p-4">
                   <a href="about.html">About</a>
                 </li>
+                <li class="hover:bg-gray-200 cursor-pointer border-b p-4">
+                  <a href="blog.html">Blogs</a>
+                </li>
               </ul>
             </div>
           </div>
@@ -451,6 +454,7 @@
             <li><a href="index.html">Home</a></li>
             <li><a href="shop.html">Shop</a></li>
             <li><a href="about_us.html">About</a></li>
+            <li><a href="blog.html">Blogs</a></li>
           </ul>
         </div>
       </div>
@@ -3247,154 +3251,153 @@
         </div>
         <div class="swiper news-swiper pb-20">
           <div class="swiper-wrapper pb-5">
-            <a  href="product_details.html" class="swiper-slide">
-            <div>
-              <div class="relative group">
-                <img
-                  src="https://dreamingtheme.kiendaotac.com/html/stelina/assets/images/slider-blog-thumb-2.jpg"
-                  class="object-cover h-96"
-                />
-                <div
-                  class="bg-black top-0 right-0 left-0 absolute w-full h-96 group-hover:opacity-75 opacity-0 transition-all duration-150"
-                ></div>
+            <a href="product_details.html" class="swiper-slide">
+              <div>
+                <div class="relative group">
+                  <img
+                    src="https://dreamingtheme.kiendaotac.com/html/stelina/assets/images/slider-blog-thumb-2.jpg"
+                    class="object-cover h-96"
+                  />
+                  <div
+                    class="bg-black top-0 right-0 left-0 absolute w-full h-96 group-hover:opacity-75 opacity-0 transition-all duration-150"
+                  ></div>
+                </div>
+                <p class="text-hard mt-2 mb-1 text-xs font-medium">
+                  August 17,9:14 AM
+                </p>
+                <h3 class="mb-4 text-xl font-medium text-black">
+                  We bring you the best
+                </h3>
+                <p class="text-hard mb-2">
+                  Lorem ipsum dolor, sit amet consectetur adipisicing elit. A
+                  fugiat reprehenderit odio consectetur sequi hic accusamus
+                  explicabo ex repudiandae perspiciatis!
+                </p>
+                <button
+                  class="text-sm font-bold pb-2 border-b-2 uppercase border-black"
+                >
+                  Shop Now
+                </button>
               </div>
-              <p class="text-hard mt-2 mb-1 text-xs font-medium">
-                August 17,9:14 AM
-              </p>
-              <h3 class="mb-4 text-xl font-medium text-black">
-                We bring you the best
-              </h3>
-              <p class="text-hard mb-2">
-                Lorem ipsum dolor, sit amet consectetur adipisicing elit. A
-                fugiat reprehenderit odio consectetur sequi hic accusamus
-                explicabo ex repudiandae perspiciatis!
-              </p>
-              <button
-                class="text-sm font-bold pb-2 border-b-2 uppercase border-black"
-              >
-                Shop Now
-              </button>
-            </div>
-          </a>
-          <a href="product_details.html" class="swiper-slide">
-            <div>
-              <div class="relative group">
-                <img
-                  src="https://dreamingtheme.kiendaotac.com/html/stelina/assets/images/slider-blog-thumb-2.jpg"
-                  class="object-cover h-96"
-                />
-                <div
-                  class="bg-black top-0 right-0 left-0 absolute w-full h-96 group-hover:opacity-75 opacity-0 transition-all duration-150"
-                ></div>
+            </a>
+            <a href="product_details.html" class="swiper-slide">
+              <div>
+                <div class="relative group">
+                  <img
+                    src="https://dreamingtheme.kiendaotac.com/html/stelina/assets/images/slider-blog-thumb-2.jpg"
+                    class="object-cover h-96"
+                  />
+                  <div
+                    class="bg-black top-0 right-0 left-0 absolute w-full h-96 group-hover:opacity-75 opacity-0 transition-all duration-150"
+                  ></div>
+                </div>
+                <p class="text-hard mt-2 mb-1 text-xs font-medium">
+                  August 17,9:14 AM
+                </p>
+                <h3 class="mb-4 text-xl font-medium text-black">
+                  We bring you the best
+                </h3>
+                <p class="text-hard mb-2">
+                  Lorem ipsum dolor, sit amet consectetur adipisicing elit. A
+                  fugiat reprehenderit odio consectetur sequi hic accusamus
+                  explicabo ex repudiandae perspiciatis!
+                </p>
+                <button
+                  class="text-sm font-bold pb-2 border-b-2 uppercase border-black"
+                >
+                  Shop Now
+                </button>
               </div>
-              <p class="text-hard mt-2 mb-1 text-xs font-medium">
-                August 17,9:14 AM
-              </p>
-              <h3 class="mb-4 text-xl font-medium text-black">
-                We bring you the best
-              </h3>
-              <p class="text-hard mb-2">
-                Lorem ipsum dolor, sit amet consectetur adipisicing elit. A
-                fugiat reprehenderit odio consectetur sequi hic accusamus
-                explicabo ex repudiandae perspiciatis!
-              </p>
-              <button
-                class="text-sm font-bold pb-2 border-b-2 uppercase border-black"
-              >
-                Shop Now
-              </button>
-            </div>
-          </a>
-          <a href="product_details.html" class="swiper-slide">
-            <div>
-              <div class="relative group">
-                <img
-                  src="https://dreamingtheme.kiendaotac.com/html/stelina/assets/images/slider-blog-thumb-2.jpg"
-                  class="object-cover h-96"
-                />
-                <div
-                  class="bg-black top-0 right-0 left-0 absolute w-full h-96 group-hover:opacity-75 opacity-0 transition-all duration-150"
-                ></div>
+            </a>
+            <a href="product_details.html" class="swiper-slide">
+              <div>
+                <div class="relative group">
+                  <img
+                    src="https://dreamingtheme.kiendaotac.com/html/stelina/assets/images/slider-blog-thumb-2.jpg"
+                    class="object-cover h-96"
+                  />
+                  <div
+                    class="bg-black top-0 right-0 left-0 absolute w-full h-96 group-hover:opacity-75 opacity-0 transition-all duration-150"
+                  ></div>
+                </div>
+                <p class="text-hard mt-2 mb-1 text-xs font-medium">
+                  August 17,9:14 AM
+                </p>
+                <h3 class="mb-4 text-xl font-medium text-black">
+                  We bring you the best
+                </h3>
+                <p class="text-hard mb-2">
+                  Lorem ipsum dolor, sit amet consectetur adipisicing elit. A
+                  fugiat reprehenderit odio consectetur sequi hic accusamus
+                  explicabo ex repudiandae perspiciatis!
+                </p>
+                <button
+                  class="text-sm font-bold pb-2 border-b-2 uppercase border-black"
+                >
+                  Shop Now
+                </button>
               </div>
-              <p class="text-hard mt-2 mb-1 text-xs font-medium">
-                August 17,9:14 AM
-              </p>
-              <h3 class="mb-4 text-xl font-medium text-black">
-                We bring you the best
-              </h3>
-              <p class="text-hard mb-2">
-                Lorem ipsum dolor, sit amet consectetur adipisicing elit. A
-                fugiat reprehenderit odio consectetur sequi hic accusamus
-                explicabo ex repudiandae perspiciatis!
-              </p>
-              <button
-                class="text-sm font-bold pb-2 border-b-2 uppercase border-black"
-              >
-                Shop Now
-              </button>
-            </div>
-          </a>
-          <a href="product_details.html" class="swiper-slide">
-            <div>
-              <div class="relative group">
-                <img
-                  src="https://dreamingtheme.kiendaotac.com/html/stelina/assets/images/slider-blog-thumb-2.jpg"
-                  class="object-cover h-96"
-                />
-                <div
-                  class="bg-black top-0 right-0 left-0 absolute w-full h-96 group-hover:opacity-75 opacity-0 transition-all duration-150"
-                ></div>
+            </a>
+            <a href="product_details.html" class="swiper-slide">
+              <div>
+                <div class="relative group">
+                  <img
+                    src="https://dreamingtheme.kiendaotac.com/html/stelina/assets/images/slider-blog-thumb-2.jpg"
+                    class="object-cover h-96"
+                  />
+                  <div
+                    class="bg-black top-0 right-0 left-0 absolute w-full h-96 group-hover:opacity-75 opacity-0 transition-all duration-150"
+                  ></div>
+                </div>
+                <p class="text-hard mt-2 mb-1 text-xs font-medium">
+                  August 17,9:14 AM
+                </p>
+                <h3 class="mb-4 text-xl font-medium text-black">
+                  We bring you the best
+                </h3>
+                <p class="text-hard mb-2">
+                  Lorem ipsum dolor, sit amet consectetur adipisicing elit. A
+                  fugiat reprehenderit odio consectetur sequi hic accusamus
+                  explicabo ex repudiandae perspiciatis!
+                </p>
+                <button
+                  class="text-sm font-bold pb-2 border-b-2 uppercase border-black"
+                >
+                  Shop Now
+                </button>
               </div>
-              <p class="text-hard mt-2 mb-1 text-xs font-medium">
-                August 17,9:14 AM
-              </p>
-              <h3 class="mb-4 text-xl font-medium text-black">
-                We bring you the best
-              </h3>
-              <p class="text-hard mb-2">
-                Lorem ipsum dolor, sit amet consectetur adipisicing elit. A
-                fugiat reprehenderit odio consectetur sequi hic accusamus
-                explicabo ex repudiandae perspiciatis!
-              </p>
-              <button
-                class="text-sm font-bold pb-2 border-b-2 uppercase border-black"
-              >
-                Shop Now
-              </button>
-            </div>
-          </a>
-          <a href="product_details.html" class="swiper-slide">
-            <div>
-              <div class="relative group">
-                <img
-                  src="https://dreamingtheme.kiendaotac.com/html/stelina/assets/images/slider-blog-thumb-2.jpg"
-                  class="object-cover h-96"
-                />
-                <div
-                  class="bg-black top-0 right-0 left-0 absolute w-full h-96 group-hover:opacity-75 opacity-0 transition-all duration-150"
-                ></div>
+            </a>
+            <a href="product_details.html" class="swiper-slide">
+              <div>
+                <div class="relative group">
+                  <img
+                    src="https://dreamingtheme.kiendaotac.com/html/stelina/assets/images/slider-blog-thumb-2.jpg"
+                    class="object-cover h-96"
+                  />
+                  <div
+                    class="bg-black top-0 right-0 left-0 absolute w-full h-96 group-hover:opacity-75 opacity-0 transition-all duration-150"
+                  ></div>
+                </div>
+                <p class="text-hard mt-2 mb-1 text-xs font-medium">
+                  August 17,9:14 AM
+                </p>
+                <h3 class="mb-4 text-xl font-medium text-black">
+                  We bring you the best
+                </h3>
+                <p class="text-hard mb-2">
+                  Lorem ipsum dolor, sit amet consectetur adipisicing elit. A
+                  fugiat reprehenderit odio consectetur sequi hic accusamus
+                  explicabo ex repudiandae perspiciatis!
+                </p>
+                <button
+                  class="text-sm font-bold pb-2 border-b-2 uppercase border-black"
+                >
+                  Shop Now
+                </button>
               </div>
-              <p class="text-hard mt-2 mb-1 text-xs font-medium">
-                August 17,9:14 AM
-              </p>
-              <h3 class="mb-4 text-xl font-medium text-black">
-                We bring you the best
-              </h3>
-              <p class="text-hard mb-2">
-                Lorem ipsum dolor, sit amet consectetur adipisicing elit. A
-                fugiat reprehenderit odio consectetur sequi hic accusamus
-                explicabo ex repudiandae perspiciatis!
-              </p>
-              <button
-                class="text-sm font-bold pb-2 border-b-2 uppercase border-black"
-              >
-                Shop Now
-              </button>
-            </div>
-          </a>
+            </a>
           </div>
           <div class="news-swiper-pagination"></div>
-
         </div>
       </div>
     </section>
@@ -3627,7 +3630,7 @@
             <li
               class="hover:underline hover:italic transition-all duration-150 cursor-pointer"
             >
-              <a href="shop.html">Shop</a>
+              <a href="blog.html">Blogs</a>
             </li>
             <li
               class="hover:underline hover:italic transition-all duration-150 cursor-pointer"
