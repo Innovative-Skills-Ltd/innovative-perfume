@@ -86,6 +86,7 @@ class HomePage extends Component
                                     ->get()
                                     ->take(10);
         $n['features'] = $pd;
+        
         $n['student_laptops'] = Product::where('cat_id',39)
                                 ->orderBy('serial','desc')
                                 ->get();
