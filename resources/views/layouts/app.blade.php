@@ -8,6 +8,7 @@
     <script defer src="/dist/alpine.js"></script>
     <link rel="stylesheet" href="/dist/output.css">
     <link rel="icon" href="/product/figma.png" type="img/svg"> --}}
+  
 
 
     @livewireStyles

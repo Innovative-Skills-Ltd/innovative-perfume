@@ -117,7 +117,7 @@
                     @endif
                     {!! __('of') !!}
                     <span class="font-medium">{{ $paginator->total() }}</span>
-                    {!! __('results') !!} ({{round($paginator->total()/$paginator->count())}} pages)
+                    {!! __('results') !!} ({{round($paginator->total()/($paginator->count()?: 1))}} pages)
                 </p>
             </div>
         </div>
