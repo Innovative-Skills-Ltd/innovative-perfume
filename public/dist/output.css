@@ -1550,6 +1550,18 @@ input[type="range"]:active::-webkit-slider-thumb{
   margin-top: auto;
 }
 
+.-mt-px{
+  margin-top: -1px;
+}
+
+.ml-12{
+  margin-left: 3rem;
+}
+
+.ml-4{
+  margin-left: 1rem;
+}
+
 .box-border{
   box-sizing: border-box;
 }
@@ -1894,6 +1906,10 @@ input[type="range"]:active::-webkit-slider-thumb{
   height: 100vh;
 }
 
+.h-16{
+  height: 4rem;
+}
+
 .max-h-\[calc\(100\%-64px\)\]{
   max-height: calc(100% - 64px);
 }
@@ -1920,6 +1936,10 @@ input[type="range"]:active::-webkit-slider-thumb{
 
 .min-h-\[auto\]{
   min-height: auto;
+}
+
+.min-h-screen{
+  min-height: 100vh;
 }
 
 .\!w-px{
@@ -2284,6 +2304,14 @@ input[type="range"]:active::-webkit-slider-thumb{
 
 .max-w-md{
   max-width: 28rem;
+}
+
+.max-w-6xl{
+  max-width: 72rem;
+}
+
+.max-w-xl{
+  max-width: 36rem;
 }
 
 .flex-1{
@@ -3141,6 +3169,10 @@ input[type="range"]:active::-webkit-slider-thumb{
   border-top-width: 2px;
 }
 
+.border-r{
+  border-right-width: 1px;
+}
+
 .\!border-solid{
   border-style: solid !important;
 }
@@ -3242,6 +3274,21 @@ input[type="range"]:active::-webkit-slider-thumb{
 .border-white{
   --tw-border-opacity: 1;
   border-color: rgb(255 255 255 / var(--tw-border-opacity));
+}
+
+.border-red-400{
+  --tw-border-opacity: 1;
+  border-color: rgb(248 113 113 / var(--tw-border-opacity));
+}
+
+.border-gray-200{
+  --tw-border-opacity: 1;
+  border-color: rgb(229 231 235 / var(--tw-border-opacity));
+}
+
+.border-gray-400{
+  --tw-border-opacity: 1;
+  border-color: rgb(156 163 175 / var(--tw-border-opacity));
 }
 
 .border-b-\[\#3535354D\]{
@@ -3480,6 +3527,16 @@ input[type="range"]:active::-webkit-slider-thumb{
 .bg-\[\#380E37\]{
   --tw-bg-opacity: 1;
   background-color: rgb(56 14 55 / var(--tw-bg-opacity));
+}
+
+.bg-red-500{
+  --tw-bg-opacity: 1;
+  background-color: rgb(239 68 68 / var(--tw-bg-opacity));
+}
+
+.bg-red-100{
+  --tw-bg-opacity: 1;
+  background-color: rgb(254 226 226 / var(--tw-bg-opacity));
 }
 
 .bg-opacity-50{
@@ -4145,6 +4202,10 @@ input[type="range"]:active::-webkit-slider-thumb{
   padding-top: 6px;
 }
 
+.pt-8{
+  padding-top: 2rem;
+}
+
 .text-left{
   text-align: left;
 }
@@ -4461,6 +4522,10 @@ input[type="range"]:active::-webkit-slider-thumb{
   line-height: 1.5;
 }
 
+.leading-7{
+  line-height: 1.75rem;
+}
+
 .tracking-\[-0\.00833em\]{
   letter-spacing: -0.00833em;
 }
@@ -4499,6 +4564,10 @@ input[type="range"]:active::-webkit-slider-thumb{
 
 .tracking-wide{
   letter-spacing: 0.025em;
+}
+
+.tracking-wider{
+  letter-spacing: 0.05em;
 }
 
 .\!text-\[\#14a44d\]{
@@ -4826,6 +4895,11 @@ input[type="range"]:active::-webkit-slider-thumb{
   color: rgb(255 255 255 / var(--tw-text-opacity));
 }
 
+.text-red-700{
+  --tw-text-opacity: 1;
+  color: rgb(185 28 28 / var(--tw-text-opacity));
+}
+
 .underline{
   -webkit-text-decoration-line: underline;
           text-decoration-line: underline;
@@ -4856,6 +4930,11 @@ input[type="range"]:active::-webkit-slider-thumb{
 
 .underline-offset-auto{
   text-underline-offset: auto;
+}
+
+.antialiased{
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 .placeholder-\[\#C4C4C4\]::-moz-placeholder{
@@ -6589,6 +6668,11 @@ input[type="range"]:active::-webkit-slider-thumb{
   background-color: rgb(39 39 42 / var(--tw-bg-opacity));
 }
 
+:is(.dark .dark\:bg-gray-900){
+  --tw-bg-opacity: 1;
+  background-color: rgb(17 24 39 / var(--tw-bg-opacity));
+}
+
 :is(.dark .dark\:fill-gray-400){
   fill: #9ca3af;
 }
@@ -7409,6 +7493,10 @@ input[type="range"]:active::-webkit-slider-thumb{
 }
 
 @media (min-width: 640px){
+  .sm\:inline{
+    display: inline;
+  }
+
   .sm\:flex{
     display: flex;
   }
@@ -7425,8 +7513,21 @@ input[type="range"]:active::-webkit-slider-thumb{
     align-items: center;
   }
 
+  .sm\:justify-start{
+    justify-content: flex-start;
+  }
+
   .sm\:justify-between{
     justify-content: space-between;
+  }
+
+  .sm\:px-6{
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+
+  .sm\:pt-0{
+    padding-top: 0px;
   }
 }
 
@@ -7590,6 +7691,11 @@ input[type="range"]:active::-webkit-slider-thumb{
 @media (min-width: 1024px){
   .lg\:flex{
     display: flex;
+  }
+
+  .lg\:px-8{
+    padding-left: 2rem;
+    padding-right: 2rem;
   }
 }
 

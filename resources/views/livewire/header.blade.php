@@ -9,17 +9,25 @@
         <div class="container mx-auto px-2 md:px-0 flex items-center justify-between text-white">
             <span class="">Welcome to our online store!</span>
             <div class="flex items-center gap-2">
+                @if(auth()->user())
+                <a href="{{ route('user.logout') }}">
+                    <button class="cursor-pointer hover:italic hover:underline transition-all duration-300 ease-in-out">
+                        Logout
+                    </button>
+                </a>
+                @else
                 <a href="{{ route('user.login') }}">
                     <button class="cursor-pointer hover:italic hover:underline transition-all duration-300 ease-in-out">
                         Login
                     </button>
                 </a>
                 <span>or</span>
-                <a href="{{ route('user.register') }}">
+                <a href="{{ route('user.login') }}">
                     <button class="cursor-pointer hover:italic hover:underline transition-all duration-300 ease-in-out">
                         Register
                     </button>
                 </a>
+                @endif
             </div>
         </div>
     </section>
