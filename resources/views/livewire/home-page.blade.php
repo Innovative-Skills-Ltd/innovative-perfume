@@ -331,12 +331,12 @@
         <div class="container mx-auto px-2 md:px-0">
             <div class="flex flex-wrap gap-5 items-center justify-center mb-14">
                 <div class="mx-5">
-                    <button class="font-medium text-lg rounded-full bg-primary text-white py-2 px-6">
+                    <button class="font-medium text-lg rounded-full bg-black text-white py-2 px-6">
                         Bestseller
                     </button>
                 </div>
                 <div class="mx-5">
-                    <button class="font-medium text-lg rounded-full bg-black text-white py-2 px-6">
+                    <button class="font-medium text-lg rounded-full bg-primary text-white py-2 px-6">
                         New Arrivals
                     </button>
                 </div>
@@ -348,11 +348,12 @@
             </div>
             <div class="grid grid-cols-1 md:grid-cols-4 gap-5"></div>
             <div class="grid grid-cols-1 md:grid-cols-4 gap-5">
+                @foreach ($new_arrival as $new_arra)
                 <a href="product_details.html">
                     <div class="group cursor-pointer">
                         <div class="border group-hover:border-[#ab8e66] transition-all duration-300">
                             <div class="relative w-full">
-                                <img src="https://dreamingtheme.kiendaotac.com/html/stelina/assets/images/product-item-17.jpg"
+                                <img src="{{$new_arra->photo}}"
                                     class="w-full" />
                                 <div class="top-0 left-0 right-0 bottom-0 m-auto absolute h-full">
                                     <div class="h-full flex items-center justify-center">
@@ -392,7 +393,7 @@
                                 </div>
                             </div>
                             <h3 class="text-primary text-lg font-medium text-center mt-5 mb-2">
-                                Glorious Eau
+                                {{$new_arra->title}}
                             </h3>
                             <div>
                                 <div class="flex items-center justify-center w-full">
@@ -423,13 +424,14 @@
                                     </svg>
                                 </div>
                                 <h4 class="text-sm text-center pb-3">
-                                    <del class="">$65</del>
-                                    <span class="font-bold text-black">$45</span>
+                                    <del class="">{{$new_arra->price}}</del>
+                                    <span class="font-bold text-black">{{$new_arra->price - $new_arra->discount}}</span>
                                 </h4>
                             </div>
                         </div>
                     </div>
                 </a>
+                @endforeach
                 <a href="product_details.html">
                     <div class="group cursor-pointer">
                         <div class="border group-hover:border-[#ab8e66] transition-all duration-300">
