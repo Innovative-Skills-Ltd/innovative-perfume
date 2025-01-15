@@ -151,7 +151,7 @@
             <div class="swiper deals-of-the-day-swiper pb-20">
                 <div class="swiper-wrapper pb-5">
                     @foreach($new_arrival as $na)
-                        <a class="swiper-slide" href="product_details.html">
+                        <a class="swiper-slide" href="{{route('product.details', $na->slug)}}">
                             <div class="group cursor-pointer">
                                 <div class="border group-hover:border-[#ab8e66] transition-all duration-300">
                                     <div class="relative w-full">
