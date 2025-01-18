@@ -378,6 +378,7 @@ Route::get('/category-searching-product/{cat?}', SearchingProduct::class)->name(
 Route::get('/product-details/{slug}', ProductDeatils::class)->name('product.details');
 Route::get('/checkout', Checkout::class)->name('checkout');
 Route::get('/view-cart', ViewCart::class)->name('vcart');
+Route::get('/create-cart/{slug}', CreateCart::class)->name('create_cart');
 Route::get('/user/register', Signup::class)->name('user.register');
 Route::get('/user/login', Login::class)->name('user.login');
 Route::get('/user/forget-password', ForgetPassword::class)->name('user.fp');
