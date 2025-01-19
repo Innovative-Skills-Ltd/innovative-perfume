@@ -121,7 +121,7 @@ Route::get('storage-link', [AdminController::class, 'storageLink'])->name('stora
 
 
 Auth::routes(['register' => false,'login' => false]);
-Route::get('/admin-panel/login',[LoginController::class,'showLoginForm'])->name('login');
+Route::get('/admin-panel/login',[LoginStoreController::class,'showLoginForm'])->name('login');
 Route::post('/admin-panel/login',[LoginStoreController::class,'login'])->name('login');
 
 Route::get('user/login', [FrontendController::class, 'login'])->name('login.form');
