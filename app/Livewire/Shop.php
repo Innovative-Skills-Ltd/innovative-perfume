@@ -56,7 +56,7 @@ class Shop extends Component
                 break;
         }
 
-        $n['products'] = $query->paginate(1);
+        $n['products'] = $query->paginate(20);
         $n['brands'] = Brand::get();
         $n['p_models'] = ProcessorModel::get();
         $n['p_generations'] = ProcessorGeneration::get();

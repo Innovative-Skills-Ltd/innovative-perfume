@@ -91,6 +91,7 @@ class ProductDeatils extends Component
         $n['related_products'] = Product::where('status', 'active')
                                     ->where('cat_id', $n['product']->cat_id)
                                     // ->where('is_showable_to_user',1)
+                                    ->where('id', '!=', $n['product']->id)
                                     ->get();
         return view('livewire.product-deatils', $n);
     }

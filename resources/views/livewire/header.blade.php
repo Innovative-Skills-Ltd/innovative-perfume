@@ -138,7 +138,7 @@
             </div>
             <div class="flex items-center justify-between gap-4">
                 <div class="relative">
-                    <a href="shopping_cart.html">
+                    <a href="{{route('vcart')}}">
                         <span
                             class="bg-primary absolute -top-3 -right-2 p-[2px] w-[20px] h-[20px] text-sm flex items-center justify-center text-white rounded-full">0</span>
                         <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 16 16">
@@ -148,7 +148,7 @@
                     </a>
                 </div>
                 <div>
-                    <a href="authentication.html">
+                    <a href="{{route('user.login')}}">
                         <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 16 16">
                             <path fill="#000"
                                 d="M10.561 8.073a6 6 0 0 1 3.432 5.142a.75.75 0 1 1-1.498.07a4.5 4.5 0 0 0-8.99 0a.75.75 0 0 1-1.498-.07a6 6 0 0 1 3.431-5.142a3.999 3.999 0 1 1 5.123 0M10.5 5a2.5 2.5 0 1 0-5 0a2.5 2.5 0 0 0 5 0" />

@@ -64,7 +64,7 @@
                     @csrf
                         <div>
                             <div class="mb-5">
-                                <label class="text-sm mb-1">Username or Email</label>
+                                <label class="text-sm mb-1">Email</label>
                                 <input  name="email" class="py-2 px-5 border w-full rounded-full" type="email" />
                                 @error('email')
                                     <span class="text-red-500 text-sm">{{ $message }}</span>
@@ -82,7 +82,7 @@
                                     <input wire:model="remember" type="checkbox" />
                                     <span class="text-sm text-secondary">Remember Me</span>
                                 </div>
-                                <a href="{{ route('user.fp') }}" class="text-sm">Forgot password?</a>
+                                <a href="#" class="text-sm">Forgot password?</a>
                             </div>
 
                             <button type="submit" class="py-2 px-5 text-white bg-primary rounded-full text-sm">

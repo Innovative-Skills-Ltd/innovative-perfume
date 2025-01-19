@@ -4,6 +4,7 @@ namespace App\Livewire;
 
 use App\Models\Cart;
 use App\Models\Coupon;
+use App\Models\Product;
 use Illuminate\Support\Facades\Session;
 use Livewire\Component;
 use Livewire\Attributes\Title;
@@ -12,6 +13,20 @@ use Livewire\Attributes\Title;
 
 class ViewCart extends Component
 {
+
+    public $user;
+
+
+    public function mount($slug = null){
+        $this->slug = $slug;
+
+        //User checking
+        $this->user = auth()->user();
+        if(!$this->user){
+            return $this->redirect(route('user.login'),navigate:false);
+        }
+
+    }
 
     public function toCheckout(){
         return $this->redirect(route('checkout'),navigate:true);
@@ -25,16 +40,14 @@ class ViewCart extends Component
 
     public function render()
     {
+
         if($coupon_id = Session::get('coupon_id')){
             $n['coupon'] = Coupon::find($coupon_id);
         }else{
             $n['coupon'] = 0;
         }
-        if($user = auth()->user()){
-            $n['carts'] = Cart::with('product')->where('user_id',$user->id)->where('order_id', null)->latest()->get();
-        }else{
-            $n['carts'] = Cart::with('product')->where('ip',request()->ip())->where('order_id', null)->latest()->get();
-        }
+
+        $n['carts'] = Cart::with('product')->where('user_id',$this->user->id)->where('order_id', null)->latest()->get();
         return view('livewire.view-cart',$n);
     }
 }

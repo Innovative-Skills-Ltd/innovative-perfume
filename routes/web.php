@@ -3,6 +3,8 @@
 
 <?php
 
+use App\Livewire\CheckoutStore;
+use App\Livewire\SingleCheckoutStore;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Artisan;
 use App\Http\Controllers\AdminController;
@@ -55,6 +57,7 @@ use App\Livewire\CatWiseShop;
 use App\Livewire\ChangePassword;
 use App\Livewire\Checkout;
 use App\Livewire\ConfirmPassword;
+use App\Livewire\CreateCart;
 use App\Livewire\EditProfile;
 use App\Livewire\ForgetPassword;
 use App\Livewire\HomePage;
@@ -377,7 +380,9 @@ Route::get('/search/{stext?}/{cat?}', SearchingProduct::class)->name('searching_
 Route::get('/category-searching-product/{cat?}', SearchingProduct::class)->name('cat.search.product');
 Route::get('/product-details/{slug}', ProductDeatils::class)->name('product.details');
 Route::get('/checkout', Checkout::class)->name('checkout');
+Route::post('/checkout', CheckoutStore::class)->name('checkout.store');
 Route::get('/view-cart', ViewCart::class)->name('vcart');
+Route::get('/create-cart/{slug}', CreateCart::class)->name('create_cart');
 Route::get('/user/register', Signup::class)->name('user.register');
 Route::get('/user/login', Login::class)->name('user.login');
 Route::get('/user/forget-password', ForgetPassword::class)->name('user.fp');
@@ -402,6 +407,7 @@ Route::get('/add-to-cart', [AjaxController::class, 'addToCart'])->name('add_to_c
 Route::get('/order-received/{order_number}', OrderReceived::class)->name('order.receive');
 Route::post('/product-review', [AjaxController::class, 'productReview'])->name('product_review');
 Route::get('/coupon-fetch', [AjaxController::class, 'couponFetch'])->name('coupon.fetch');
+
 Route::get('/single-checkout/{pslug}', SingleCheckout::class)->name('single_checkout');
 Route::get('/installment-checkout/{pslug}', InstallmentCheckout::class)->name('installment_checkout');
 
