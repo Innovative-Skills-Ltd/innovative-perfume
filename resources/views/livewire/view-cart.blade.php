@@ -12,10 +12,12 @@
             <h2 class="text-xl font-semibold mb-10 uppercase">SHOPPING CART</h2>
         </div>
         <div class="container mx-auto px-2 md:px-0">
-            <form action="">
+            <form action="{{route('checkout')}}" method="POST">
+                @csrf
                 <div>
                     <table class="border rounded-md w-full">
                         @foreach ($carts as $cart)
+                        <input type="hidden" name="product[{{$loop->index}}][slug]" value="{{$cart->product->slug}}">
                         @php
                             $photo = explode(',', $cart->product->photo);
                         @endphp
@@ -34,7 +36,7 @@
                                     <div class="flex">
                                         <div class="border px-1 flex items-center justify-center gap-2">
                                             <span class="text-secondary">-</span>
-                                            <input type="number" value="{{$cart->quantity}}" class="w-10 text-center">
+                                            <input type="number" name="product[{{$loop->index}}][quantity]" value="{{$cart->quantity}}" class="w-10 text-center">
                                             <span class="text-secondary">+</span>
                                         </div>
                                     </div>

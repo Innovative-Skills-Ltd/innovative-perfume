@@ -23,7 +23,7 @@ use Illuminate\Support\Str;
 
 #[Title('Checkout')]
 
-class SingleCheckout extends Component
+class CheckoutStore extends Component
 {
     public $pslug;
 
@@ -70,13 +70,22 @@ class SingleCheckout extends Component
 
     public function mount()
     {
+        $user = auth()->user();
         $request = request();
-        $product = Product::where('slug', $this->pslug)->where('is_showable_to_user',1)->first();
-        if ($product->stock < 1) {
-            session()->flash('error', 'Stock not sufficient');
-            $this->redirect(url()->previous(), navigate: true);
+        foreach($request->product as $product){
+            $stock_product = Product::where('slug', $product['slug'])->where('is_showable_to_user',1)->first();
+            if ($stock_product->stock < $product['quantity']) {
+                session()->flash('error', "Stock not sufficient for the product {$stock_product->title}. Available stock is $stock_product->stock");
+                $this->redirect(url()->previous(), navigate: true);
+            }
+            $already_cart = Cart::where('user_id', $user->id)->where('order_id',null)->where('product_id', $stock_product->id)->first();
+            if($already_cart){
+                $already_cart->quantity = $product['quantity'];
+                $already_cart->save();
+            }
+
         }
-        $this->product = $product;
+        $this->redirect(route('checkout'), navigate: false);
     }
 
     public function orderSubmit()
