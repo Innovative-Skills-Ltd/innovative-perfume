@@ -16,7 +16,7 @@
                           <a href="{{ route('about_us') }}">About</a>
                       </li>
                       <li class="hover:underline hover:italic transition-all duration-150 cursor-pointer">
-                          <a href="{{ route('blog') }}">Blogs</a>
+                          <a href="{{ route('blogs') }}">Blogs</a>
                       </li>
                       <li class="hover:underline hover:italic transition-all duration-150 cursor-pointer">
                           <a href="{{ route('user.login') }}">Login</a>

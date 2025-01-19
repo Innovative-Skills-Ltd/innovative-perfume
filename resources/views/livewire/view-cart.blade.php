@@ -16,10 +16,14 @@
                 @csrf
                 <div>
                     <table class="border rounded-md w-full">
+                        @php
+                            $total_price = 0;
+                        @endphp
                         @foreach ($carts as $cart)
                         <input type="hidden" name="product[{{$loop->index}}][slug]" value="{{$cart->product->slug}}">
                         @php
                             $photo = explode(',', $cart->product->photo);
+                            $total_price += $cart->product->final_price * $cart->quantity;
                         @endphp
                             <tr class="border-b">
                                 <td class="p-7">
@@ -42,7 +46,7 @@
                                     </div>
                                 </td>
                                 <td class="p-7 ps-0">
-                                    <span class="text-xl font-medium">{{$cart->product->final_price * $cart->quantity}}</span>
+                                    <span class="text-xl font-medium">${{$cart->product->final_price * $cart->quantity}}</span>
                                 </td>
                                 <td class="py-7">
                                     <span class="text-xl font-medium"><svg xmlns="http://www.w3.org/2000/svg" width="14"
@@ -72,7 +76,7 @@
                         </div>
                         <div>
                             <span class="font-medium">Total Price: $</span>
-                            <span class="text-xl font-medium">95</span>
+                            <span class="text-xl font-medium">{{$total_price}}</span>
                         </div>
                     </div>
                     <div class="mt-7 flex items-center justify-end gap-5">

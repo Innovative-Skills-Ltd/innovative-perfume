@@ -3,6 +3,7 @@
 
 <?php
 
+use App\Livewire\Blog;
 use App\Livewire\CheckoutStore;
 use App\Livewire\SingleCheckoutStore;
 use Illuminate\Support\Facades\Route;
@@ -57,6 +58,7 @@ use App\Livewire\CatWiseShop;
 use App\Livewire\ChangePassword;
 use App\Livewire\Checkout;
 use App\Livewire\ConfirmPassword;
+use App\Livewire\Contact;
 use App\Livewire\CreateCart;
 use App\Livewire\EditProfile;
 use App\Livewire\ForgetPassword;
@@ -73,6 +75,7 @@ use App\Livewire\TermComdition;
 use App\Livewire\Offer;
 use App\Livewire\OrderConfirm;
 use App\Livewire\OrderReceived;
+use App\Livewire\OrderStore;
 use App\Livewire\OtpConfirm;
 use App\Livewire\RedirectToPay;
 use App\Livewire\ResetPassword;
@@ -81,6 +84,7 @@ use App\Livewire\ReviewPost;
 use App\Livewire\SearchingProduct;
 use App\Livewire\SingleCheckout;
 use App\Livewire\StudentLaptop;
+use App\Livewire\ThankYou;
 use App\Livewire\Video;
 use App\Livewire\ViewCart;
 use App\Livewire\Wishlist;
@@ -137,7 +141,7 @@ Route::get('login/{provider}/callback', [LoginController::class, 'Callback'])->n
 // Frontend Routes
 Route::get('/home', [FrontendController::class, 'index']);
 // Route::get('/about-us', [FrontendController::class, 'aboutUs'])->name('about-us');
-Route::get('/blogs', [FrontendController::class, 'blog'])->name('blogs');
+// Route::get('/blogs', [FrontendController::class, 'blog'])->name('blogs');
 Route::get('/contact', [FrontendController::class, 'contact'])->name('contact');
 Route::post('/contact/message', [MessageController::class, 'store'])->name('contact.store');
 Route::get('/product-detail/{slug}', [FrontendController::class, 'productDetail'])->name('product-detail');
@@ -172,13 +176,14 @@ Route::match(['get', 'post'], '/filter', [FrontendController::class, 'productFil
 // Order Track
 Route::get('/product/track', [OrderController::class, 'orderTrack'])->name('order.track');
 Route::post('product/track/order', [OrderController::class, 'productTrackOrder'])->name('product.track.order');
+
 // Blog
-Route::get('/blog', [FrontendController::class, 'blog'])->name('blog');
-Route::get('/blog-detail/{slug}', [FrontendController::class, 'blogDetail'])->name('blog.detail');
-Route::get('/blog/search', [FrontendController::class, 'blogSearch'])->name('blog.search');
-Route::post('/blog/filter', [FrontendController::class, 'blogFilter'])->name('blog.filter');
-Route::get('blog-cat/{slug}', [FrontendController::class, 'blogByCategory'])->name('blog.category');
-Route::get('blog-tag/{slug}', [FrontendController::class, 'blogByTag'])->name('blog.tag');
+// Route::get('/blog', [FrontendController::class, 'blog'])->name('blog');
+// Route::get('/blog-detail/{slug}', [FrontendController::class, 'blogDetail'])->name('blog.detail');
+// Route::get('/blog/search', [FrontendController::class, 'blogSearch'])->name('blog.search');
+// Route::post('/blog/filter', [FrontendController::class, 'blogFilter'])->name('blog.filter');
+// Route::get('blog-cat/{slug}', [FrontendController::class, 'blogByCategory'])->name('blog.category');
+// Route::get('blog-tag/{slug}', [FrontendController::class, 'blogByTag'])->name('blog.tag');
 
 // NewsLetter
 Route::post('/subscribe', [FrontendController::class, 'subscribe'])->name('subscribe');
@@ -381,9 +386,13 @@ Route::get('/category-searching-product/{cat?}', SearchingProduct::class)->name(
 Route::get('/product-details/{slug}', ProductDeatils::class)->name('product.details');
 Route::get('/checkout', Checkout::class)->name('checkout');
 Route::post('/checkout', CheckoutStore::class)->name('checkout.store');
+Route::post('/order/store', OrderStore::class)->name('user.order.store');
 Route::get('/view-cart', ViewCart::class)->name('vcart');
 Route::get('/create-cart/{slug}', CreateCart::class)->name('create_cart');
-Route::get('/user/register', Signup::class)->name('user.register');
+Route::get('/thank-you/{order_number}', ThankYou::class)->name('thank_you');
+Route::get('/blogs', Blog::class)->name('blogs');
+Route::get('/contact', Contact::class)->name('contact');
+Route::get('/user/register', action: Signup::class)->name('user.register');
 Route::get('/user/login', Login::class)->name('user.login');
 Route::get('/user/forget-password', ForgetPassword::class)->name('user.fp');
 Route::get('/user/reset-password', ResetPassword::class)->name('user.rp');
