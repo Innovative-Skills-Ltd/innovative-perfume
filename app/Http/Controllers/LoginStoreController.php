@@ -12,33 +12,32 @@ class LoginStoreController extends Controller
 {
     public function showLoginForm()
     {
-        Log::info('Form Load Session:', [
-            'session_id' => session()->getId(),
-            'token' => csrf_token(),
-            'session_path' => config('session.files'),
-            'domain' => config('session.domain')
-        ]);
 
         return view('auth.login');
     }
     public function login(Request $request){
-        Log::info('Form Load Session:', [
-            'session_id' => session()->getId(),
-            'token' => csrf_token(),
-            'session_path' => config('session.files'),
-            'domain' => config('session.domain')
+        $this->validate($request,[
+            'email'=>'required|email|exists:users,email',
+            'password'=>'required',
         ]);
-       $email = $request->email;
-       $password = $request->password;
-       $this->validate($request,[
-        'email'=>'required|email|exists:users,email',
-        'password'=>'required',
-       ]);
 
-       if(Auth::attempt(['email'=>$email,'password'=>$password])){
-        return redirect()->route('admin');
-       }else{
+        $credentials = [
+            'email' => $request->email,
+            'password' => $request->password,
+            'status' => 'active'  // if you have a status field
+        ];
+
+        if(Auth::attempt($credentials)){
+            $request->session()->regenerate(); // Important for security
+
+            if(Auth::user()->can('Dashboard')){
+                return redirect()->intended(route('admin'));
+            } else {
+                Auth::logout();
+                return redirect()->back()->with('error','You do not have admin access');
+            }
+        }
+
         return redirect()->back()->with('error','Invalid credentials');
-       }
     }
 }
