@@ -119,7 +119,7 @@
                                 </span>
                             </div>
                             <div>
-                                <a href="{{route('add-to-cart', $product->slug)}}">
+                                <a href="{{route('create_cart', $product->slug)}}">
                                     <span class="p-2 px-4 text-xs rounded-full bg-primary text-white font-bold">
                                         ADD TO CART
                                     </span>

@@ -16,12 +16,13 @@ class CartController extends Controller
     }
 
     public function addToCart(Request $request){
-      
+
         // dd($request->all());
         if (empty($request->slug)) {
             request()->session()->flash('error','Invalid Products');
             return back();
         }
+
         $product = Product::where('slug', $request->slug)->first();
         // return $product;
         if (empty($product)) {

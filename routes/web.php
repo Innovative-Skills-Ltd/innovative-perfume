@@ -55,6 +55,7 @@ use App\Livewire\CatWiseShop;
 use App\Livewire\ChangePassword;
 use App\Livewire\Checkout;
 use App\Livewire\ConfirmPassword;
+use App\Livewire\CreateCart;
 use App\Livewire\EditProfile;
 use App\Livewire\ForgetPassword;
 use App\Livewire\HomePage;
