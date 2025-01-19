@@ -140,7 +140,7 @@
                 <div class="relative">
                     <a href="{{route('vcart')}}">
                         <span
-                            class="bg-primary absolute -top-3 -right-2 p-[2px] w-[20px] h-[20px] text-sm flex items-center justify-center text-white rounded-full">0</span>
+                            class="bg-primary absolute -top-3 -right-2 p-[2px] w-[20px] h-[20px] text-sm flex items-center justify-center text-white rounded-full">{{$cart_count}}</span>
                         <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 16 16">
                             <path fill="#000"
                                 d="M2.5 2a.5.5 0 0 0 0 1h.246a.5.5 0 0 1 .48.363l1.586 5.55A1.5 1.5 0 0 0 6.254 10h4.569a1.5 1.5 0 0 0 1.393-.943l1.474-3.686A1 1 0 0 0 12.762 4H4.448l-.261-.912A1.5 1.5 0 0 0 2.746 2zm3.274 6.637L4.734 5h8.028l-1.475 3.686a.5.5 0 0 1-.464.314H6.254a.5.5 0 0 1-.48-.363M6.5 14a1.5 1.5 0 1 0 0-3a1.5 1.5 0 0 0 0 3m0-1a.5.5 0 1 1 0-1a.5.5 0 0 1 0 1m4 1a1.5 1.5 0 1 0 0-3a1.5 1.5 0 0 0 0 3m0-1a.5.5 0 1 1 0-1a.5.5 0 0 1 0 1" />
@@ -263,7 +263,7 @@
                                 <a href="{{ route('about_us') }}">About</a>
                             </li>
                             <li class="hover:bg-gray-200 cursor-pointer border-b p-4">
-                                <a href="{{ route('blog') }}">Blogs</a>
+                                <a href="{{ route('blogs') }}">Blogs</a>
                             </li>
                         </ul>
                     </div>
@@ -273,7 +273,7 @@
                     <li><a href="{{ route('home') }}">Home</a></li>
                     <li><a href="{{ route('shop') }}">Shop</a></li>
                     <li><a href="{{ route('about_us') }}">About</a></li>
-                    <li><a href="{{ route('blog') }}">Blogs</a></li>
+                    <li><a href="{{ route('blogs') }}">Blogs</a></li>
                 </ul>
             </div>
         </div>

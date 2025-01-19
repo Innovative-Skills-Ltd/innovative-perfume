@@ -60,7 +60,7 @@
                                     <td>{{ $order->name }} {{ $order->l_name }}</td>
                                     <td>{{ $order->email }}</td>
                                     <td>{{ $order->quantity }}</td>
-                                    <td>{{ $order->shipping->price }}</td>
+                                    <td>{{ $order->shipping?->price }}</td>
                                     <td>৳{{ number_format($order->amount, 2) }}</td>
                                     <td>
                                        {{$order->payment_status}}
