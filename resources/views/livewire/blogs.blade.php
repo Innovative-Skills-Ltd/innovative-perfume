@@ -17,6 +17,7 @@
                       <span class="block mt-4 mb-3 text-xs font-medium text-secondary">LIFE STYLE</span>
                       <h3 class="text-2xl font-medium mb-5">
                           New Designer Outdoor Items
+                          
                       </h3>
                       <p class="text-secondary mb-5">
                           Duis quis porta enim. Nunc molestie porta elit, sit amet mattis
