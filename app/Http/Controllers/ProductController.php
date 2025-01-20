@@ -56,7 +56,7 @@ class ProductController extends Controller
      */
     public function create()
     {
-        $this->ccan('Create Product');
+        // $this->ccan('Create Product');
 
         $n['brands'] = Brand::orderBy('id', 'desc')->get();
         $n['p_generations'] = ProcessorGeneration::orderBy('id', 'desc')->get();
@@ -84,7 +84,7 @@ class ProductController extends Controller
      */
     public function store(StoreProductRequest $request)
     {
-        $this->ccan('Create Product');
+        // $this->ccan('Create Product');
 
         $data = $request->all();
         $special_feature = '';
@@ -266,7 +266,7 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        $this->ccan('Edit Product');
+        // $this->ccan('Edit Product');
         $n['product'] = Product::with('cat_info', 'installment', 'sub_cat_info', 'brand', 'ProcessorGeneration', 'ProcessorModel', 'DisplayType', 'DisplaySize', 'Ram', 'ssd', 'hdd', 'Graphic', 'SpecialFeature')
             ->find($id);
         $n['brands'] = Brand::get();
@@ -297,7 +297,7 @@ class ProductController extends Controller
      */
     public function update(UpdateProductRequest $request, $id)
     {
-        $this->ccan('Edit Product');
+        // $this->ccan('Edit Product');
 
         $product = Product::findOrFail($id);
 
@@ -474,7 +474,7 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        $this->ccan('Delete Product');
+        // $this->ccan('Delete Product');
         $product = Product::findOrFail($id);
 
         //delete the images

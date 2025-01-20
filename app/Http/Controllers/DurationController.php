@@ -17,7 +17,7 @@ class DurationController extends Controller
      */
     public function index()
     {
-        $this->ccan('Show Duration');
+        //      $this->ccan('Show Duration');
 
         $n['data'] = Duration::orderBy('id', 'DESC')->paginate();
         $n['count'] = Duration::get();
@@ -29,7 +29,7 @@ class DurationController extends Controller
      */
     public function create()
     {
-        $this->ccan('Create Duration');
+        // $this->ccan('Create Duration');
 
         return view('backend.duration.create');
     }
@@ -39,7 +39,7 @@ class DurationController extends Controller
      */
     public function store(StoreDurationRequest $request)
     {
-        $this->ccan('Create Duration');
+        // $this->ccan('Create Duration');
         $data = $request->all();
         // $slug = Str::slug($request->title);
         // $count = Duration::where('slug', $slug)->count();
