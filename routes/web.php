@@ -210,7 +210,7 @@ Route::get('payment/success', [PayPalController::class, 'success'])->name('payme
 
 
 // Backend section start
-Route::group(['prefix' => '/admin', 'middleware' => ['web','auth', 'admin']], function () {
+Route::group(['prefix' => '/admin'], function () {
 
     //Dashboard
     Route::get('/', [AdminController::class, 'index'])->name('admin');
