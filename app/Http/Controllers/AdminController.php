@@ -31,7 +31,7 @@ class AdminController extends Controller
     }
 
     public function profile(){
-        $profile=Auth()->user();
+        $profile = auth()?->user();
         // return $profile;
         return view('backend.auser.users.profile')->with('profile',$profile);
     }
@@ -116,7 +116,7 @@ class AdminController extends Controller
             'new_confirm_password' => ['same:new_password'],
         ]);
 
-        User::find(auth()->user()->id)->update(['password'=> Hash::make($request->new_password)]);
+        User::find(auth()?->user()?->id)->update(['password'=> Hash::make($request->new_password)]);
 
         return redirect()->route('admin')->with('success','Password successfully changed');
     }
