@@ -10,7 +10,7 @@ class DisplayTypeController extends Controller
 {
     public function __construct()
     {
-        $this->middleware(['can:Show Display Type']);
+        // $this->middleware(['can:Show Display Type']);
     }
     /**
      * Display a listing of the resource.
@@ -27,7 +27,7 @@ class DisplayTypeController extends Controller
      */
     public function create()
     {
-        $this->ccan('Create Display Type');
+        // $this->ccan('Create Display Type');
 
         return view('backend.product-attribute.dt.create');
     }
@@ -37,7 +37,7 @@ class DisplayTypeController extends Controller
      */
     public function store(StoreDisplayTypeRequest $request)
     {
-        $this->ccan('Create Display Type');
+        // $this->ccan('Create Display Type');
 
         DisplayType::create($request->all());
         return redirect()->route('pa.display-type.index')->with('success', "$request->name is created successfully");
@@ -56,7 +56,7 @@ class DisplayTypeController extends Controller
      */
     public function edit(DisplayType $displayType)
     {
-        $this->ccan('Edit Display Type');
+        // $this->ccan('Edit Display Type');
 
         $n['datum'] = $displayType;
         return view('backend.product-attribute.dt.edit', $n);
@@ -67,7 +67,7 @@ class DisplayTypeController extends Controller
      */
     public function update(UpdateDisplayTypeRequest $request, DisplayType $displayType)
     {
-        $this->ccan('Edit Display Type');
+        // $this->ccan('Edit Display Type');
 
         $displayType->update($request->all());
         return redirect()->route('pa.display-type.index')->with('success', "$request->name is Update successfully");
@@ -78,7 +78,7 @@ class DisplayTypeController extends Controller
      */
     public function destroy(DisplayType $displayType)
     {
-        $this->ccan('Delete Display Type');
+        // $this->ccan('Delete Display Type');
 
         $status = $displayType->delete();
 

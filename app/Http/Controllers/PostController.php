@@ -13,7 +13,7 @@ class PostController extends Controller
 {
     public function __construct()
     {
-        $this->middleware(['can:Show Post']);
+        // $this->middleware(['can:Show Post']);
     }
     /**
      * Display a listing of the resource.
@@ -22,7 +22,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        $this->ccan('Show Post');
+        // $this->ccan('Show Post');
 
         $n['posts']=Post::getAllPost();
         $n['count'] = Post::get();
@@ -36,7 +36,7 @@ class PostController extends Controller
      */
     public function create()
     {
-        $this->ccan('Create Post');
+        // $this->ccan('Create Post');
 
         $categories=PostCategory::get();
         $tags=PostTag::get();
@@ -52,7 +52,7 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        $this->ccan('Create Post');
+        // $this->ccan('Create Post');
 
         // return $request->all();
         $this->validate($request,[
@@ -114,7 +114,7 @@ class PostController extends Controller
      */
     public function edit($id)
     {
-        $this->ccan('Edit Post');
+        // $this->ccan('Edit Post');
 
         $post=Post::findOrFail($id);
         $categories=PostCategory::get();
@@ -132,7 +132,7 @@ class PostController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $this->ccan('Edit Post');
+        // $this->ccan('Edit Post');
 
         $post=Post::findOrFail($id);
          // return $request->all();
@@ -177,7 +177,7 @@ class PostController extends Controller
      */
     public function destroy($id)
     {
-        $this->ccan('Delete Post');
+        // $this->ccan('Delete Post');
 
         $post=Post::findOrFail($id);
 

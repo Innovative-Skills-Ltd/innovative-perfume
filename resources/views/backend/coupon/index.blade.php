@@ -13,10 +13,10 @@
         <div class="py-3 card-header d-flex justify-content-between">
             <h6 class="float-left m-0 font-weight-bold text-primary">Coupon List</h6>
             <h6 class="font-weight-bold text-primary">Total: {{count($count)}} || Active: {{count($count->where('status','active'))}} || Inactive: {{count($count->where('status','inactive'))}}</h6>
-            @can('Create Cupon')
+            {{-- @can('Create Cupon') --}}
                 <a href="{{ route('coupon.create') }}" class="float-right btn btn-primary btn-sm" data-toggle="tooltip"
                     data-placement="bottom" title="Add User"><i class="fas fa-plus"></i> Add Coupon</a>
-            @endcan
+            {{-- @endcan --}}
         </div>
         <div class="card-body">
             <div class="table-responsive">
@@ -29,9 +29,9 @@
                                 <th>Type</th>
                                 <th>Value</th>
                                 <th>Status</th>
-                                @canany(['Edit Cupon', 'Delete Cupon'])
+                                {{-- @canany(['Edit Cupon', 'Delete Cupon']) --}}
                                     <th>Action</th>
-                                @endcanany
+                                {{-- @endcanany --}}
                             </tr>
                         </thead>
                         <tfoot>
@@ -41,9 +41,9 @@
                                 <th>Type</th>
                                 <th>Value</th>
                                 <th>Status</th>
-                                @canany(['Edit Cupon', 'Delete Cupon'])
+                                {{-- @canany(['Edit Cupon', 'Delete Cupon']) --}}
                                     <th>Action</th>
-                                @endcanany
+                                {{-- @endcanany --}}
                             </tr>
                         </tfoot>
                         <tbody>
@@ -73,14 +73,14 @@
                                         @endif
                                     </td>
                                     <td>
-                                        @can('Edit Cupon')
+                                        {{-- @can('Edit Cupon') --}}
                                             <a href="{{ route('coupon.edit', $coupon->id) }}"
                                                 class="float-left mr-1 btn btn-primary btn-sm"
                                                 style="height:30px; width:30px;border-radius:50%" data-toggle="tooltip"
                                                 title="edit" data-placement="bottom"><i class="fas fa-edit"></i></a>
-                                        @endcan
+                                        {{-- @endcan --}}
 
-                                        @can('Delete Cupon')
+                                        {{-- @can('Delete Cupon') --}}
                                             <form method="POST" action="{{ route('coupon.destroy', [$coupon->id]) }}">
                                                 @csrf
                                                 @method('delete')
@@ -89,7 +89,7 @@
                                                     data-placement="bottom" title="Delete"><i
                                                         class="fas fa-trash-alt"></i></button>
                                             </form>
-                                        @endcan
+                                        {{-- @endcan --}}
                                     </td>
                                     {{-- Delete Modal --}}
                                     {{-- <div class="modal fade" id="delModal{{$user->id}}" tabindex="-1" role="dialog" aria-labelledby="#delModal{{$user->id}}Label" aria-hidden="true">

@@ -10,7 +10,7 @@ class BrandController extends Controller
 
     public function __construct()
     {
-        $this->middleware(['can:Show Brand']);
+        //  $this->middleware(['can:Show Brand']);
     }
 
     /**
@@ -20,7 +20,7 @@ class BrandController extends Controller
      */
     public function index()
     {
-        $this->ccan('Show Brand');
+        // $this->ccan('Show Brand');
         $n['count'] = Brand::get();
         $n['data']=Brand::orderBy('id','DESC')->paginate();
         return view('backend.brand.index',$n);
@@ -33,7 +33,7 @@ class BrandController extends Controller
      */
     public function create()
     {
-        $this->ccan('Create Brand');
+        // $this->ccan('Create Brand');
 
         return view('backend.brand.create');
     }
@@ -46,7 +46,7 @@ class BrandController extends Controller
      */
     public function store(Request $request)
     {
-        $this->ccan('Create Brand');
+        // $this->ccan('Create Brand');
 
         $this->validate($request,[
             'title'=>'string|required',
@@ -88,7 +88,7 @@ class BrandController extends Controller
      */
     public function edit($id)
     {
-        $this->ccan('Edit Brand');
+        // $this->ccan('Edit Brand');
 
         $brand=Brand::find($id);
         if(!$brand){
@@ -107,7 +107,7 @@ class BrandController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $this->ccan('Edit Brand');
+        // $this->ccan('Edit Brand');
 
         $brand=Brand::find($id);
         $this->validate($request,[
@@ -133,7 +133,7 @@ class BrandController extends Controller
      */
     public function destroy($id)
     {
-        $this->ccan('Delete Brand');
+        //  $this->ccan('Delete Brand');
 
         $brand=Brand::find($id);
         if($brand){

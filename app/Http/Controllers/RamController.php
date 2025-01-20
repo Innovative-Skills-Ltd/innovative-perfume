@@ -10,7 +10,7 @@ class RamController extends Controller
 {
     public function __construct()
     {
-        $this->middleware(['can:Show RAM']);
+        // $this->middleware(['can:Show RAM']);
     }
     /**
      * Display a listing of the resource.
@@ -27,7 +27,7 @@ class RamController extends Controller
      */
     public function create()
     {
-        $this->ccan('Create RAM');
+        // $this->ccan('Create RAM');
         return view('backend.product-attribute.ram.create');
     }
 
@@ -36,7 +36,7 @@ class RamController extends Controller
      */
     public function store(StoreRamRequest $request)
     {
-        $this->ccan('Create RAM');
+        // $this->ccan('Create RAM');
 
         Ram::create($request->all());
         return redirect()->route('pa.ram.index')->with('success', "$request->name is created successfully");
@@ -55,7 +55,7 @@ class RamController extends Controller
      */
     public function edit(Ram $ram)
     {
-        $this->ccan('Edit RAM');
+        // $this->ccan('Edit RAM');
 
         $n['datum'] =$ram;
         return view('backend.product-attribute.ram.edit', $n);
@@ -66,7 +66,7 @@ class RamController extends Controller
      */
     public function update(UpdateRamRequest $request, Ram $ram)
     {
-        $this->ccan('Edit RAM');
+        // $this->ccan('Edit RAM');
 
        $ram->update($request->all());
         return redirect()->route('pa.ram.index')->with('success', "$request->name is Update successfully");
@@ -77,7 +77,7 @@ class RamController extends Controller
      */
     public function destroy(Ram $ram)
     {
-        $this->ccan('Delete RAM');
+        // $this->ccan('Delete RAM');
 
         $status =$ram->delete();
 
