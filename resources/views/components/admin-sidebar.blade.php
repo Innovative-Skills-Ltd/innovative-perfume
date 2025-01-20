@@ -1,6 +1,6 @@
 @foreach ($side_menus as $smenu)
 
-    @canany($smenu['access'])
+    {{-- @canany($smenu['access']) --}}
         <div>
             <!-- Heading -->
             <div class="sidebar-heading">
@@ -8,7 +8,7 @@
             </div>
             @foreach ($smenu['child'] as $menu)
                 @if ($menu['child'])
-                    @can($menu['access'])
+                    {{-- @can($menu['access']) --}}
                         <li class="nav-item {{ request()->routeIs($menu['route']) ? 'active' : '' }}">
                             {{-- @dd($menu) --}}
                             <a class="nav-link {{ request()->routeIs($menu['route']) ? '' : 'collapsed' }}" href="#"
@@ -23,27 +23,27 @@
                                 <div class="py-2 bg-white rounded collapse-inner">
                                     <h6 class="collapse-header">{{ Str::singular($menu['title']) }} Options:</h6>
                                     @foreach ($menu['child'] as $fm)
-                                    @can($fm['access'])
+                                    {{-- @can($fm['access']) --}}
                                         <a class="collapse-item" href="{{ route($fm['route']) }}">{{ $fm['title'] }}</a>
-                                    @endcan
+                                    {{-- @endcan --}}
                                     @endforeach
                                 </div>
                             </div>
 
                         </li>
-                    @endcan
+                    {{-- @endcan --}}
                 @else
-                    @can($menu['access'])
+                    {{-- @can($menu['access']) --}}
                         <li class="nav-item {{ request()->routeIs($menu['route']) ? 'active' : '' }}">
                             <a class="nav-link active" href="{{ route($menu['route']) }}">
                                 <i class="fas fa-fw fa-chart-area"></i>
                                 <span>{{ $menu['title'] }}</span></a>
                         </li>
-                    @endcan
+                    {{-- @endcan --}}
                 @endif
             @endforeach
 
             <hr class="sidebar-divider">
         </div>
-    @endcanany
+    {{-- @endcanany --}}
 @endforeach
