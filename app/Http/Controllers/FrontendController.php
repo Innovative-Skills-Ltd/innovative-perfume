@@ -350,7 +350,7 @@ class FrontendController extends Controller
 
     // Login
     public function login(){
-        if(auth()->user()){
+        if(auth()?->user()){
             return redirect()->route('home');
         }
         return view('frontend.pages.login');
@@ -371,7 +371,7 @@ class FrontendController extends Controller
     }
 
     public function logout(){
-        if(auth()->user()){
+        if(auth()?->user()){
             Session::forget('user');
             Auth::logout();
             request()->session()->flash('success','Logout successfully');
@@ -384,7 +384,7 @@ class FrontendController extends Controller
     }
 
     public function register(){
-        if(auth()->user()){
+        if(auth()?->user()){
             return redirect()->route('home');
         }
         return view('frontend.pages.register');
