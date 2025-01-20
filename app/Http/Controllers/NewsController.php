@@ -11,7 +11,7 @@ class NewsController extends Controller
 
     public function __construct()
     {
-        $this->middleware(['can:Show News']);
+        // $this->middleware(['can:Show News']);
     }
 
     /**
@@ -21,7 +21,7 @@ class NewsController extends Controller
      */
     public function index()
     {
-        $this->ccan('Show News');
+        // $this->ccan('Show News');
         $n['count'] = News::get();
         $n['data']=News::orderBy('serial','DESC')->paginate();
         return view('backend.news.index',$n);
@@ -34,7 +34,7 @@ class NewsController extends Controller
      */
     public function create()
     {
-        $this->ccan('Create News');
+        // $this->ccan('Create News');
 
         return view('backend.news.create');
     }
@@ -47,7 +47,7 @@ class NewsController extends Controller
      */
     public function store(Request $request)
     {
-        $this->ccan('Create News');
+        // $this->ccan('Create News');
 
         $this->validate($request,[
             'title'=>'string|required',
@@ -90,7 +90,7 @@ class NewsController extends Controller
      */
     public function edit($id)
     {
-        $this->ccan('Edit News');
+        // $this->ccan('Edit News');
 
         $news=News::find($id);
         if(!$news){
@@ -109,7 +109,7 @@ class NewsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $this->ccan('Edit News');
+        // $this->ccan('Edit News');
 
         $news=News::find($id);
         $this->validate($request,[
@@ -135,7 +135,7 @@ class NewsController extends Controller
      */
     public function destroy($id)
     {
-        $this->ccan('Delete News');
+        // $this->ccan('Delete News');
 
         $news=News::find($id);
         if($news){

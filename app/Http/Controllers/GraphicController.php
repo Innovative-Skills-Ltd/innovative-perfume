@@ -10,7 +10,7 @@ class GraphicController extends Controller
 {
     public function __construct()
     {
-        $this->middleware(['can:Show Graphic']);
+        // $this->middleware(['can:Show Graphic']);
     }
     /**
      * Display a listing of the resource.
@@ -27,7 +27,7 @@ class GraphicController extends Controller
      */
     public function create()
     {
-        $this->ccan('Create Graphic');
+        // $this->ccan('Create Graphic');
         return view('backend.product-attribute.graphic.create');
     }
 
@@ -36,7 +36,7 @@ class GraphicController extends Controller
      */
     public function store(StoreGraphicRequest $request)
     {
-        $this->ccan('Create Graphic');
+        // $this->ccan('Create Graphic');
 
         Graphic::create($request->all());
         return redirect()->route('pa.graphic.index')->with('success', "$request->name is created successfully");
@@ -55,7 +55,7 @@ class GraphicController extends Controller
      */
     public function edit(Graphic $graphic)
     {
-        $this->ccan('Edit Graphic');
+        // $this->ccan('Edit Graphic');
 
         $n['datum'] = $graphic;
         return view('backend.product-attribute.graphic.edit', $n);
@@ -66,7 +66,7 @@ class GraphicController extends Controller
      */
     public function update(UpdateGraphicRequest $request, Graphic $graphic)
     {
-        $this->ccan('Edit Graphic');
+        // $this->ccan('Edit Graphic');
 
         $graphic->update($request->all());
         return redirect()->route('pa.graphic.index')->with('success', "$request->name is Update successfully");
@@ -77,7 +77,7 @@ class GraphicController extends Controller
      */
     public function destroy(Graphic $graphic)
     {
-        $this->ccan('Delete Graphic');
+        // $this->ccan('Delete Graphic');
 
         $status = $graphic->delete();
 

@@ -27,9 +27,9 @@
                                 <th>Rate</th>
                                 <th>Date</th>
                                 <th>Status</th>
-                                @canany(['Edit Review', 'Delete Review'])
+                                {{-- @canany(['Edit Review', 'Delete Review']) --}}
                                     <th>Action</th>
-                                @endcanany
+                                {{-- @endcanany --}}
                             </tr>
                         </thead>
                         <tfoot>
@@ -41,9 +41,9 @@
                                 <th>Rate</th>
                                 <th>Date</th>
                                 <th>Status</th>
-                                @canany(['Edit Review', 'Delete Review'])
+                                {{-- @canany(['Edit Review', 'Delete Review']) --}}
                                     <th>Action</th>
-                                @endcanany
+                                {{-- @endcanany --}}
                             </tr>
                         </tfoot>
                         <tbody>
@@ -78,7 +78,7 @@
                                             class="float-left mr-1 btn btn-primary btn-sm"
                                             style="height:30px; width:30px;border-radius:50%" data-toggle="tooltip"
                                             title="edit" data-placement="bottom"><i class="fas fa-edit"></i></a>
-                                        @can('Delete Review')
+                                        {{-- @can('Delete Review') --}}
                                             <form method="POST" action="{{ route('productreview.destroy', [$review->id]) }}">
                                                 @csrf
                                                 @method('delete')
@@ -87,7 +87,7 @@
                                                     data-placement="bottom" title="Delete"><i
                                                         class="fas fa-trash-alt"></i></button>
                                             </form>
-                                        @endcan
+                                        {{-- @endcan --}}
 
                                     </td>
                                 </tr>
