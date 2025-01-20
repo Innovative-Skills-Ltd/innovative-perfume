@@ -27,7 +27,7 @@ class SpecialFeatureController extends Controller
      */
     public function create()
     {
-        $this->ccan('Create Special Feature');
+        // $this->ccan('Create Special Feature');
         return view('backend.product-attribute.sf.create');
     }
 
@@ -36,7 +36,7 @@ class SpecialFeatureController extends Controller
      */
     public function store(StoreSpecialFeatureRequest $request)
     {
-        $this->ccan('Create Special Feature');
+        // $this->ccan('Create Special Feature');
 
         SpecialFeature::create($request->all());
         return redirect()->route('pa.special-feature.index')->with('success', "$request->name is created successfully");
@@ -55,7 +55,7 @@ class SpecialFeatureController extends Controller
      */
     public function edit(SpecialFeature $specialFeature)
     {
-        $this->ccan('Edit Special Feature');
+        // $this->ccan('Edit Special Feature');
 
         $n['datum'] = $specialFeature;
         return view('backend.product-attribute.sf.edit', $n);
@@ -66,7 +66,7 @@ class SpecialFeatureController extends Controller
      */
     public function update(UpdateSpecialFeatureRequest $request, SpecialFeature $specialFeature)
     {
-        $this->ccan('Edit Special Feature');
+        // $this->ccan('Edit Special Feature');
 
         $specialFeature->update($request->all());
         return redirect()->route('pa.special-feature.index')->with('success', "$request->name is Update successfully");
@@ -77,7 +77,7 @@ class SpecialFeatureController extends Controller
      */
     public function destroy(SpecialFeature $specialFeature)
     {
-        $this->ccan('Delete Special Feature');
+        //  $this->ccan('Delete Special Feature');
 
         $status = $specialFeature->delete();
 
@@ -88,4 +88,4 @@ class SpecialFeatureController extends Controller
         }
         return back();
     }
-}
+    }

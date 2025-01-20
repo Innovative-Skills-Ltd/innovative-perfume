@@ -74,12 +74,10 @@
                                     </td>
                                     <td>
                                          <a target="_blank" href="{{route('productreview.show',$review->id)}}" class="float-left mr-1 btn btn-warning btn-sm" style="height:30px; width:30px;border-radius:50%" data-toggle="tooltip" title="view" data-placement="bottom"><i class="fas fa-eye"></i></a>
-                                        @can('Edit Review')
-                                            <a href="{{ route('productreview.edit', $review->id) }}"
-                                                class="float-left mr-1 btn btn-primary btn-sm"
-                                                style="height:30px; width:30px;border-radius:50%" data-toggle="tooltip"
-                                                title="edit" data-placement="bottom"><i class="fas fa-edit"></i></a>
-                                        @endcan
+                                        <a href="{{ route('review.edit', $review->id) }}"
+                                            class="float-left mr-1 btn btn-primary btn-sm"
+                                            style="height:30px; width:30px;border-radius:50%" data-toggle="tooltip"
+                                            title="edit" data-placement="bottom"><i class="fas fa-edit"></i></a>
                                         @can('Delete Review')
                                             <form method="POST" action="{{ route('productreview.destroy', [$review->id]) }}">
                                                 @csrf

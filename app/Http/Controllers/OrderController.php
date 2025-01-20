@@ -18,7 +18,7 @@ class OrderController extends Controller
 {
     public function __construct()
     {
-        $this->middleware(['can:Show Order']);
+        //  $this->middleware(['can:Show Order']);
     }
     /**
      * Display a listing of the resource.
@@ -27,7 +27,7 @@ class OrderController extends Controller
      */
     public function index()
     {
-        $this->ccan('Show Order');
+        // $this->ccan('Show Order');
         $n['orders'] = Order::with(['order_status', 'shipping'])->orderBy('id', 'desc')->paginate(10);
         $n['count'] = Order::get();
         return view('backend.order.index', $n);
@@ -51,7 +51,7 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
-        $this->ccan('Create Order');
+        // $this->ccan('Create Order');
 
         $this->validate($request, [
             'first_name' => 'string|required',
@@ -135,7 +135,7 @@ class OrderController extends Controller
      */
     public function show($id)
     {
-        $this->ccan('Show Order');
+        // $this->ccan('Show Order');
 
         $order = Order::with(['divission', 'cart'])->find($id);
         // return $order;
@@ -150,7 +150,7 @@ class OrderController extends Controller
      */
     public function edit($id)
     {
-        $this->ccan('Edit Order');
+        // $this->ccan('Edit Order');
 
         $n['order'] = Order::find($id);
         $n['order_status'] = OrderStatus::where('status', 'active')->get();
@@ -166,7 +166,7 @@ class OrderController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $this->ccan('Edit Order');
+        // $this->ccan('Edit Order');
         $order = Order::find($id);
         $validator = $this->validate($request, [
             'payment_status' => ['required', 'in:paid,unpaid'],
@@ -210,7 +210,7 @@ class OrderController extends Controller
      */
     public function destroy($id)
     {
-        $this->ccan('Delete Order');
+        // $this->ccan('Delete Order');
 
         $order = Order::find($id);
         if ($order) {
