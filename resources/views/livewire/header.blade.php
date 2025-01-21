@@ -9,7 +9,7 @@
         <div class="container mx-auto px-2 md:px-0 flex items-center justify-between text-white">
             <span class="">Welcome to our online store!</span>
             <div class="flex items-center gap-2">
-                @if(auth()?->user())
+                @if(auth()->user())
                 <a href="{{ route('user.logout') }}">
                     <button class="cursor-pointer hover:italic hover:underline transition-all duration-300 ease-in-out">
                         Logout
