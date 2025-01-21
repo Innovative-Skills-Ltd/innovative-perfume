@@ -2,6 +2,7 @@
 
 use App\Livewire\Blog;
 use App\Livewire\Contact;
+use App\Livewire\CreateCart;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Artisan;
 use App\Http\Controllers\AdminController;
@@ -376,6 +377,7 @@ Route::get('/category-searching-product/{cat?}', SearchingProduct::class)->name(
 Route::get('/product-details/{slug}', ProductDeatils::class)->name('product.details');
 Route::get('/checkout', Checkout::class)->name('checkout');
 Route::get('/view-cart', ViewCart::class)->name('vcart');
+Route::get('/create-cart/{slug}', CreateCart::class)->name('create_cart');
 Route::get('/blogs', Blog::class)->name('blogs');
 Route::get('/contact', Contact::class)->name('contact');
 Route::get('/user/register', Signup::class)->name('user.register');
