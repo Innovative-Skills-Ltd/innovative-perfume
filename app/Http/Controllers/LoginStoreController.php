@@ -15,8 +15,7 @@ class LoginStoreController extends Controller
 
         return view('auth.login');
     }
-    public function login(Request $request)
-    {
+    public function login(Request $request){
         $this->validate($request,[
             'email'=>'required|email|exists:users,email',
             'password'=>'required',
@@ -25,11 +24,18 @@ class LoginStoreController extends Controller
         $credentials = [
             'email' => $request->email,
             'password' => $request->password,
-            'status' => 'active'
+            'status' => 'active'  // if you have a status field
         ];
 
-        if(Auth::attempt($credentials)) {
-            return redirect()->route('admin');
+        if(Auth::attempt($credentials)){
+            $request->session()->regenerate(); // Important for security
+
+            if(Auth::user()->can('Dashboard')){
+                return redirect()->intended(route('admin'));
+            } else {
+                Auth::logout();
+                return redirect()->back()->with('error','You do not have admin access');
+            }
         }
 
         return redirect()->back()->with('error','Invalid credentials');
