@@ -1,164 +1,148 @@
-    <div class="px-[100px] max-2xl:px-[70px] max-xl:px-[60px] max-lg:px-[38px] max-md:px-[35px] max-sm:px-[15px]">
-        <div class=>
-            <h1 class='font-[jost] text-[16px] font-[400] leading-[25.3px] text-[#353535]'><a href="{{ route('home') }}"
-                    wire:navigate>Home</a> / login</h1>
-            <div class='h-[2px] bg-[#764A8733]'></div>
+   <!-- Authentication Start -->
+   <section class="container mx-auto px-2 md:px-0 pb-20">
+    <div class="py-8 flex items-center gap-2 text-sm">
+        <a href="{{ route('home') }}">Home</a>
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 1024 1024">
+            <path fill=""
+                d="M452.864 149.312a29.12 29.12 0 0 1 41.728.064L826.24 489.664a32 32 0 0 1 0 44.672L494.592 874.624a29.12 29.12 0 0 1-41.728 0a30.59 30.59 0 0 1 0-42.752L764.736 512L452.864 192a30.59 30.59 0 0 1 0-42.688m-256 0a29.12 29.12 0 0 1 41.728.064L570.24 489.664a32 32 0 0 1 0 44.672L238.592 874.624a29.12 29.12 0 0 1-41.728 0a30.59 30.59 0 0 1 0-42.752L508.736 512L196.864 192a30.59 30.59 0 0 1 0-42.688" />
+        </svg>
+        <span>Login</span>
+    </div>
+    <h2 class="text-xl font-semibold mb-10 uppercase">Authentication</h2>
+    @if(session('error'))
+        <div class="mb-5 bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+            <span class="block sm:inline">{{ session('error') }}</span>
+            <span class="absolute top-0 bottom-0 right-0 px-4 py-3">
+                <svg onclick="this.parentElement.parentElement.remove()" class="fill-current h-6 w-6 text-red-500 cursor-pointer" role="button" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                    <title>Close</title>
+                    <path d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z"/>
+                </svg>
+            </span>
         </div>
+    @endif
+    @if($errs = session('errors'))
+     @foreach($errs->all() as $error)
+     <div class="mb-5 bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+         <span class="block sm:inline">{{ $error }}</span>
+         <span class="absolute top-0 bottom-0 right-0 px-4 py-3">
+             <svg onclick="this.parentElement.parentElement.remove()" class="fill-current h-6 w-6 text-red-500 cursor-pointer" role="button" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                 <title>Close</title>
+                 <path d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.698z"/>
+             </svg>
+         </span>
+     </div>
+     @endforeach
+    @endif
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-7">
+        {{-- Login form  --}}
+        <div >
+            <h3 class="px-10 py-6 border rounded-t-lg">Login your Account</h3>
+            <div class="px-10 py-6 border border-t-0 rounded-b-lg">
+                <p class="text-secondary mb-5">Login with social account</p>
+                <div class="flex items-center gap-10 mb-5">
+                     <a href="#" class="text-sm flex items-center gap-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24">
+                            <g fill="none">
+                                <path
+                                    d="m12.593 23.258l-.011.002l-.071.035l-.02.004l-.014-.004l-.071-.035q-.016-.005-.024.005l-.004.01l-.017.428l.005.02l.01.013l.104.074l.015.004l.012-.004l.104-.074l.012-.016l.004-.017l-.017-.427q-.004-.016-.017-.018m.265-.113l-.013.002l-.185.093l-.01.01l-.003.011l.018.43l.005.012l.008.007l.201.093q.019.005.029-.008l.004-.014l-.034-.614q-.005-.018-.02-.022m-.715.002a.02.02 0 0 0-.027.006l-.006.014l-.034.614q.001.018.017.024l.015-.002l.201-.093l.01-.008l.004-.011l.017-.43l-.003-.012l-.01-.01z" />
+                                <path fill="currentColor"
+                                    d="M4.594 4.984a1 1 0 0 1 .941.429C7.011 7.572 8.783 8.47 10.75 8.674c.096-.841.323-1.672.75-2.404c.626-1.074 1.644-1.864 3.098-2.156c2.01-.404 3.54.324 4.427 1.215l1.792-.335a1 1 0 0 1 1.053 1.478l-1.72 3.022c.157 4.361-1.055 7.405-3.639 9.502c-1.37 1.112-3.332 1.743-5.485 1.938c-2.17.196-4.623-.041-7.061-.753a1 1 0 0 1 .007-1.922c1.226-.349 2.16-.65 3.003-1.177c-1.199-.636-2.082-1.468-2.707-2.416c-.868-1.318-1.19-2.788-1.254-4.113S3.141 8 3.343 7.115c.115-.505.249-1.011.434-1.495a1 1 0 0 1 .818-.636Z" />
+                            </g>
+                        </svg>
+                        <span>TWITTER</span>
+                     </a>
+                     <a href="#" class="text-sm flex items-center gap-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24">
+                            <path fill="currentColor" fill-rule="evenodd"
+                                d="M13.135 6H15V3h-1.865a4.147 4.147 0 0 0-4.142 4.142V9H7v3h2v9.938h3V12h2.021l.592-3H12V6.591A.6.6 0 0 1 12.592 6z"
+                                clip-rule="evenodd" />
+                        </svg>
+                        <span>Facebook</span>
+                     </a>
+                </div>
+                <form action="{{route('login.submit')}}" method="POST">
+                 @csrf
+                     <div>
+                         <div class="mb-5">
+                             <label class="text-sm mb-1">Email</label>
+                             <input  name="email" class="py-2 px-5 border w-full rounded-full" type="email" />
+                             @error('email')
+                                 <span class="text-red-500 text-sm">{{ $message }}</span>
+                             @enderror
+                         </div>
+                         <div class="mb-5">
+                             <label class="text-sm mb-1">Password</label>
+                             <input name="password" class="py-2 px-5 border w-full rounded-full" type="password" />
+                             @error('password')
+                                 <span class="text-red-500 text-sm">{{ $message }}</span>
+                             @enderror
+                         </div>
+                         <div class="mb-5 flex items-center justify-between">
+                             <div class="flex items-center gap-1">
+                                 <input wire:model="remember" type="checkbox" />
+                                 <span class="text-sm text-secondary">Remember Me</span>
+                             </div>
+                             <a href="#" class="text-sm">Forgot password?</a>
+                         </div>
 
-        <!-- --------------log-in--section----------- -->
-
-
-        <div class="flex gap-[10px] w-[463px] max-sm:w-[300px] mx-auto mt-16 ">
-            <button type="button" id="login_btn"
-                class="default text-[16px] max-sm:text-[14px] focus:outline-none bg-[#380D37] text-[#fff] py-[12px] max-sm:py-[6px] font-[jost] font-[600] w-full text-center rounded-[5px]">
-                LogIn</button>
-            <a href="{{ route('user.register') }}" wire:navigate type="button" id='reg_btn'
-                class="text-center change bg-[#F2F2F2] text-[#380D37] text-[16px] max-sm:text-[14px] max-sm:w-[300px] focus:text-[#fff]  font-[jost] font-[600] w-full py-[12px] max-sm:py-[6px] text- rounded-[5px]">Register
-                {{-- <button type="button" id='reg_btn'
-                class="change bg-[#F2F2F2] text-[#380D37] text-[16px] max-sm:text-[14px] max-sm:w-[300px] focus:text-[#fff]  font-[jost] font-[600] w-full py-[12px] max-sm:py-[6px] text- rounded-[5px]">
-                Register
-            </button> --}}
-            </a>
-        </div>
-        <div
-            class=" w-[463px] max-sm:w-[300px] mx-auto border-[2px] border-[#380D37] rounded-[4px] left-[70px] pt-[33px] max-sm:pt-[20px] pb-[20px] pl-[65px] max-sm:pb-[0px] pr-[50px] max-sm:px-[12px]">
-            {{-- Login form  --}}
-            <div id='logInForm'>
-                <form wire:submit='login' class="w-full mx-auto">
-                    {{-- <div> --}}
-                    <div class="mb-[15px]">
-                        <input wire:model.blur='email'
-                            class="italic rounded-[5px] bg-[#F2F2F2] text-[#353535] text-[16px] max-sm:text-[14px] py-[12px] max-sm:py-[6px]  pl-[20px] max-sm:pl-[10px] w-full font-[jost] font-[500]"
-                            type="email" placeholder="User Name or Email Address">
-                        @error('email')
-                            <span class="text-[red] text-[12px] max-sm:text-[10px]">{{ $message }}</span>
-                        @enderror
-                    </div>
-                    <div class="password-container mb-[20px]">
-                        <div
-                            class="password-input flex gap-[10px] items-center rounded-[5px] bg-[#F2F2F2] py-[12px] max-sm:py-[6px] pl-[15px] pr-[15px] max-sm:pr-[10px] max-sm:pl-[10px] w-full">
-                            <input wire:model.blur='password' data-eyeicon="eyeicon1"
-                                class="password w-[90%] italic bg-[#F2F2F2] text-[#353535] text-[16px] max-sm:text-[14p] font-[jost] font-[500] outline-none"
-                                type="password" placeholder="Password">
-                            <img class="eyeicon toggle-eye w-[20px] h-[20px] max-sm:w-[15px] max-sm:h-[15px]"
-                                data-eyeicon="eyeicon1" src="/storage/product/eyeclose.svg">
-                            @error('password')
-                                <span class="text-[red] text-[12px] max-sm:text-[10px]">{{ $message }}</span>
-                            @enderror
-                        </div>
-                    </div>
-                    <div class="flex justify-between my-[15px]">
-                        <div class="flex gap-[10px]  text-[12px] max-sm:text-[10px] font-[jost] font-[600]">
-                            <input type="checkbox" id="remember" class="w-[16px] h-[16px] text-[#380D37]">
-                            <label for="remember" class="text-[#353535]">Remember Me</label>
-                        </div>
-                        <div class="text-[#DC275C] text-[12px] max-sm:text-[10px] font-[jost] font-[600]"><a
-                                href="{{ route('user.fp') }}">Forgot
-                                Password?</a></div>
-                    </div>
-                    @if ($check_msg)
-                        <span class="text-[red] text-[16px]">{{ $check_msg }}</span>
-                    @endif
-                    @if ($success_msg)
-                        <span class="text-[green] text-[16px]">{{ $check_msg }}
-                            <div class="inline-block h-8 w-8 animate-[spinner-grow_0.75s_linear_infinite] rounded-full bg-current align-[-0.125em] text-secondary opacity-0 motion-reduce:animate-[spinner-grow_1.5s_linear_infinite]"
-                                role="status">
-                                <span
-                                    class="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]">Loading...</span>
-                            </div>
-                        </span>
-                    @endif
-                    <div class="my-[20px]">
-                        <button
-                            class="font-[jost] font-[500] text-[16px] max-sm:text-[14px] text-[#ffffff] bg-gradient-to-r from-[#380D37] to-[#DC275C] py-[12px] max-sm:py-[6px] w-full rounded-[5px] flex justify-center items-center">
-                            <div wire:loading wire:target='login'
-                                class="inline-block h-6 w-6 mr-2 animate-spin rounded-full border-4 border-solid border-current border-r-transparent align-[-0.125em] text-success motion-reduce:animate-[spin_1.5s_linear_infinite]"
-                                role="status">
-                                <span
-                                    class="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]">Loading...
-                                </span>
-                            </div>
-                            Login
-                        </button>
-                    </div>
-                    {{-- </div> --}}
+                         <button type="submit" class="py-2 px-5 text-white bg-primary rounded-full text-sm">
+                             LOGIN
+                         </button>
+                     </div>
                 </form>
             </div>
-            <div class='flex justify-evenly items-center gap-2 my-[25px]'>
-                <div class='h-[1px] w-[155px] bg-[#000000]'></div>
-                <div class='text-[14px] text-[#380D37] font-[jost] font-[400] leading-[20.23px]'>OR
-                </div>
-                <div class='h-[1px] w-[155px] bg-[#000000]'></div>
-            </div>
-            <div class='items-center my-[25px]'>
-                <div class='my-[25px] border-[1px] border-[#380D37] rounded-[4px] flex items-center justify-center'>
-                    <a href="{{ route('login.redirect', ['google']) }}">
-                        <button
-                            class=' h-[44px] max-sm:h-[35px] flex gap-2 items-center justify-center text-[16px] max-sm:text-[14px] text-[#380D37] font-[jost] font-[500] leading-[23.12px]'>
-                            Login with
-                            <img class="max-sm:w-[60px]" src="/storage/product/google.svg" alt="Product">
-                        </button>
-                    </a>
-                </div>
-                <div class='my-[25px] border-[1px] border-[#380D37] rounded-[4px] flex items-center justify-center'>
-                    <a href="{{ route('login.redirect', ['facebook']) }}">
-                        <button
-                            class=' h-[44px] max-sm:h-[35px] flex gap-2 items-center justify-center text-[16px] max-sm:text-[14px] text-[#380D37] font-[jost] font-[500] leading-[23.12px]'>
-                            Login with
-                            <img class="max-sm:w-[60px]" src="/storage/product/facebook.svg"alt="Product">
-                        </button>
-                    </a>
-                </div>
+        </div>
+
+
+        {{-- registration form  --}}
+        <div>
+
+            <h3 class="px-10 py-6 border rounded-t-lg">Register now</h3>
+            <div class="px-10 py-6 border border-t-0 rounded-b-lg">
+                <p class="text-secondary mb-5">Login with social account</p>
+                <form action="{{route('register.submit')}}" method="POST">
+                     @csrf
+                     <div>
+                         <div class="mb-5">
+                             <label class="text-sm mb-1">Your email</label>
+                             <input name="email" class="py-2 px-5 border w-full rounded-full" type="email" />
+                             @error('email')
+                                 <span class="text-red-500 text-sm">{{ $message }}</span>
+                             @enderror
+                         </div>
+                         <div class="mb-5">
+                             <label class="text-sm mb-1">Username</label>
+                             <input name="name" class="py-2 px-5 border w-full rounded-full" type="text" />
+                             @error('name')
+                                 <span class="text-red-500 text-sm">{{ $message }}</span>
+                             @enderror
+                         </div>
+                         <div class="mb-5">
+                             <label class="text-sm mb-1">Password</label>
+                             <input name="password" class="py-2 px-5 border w-full rounded-full" type="password" />
+                             @error('password')
+                                 <span class="text-red-500 text-sm">{{ $message }}</span>
+                             @enderror
+                         </div>
+                         <div class="mb-5">
+                             <div class="flex items-center gap-1">
+                                 <input id="terms" name="terms" type="checkbox" />
+                                 <label for="terms" class="text-sm text-secondary">
+                                     I agree to
+                                     <span class="text-black">Terms & Conditions</span>
+                                 </label>
+                             </div>
+                             @error('terms')
+                                 <span class="text-red-500 text-sm">{{ $message }}</span>
+                             @enderror
+                         </div>
+                         <button type="submit" class="py-2 px-5 text-white bg-primary rounded-full text-sm">
+                             Register Now
+                         </button>
+                     </div>
+                </form>
             </div>
         </div>
-        {{-- <div class="h-[2px] bg-[#764A8733] my-[60px]"> </div> --}}
-        <script>
-            $(document).ready(function() {
-                $('.toggle-eye').click(function() {
-                    var passwordId = $(this).data('eyeicon');
-                    var passwordInput = $('[data-eyeicon="' + passwordId + '"]');
-    
-                    if (passwordInput.length && passwordInput.prop('type')) {
-                        var passwordType = passwordInput.prop('type');
-                        var newType = (passwordType === 'password') ? 'text' : 'password';
-    
-                        passwordInput.prop('type', newType);
-                        $(this).attr('src', '/storage/product/' + (newType === 'password' ? 'eyeclose' : 'eyeopen') + '.svg');
-                    }
-                });
-            });
-        </script>
     </div>
-    {{-- // Hero section slide
-            $('#move_back').on('click', function() {
-                let current_slide = Number($(this).val()) - 1;
-                let total_slide = $('.slide').lenght;
-                console.log(current_slide, total_slide, 'yes');
-                // if(current_slide>=total_slide){
-                //     current_slide == 1
-                // }
-                if (current_slide < 1) {
-                    current_slide == 1
-                }
-                $('.slide').hide();
-                $('.slide').eq(current_slide).show();
-                $('.slide_icon').val(current_slide);
-                $(this).addClass('slide-active');
-                $('#move_front').removeClass('slide-active')
-            })
-            $('#move_front').on('click', function() {
-                let current_slide = Number($(this).val()) + 1;
-                let total_slide = $('.slide').lenght;
-
-                if (current_slide > total_slide) {
-                    current_slide == 1
-                }
-                // if(current_slide<1){
-                //     current_slide == 1
-                // }
-                $('.slide').hide();
-                $('.slide').eq(current_slide).show();
-                $('.slide_icon').val(current_slide);
-                $(this).addClass('slide-active');
-                $('#move_back').removeClass('slide-active')
-            }); --}}
+</section>
+<!-- Authentication End -->
