@@ -35,7 +35,7 @@ class HomeController extends Controller
     }
 
     public function profile(){
-        $profile = auth()?->user();
+        $profile=Auth()->user();
         // return $profile;
         return view('user.users.profile')->with('profile',$profile);
     }
@@ -56,7 +56,7 @@ class HomeController extends Controller
 
     // Order
     public function orderIndex(){
-        $orders = Order::orderBy('id','DESC')->where('user_id', auth()?->user()?->id)->paginate(10);
+        $orders=Order::orderBy('id','DESC')->where('user_id',auth()->user()->id)->paginate(10);
         return view('user.order.index')->with('orders',$orders);
     }
     public function userOrderDelete($id)
