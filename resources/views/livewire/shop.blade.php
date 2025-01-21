@@ -1,1385 +1,296 @@
-<div
-    class="px-[100px] max-2xl:px-[70px] max-xl:px-[60px] max-lg:px-[38px] max-md:px-[35px] max-sm:px-[15px] max-sm:mt-[70px] max-xl:mt-[100px]">
-    <style>
-        ::selection {
-            color: #fff;
-            background: #17A2B8;
-        }
-
-        .wrapper {
-            width: 230px;
-            background: #f2f2f2;
-            border-radius: 10px;
-        }
-
-        .price-input {
-            display: flex;
-            margin-top: 10px;
-            gap: 10px;
-            justify-content: center;
-        }
-
-        .price-input .field {
-            display: flex;
-            height: 40px;
-        }
-
-        .field input {
-            width: 62px;
-            height: 30px;
-            outline: none;
-            font-size: 14px;
-            color: #380D37;
-            /* margin-left: 12px; */
-            border-radius: 5px;
-            text-align: center;
-            border: 1px solid #380D37;
-            background-color: #FFFFFF;
-            -moz-appearance: textfield;
-        }
-
-        input[type="number"]::-webkit-outer-spin-button,
-        input[type="number"]::-webkit-inner-spin-button {
-            -webkit-appearance: none;
-        }
+<div>
 
 
-        .slider {
-            height: 5px;
-            position: relative;
-            background: #FFFFFF;
-            border-radius: 5px;
-            margin-bottom: 0px !important;
-        }
+    <div x-data="{ isGridView: true }">
+        <form action="{{ route('shop') }}" id="search_form" method="GET">
+            <!-- Top Bar Start -->
+            <section class="pb-12">
 
-        .slider .progress {
-            height: 100%;
-            left: 0%;
-            right: 0%;
-            position: absolute;
-            border-radius: 5px;
-            background: #380D37;
-        }
+                <div class="container mx-auto px-2 md:px-0">
+                    <div class="py-8 flex items-center gap-2 text-sm">
+                        <a href="{{ route('home') }}">Home</a>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 1024 1024">
+                            <path fill=""
+                                d="M452.864 149.312a29.12 29.12 0 0 1 41.728.064L826.24 489.664a32 32 0 0 1 0 44.672L494.592 874.624a29.12 29.12 0 0 1-41.728 0a30.59 30.59 0 0 1 0-42.752L764.736 512L452.864 192a30.59 30.59 0 0 1 0-42.688m-256 0a29.12 29.12 0 0 1 41.728.064L570.24 489.664a32 32 0 0 1 0 44.672L238.592 874.624a29.12 29.12 0 0 1-41.728 0a30.59 30.59 0 0 1 0-42.752L508.736 512L196.864 192a30.59 30.59 0 0 1 0-42.688" />
+                        </svg>
+                        <span>Shop</span>
+                    </div>
+                    <h2 class="text-xl font-semibold mb-10 uppercase">Shop</h2>
+                </div>
 
-        .range-input {
-            position: relative;
-        }
-
-        .range-input input {
-            position: absolute;
-            width: 100%;
-            height: 5px;
-            top: -5px;
-            background: none;
-            pointer-events: none;
-            -webkit-appearance: none;
-            -moz-appearance: none;
-        }
-
-        input[type="range"]::-webkit-slider-thumb {
-            height: 14px;
-            width: 14px;
-            border-radius: 50%;
-            border: 2px solid #380D37;
-            background: #380D37;
-            pointer-events: auto;
-            -webkit-appearance: none;
-            box-shadow: 0 0 6px rgba(0, 0, 0, 0.05);
-        }
-
-        input[type="range"]::-moz-range-thumb {
-            height: 14px;
-            width: 14px;
-            border: 2px solid #380D37;
-            border-radius: 50%;
-            border: ;
-            background: #380D37;
-            pointer-events: auto;
-            -moz-appearance: none;
-            box-shadow: 0 0 6px rgba(0, 0, 0, 0.05);
-        }
-
-        /* Menu Icon and Close Icon Styles */
-        #menu-icon,
-        #close-icon {
-            cursor: pointer;
-        }
-
-        /* Menu Styles */
-        #menu {
-            position: fixed;
-            top: 66px;
-            right: -206px;
-            /* Start off-screen */
-            width: 206px;
-            height: 100%;
-            z-index: 2;
-            transition: right 0.3s ease;
-            /* overflow-y: auto; */
-            /* background:#f2f2f2; */
-            /* Animation transition */
-        }
-
-        @media(max-width:640px) {
-            #menu {
-                top: 50px;
-            }
-        }
-
-        /* Overlay for body background blur */
-        #body-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            backdrop-filter: blur(8px);
-            /* Apply blur effect to the body background */
-            z-index: 1;
-            display: none;
-            overflow-block:
-        }
-
-        .noscroll {
-            overflow: hidden;
-        }
-    </style>
-    <div class=''>
-        <h1 class='font-[jost] text-[16px] font-[400] leading-[23.12px] tracking-[3%] text-[#353535]'>
-            <a href="{{ route('home') }}" wire:navigate>Home</a> / Shop /
-            @isset($shop_title)
-                {{ Str::of($shop_title)->headline() }}
-            @else
-                @isset($cat)
-                    {{ Str::of($cat)->headline() }}
-                    @isset($subcat)
-                        /
-                        {{ Str::of(Str::of($subcat)->afterLast('-'))->upper() }}
-                    @endisset
-                @else
-                    All Categories
-                @endisset
-            @endisset
-        </h1>
-        <div class='h-[1px] bg-[#764A8733]'></div>
-    </div>
-
-
-    <div class="mt-4">
-        <div class="grid grid-cols-5 gap-8  max-xl:grid-cols-4 max-lg:grid-cols-3 max-md:grid-cols-2 max-sm:grid-cols-1"
-            x-data="{
-                ajaxProduct: false,
-                brands: [],
-                cat: '{{ isset($cat) ? $cat : '' }}',
-                current_page: 1,
-                d_types: [],
-                d_sizes: [],
-                graphics: [],
-                hdds: [],
-                in_stock: '',
-                minPrice: 0,
-                maxPrice: 500000,
-                products: '',
-                pre_order: '',
-                pmodels: [],
-                pgenerations: [],
-                pagi_products: 1,
-                productShow: true,
-                page_num: 0,
-                product_fetching_animation: false,
-                rams: [],
-                subcat: '{{ isset($subcat) ? $subcat : '' }}',
-                ssds: [],
-                s_features: [],
-                show_from: 1,
-                show_to: 20,
-                sorting: '',
-                total_product: 0,
-                upcomming: '',
-                productFetch() {
-                    console.log(this.shorting);
-                    $.ajax({
-                        type: 'get',
-                        url: '{{ route('shop.shorting') }}',
-                        data: {
-                            cat: this.cat,
-                            subcat: this.subcat,
-                            minPrice: this.minPrice,
-                            maxPrice: this.maxPrice,
-                            pre_order: this.pre_order == true ? 1 : 0,
-                            in_stock: this.in_stock == true ? 1 : 0,
-                            upcomming: this.upcomming == true ? 1 : 0,
-                            brands: this.brands,
-                            pmodels: this.pmodels,
-                            pgenerations: this.pgenerations,
-                            d_sizes: this.d_sizes,
-                            d_types: this.d_types,
-                            rams: this.rams,
-                            ssds: this.ssds,
-                            hdds: this.hdds,
-                            graphics: this.graphics,
-                            s_features: this.s_features,
-                            sorting: this.sorting,
-                        },
-
-                        success: (res) => {
-                            console.log(res);
-                            this.products = res.product;
-                            total_product = Object.keys(res.product).length;
-                            if (total_product < 21) {
-                                this.pagi_products = res.product;
-                                this.show_to = total_product;
-                            } else {
-                                this.pagi_products = Object.fromEntries(Object.entries(res.product).slice(0, 20));
-                            }
-                            this.total_product = total_product
-                            this.page_num = Math.ceil(total_product / 20);
-                            this.productShow = false;
-                            this.ajaxProduct = true;
-                            this.pageChange(1);
-
-                        }
-                    })
-                },
-                pageChange(pNum) {
-
-                    if (pNum == this.current_page || pNum > this.page_num || pNum < 1) {
-                        return false;
-                    } else {
-                        let to = pNum * 20;
-                        let from = to - 20;
-                        if (to > this.total_product) {
-                            to = Number(this.total_product)
-                        }
-                        this.show_from = from + 1;
-                        this.show_to = to;
-                        this.pagi_products = Object.fromEntries(Object.entries(this.products).slice(from, to));
-                        this.current_page = pNum
-                    }
-                }
-            }">
-            {{-- right---part--start --}}
-            <div class="col-span-1 max-xl:hidden">
-                <!-- ----price-range------ -->
-                <div class=" w-full bg-[#F2F2F2] flex flex-col gap-2 shadow-[0_2px_4px_rgba(0,0,0,.1)] pb-[10px]">
-                    <header class="flex px-2 pt-4 pb-2">
-                        <h2 class="font-[jost] font-[500] text-[12px] text-[#380D37]">Price Range</h2>
-                        {{-- <p>Use slider or enter min and max price</p> --}}
-                    </header>
-                    <div class="h-[1px] bg-[#380D3733] w-full"></div>
-                    <div class="mb-[10px] mt-[15px] p-[5px]">
-                        <div class="slider">
-                            <div class="progress"></div>
+                <div class="container mx-auto px-2 md:px-0 py-4 bg-tertiary mb-10 flex items-center justify-between">
+                    <div class="flex flex-col md:flex-row gap-5 items-center">
+                        <div class="flex items-center gap-2 px-3 font-medium">
+                            <span class="text-[13px] text-secondary">Sort</span>
+                            <select class="bg-white" name="per_page" id="per_page">
+                                @foreach ([8, 12, 16, 20, 40, 100] as $value)
+                                    <option value="{{ $value }}"
+                                        {{ request('per_page') == $value ? 'selected' : '' }}>
+                                        {{ $value }} Products/Page
+                                    </option>
+                                @endforeach
+                            </select>
                         </div>
-                        <div class="range-input">
-                            <input x-model='minPrice' @change='productFetch' :value="minPrice" type="range"
-                                class="range-min w-[85px] font-[jost] font-[500] text-[12px]" min="0"
-                                max="490000" step="100">
-                            <input x-model='maxPrice' :value="maxPrice" @change='productFetch' type="range"
-                                class="range-max w-[85px] font-[jost] font-[500] text-[12px]" min="10000"
-                                max="500000" step="100">
-                        </div>
-                    </div>
-
-                    <div class="price-input">
-                        <div class="field">
-                            {{-- <span>Min</span> --}}
-                            <input x-model='minPrice' type="number" @change='productFetch'
-                                class="input-min font-[jost] font-[500] text-[12px]" step="1"
-                                :value="minPrice">
-                        </div>
-                        {{-- <div class="separator">-</div> --}}
-                        <div class="field">
-                            {{-- <span>Max</span> --}}
-                            <input x-model='maxPrice' type="number" @change='productFetch'
-                                class="input-max font-[jost] font-[500] text-[12px]" step="1"
-                                :value="maxPrice">
-                        </div>
-                    </div>
-                </div>
-
-                <!-- ---------------nav-1st--part (Availability)--------------- -->
-                <div x-data="{ open: true, toggle() { this.open = !this.open } }"
-                    class='bg-[#F2F2F2]  shadow-[0_2px_4px_rgba(0,0,0,.1)] rounded-[10px] mt-3'>
-                    <div class="flex justify-between p-[12px]">
-                        <span class='text-[#380D37] font-[jost] font-[500] text-[12px] leading-[25.23px] '
-                            for="text">Availability</span>
-                        <img src="/storage/product/down-arrow.svg" @click="toggle()" :class="{ 'rotate-180': !open }"
-                            class="text-[#000000] text-[14px] cursor-pointer w-[20px]" aria-hidden="true">
-                    </div>
-                    <div class="h-[1.5px] bg-[#380D3733] w-full">
-                    </div>
-                    <div x-show="open" class='p-[12px] flex flex-col gap-2'>
-                        <label class='flex items-center gap-[4px]' for="#">
-                            <input id="in_stock" x-model='in_stock' @change='productFetch'
-                                class='border-[1px] border-[#764A87] bg-[#f2f2f2] w-[11px] h-[12px]' type="checkbox"
-                                name='status'>
-                            <label for="in_stock" class='font-[jost] text-[12px] leading-[17.34px] text-[#380D37]'>In
-                                Stock</label>
-                        </label>
-                        <label class='flex items-center gap-[4px]' for="#">
-                            <input id="pre_order" x-model='pre_order' @change='productFetch'
-                                class='border-[1px] border-[#764A87] bg-[#f2f2f2] w-[11px] h-[12px]' type="checkbox"
-                                name='status'>
-                            <label for='pre_order'
-                                class='font-[jost] text-[12px] leading-[17.34px] text-[#380D37] text-center'>Pre
-                                Order</label>
-                        </label>
-                        <label class='flex items-center gap-[4px]' for="#">
-                            <input id="upcomming" x-model='upcomming' @change='productFetch'
-                                class='border-[1px] border-[#764A87] bg-[#f2f2f2] w-[11px] h-[12px]' type="checkbox"
-                                name='status'>
-                            <label for="upcomming" class='font-[jost] text-[12px] leading-[17.34px] text-[#380D37]'>Up
-                                Coming</label>
-                        </label>
-                    </div>
-                </div>
-
-                <!-- --------------------------nav----2nd---part (Brands)--------------- -->
-                @if (!$subcat && !$cat)
-                    <div x-data="{ open: true, toggle() { this.open = !this.open } }"
-                        class='bg-[#F2F2F2] shadow-[0_2px_4px_rgba(0,0,0,.1)] rounded-[10px] mt-3'>
-                        <div class="flex justify-between p-[12px]">
-                            <span class='text-[#380D37] font-[jost] font-[500] text-[12px] leading-[25.23px] '
-                                for="text">Brands</span>
-                            <img src="/storage/product/down-arrow.svg" @click="toggle()"
-                                :class="{ 'rotate-180': !open }"
-                                class="text-[#000000] text-[14px] cursor-pointer w-[20px]" aria-hidden="true">
-                        </div>
-                        <div class="h-[1px] bg-[#380D3733] w-full">
-                        </div>
-                        <div x-show="open" class='p-[12px] flex flex-col gap-2'>
-                            @foreach ($brands as $brand)
-                                <span class='flex items-center gap-[4px]'>
-                                    <input id="brand{{ $brand->id }}" value="{{ $brand->id }}"
-                                        class='border-[1px] border-[#380D37] bg-[#f2f2f2] w-[11px] h-[12px]'
-                                        type="checkbox" x-model='brands' @change='productFetch'>
-                                    <label for="brand{{ $brand->id }}"
-                                        class='font-[jost] text-[12px] leading-[17.34px] text-[#380D37]'>{{ $brand->title }}
-                                    </label>
-                                </span>
-                            @endforeach
-                        </div>
-                    </div>
-                @endif
-                <!-- ------------------nav-3rd--part (Processor Models)-------------- -->
-                <div x-data="{ open: true, toggle() { this.open = !this.open } }"
-                    class='bg-[#F2F2F2] shadow-[0_2px_4px_rgba(0,0,0,.1)] rounded-[10px] mt-3'>
-                    <div class="flex justify-between p-[12px]">
-                        <span class='text-[#380D37] font-[jost] font-[500] text-[12px] leading-[25.23px] '
-                            for="text">Processor
-                            Types</span>
-                        <img src="/storage/product/down-arrow.svg" @click="toggle()" :class="{ 'rotate-180': !open }"
-                            class="text-[#000000] text-[14px] cursor-pointer w-[20px]" aria-hidden="true">
-                    </div>
-                    <div class="h-[1px] bg-[#380D3733] w-full">
-                    </div>
-                    <div x-show="open" class='p-[12px] flex flex-col gap-2'>
-                        @foreach ($p_models as $pmodel)
-                            <span class='flex items-center gap-[4px]'>
-                                <input id="pmodel{{ $pmodel->id }}" value="{{ $pmodel->id }}"
-                                    class='border-[1px] border-[#380D37] bg-[#f2f2f2] w-[11px] h-[12px]'
-                                    type="checkbox" x-model='pmodels' @change='productFetch'>
-                                <label for="pmodel{{ $pmodel->id }}"
-                                    class='font-[jost] text-[12px] leading-[17.34px] text-[#380D37]'>{{ $pmodel->name }}
-                                </label>
-                            </span>
-                        @endforeach
-                    </div>
-                </div>
-
-                <!-- --------------nav-4th---part (Processor Generation)------------ -->
-                <div x-data="{ open: true, toggle() { this.open = !this.open } }"
-                    class='bg-[#F2F2F2] shadow-[0_2px_4px_rgba(0,0,0,.1)] rounded-[10px] mt-3'>
-                    <div class="flex justify-between p-[12px]">
-                        <span class='text-[#380D37] font-[jost] font-[500] text-[12px] leading-[25.23px] '
-                            for="text">Processor Generations</span>
-                        <img src="/storage/product/down-arrow.svg" @click="toggle()" :class="{ 'rotate-180': !open }"
-                            class="text-[#000000] text-[14px] cursor-pointer w-[20px]" aria-hidden="true">
-                    </div>
-                    <div class="h-[1px] bg-[#380D3733] w-full"></div>
-                    <div x-show="open" class='p-[12px] flex flex-col gap-2'>
-                        @foreach ($p_generations as $pgeneration)
-                            <span class='flex items-center gap-[4px]'>
-                                <input id="pgeneration{{ $pgeneration->id }}" value="{{ $pgeneration->id }}"
-                                    class='border-[1px] border-[#380D37] bg-[#f2f2f2] w-[11px] h-[12px]'
-                                    type="checkbox" x-model='pgenerations' @change='productFetch'>
-                                <label for="pgeneration{{ $pgeneration->id }}"
-                                    class='font-[jost] text-[12px] leading-[17.34px] text-[#380D37]'>{{ $pgeneration->name }}
-                                </label>
-                            </span>
-                        @endforeach
-                    </div>
-                </div>
-
-                <!-- ------------------nav-5th-----part (Display Sizes) ----------- -->
-                <div x-data="{ open: true, toggle() { this.open = !this.open } }"
-                    class='bg-[#F2F2F2] shadow-[0_2px_4px_rgba(0,0,0,.1)] rounded-[10px] mt-3'>
-                    <div class="flex justify-between p-[12px]">
-                        <span class='text-[#380D37] font-[jost] font-[500] text-[12px] leading-[25.23px] '
-                            for="text">Display
-                            Size</span>
-                        <img src="/storage/product/down-arrow.svg" @click="toggle()" :class="{ 'rotate-180': !open }"
-                            class="text-[#000000] text-[14px] cursor-pointer w-[20px]" aria-hidden="true">
-                    </div>
-                    <div class="h-[1px] bg-[#380D3733] w-full">
-                    </div>
-                    <div x-show="open" class='p-[12px] flex flex-col gap-2'>
-                        @foreach ($d_sizes as $d_size)
-                            <span class='flex items-center gap-[4px]'>
-                                <input id="d_size{{ $d_size->id }}" value="{{ $d_size->id }}"
-                                    class='border-[1px] border-[#380D37] bg-[#f2f2f2] w-[11px] h-[12px]'
-                                    type="checkbox" x-model='d_sizes' @change='productFetch'>
-                                <label for="d_size{{ $d_size->id }}"
-                                    class='font-[jost] text-[12px] leading-[17.34px] text-[#380D37]'>{{ $d_size->size }}
-                                    inch
-                                </label>
-                            </span>
-                        @endforeach
-                    </div>
-                </div>
-
-                <!-- --------------nav-6th---part (Display Types)------------- -->
-                <div x-data="{ open: true, toggle() { this.open = !this.open } }"
-                    class='bg-[#F2F2F2] shadow-[0_2px_4px_rgba(0,0,0,.1)] rounded-[10px] mt-3'>
-                    <div class="flex justify-between p-[12px]">
-                        <span class='text-[#380D37] font-[jost] font-[500] text-[12px] leading-[25.23px] '
-                            for="text">Display
-                            Type</span>
-                        <img src="/storage/product/down-arrow.svg" @click="toggle()" :class="{ 'rotate-180': !open }"
-                            class="text-[#000000] text-[14px] cursor-pointer w-[20px]" aria-hidden="true">
-                    </div>
-                    <div class="h-[1px] bg-[#380D3733] w-full">
-                    </div>
-                    <div x-show="open" class='p-[12px] flex flex-col gap-2'>
-                        @foreach ($d_types as $d_type)
-                            <span class='flex items-center gap-[4px]'>
-                                <input id="d_type{{ $d_type->id }}" value="{{ $d_type->id }}"
-                                    class='border-[1px] border-[#380D37] bg-[#f2f2f2] w-[11px] h-[12px]'
-                                    type="checkbox" x-model='d_types' @change='productFetch'>
-                                <label for="d_type{{ $d_type->id }}"
-                                    class='font-[jost] text-[12px] leading-[17.34px] text-[#380D37]'>{{ $d_type->name }}
-                                </label>
-                            </span>
-                        @endforeach
-                    </div>
-                </div>
-
-                <!-- ---------------nav--7th--part (RAMs) ------------------ -->
-                <div x-data="{ open: true, toggle() { this.open = !this.open } }"
-                    class='bg-[#F2F2F2] shadow-[0_2px_4px_rgba(0,0,0,.1)] rounded-[10px] mt-3'>
-                    <div class="flex justify-between p-[12px]">
-                        <span class='text-[#380D37] font-[jost] font-[500] text-[12px] leading-[25.23px] '
-                            for="text">RAM</span>
-                        <img src="/storage/product/down-arrow.svg" @click="toggle()" :class="{ 'rotate-180': !open }"
-                            class="text-[#000000] text-[14px] cursor-pointer w-[20px]" aria-hidden="true">
-                    </div>
-                    <div class="h-[1px] bg-[#380D3733] w-full">
-                    </div>
-                    <div x-show="open" class='p-[12px] flex flex-col gap-2'>
-                        @foreach ($rams as $ram)
-                            <span class='flex items-center gap-[4px]'>
-                                <input id="ram{{ $ram->id }}" value="{{ $ram->id }}"
-                                    class='border-[1px] border-[#380D37] bg-[#f2f2f2] w-[11px] h-[12px]'
-                                    type="checkbox" x-model='rams' @change='productFetch'>
-                                <label for="ram{{ $ram->id }}"
-                                    class='font-[jost] text-[12px] leading-[17.34px] text-[#380D37]'>{{ $ram->capacity }}
-
-                                </label>
-                            </span>
-                        @endforeach
-                    </div>
-                </div>
-
-                <!-- --------------nav---8th--part (HDDs) ------------------- -->
-                <div x-data="{ open: true, toggle() { this.open = !this.open } }"
-                    class='bg-[#F2F2F2] shadow-[0_2px_4px_rgba(0,0,0,.1)] rounded-[10px] mt-3'>
-                    <div class="flex justify-between p-[12px]">
-                        <span class='text-[#380D37] font-[jost] font-[500] text-[12px] leading-[25.23px] '
-                            for="text">HDD</span>
-                        <img src="/storage/product/down-arrow.svg" @click="toggle()" :class="{ 'rotate-180': !open }"
-                            class="text-[#000000] text-[14px] w-[20px] cursor-pointer">
-                    </div>
-                    <div class="h-[1px] bg-[#380D3733] w-full">
-                    </div>
-                    <div x-show="open" class='p-[12px] flex flex-col gap-2'>
-                        @foreach ($hdds as $hdd)
-                            <span class='flex items-center gap-[4px]'>
-                                <input id="hdd{{ $hdd->id }}" value="{{ $hdd->id }}"
-                                    class='border-[1px] border-[#380D37] bg-[#f2f2f2] w-[11px] h-[12px]'
-                                    type="checkbox" x-model='hdds' @change='productFetch'>
-                                <label for="hdd{{ $hdd->id }}"
-                                    class='font-[jost] text-[12px] leading-[17.34px] text-[#380D37]'>{{ $hdd->name }}
-                                </label>
-                            </span>
-                        @endforeach
-                    </div>
-                </div>
-
-                <!-- ---------------nav--9th---part (SSDs)---------------- -->
-                <div x-data="{ open: true, toggle() { this.open = !this.open } }"
-                    class='bg-[#F2F2F2] shadow-[0_2px_4px_rgba(0,0,0,.1)] rounded-[10px] mt-3'>
-                    <div class="flex justify-between p-[12px]">
-                        <span class='text-[#380D37] font-[jost] font-[500] text-[12px] leading-[25.23px] '
-                            for="text">SSD</span>
-                        <img src="/storage/product/down-arrow.svg" @click="toggle()" :class="{ 'rotate-180': !open }"
-                            class="text-[#000000] text-[14px] cursor-pointer w-[20px]" aria-hidden="true">
-                    </div>
-                    <div class="h-[1px] bg-[#380D3733] w-full">
-                    </div>
-                    <div x-show="open" class='p-[12px] flex flex-col gap-2'>
-                        @foreach ($ssds as $ssd)
-                            <span class='flex items-center gap-[4px]'>
-                                <input id="ssd{{ $ssd->id }}" value="{{ $ssd->id }}"
-                                    class='border-[1px] border-[#380D37] bg-[#f2f2f2] w-[11px] h-[12px]'
-                                    type="checkbox" x-model='ssds' @change='productFetch'>
-                                <label for="ssd{{ $ssd->id }}"
-                                    class='font-[jost] text-[12px] leading-[17.34px] text-[#380D37]'>{{ $ssd->name }}
-                                </label>
-                            </span>
-                        @endforeach
-                    </div>
-                </div>
-
-                <!-- -------------nav-10th-------part (Graphics)------------------ -->
-                <div x-data="{ open: true, toggle() { this.open = !this.open } }"
-                    class='bg-[#F2F2F2] shadow-[0_2px_4px_rgba(0,0,0,.1)] rounded-[10px] mt-3'>
-                    <div class="flex justify-between p-[12px]">
-                        <span class='text-[#380D37] font-[jost] font-[500] text-[12px] leading-[25.23px] '
-                            for="text">Graphics</span>
-                        <img src="/storage/product/down-arrow.svg" @click="toggle()" :class="{ 'rotate-180': !open }"
-                            class="text-[#000000] text-[14px] cursor-pointer w-[20px]" aria-hidden="true">
-                    </div>
-                    <div class="h-[1px] bg-[#380D3733] w-full">
-                    </div>
-                    <div x-show="open" class='p-[12px] flex flex-col gap-2'>
-                        @foreach ($graphics as $graphic)
-                            <span class='flex items-center gap-[4px]'>
-                                <input id="graphic{{ $graphic->id }}" value="{{ $graphic->id }}"
-                                    class='border-[1px] border-[#380D37] bg-[#f2f2f2] w-[11px] h-[12px]'
-                                    type="checkbox" x-model='graphics' @change='productFetch'>
-                                <label for="graphic{{ $graphic->id }}"
-                                    class='font-[jost] text-[12px] leading-[17.34px] text-[#380D37]'>{{ $graphic->name }}
-                                </label>
-                            </span>
-                        @endforeach
-                    </div>
-                </div>
-
-                <!-- -----------------nav----11th---part (Speacial Offers)----------------- -->
-                <div x-data="{ open: true, toggle() { this.open = !this.open } }"
-                    class='bg-[#F2F2F2] shadow-[0_2px_4px_rgba(0,0,0,.1)] rounded-[10px] mt-3'>
-                    <div class="flex justify-between p-[12px]">
-                        <span class='text-[#380D37] font-[jost] font-[500] text-[12px] leading-[25.23px] '
-                            for="text">Special
-                            Features</span>
-                        <img src="/storage/product/down-arrow.svg" @click="toggle()" :class="{ 'rotate-180': !open }"
-                            class="text-[#000000] text-[14px] cursor-pointer w-[20px]" aria-hidden="true">
-                    </div>
-                    <div class="h-[1px] bg-[#380D3733] w-full">
-                    </div>
-                    <div x-show="open" class='p-[12px] flex flex-col gap-2'>
-                        @foreach ($s_features as $s_feature)
-                            <span class='flex items-center gap-[4px]'>
-                                <input id="s_feature{{ $s_feature->id }}" value="{{ $s_feature->id }}"
-                                    class='border-[1px] border-[#380D37] bg-[#f2f2f2] w-[11px] h-[12px]'
-                                    type="checkbox" x-model='s_features' @change='productFetch'>
-                                <label for="s_feature{{ $s_feature->id }}"
-                                    class='font-[jost] text-[12px] leading-[17.34px] text-[#380D37]'>{{ $s_feature->name }}
-                                </label>
-                            </span>
-                        @endforeach
-                    </div>
-                </div>
-
-            </div>
-            <div class="col-span-4 max-xl:col-span-full">
-                <!-- Sidenav -->
-                <nav
-                    class=" px-3 grid grid-cols-4 items-center bg-[#F2F2F2] py-3 font-[jost] font-[600] text-[16px] rounded-[6px]">
-                    <div class="flex">
-                        <h1 class="max-xl:hidden">
-                            Filter
-                            {{-- @isset($cat, $subcat)
-                                {{ Str::of($cat)->headline() }}
-                                @isset($subcat)
-                                    /
-                                    {{ Str::of(Str::of($subcat)->afterLast('-'))->upper() }}
-                                @endisset
-                            @else
-                                All
-                            @endisset --}}
-
-                        </h1>
-                        <div class="hidden max-xl:block">
-                            <div id="body-overlay"></div>
-                            <!-- Menu Icon -->
-                            <div id="menu-icon">
-
-                                <div class="flex gap-[10px] items-center">
-                                    <div class="flex flex-col items-center">
-                                        <div class="w-[25px] h-[2px] bg-[#380d37] my-[2px]"></div>
-                                        <div class="w-[15px] h-[2px] bg-[#380d37] my-[2px]"></div>
-                                        <div class="w-[10px] h-[2px] bg-[#380d37] my-[2px]"></div>
-                                    </div>
-                                    <div>
-                                        <span class="text-[18px] text-[#380D37] font-[jost] font-[500]">filter</span>
-                                    </div>
-                                </div>
-
-                            </div>
-
-                            <!-- Menu Wrapper -->
-                            <div id="menu" class="flex">
-                                <!-- Menu -->
-                                <div id="close-icon">
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                        stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                            d="M6 18L18 6M6 6l12 12" />
-                                    </svg>
-                                </div>
-                                <div class="w-[206px] overflow-scroll mb-[142px] bg-[#fff]">
-                                    <!-- ----price-range------ -->
-                                    <div
-                                        class=" w-full bg-[#F2F2F2] flex flex-col gap-2 shadow-[0_2px_4px_rgba(0,0,0,.1)] pb-[10px]">
-                                        <header class="flex px-2 pt-4 pb-2">
-                                            <h2 class="font-[jost] font-[500] text-[12px] text-[#380D37]">Price Range
-                                            </h2>
-                                            {{-- <p>Use slider or enter min and max price</p> --}}
-                                        </header>
-                                        <div class="h-[1px] bg-[#380D3733] w-full"></div>
-                                        <div class="mb-[10px] mt-[15px] p-[5px]">
-                                            <div class="slider">
-                                                <div class="progress"></div>
-                                            </div>
-                                            <div class="range-input">
-                                                <input x-model='minPrice' @change='productFetch'
-                                                    :value="minPrice" type="range"
-                                                    class="range-min w-[85px] font-[jost] font-[500] text-[12px]"
-                                                    min="0" max="490000" step="100">
-                                                <input x-model='maxPrice' :value="maxPrice"
-                                                    @change='productFetch' type="range"
-                                                    class="range-max w-[85px] font-[jost] font-[500] text-[12px]"
-                                                    min="10000" max="500000" step="100">
-                                            </div>
-                                        </div>
-
-                                        <div class="price-input">
-                                            <div class="field">
-                                                {{-- <span>Min</span> --}}
-                                                <input x-model='minPrice' type="number" @change='productFetch'
-                                                    class="input-min font-[jost] font-[500] text-[12px]"
-                                                    step="1" :value="minPrice">
-                                            </div>
-                                            {{-- <div class="separator">-</div> --}}
-                                            <div class="field">
-                                                {{-- <span>Max</span> --}}
-                                                <input x-model='maxPrice' type="number" @change='productFetch'
-                                                    class="input-max font-[jost] font-[500] text-[12px]"
-                                                    step="1" :value="maxPrice">
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <!-- ---------------nav-1st--part (Availability)--------------- -->
-                                    <div x-data="{ open: true, toggle() { this.open = !this.open } }"
-                                        class='bg-[#F2F2F2]  shadow-[0_2px_4px_rgba(0,0,0,.1)] rounded-[10px] mt-3'>
-                                        <div class="flex justify-between p-[12px]">
-                                            <span
-                                                class='text-[#380D37] font-[jost] font-[500] text-[12px] leading-[25.23px] '
-                                                for="text">Availability</span>
-                                            <img src="/storage/product/down-arrow.svg" @click="toggle()"
-                                                :class="{ 'rotate-180': !open }"
-                                                class="text-[#000000] text-[14px] cursor-pointer w-[20px]"
-                                                aria-hidden="true">
-                                        </div>
-                                        <div class="h-[1.5px] bg-[#380D3733] w-full">
-                                        </div>
-                                        <div x-show="open" class='p-[12px] flex flex-col gap-2'>
-                                            <label class='flex items-center gap-[4px]' for="#">
-                                                <input id="in_stock" x-model='in_stock' @change='productFetch'
-                                                    class='border-[1px] border-[#764A87] bg-[#f2f2f2] w-[11px] h-[12px]'
-                                                    type="checkbox" name='status'>
-                                                <label for="in_stock"
-                                                    class='font-[jost] text-[12px] leading-[17.34px] text-[#380D37]'>In
-                                                    Stock</label>
-                                            </label>
-                                            <label class='flex items-center gap-[4px]' for="#">
-                                                <input id="pre_order" x-model='pre_order' @change='productFetch'
-                                                    class='border-[1px] border-[#764A87] bg-[#f2f2f2] w-[11px] h-[12px]'
-                                                    type="checkbox" name='status'>
-                                                <label for='pre_order'
-                                                    class='font-[jost] text-[12px] leading-[17.34px] text-[#380D37] text-center'>Pre
-                                                    Order</label>
-                                            </label>
-                                            <label class='flex items-center gap-[4px]' for="#">
-                                                <input id="upcomming" x-model='upcomming' @change='productFetch'
-                                                    class='border-[1px] border-[#764A87] bg-[#f2f2f2] w-[11px] h-[12px]'
-                                                    type="checkbox" name='status'>
-                                                <label for="upcomming"
-                                                    class='font-[jost] text-[12px] leading-[17.34px] text-[#380D37]'>Up
-                                                    Coming</label>
-                                            </label>
-                                        </div>
-                                    </div>
-
-                                    <!-- --------------------------nav----2nd---part (Brands)--------------- -->
-                                    @if (!$subcat)
-                                        <div x-data="{ open: true, toggle() { this.open = !this.open } }"
-                                            class='bg-[#F2F2F2] shadow-[0_2px_4px_rgba(0,0,0,.1)] rounded-[10px] mt-3'>
-                                            <div class="flex justify-between p-[12px]">
-                                                <span
-                                                    class='text-[#380D37] font-[jost] font-[500] text-[12px] leading-[25.23px] '
-                                                    for="text">Brands</span>
-                                                <img src="/storage/product/down-arrow.svg" @click="toggle()"
-                                                    :class="{ 'rotate-180': !open }"
-                                                    class="text-[#000000] text-[14px] cursor-pointer w-[20px]"
-                                                    aria-hidden="true">
-                                            </div>
-                                            <div class="h-[1px] bg-[#380D3733] w-full">
-                                            </div>
-                                            <div x-show="open" class='p-[12px] flex flex-col gap-2'>
-                                                @foreach ($brands as $brand)
-                                                    <span class='flex items-center gap-[4px]'>
-                                                        <input id="brand{{ $brand->id }}"
-                                                            value="{{ $brand->id }}"
-                                                            class='border-[1px] border-[#380D37] bg-[#f2f2f2] w-[11px] h-[12px]'
-                                                            type="checkbox" x-model='brands' @change='productFetch'>
-                                                        <label for="brand{{ $brand->id }}"
-                                                            class='font-[jost] text-[12px] leading-[17.34px] text-[#380D37]'>{{ $brand->title }}
-
-                                                        </label>
-                                                    </span>
-                                                @endforeach
-                                            </div>
-                                        </div>
-                                    @endif
-                                    <!-- ------------------nav-3rd--part (Processor Models)-------------- -->
-                                    <div x-data="{ open: true, toggle() { this.open = !this.open } }"
-                                        class='bg-[#F2F2F2] shadow-[0_2px_4px_rgba(0,0,0,.1)] rounded-[10px] mt-3'>
-                                        <div class="flex justify-between p-[12px]">
-                                            <span
-                                                class='text-[#380D37] font-[jost] font-[500] text-[12px] leading-[25.23px] '
-                                                for="text">Processor
-                                                Models</span>
-                                            <img src="/storage/product/down-arrow.svg" @click="toggle()"
-                                                :class="{ 'rotate-180': !open }"
-                                                class="text-[#000000] text-[14px] cursor-pointer w-[20px]"
-                                                aria-hidden="true">
-                                        </div>
-                                        <div class="h-[1px] bg-[#380D3733] w-full">
-                                        </div>
-                                        <div x-show="open" class='p-[12px] flex flex-col gap-2'>
-                                            @foreach ($p_models as $pmodel)
-                                                <span class='flex items-center gap-[4px]'>
-                                                    <input id="pmodel{{ $pmodel->id }}"
-                                                        value="{{ $pmodel->id }}"
-                                                        class='border-[1px] border-[#380D37] bg-[#f2f2f2] w-[11px] h-[12px]'
-                                                        type="checkbox" x-model='pmodels' @change='productFetch'>
-                                                    <label for="pmodel{{ $pmodel->id }}"
-                                                        class='font-[jost] text-[12px] leading-[17.34px] text-[#380D37]'>{{ $pmodel->name }}
-                                                    </label>
-                                                </span>
-                                            @endforeach
-                                        </div>
-                                    </div>
-
-                                    <!-- --------------nav-4th---part (Processor Generation)------------ -->
-                                    <div x-data="{ open: true, toggle() { this.open = !this.open } }"
-                                        class='bg-[#F2F2F2] shadow-[0_2px_4px_rgba(0,0,0,.1)] rounded-[10px] mt-3'>
-                                        <div class="flex justify-between p-[12px]">
-                                            <span
-                                                class='text-[#380D37] font-[jost] font-[500] text-[12px] leading-[25.23px] '
-                                                for="text">Processor Generations</span>
-                                            <img src="/storage/product/down-arrow.svg" @click="toggle()"
-                                                :class="{ 'rotate-180': !open }"
-                                                class="text-[#000000] text-[14px] cursor-pointer w-[20px]"
-                                                aria-hidden="true">
-                                        </div>
-                                        <div class="h-[1px] bg-[#380D3733] w-full"></div>
-                                        <div x-show="open" class='p-[12px] flex flex-col gap-2'>
-                                            @foreach ($p_generations as $pgeneration)
-                                                <span class='flex items-center gap-[4px]'>
-                                                    <input id="pgeneration{{ $pgeneration->id }}"
-                                                        value="{{ $pgeneration->id }}"
-                                                        class='border-[1px] border-[#380D37] bg-[#f2f2f2] w-[11px] h-[12px]'
-                                                        type="checkbox" x-model='pgenerations'
-                                                        @change='productFetch'>
-                                                    <label for="pgeneration{{ $pgeneration->id }}"
-                                                        class='font-[jost] text-[12px] leading-[17.34px] text-[#380D37]'>{{ $pgeneration->name }}
-                                                    </label>
-                                                </span>
-                                            @endforeach
-                                        </div>
-                                    </div>
-
-                                    <!-- ------------------nav-5th-----part (Display Sizes) ----------- -->
-                                    <div x-data="{ open: true, toggle() { this.open = !this.open } }"
-                                        class='bg-[#F2F2F2] shadow-[0_2px_4px_rgba(0,0,0,.1)] rounded-[10px] mt-3'>
-                                        <div class="flex justify-between p-[12px]">
-                                            <span
-                                                class='text-[#380D37] font-[jost] font-[500] text-[12px] leading-[25.23px] '
-                                                for="text">Display
-                                                Size</span>
-                                            <img src="/storage/product/down-arrow.svg" @click="toggle()"
-                                                :class="{ 'rotate-180': !open }"
-                                                class="text-[#000000] text-[14px] cursor-pointer w-[20px]"
-                                                aria-hidden="true">
-                                        </div>
-                                        <div class="h-[1px] bg-[#380D3733] w-full">
-                                        </div>
-                                        <div x-show="open" class='p-[12px] flex flex-col gap-2'>
-                                            @foreach ($d_sizes as $d_size)
-                                                <span class='flex items-center gap-[4px]'>
-                                                    <input id="d_size{{ $d_size->id }}"
-                                                        value="{{ $d_size->id }}"
-                                                        class='border-[1px] border-[#380D37] bg-[#f2f2f2] w-[11px] h-[12px]'
-                                                        type="checkbox" x-model='d_sizes' @change='productFetch'>
-                                                    <label for="d_size{{ $d_size->id }}"
-                                                        class='font-[jost] text-[12px] leading-[17.34px] text-[#380D37]'>{{ $d_size->size }}
-                                                        inch
-                                                    </label>
-                                                </span>
-                                            @endforeach
-                                        </div>
-                                    </div>
-
-                                    <!-- --------------nav-6th---part (Display Types)------------- -->
-                                    <div x-data="{ open: true, toggle() { this.open = !this.open } }"
-                                        class='bg-[#F2F2F2] shadow-[0_2px_4px_rgba(0,0,0,.1)] rounded-[10px] mt-3'>
-                                        <div class="flex justify-between p-[12px]">
-                                            <span
-                                                class='text-[#380D37] font-[jost] font-[500] text-[12px] leading-[25.23px] '
-                                                for="text">Display
-                                                Type</span>
-                                            <img src="/storage/product/down-arrow.svg" @click="toggle()"
-                                                :class="{ 'rotate-180': !open }"
-                                                class="text-[#000000] text-[14px] cursor-pointer w-[20px]"
-                                                aria-hidden="true">
-                                        </div>
-                                        <div class="h-[1px] bg-[#380D3733] w-full">
-                                        </div>
-                                        <div x-show="open" class='p-[12px] flex flex-col gap-2'>
-                                            @foreach ($d_types as $d_type)
-                                                <span class='flex items-center gap-[4px]'>
-                                                    <input id="d_type{{ $d_type->id }}"
-                                                        value="{{ $d_type->id }}"
-                                                        class='border-[1px] border-[#380D37] bg-[#f2f2f2] w-[11px] h-[12px]'
-                                                        type="checkbox" x-model='d_types' @change='productFetch'>
-                                                    <label for="d_type{{ $d_type->id }}"
-                                                        class='font-[jost] text-[12px] leading-[17.34px] text-[#380D37]'>{{ $d_type->name }}
-                                                    </label>
-                                                </span>
-                                            @endforeach
-                                        </div>
-                                    </div>
-
-                                    <!-- ---------------nav--7th--part (RAMs) ------------------ -->
-                                    <div x-data="{ open: true, toggle() { this.open = !this.open } }"
-                                        class='bg-[#F2F2F2] shadow-[0_2px_4px_rgba(0,0,0,.1)] rounded-[10px] mt-3'>
-                                        <div class="flex justify-between p-[12px]">
-                                            <span
-                                                class='text-[#380D37] font-[jost] font-[500] text-[12px] leading-[25.23px] '
-                                                for="text">RAM</span>
-                                            <img src="/storage/product/down-arrow.svg" @click="toggle()"
-                                                :class="{ 'rotate-180': !open }"
-                                                class="text-[#000000] text-[14px] cursor-pointer w-[20px]"
-                                                aria-hidden="true">
-                                        </div>
-                                        <div class="h-[1px] bg-[#380D3733] w-full">
-                                        </div>
-                                        <div x-show="open" class='p-[12px] flex flex-col gap-2'>
-                                            @foreach ($rams as $ram)
-                                                <span class='flex items-center gap-[4px]'>
-                                                    <input id="ram{{ $ram->id }}" value="{{ $ram->id }}"
-                                                        class='border-[1px] border-[#380D37] bg-[#f2f2f2] w-[11px] h-[12px]'
-                                                        type="checkbox" x-model='rams' @change='productFetch'>
-                                                    <label for="ram{{ $ram->id }}"
-                                                        class='font-[jost] text-[12px] leading-[17.34px] text-[#380D37]'>{{ $ram->capacity }}
-
-                                                    </label>
-                                                </span>
-                                            @endforeach
-                                        </div>
-                                    </div>
-
-                                    <!-- --------------nav---8th--part (HDDs) ------------------- -->
-                                    <div x-data="{ open: true, toggle() { this.open = !this.open } }"
-                                        class='bg-[#F2F2F2] shadow-[0_2px_4px_rgba(0,0,0,.1)] rounded-[10px] mt-3'>
-                                        <div class="flex justify-between p-[12px]">
-                                            <span
-                                                class='text-[#380D37] font-[jost] font-[500] text-[12px] leading-[25.23px] '
-                                                for="text">HDD</span>
-                                            <img src="/storage/product/down-arrow.svg" @click="toggle()"
-                                                :class="{ 'rotate-180': !open }"
-                                                class="text-[#000000] text-[14px] w-[20px] cursor-pointer">
-                                        </div>
-                                        <div class="h-[1px] bg-[#380D3733] w-full">
-                                        </div>
-                                        <div x-show="open" class='p-[12px] flex flex-col gap-2'>
-                                            @foreach ($hdds as $hdd)
-                                                <span class='flex items-center gap-[4px]'>
-                                                    <input id="hdd{{ $hdd->id }}" value="{{ $hdd->id }}"
-                                                        class='border-[1px] border-[#380D37] bg-[#f2f2f2] w-[11px] h-[12px]'
-                                                        type="checkbox" x-model='hdds' @change='productFetch'>
-                                                    <label for="hdd{{ $hdd->id }}"
-                                                        class='font-[jost] text-[12px] leading-[17.34px] text-[#380D37]'>{{ $hdd->name }}
-                                                    </label>
-                                                </span>
-                                            @endforeach
-                                        </div>
-                                    </div>
-
-                                    <!-- ---------------nav--9th---part (SSDs)---------------- -->
-                                    <div x-data="{ open: true, toggle() { this.open = !this.open } }"
-                                        class='bg-[#F2F2F2] shadow-[0_2px_4px_rgba(0,0,0,.1)] rounded-[10px] mt-3'>
-                                        <div class="flex justify-between p-[12px]">
-                                            <span
-                                                class='text-[#380D37] font-[jost] font-[500] text-[12px] leading-[25.23px] '
-                                                for="text">SSD</span>
-                                            <img src="/storage/product/down-arrow.svg" @click="toggle()"
-                                                :class="{ 'rotate-180': !open }"
-                                                class="text-[#000000] text-[14px] cursor-pointer w-[20px]"
-                                                aria-hidden="true">
-                                        </div>
-                                        <div class="h-[1px] bg-[#380D3733] w-full">
-                                        </div>
-                                        <div x-show="open" class='p-[12px] flex flex-col gap-2'>
-                                            @foreach ($ssds as $ssd)
-                                                <span class='flex items-center gap-[4px]'>
-                                                    <input id="ssd{{ $ssd->id }}" value="{{ $ssd->id }}"
-                                                        class='border-[1px] border-[#380D37] bg-[#f2f2f2] w-[11px] h-[12px]'
-                                                        type="checkbox" x-model='ssds' @change='productFetch'>
-                                                    <label for="ssd{{ $ssd->id }}"
-                                                        class='font-[jost] text-[12px] leading-[17.34px] text-[#380D37]'>{{ $ssd->name }}
-                                                    </label>
-                                                </span>
-                                            @endforeach
-                                        </div>
-                                    </div>
-
-                                    <!-- -------------nav-10th-------part (Graphics)------------------ -->
-                                    <div x-data="{ open: true, toggle() { this.open = !this.open } }"
-                                        class='bg-[#F2F2F2] shadow-[0_2px_4px_rgba(0,0,0,.1)] rounded-[10px] mt-3'>
-                                        <div class="flex justify-between p-[12px]">
-                                            <span
-                                                class='text-[#380D37] font-[jost] font-[500] text-[12px] leading-[25.23px] '
-                                                for="text">Graphics</span>
-                                            <img src="/storage/product/down-arrow.svg" @click="toggle()"
-                                                :class="{ 'rotate-180': !open }"
-                                                class="text-[#000000] text-[14px] cursor-pointer w-[20px]"
-                                                aria-hidden="true">
-                                        </div>
-                                        <div class="h-[1px] bg-[#380D3733] w-full">
-                                        </div>
-                                        <div x-show="open" class='p-[12px] flex flex-col gap-2'>
-                                            @foreach ($graphics as $graphic)
-                                                <span class='flex items-center gap-[4px]'>
-                                                    <input id="graphic{{ $graphic->id }}"
-                                                        value="{{ $graphic->id }}"
-                                                        class='border-[1px] border-[#380D37] bg-[#f2f2f2] w-[11px] h-[12px]'
-                                                        type="checkbox" x-model='graphics' @change='productFetch'>
-                                                    <label for="graphic{{ $graphic->id }}"
-                                                        class='font-[jost] text-[12px] leading-[17.34px] text-[#380D37]'>{{ $graphic->name }}
-                                                    </label>
-                                                </span>
-                                            @endforeach
-                                        </div>
-                                    </div>
-
-                                    <!-- -----------------nav----11th---part (Speacial Offers)----------------- -->
-                                    <div x-data="{ open: true, toggle() { this.open = !this.open } }"
-                                        class='bg-[#F2F2F2] shadow-[0_2px_4px_rgba(0,0,0,.1)] rounded-[10px] mt-3'>
-                                        <div class="flex justify-between p-[12px]">
-                                            <span
-                                                class='text-[#380D37] font-[jost] font-[500] text-[12px] leading-[25.23px] '
-                                                for="text">Special
-                                                Features</span>
-                                            <img src="/storage/product/down-arrow.svg" @click="toggle()"
-                                                :class="{ 'rotate-180': !open }"
-                                                class="text-[#000000] text-[14px] cursor-pointer w-[20px]"
-                                                aria-hidden="true">
-                                        </div>
-                                        <div class="h-[1px] bg-[#380D3733] w-full">
-                                        </div>
-                                        <div x-show="open" class='p-[12px] flex flex-col gap-2'>
-                                            @foreach ($s_features as $s_feature)
-                                                <span class='flex items-center gap-[4px]'>
-                                                    <input id="s_feature{{ $s_feature->id }}"
-                                                        value="{{ $s_feature->id }}"
-                                                        class='border-[1px] border-[#380D37] bg-[#f2f2f2] w-[11px] h-[12px]'
-                                                        type="checkbox" x-model='s_features' @change='productFetch'>
-                                                    <label for="s_feature{{ $s_feature->id }}"
-                                                        class='font-[jost] text-[12px] leading-[17.34px] text-[#380D37]'>{{ $s_feature->name }}
-                                                    </label>
-                                                </span>
-                                            @endforeach
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div
-                        class="col-span-2 flex justify-between text-center items-center font-[jost] font-[500] text-[17px]">
-
-                        <div class="grid grid-cols-3 gap-[5px] items-center">
-                            <label
-                                class="col-span-1 text-right bg-[#f2f2f2] text-[#380D37] text-[14px] max-sm:text-[12px] font-[jost] font-[400] leading-[20.23px]">Sort
-                                by:</label>
-                            <select x-model='sorting' @change='productFetch'
-                                class="flex items-center justify-center text-center gap-[4px] col-span-2 max-md:w-full py-[14px] max-sm:py-[8px] text-[#380D37] text-[14px] max-sm:text-[12px] font-[jost] font-[400] leading-[20.23px]">
-                                <option selected>Default sorting</option>
-                                <option value="sbp">Sort by popularity</option>
-                                <option value="sbar">Sort by average rating</option>
-                                <option value="sbl">Sort by latest</option>
-                                <option value="lth">Short by price: low to high</option>
-                                <option value="htl">Short by price: high to low</option>
+                        <div class="flex items-center gap-2 px-3 font-medium">
+                            <span class="text-[13px] text-secondary">Sort by</span>
+                            <select class="bg-white" name="sort_by" id="sort_by">
+                                @foreach ([
+        'price_asc' => 'Low to High',
+        'price_desc' => 'High to Low',
+        'popularity' => 'Sort By Popularity',
+        'average_rating' => 'Sort By Average Rating',
+        'newest' => 'Sort By Newness',
+    ] as $value => $label)
+                                    <option value="{{ $value }}"
+                                        {{ request('sort_by') == $value ? 'selected' : '' }}>
+                                        {{ $label }}
+                                    </option>
+                                @endforeach
                             </select>
                         </div>
                     </div>
-                    <div
-                        class="shop-view text-[#380D37] text-[14px] max-sm:text-[12px] font-[jost] font-[400] leading-[20.23px] flex items-center gap-[4px] max-md:gap-[2px] justify-center transparent">
-                        <span class='text-center'>View</span>
-                        <span id="grid"
-                            class="grid-view mf-shop-view current mx-[20px] max-md:mx-[10px] max-sm:mx-[2px]"
-                            data-view="grid">
-                            <svg xmlns="http://www.w3.org/2000/svg" height="2em"
-                                class="max-sm:h-[15px] cursor-pointer" fill='black' viewBox="0 0 512 512">
-                                <path
-                                    d="M64 32C28.7 32 0 60.7 0 96V416c0 35.3 28.7 64 64
-                                        64H448c35.3 0 64-28.7 64-64V96c0-35.3-28.7-64-64-64H64zm88 64v64H64V96h88zm56 0h88v64H208V96zm240 0v64H360V96h88zM64
-                                        224h88v64H64V224zm232 0v64H208V224h88zm64 0h88v64H360V224zM152 352v64H64V352h88zm56 0h88v64H208V352zm240 0v64H360V352h88z" />
-                            </svg></span>
-                        <span id="column" class="list-view mf-shop-view mx-[20px] max-md:mx-[10px] max-sm:mx-[2px]"
-                            data-view="list">
-                            <svg xmlns="http://www.w3.org/2000/svg" height="2em"
-                                class="max-sm:h-[15px] cursor-pointer" fill='black' viewBox="0 0 512 512">
-                                <path
-                                    d="M64 144a48 48 0 1 0 0-96 48 48 0 1 0 0 96zM192 64c-17.7 0-32 14.3-32 32s14.3 32 32 32H480c17.7 0 32-14.3 32-32s-14.3-32-32-32H192zm0 160c-17.7 0-32 14.3-32 32s14.3 32 32 32H480c17.7 0 32-14.3 32-32s-14.3-32-32-32H192zm0 160c-17.7 0-32 14.3-32 32s14.3 32 32 32H480c17.7 0 32-14.3 32-32s-14.3-32-32-32H192zM64 464a48 48 0 1 0 0-96 48 48 0 1 0 0 96zm48-208a48 48 0 1 0 -96 0 48 48 0 1 0 96 0z" />
-                            </svg>
-                        </span>
-                    </div>
-                </nav>
-
-                {{-- product show after reload  --}}
-                <div x-show='productShow'>
-                    <div
-                        class='grid grid-cols-4 max-lg:grid-cols-3 max-sm:grid-cols-2 gap-8 max-sm:gap-[5px] mx-auto mt-4 product_pdiv'>
-                        @foreach ($products as $product)
-                            <x-shop-product :product="$product"></x-shop-product>
-                        @endforeach
-                    </div>
-                    <div class="mt-8">
-                        {{ $products->links('vendor.pagination.tailwind') }}
+                    <div class="flex items-center gap-2 pr-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 56 56"
+                            class="cursor-pointer" @click="isGridView = false"
+                            :fill="isGridView ? 'currentColor' : '#ab8e66'">
+                            <path fill-rule="evenodd"
+                                d="M10 36a3 3 0 1 1 0 6a3 3 0 0 1 0-6m35.998 1c1.106 0 2.002.888 2.002 2c0 1.105-.89 2-2.002 2H18.002A1.996 1.996 0 0 1 16 39c0-1.105.89-2 2.002-2zM10 26a3 3 0 1 1 0 6a3 3 0 0 1 0-6m35.998 1c1.106 0 2.002.888 2.002 2c0 1.105-.89 2-2.002 2H18.002A1.996 1.996 0 0 1 16 29c0-1.105.89-2 2.002-2zM10 16a3 3 0 1 1 0 6a3 3 0 0 1 0-6m35.998 1c1.106 0 2.002.888 2.002 2c0 1.105-.89 2-2.002 2H18.002A1.996 1.996 0 0 1 16 19c0-1.105.89-2 2.002-2z" />
+                        </svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                            class="cursor-pointer" @click="isGridView = true"
+                            :fill="isGridView ? '#ab8e66' : 'currentColor'">
+                            <path fill-rule="evenodd"
+                                d="M16 16h4v4h-4zm-6 0h4v4h-4zm-6 0h4v4H4zm12-6h4v4h-4zm-6 0h4v4h-4zm-6 0h4v4H4zm12-6h4v4h-4zm-6 0h4v4h-4zM4 4h4v4H4z" />
+                        </svg>
                     </div>
                 </div>
 
-                {{-- Ajax product show after search ( Ajax search) --}}
-                <template x-if="products">
-                    <div>
-                        <div x-show="ajaxProduct" id="product_pdiv">
-                            <div
-                                class='grid grid-cols-4 gap-8 max-sm:gap-[5px] mx-auto mt-4 max-lg:grid-cols-3 max-sm:grid-cols-2 product_pdiv'>
-                                {{-- x-if="Object.keys(products).length > 0" --}}
-                                <template x-for="product in pagi_products" id="product">
-                                    <div
-                                        class="product_div relative overflow-hidden border-[1px] border-[#380D37] bg-[#f2f2f2] rounded-[4px] box-border px-[5px] mt-2 flex flex-col gap-2 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] ">
+            </section>
+            <!-- Top Bar End -->
+            <!-- Products Start Columns -->
+            <section :class="isGridView ? ' hidden' : 'block'">
+                <div class="container mx-auto px-2 md:px-0 pb-20">
+                    <div class="grid grid-cols-1 gap-5">
+                        @foreach ($products as $cproduct)
+                            <div class="group cursor-pointer w-full">
+                                <div
+                                    class="border group-hover:border-[#ab8e66] transition-all duration-300 grid grid-cols-12">
+                                    <div class="col-span-10 grid grid-cols-12 gap-5">
+                                        <div class="relative w-full col-span-3">
+                                            <img src="{{ $cproduct->photo }}" class="w-full" />
+                                            <div class="top-0 left-0 right-0 bottom-0 m-auto absolute h-full">
+                                                <div class="h-full flex items-center justify-center">
+                                                    <div
+                                                        class="bg-primary flex rounded-full group-hover:mt-0 transition-all duration-300 ease-in-out group-hover:opacity-100 opacity-0 mt-20">
 
-                                        <div class="flex items-center justify-center image-container relative">
-                                            <a :href="'/product-details/' + product.slug" wire:navigate>
-                                                <img :src="product.photo.split(',')[0]"
-                                                    class="rounded-t-lg img-fluid h-[130px] object-container"
-                                                    data-te-ripple-init data-te-ripple-color="dark" alt="avatar.png">
-                                            </a>
-                                            <template x-if='product.stock < 1'>
-                                                <span
-                                                    class="text-[14px] bg-[#ef4a23] text-[#fff] absolute top-0 left-[-5px] px-2 py-[2px] rounded-r-lg">Out
-                                                    Of Stock</span>
-                                            </template>
-                                            <template x-if='product.discount > 0'>
-                                                <span
-                                                    class="text-[14px] text-[#fff] bg-[#ef4a23] absolute top-0 right-[-5px] px-2 py-[2px] rounded-l-lg">
-                                                    -<span x-text='product.discount'></span>%
-                                                </span>
-                                            </template>
-
-                                        </div>
-
-                                        <div class="p-4 max-sm:p-[8px] border-t-[1px] border-[#380D3733]">
-                                            <div class=' border-[#380D3733] mb-2'>
-                                                <a :href="'/product-details/' + product.slug" wire:navigate
-                                                    class="font-[jost] text-[12px] font-[500] leading-[20px] text-left text-[#380D37] transition duration-150 ease-in-out hover:text-[#ef4a23] decoration-[#ef4a23] decoration-1 hover:underline hover:underline-offset-4"
-                                                    x-text='product.title'>
-                                                </a>
+                                                        <div class="w-11 h-11 flex items-center justify-end">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="24"
+                                                                height="24" viewBox="0 0 24 24">
+                                                                <path fill="none" stroke="#fff"
+                                                                    stroke-linecap="round" stroke-linejoin="round"
+                                                                    stroke-width="1.5"
+                                                                    d="M7.75 3.5C5.127 3.5 3 5.76 3 8.547C3 14.125 12 20.5 12 20.5s9-6.375 9-11.953C21 5.094 18.873 3.5 16.25 3.5c-1.86 0-3.47 1.136-4.25 2.79c-.78-1.654-2.39-2.79-4.25-2.79" />
+                                                            </svg>
+                                                        </div>
+                                                        <div class="w-11 h-11 flex items-center justify-center">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="24"
+                                                                height="24" viewBox="0 0 24 24">
+                                                                <path fill="none" stroke="#fff"
+                                                                    stroke-linecap="round" stroke-linejoin="round"
+                                                                    stroke-width="1.5"
+                                                                    d="m21 21l-4.343-4.343m0 0A8 8 0 1 0 5.343 5.343a8 8 0 0 0 11.314 11.314" />
+                                                            </svg>
+                                                        </div>
+                                                        <div class="w-11 h-11 flex items-center justify-start">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="24"
+                                                                height="24" viewBox="0 0 56 56">
+                                                                <path fill="#fff"
+                                                                    d="M14.559 51.953h27.586c4.218 0 6.656-2.437 6.656-7.266V20.43c0-4.828-2.461-7.266-7.36-7.266h-3.726c-.14-4.922-4.406-9.117-9.703-9.117c-5.32 0-9.586 4.195-9.727 9.117H14.56c-4.875 0-7.36 2.414-7.36 7.266v24.258c0 4.851 2.485 7.265 7.36 7.265M28.012 7.61c3.304 0 5.812 2.485 5.93 5.555h-11.86c.094-3.07 2.602-5.555 5.93-5.555M14.629 48.18c-2.344 0-3.656-1.242-3.656-3.679V20.617c0-2.437 1.312-3.68 3.656-3.68h26.766c2.296 0 3.632 1.243 3.632 3.68V44.5c0 2.438-1.336 3.68-2.953 3.68Z" />
+                                                            </svg>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
-                                            <div class='mb-4 mt-auto'>
-                                                <ul
-                                                    class='text-[#353535] list-decimal px-4 text-[10px] leading-[20px]'>
-                                                    <li>Processor: <span
-                                                            x-text='product.processor_model ? product.processor_model.name : ""'></span>
-                                                        <span
-                                                            x-text='product.processor_model ? product.processor_model.c_speed : ""'></span>
-                                                    </li>
-                                                    {{-- <li>Processor: AMD Ryzen 5 7520U (2.8 GHz up to 4.3 GHz)</li> --}}
-                                                    <li>
-                                                        <template x-if='product.ram'>
-                                                            <span>
-                                                                RAM: <span x-text='product.capacity'></span> <span
-                                                                    x-text='product.m_type'></span> <span
-                                                                    x-text='product.bus_speed'></span>
-                                                            </span>
-                                                        </template>
-                                                        <template x-if='product.ssd'>
-                                                            <span>
-                                                                Storage:
-                                                                <span x-text='product.ssd.name'></span>
-                                                            </span>
-                                                        </template>
-                                                    </li>
-                                                    {{-- <li>RAM: 8GB DDR5 5500MHz, Storage: 256GB SSD</li> --}}
-                                                    <template x-if='product.display_size'>
-                                                    <li>
-                                                            <span>
-                                                                <span>Display:</span>
-                                                                <span x-text='product.display_size.size'></span> <span
-                                                                    x-text='product.display_type ? product.display_type.name : ""'></span> <span
-                                                                    x-text='"("+product.d_resolution+")"'></span>
-                                                            </span>
-                                                        </li>
-                                                    </template>
-                                                    {{-- <li>Display: 15.6" FHD (1920X1080)</li> --}}
-
-
-                                                    <template x-if='product.special_feature'>
-                                                        <li>
-                                                            <span>
-                                                                Features:
-                                                                <span x-text='product.special_feature'></span>
-                                                            </span>
-                                                        </li>
-                                                    </template>
-                                                    {{-- <li>Features: Type-C</li> --}}
-                                                </ul>
+                                            <div class="items-center justify-center absolute top-2 left-2">
+                                                <div
+                                                    class="bg-primary w-10 h-5 flex items-center justify-center text-white font-bold rounded-full">
+                                                    <span class="text-xs">New</span>
+                                                </div>
                                             </div>
                                         </div>
-
-                                        <div class="px-6 py-6 mt-auto text-center border-t-[2px] border-[#380D3733]">
-                                            <div class="flex flex-col justify-center">
-                                                <span
-                                                    class="font-[jost] text-[12px] font-[700] leading-[24px] text-[#DC275C] flex items-center justify-center gap-[4px]">
-                                                    <span x-text='product.final_price'></span>
-                                                    <span class="text-[12px] font-[jost] font-[700]">৳</span>
-                                                </span>
-                                                <span
-                                                    class="text-[#380D37] text-[12px] font-[jost] font-[700] line-through">
-                                                    <span x-text='product.price'></span>৳
-                                                </span>
-                                            </div>
-                                            <div class="my-3 text-center">
-
-                                                <a :href="'/single-checkout/' + product.slug" wire:navigate
-                                                    class="">
-                                                    <button
-                                                        class='bg-[#380D37] text-[#F2F2F2] text-[10px] font-[jost] font-[500] py-[8px] px-[50px] max-lg:px-0 max-lg:w-[100px] rounded-[5px]'>
-                                                        Buy Now
-                                                    </button></a>
-                                            </div>
+                                        <div class="col-span-9 flex flex-col items-start">
+                                            <h3 class="text-primary text-lg font-medium text-center mt-5">
+                                                {{ $cproduct->title }}
+                                            </h3>
                                             <div>
-                                                {{-- <a href=""> --}}
-                                                {{-- <livewire:add-to-cart :id="product.id"
-                                        button='<p class="font-[jost] text-[10px] text-[#380D37] font-[500] leading-[20px]"> Add to Cart</p>' /> --}}
-                                                <p :id="product.id"
-                                                    class="cursor-pointer add-to-cart font-[jost] text-[10px] text-[#380D37] font-[500] leading-[20px]">
-                                                    Add to Cart</p>
-                                                {{-- </a> --}}
+                                                <div class="flex items-start justify-start w-full mb-5">
+                                                    {!! $cproduct->echoStar() !!}
+                                                </div>
+                                                <h3 class="text-sm">
+                                                    Material:
+                                                    <span class="text-secondary">Plastic Woody</span>
+                                                </h3>
+                                                <h3 class="text-sm">
+                                                    Color:
+                                                    <span class="text-secondary">Black White Brown</span>
+                                                </h3>
+                                                <h3 class="text-sm">
+                                                    Pots Size:
+                                                    <span class="text-secondary">2ml, 3ml, 4ml, 6ml</span>
+                                                </h3>
                                             </div>
                                         </div>
                                     </div>
-                                </template>
-                            </div>
-
-                            {{-- pagination  --}}
-                            <div class="mt-8">
-                                <nav role="navigation" aria-label="Pagination Navigation"
-                                    class="flex items-center justify-between">
-                                    <div class="flex justify-between flex-1 sm:hidden">
-                                        <span
-                                            class="relative inline-flex items-center px-4 py-2 text-[12px] text-[#353535] font-[jost] font-[500] leading-[17.34px] bg-[#f2f2f2] border border-gray-300 rounded-md cursor-default">
-                                            « Previous
-                                        </span>
-                                        <a href=""
-                                            class="relative inline-flex items-center px-4 py-2 ml-3 text-[12px] text-[#353535] font-[jost] font-[500] leading-[17.34px] bg-[#f2f2f2] transition duration-150 ease-in-out border border-gray-300 rounded-md hover:text-gray-500 focus:outline-none focus:ring ring-gray-300 focus:border-blue-300 active:bg-gray-100 active:text-gray-700">
-                                            Next »
+                                    <div class="col-span-2 border-l p-7 flex flex-col gap-3">
+                                        <h3 class="font-bold text-black text-2xl">${{ $cproduct->final_price }}</h3>
+                                        <h4 class="flex items-center gap-1 text-sm">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                viewBox="0 0 24 24">
+                                                <g fill="none" stroke="currentColor" stroke-linecap="round"
+                                                    stroke-width="1.5">
+                                                    <path stroke-linejoin="round" stroke-miterlimit="1.5"
+                                                        d="M8 19a2 2 0 1 0 0-4a2 2 0 0 0 0 4m10 0a2 2 0 1 0 0-4a2 2 0 0 0 0 4" />
+                                                    <path
+                                                        d="M10.05 17H15V6.6a.6.6 0 0 0-.6-.6H1m4.65 11H3.6a.6.6 0 0 1-.6-.6v-4.9" />
+                                                    <path stroke-linejoin="round" d="M2 9h4" />
+                                                    <path
+                                                        d="M15 9h5.61a.6.6 0 0 1 .548.356l1.79 4.028a.6.6 0 0 1 .052.243V16.4a.6.6 0 0 1-.6.6h-1.9M15 17h1" />
+                                                </g>
+                                            </svg>
+                                            <span>Free Delivery</span>
+                                        </h4>
+                                        <a href="{{ route('checkout') }}">
+                                            <button
+                                                class="p-2 px-4 text-xs rounded-full bg-primary text-white font-bold">
+                                                ADD TO CART
+                                            </button>
                                         </a>
                                     </div>
+                                </div>
+                            </div>
+                        @endforeach
 
-                                    <div class="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
-                                        <div>
-                                            <span class="relative z-0 inline-flex rounded-md shadow-sm">
-                                                <span aria-disabled="true" aria-label="&amp;laquo; Previous">
-                                                    <a href="javascript::void(0)" @click='pageChange(current_page-1)'
-                                                        rel="prev"
-                                                        class="relative inline-flex items-center px-2 py-2 text-sm font-medium leading-5 text-gray-500 transition duration-150 ease-in-out bg-white border border-gray-300 rounded-l-md hover:text-gray-400 focus:z-10 focus:outline-none focus:ring ring-gray-300 focus:border-blue-300 active:bg-gray-100 active:text-gray-500"
-                                                        aria-label="&amp;laquo; Previous">
-                                                        PREV
-                                                    </a>
-                                                </span>
+                    </div>
+                </div>
+            </section>
+            <!-- Products Start Columns End -->
 
-                                                {{-- 1,2,3,4 serial  --}}
-                                                <template x-for="npage in page_num" :key="npage">
-                                                    <div>
-                                                        <template x-if='current_page == npage'>
-                                                            <span aria-current="page" @click='pageChange(npage)'>
-                                                                <span x-text='npage'
-                                                                    class="relative text-[white] inline-flex items-center px-4 py-2 -ml-px text-sm font-medium leading-5  bg-[#380E37] border border-gray-300 cursor-default">2</span>
-                                                            </span>
-                                                        </template>
-                                                        <template x-if='current_page != npage'>
-                                                            <a href="javascript:void(0)" x-text='npage'
-                                                                @click='pageChange(npage)'
-                                                                class="relative inline-flex items-center px-4 py-2 -ml-px text-sm font-medium leading-5 text-gray-700 transition duration-150 ease-in-out bg-white border border-gray-300 hover:text-gray-500 focus:z-10 focus:outline-none focus:ring ring-gray-300 focus:border-blue-300 active:bg-gray-100 active:text-gray-700"
-                                                                aria-label="Go to page 3">
-                                                                3
-                                                            </a>
-                                                        </template>
+            <!-- Products Start Grid -->
+            <section :class="isGridView ? ' block' : 'hidden'">
+                <div class="container mx-auto px-2 md:px-0 pb-20">
+                    <div class="grid grid-cols-1 md:grid-cols-4 gap-5">
+                        @foreach ($products as $gproduct)
+                            <a href="{{ route('product.details', $gproduct->slug) }}">
+                                <div class="group cursor-pointer">
+                                    <div class="border group-hover:border-[#ab8e66] transition-all duration-300">
+                                        <div class="relative w-full">
+                                            <img src="{{ $gproduct->photo }}" class="w-full" />
+                                            <div class="top-0 left-0 right-0 bottom-0 m-auto absolute h-full">
+                                                <div class="h-full flex items-center justify-center">
+                                                    <div
+                                                        class="bg-primary flex rounded-full group-hover:mt-0 transition-all duration-300 ease-in-out group-hover:opacity-100 opacity-0 mt-20">
+                                                        <div class="w-11 h-11 flex items-center justify-end">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="24"
+                                                                height="24" viewBox="0 0 24 24">
+                                                                <path fill="none" stroke="#fff"
+                                                                    stroke-linecap="round" stroke-linejoin="round"
+                                                                    stroke-width="1.5"
+                                                                    d="M7.75 3.5C5.127 3.5 3 5.76 3 8.547C3 14.125 12 20.5 12 20.5s9-6.375 9-11.953C21 5.094 18.873 3.5 16.25 3.5c-1.86 0-3.47 1.136-4.25 2.79c-.78-1.654-2.39-2.79-4.25-2.79" />
+                                                            </svg>
+                                                        </div>
+                                                        <div class="w-11 h-11 flex items-center justify-center">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="24"
+                                                                height="24" viewBox="0 0 24 24">
+                                                                <path fill="none" stroke="#fff"
+                                                                    stroke-linecap="round" stroke-linejoin="round"
+                                                                    stroke-width="1.5"
+                                                                    d="m21 21l-4.343-4.343m0 0A8 8 0 1 0 5.343 5.343a8 8 0 0 0 11.314 11.314" />
+                                                            </svg>
+                                                        </div>
+                                                        <div class="w-11 h-11 flex items-center justify-start">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="24"
+                                                                height="24" viewBox="0 0 56 56">
+                                                                <path fill="#fff"
+                                                                    d="M14.559 51.953h27.586c4.218 0 6.656-2.437 6.656-7.266V20.43c0-4.828-2.461-7.266-7.36-7.266h-3.726c-.14-4.922-4.406-9.117-9.703-9.117c-5.32 0-9.586 4.195-9.727 9.117H14.56c-4.875 0-7.36 2.414-7.36 7.266v24.258c0 4.851 2.485 7.265 7.36 7.265M28.012 7.61c3.304 0 5.812 2.485 5.93 5.555h-11.86c.094-3.07 2.602-5.555 5.93-5.555M14.629 48.18c-2.344 0-3.656-1.242-3.656-3.679V20.617c0-2.437 1.312-3.68 3.656-3.68h26.766c2.296 0 3.632 1.243 3.632 3.68V44.5c0 2.438-1.336 3.68-2.953 3.68Z" />
+                                                            </svg>
+                                                        </div>
                                                     </div>
-                                                </template>
-                                                <a @click='pageChange(current_page+1)' href="javascript:void(0)"
-                                                    rel="next"
-                                                    class="relative inline-flex items-center px-2 py-2 -ml-px text-sm font-medium leading-5 text-gray-500 transition duration-150 ease-in-out bg-white border border-gray-300 rounded-r-md hover:text-gray-400 focus:z-10 focus:outline-none focus:ring ring-gray-300 focus:border-blue-300 active:bg-gray-100 active:text-gray-500"
-                                                    aria-label="Next &amp;raquo;">
-                                                    NEXT
-                                                </a>
-                                            </span>
+                                                </div>
+                                            </div>
+                                            <div class="items-center justify-center absolute top-2 left-2">
+                                                <div
+                                                    class="bg-primary w-10 h-5 flex items-center justify-center text-white font-bold rounded-full">
+                                                    <span class="text-xs">New</span>
+                                                </div>
+                                            </div>
                                         </div>
-
+                                        <h3 class="text-primary text-lg font-medium text-center mt-5 mb-2">
+                                            {{ $gproduct->title }}
+                                        </h3>
                                         <div>
-                                            <p
-                                                class="text-[12px] text-[#353535] font-[jost] font-[500] leading-[17.34px] bg-[#f2f2f2]">
-                                                Showing
-                                                <span x-text='show_from'
-                                                    class="font-[jost] font-[500] text-[12px] text-[#353535] bg-[#f2f2f2]"
-                                                    id="showing_from">1</span>
-                                                to
-                                                <span x-text='show_to'
-                                                    class="font-[jost] font-[500] text-[12px] text-[#353535] bg-[#f2f2f2]"
-                                                    id="showing_to">20</span>
-                                                of
-                                                <span x-text='total_product'
-                                                    class="text-[12px] text-[#353535] font-[jost] font-[500]"></span>
-                                                results (<span x-text='page_num'></span> pages)
-                                            </p>
+                                            <div class="flex items-center justify-center w-full">
+                                                {!! $gproduct->echoStar() !!}
+                                            </div>
+                                            <h4 class="text-sm text-center pb-3">
+                                                <del class="">${{ $gproduct->price }}</del>
+                                                <span
+                                                    class="font-bold text-black">${{ $gproduct->final_price }}</span>
+                                            </h4>
                                         </div>
                                     </div>
-                                </nav>
-                            </div>
+                                </div>
+                            </a>
+                        @endforeach
+
+                    </div>
+
+                    {{-- Pagination --}}
+                    <div class="flex items-center justify-center gap-2 mt-10">
+                        {{-- Previous Page --}}
+                        <div onclick="submitPage({{ $products->currentPage() - 1 }})"
+                             class="w-10 h-10 rounded-full border flex items-center justify-center font-medium cursor-pointer {{ $products->onFirstPage() ? 'opacity-50 cursor-not-allowed' : '' }}">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24">
+                                <path fill="none" stroke="currentColor" stroke-linecap="round"
+                                    stroke-linejoin="round" d="m14 7l-5 5l5 5" />
+                            </svg>
                         </div>
 
-                        <template x-if="Object.keys(products).length === 0">
-                            <div class="text-center ">
-                                <p class="font-[jost] text-[16px] text-[#380D37] font-[500] leading-[24px]">
-                                    No products available.
-                                </p>
+                        {{-- Page Numbers --}}
+                        @for ($i = 1; $i <= $products->lastPage(); $i++)
+                            <div onclick="submitPage({{ $i }})"
+                                 class="w-10 h-10 rounded-full border flex items-center justify-center font-medium cursor-pointer {{ $products->currentPage() == $i ? 'bg-primary text-white' : '' }}">
+                                <span>{{ $i }}</span>
                             </div>
-                        </template>
+                        @endfor
+
+                        {{-- Next Page --}}
+                        <div onclick="submitPage({{ $products->currentPage() + 1 }})"
+                             class="w-10 h-10 rounded-full border flex items-center justify-center font-medium cursor-pointer {{ $products->hasMorePages() ? '' : 'opacity-50 cursor-not-allowed' }}">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24">
+                                <path fill="currentColor" d="m13.292 12l-4.6-4.6l.708-.708L14.708 12L9.4 17.308l-.708-.708z" />
+                            </svg>
+                        </div>
                     </div>
-                </template>
 
-            </div>
-        </div>
+                    {{-- Add hidden input for page number --}}
+                    <input type="hidden" name="page" id="page_number" value="{{ $products->currentPage() }}">
+                </div>
+            </section>
+            <!-- Products End -->
+        </form>
     </div>
-    <div class='h-[2px] bg-[#764A8733] mt-[60px]'></div>
-</div>
-@script
     <script>
-        $(document).ready(function() {
-            //Grid and colulm button grid max-sm:gap-[5px] mx-auto mt-4 max-lg:grid-cols-3 max-sm:grid-cols-2 product_pdiv grid-cols-1 max-w-2xl
-            $('#column').on('click', function() {
-                console.log('column')
-                $('.product_pdiv').removeClass(
-                    'grid-cols-4 max-lg:grid-cols-3 max-sm:grid-cols-2 gap-8 max-sm:gap-[5px]');
-                $('.product_pdiv').addClass('grid-cols-1 max-w-2xl');
-            })
-            $('#grid').on('click', function() {
-                console.log('grid')
-                $('.product_pdiv').removeClass('grid-cols-1  max-w-2xl');
-                $('.product_pdiv').addClass(
-                    'grid-cols-4 max-lg:grid-cols-3 max-sm:grid-cols-2 gap-8 max-sm:gap-[5px]');
-            })
-
-            //ajax searching products paginations
-            $('search-p-button').each(function(index) {
-                $(this).on('click', (e) => {
-                    e.preventDefault();
-
-                });
-            });
-
-            // Input range script
-            const rangeInput = document.querySelectorAll(".range-input input"),
-                priceInput = document.querySelectorAll(".price-input input"),
-                range = document.querySelector(".slider .progress");
-            let priceGap = 1000;
-
-            priceInput.forEach(input => {
-                input.addEventListener("input", e => {
-                    let minPrice = parseInt(priceInput[0].value),
-                        maxPrice = parseInt(priceInput[1].value);
-
-                    if ((maxPrice - minPrice >= priceGap) && maxPrice <= rangeInput[1].max) {
-                        if (e.target.className === "input-min") {
-                            rangeInput[0].value = minPrice;
-                            range.style.left = ((minPrice / rangeInput[0].max) * 100) + "%";
-                        } else {
-                            rangeInput[1].value = maxPrice;
-                            range.style.right = 100 - (maxPrice / rangeInput[1].max) * 100 + "%";
-                        }
-                    }
-                });
-            });
-
-            rangeInput.forEach(input => {
-                input.addEventListener("input", e => {
-                    let minVal = parseInt(rangeInput[0].value),
-                        maxVal = parseInt(rangeInput[1].value);
-
-                    if ((maxVal - minVal) < priceGap) {
-                        if (e.target.className === "range-min") {
-                            rangeInput[0].value = maxVal - priceGap
-                        } else {
-                            rangeInput[1].value = minVal + priceGap;
-                        }
-                    } else {
-                        priceInput[0].value = minVal;
-                        priceInput[1].value = maxVal;
-                        range.style.left = ((minVal / rangeInput[0].max) * 100) + "%";
-                        range.style.right = 100 - (maxVal / rangeInput[1].max) * 100 + "%";
-                    }
-                });
-            });
+        document.getElementById('per_page').addEventListener('change', function() {
+            document.getElementById('search_form').submit();
         });
 
-        $(document).ready(function() {
-            var menuWrapper = $("#menu");
-            var bodyOverlay = $("#body-overlay");
-            $("#menu-icon").click(function() {
-                $("body").addClass("noscroll");
-                menuWrapper.css("right", "0");
-                bodyOverlay.css("display", "block");
-            });
-            $("#close-icon").click(function() {
-                $("body").removeClass("noscroll");
-                menuWrapper.css("right", "-300px");
-                bodyOverlay.css("display", "none");
-            });
-            bodyOverlay.click(function() {
-                $("body").removeClass("noscroll");
-                menuWrapper.css("right", "-300px");
-                $(this).css("display", "none");
-            });
+        document.getElementById('sort_by').addEventListener('change', function() {
+            document.getElementById('search_form').submit();
         });
+
+        function submitPage(page) {
+            document.getElementById('page_number').value = page;
+            document.getElementById('search_form').submit();
+        }
     </script>
-@endscript
+</div>
