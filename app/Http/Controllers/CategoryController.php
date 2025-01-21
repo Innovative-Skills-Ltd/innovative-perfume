@@ -11,7 +11,7 @@ class CategoryController extends Controller
 {
     public function __construct()
     {
-        // $this->middleware(['can:Show Category']);
+        $this->middleware(['can:Show Category']);
     }
 
     /**
@@ -21,7 +21,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        // $this->ccan('Show Category');
+        $this->ccan('Show Category');
         $n['categories']=Category::orderBy('serial','asc')->paginate(10);
         $n['count'] = Category::get();
         return view('backend.category.index',$n);
@@ -34,7 +34,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        // $this->ccan('Create Category');
+        $this->ccan('Create Category');
 
         $category = Category::all();
         $n['serial'] = $category->count();
@@ -51,7 +51,7 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        // $this->ccan('Create Category');
+        $this->ccan('Create Category');
 
         // return $request->all();
         $this->validate($request,[
@@ -103,7 +103,7 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
-        // $this->ccan('Edit Category');
+        $this->ccan('Edit Category');
 
         $parent_cats=Category::where('is_parent',1)->get();
         $category=Category::findOrFail($id);
@@ -119,7 +119,7 @@ class CategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        // $this->ccan('Edit Category');
+        $this->ccan('Edit Category');
 
         // return $request->all();
         $category=Category::findOrFail($id);
@@ -153,7 +153,7 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        //  $this->ccan('Delete Category');
+        $this->ccan('Delete Category');
 
         $category=Category::findOrFail($id);
         $child_cat_id=Category::where('parent_id',$id)->pluck('id');

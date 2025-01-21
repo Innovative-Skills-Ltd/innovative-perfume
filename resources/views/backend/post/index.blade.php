@@ -13,10 +13,10 @@
         <div class="py-3 card-header d-flex justify-content-between">
             <h6 class="float-left m-0 font-weight-bold text-primary">Post Lists</h6>
            <h6 class="font-weight-bold text-primary">Total: {{count($count)}} || Active: {{count($count->where('status','active'))}} || Inactive: {{count($count->where('status','inactive'))}}</h6>
-            {{-- @can('Create Post') --}}
+            @can('Create Post')
                 <a href="{{ route('post.create') }}" class="float-right btn btn-primary btn-sm" data-toggle="tooltip"
                     data-placement="bottom" title="Add User"><i class="fas fa-plus"></i> Add Post</a>
-            {{-- @endcan --}}
+            @endcan
         </div>
         <div class="card-body">
             <div class="table-responsive">
@@ -31,9 +31,9 @@
                                 <th>Author</th>
                                 <th>Photo</th>
                                 <th>Status</th>
-                                {{-- @canany(['Edit Post', 'Delete Post']) --}}
+                                @canany(['Edit Post', 'Delete Post'])
                                     <th>Action</th>
-                                {{-- @endcanany --}}
+                                @endcanany
                             </tr>
                         </thead>
                         <tfoot>
@@ -45,9 +45,9 @@
                                 <th>Author</th>
                                 <th>Photo</th>
                                 <th>Status</th>
-                                {{-- @canany(['Edit Post', 'Delete Post']) --}}
+                                @canany(['Edit Post', 'Delete Post'])
                                     <th>Action</th>
-                                {{-- @endcanany --}}
+                                @endcanany
                             </tr>
                         </tfoot>
                         <tbody>
@@ -89,13 +89,13 @@
                                         @endif
                                     </td>
                                     <td>
-                                        {{-- @can('Edit Post') --}}
+                                        @can('Edit Post')
                                             <a href="{{ route('post.edit', $post->id) }}"
                                                 class="float-left mr-1 btn btn-primary btn-sm"
                                                 style="height:30px; width:30px;border-radius:50%" data-toggle="tooltip"
                                                 title="edit" data-placement="bottom"><i class="fas fa-edit"></i></a>
-                                        {{-- @endcan --}}
-                                        {{-- @can('Delete Post') --}}
+                                        @endcan
+                                        @can('Delete Post')
                                             <form method="POST" action="{{ route('post.destroy', [$post->id]) }}">
                                                 @csrf
                                                 @method('delete')
@@ -104,7 +104,7 @@
                                                     data-placement="bottom" title="Delete"><i
                                                         class="fas fa-trash-alt"></i></button>
                                             </form>
-                                        {{-- @endcan --}}
+                                        @endcan
                                     </td>
                                 </tr>
                             @endforeach

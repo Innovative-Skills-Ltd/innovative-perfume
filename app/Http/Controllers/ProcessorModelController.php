@@ -10,7 +10,7 @@ class ProcessorModelController extends Controller
 {
     public function __construct()
     {
-        // $this->middleware(['can:Show Processor Model']);
+        $this->middleware(['can:Show Processor Model']);
     }
     /**
      * Display a listing of the resource.
@@ -27,7 +27,7 @@ class ProcessorModelController extends Controller
      */
     public function create()
     {
-        // $this->ccan('Create Processor Model');
+        $this->ccan('Create Processor Model');
 
         return view('backend.product-attribute.pm.create');
     }
@@ -37,7 +37,7 @@ class ProcessorModelController extends Controller
      */
     public function store(StoreProcessorModelRequest $request)
     {
-        // $this->ccan('Create Processor Model');
+        $this->ccan('Create Processor Model');
 
         ProcessorModel::create($request->all());
         return redirect()->route('pa.processor-model.index')->with('success', "$request->name is created successfully");
@@ -56,7 +56,7 @@ class ProcessorModelController extends Controller
      */
     public function edit(ProcessorModel $processorModel)
     {
-        // $this->ccan('Edit Processor Model');
+        $this->ccan('Edit Processor Model');
 
         $n['datum'] = $processorModel;
         return view('backend.product-attribute.pm.edit', $n);
@@ -67,7 +67,7 @@ class ProcessorModelController extends Controller
      */
     public function update(UpdateProcessorModelRequest $request, ProcessorModel $processorModel)
     {
-        // $this->ccan('Edit Processor Model');
+        $this->ccan('Edit Processor Model');
 
         $processorModel->update($request->all());
         return redirect()->route('pa.processor-model.index')->with('success', "$request->name is Update successfully");
@@ -78,7 +78,7 @@ class ProcessorModelController extends Controller
      */
     public function destroy(ProcessorModel $processorModel)
     {
-        // $this->ccan('Delete Processor Model');
+        $this->ccan('Delete Processor Model');
 
         $status = $processorModel->delete();
 

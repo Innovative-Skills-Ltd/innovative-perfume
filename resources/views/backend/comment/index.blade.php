@@ -27,9 +27,9 @@
                                 <th>Message</th>
                                 <th>Date</th>
                                 <th>Status</th>
-                                {{-- @canany(['Edit Comment', 'Delete Comment']) --}}
+                                @canany(['Edit Comment', 'Delete Comment'])
                                     <th>Action</th>
-                                {{-- @endcanany --}}
+                                @endcanany
                             </tr>
                         </thead>
                         <tfoot>
@@ -40,9 +40,9 @@
                                 <th>Message</th>
                                 <th>Date</th>
                                 <th>Status</th>
-                                {{-- @canany(['Edit Comment', 'Delete Comment']) --}}
+                                @canany(['Edit Comment', 'Delete Comment'])
                                     <th>Action</th>
-                                {{-- @endcanany --}}
+                                @endcanany
                             </tr>
                         </tfoot>
                         <tbody>
@@ -61,15 +61,15 @@
                                         @endif
                                     </td>
                                     <td>
-                                        {{-- @can('Edit Comment') --}}
-                                            {{-- @can('Delete Comment') --}}
+                                        @can('Edit Comment')
+                                            @can('Delete Comment')
                                                 <a href="{{ route('comment.edit', $comment->id) }}"
                                                     class="float-left mr-1 btn btn-primary btn-sm"
                                                     style="height:30px; width:30px;border-radius:50%" data-toggle="tooltip"
                                                     title="edit" data-placement="bottom"><i class="fas fa-edit"></i></a>
-                                            {{-- @endcan --}}
+                                            @endcan
 
-                                            {{-- @can('Delete Comment') --}}
+                                            @can('Delete Comment')
                                                 <form method="POST" action="{{ route('comment.destroy', [$comment->id]) }}">
                                                     @csrf
                                                     @method('delete')
@@ -78,8 +78,8 @@
                                                         data-placement="bottom" title="Delete"><i
                                                             class="fas fa-trash-alt"></i></button>
                                                 </form>
-                                            {{-- @endcan --}}
-                                            {{-- @endcan --}}
+                                            @endcan
+                                            @endcan
                                         </td>
                                     </tr>
                                 @endforeach

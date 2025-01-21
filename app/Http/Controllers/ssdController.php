@@ -10,7 +10,7 @@ class ssdController extends Controller
 {
     public function __construct()
     {
-         // $this->middleware(['can:Show SSD']);
+        $this->middleware(['can:Show SSD']);
     }
     /**
      * Display a listing of the resource.
@@ -27,7 +27,7 @@ class ssdController extends Controller
      */
     public function create()
     {
-        // $this->ccan('Create SSD');
+        $this->ccan('Create SSD');
         return view('backend.product-attribute.ssd.create');
     }
 
@@ -36,7 +36,7 @@ class ssdController extends Controller
      */
     public function store(StoressdRequest $request)
     {
-        // $this->ccan('Create SSD');
+        $this->ccan('Create SSD');
 
         ssd::create($request->all());
         return redirect()->route('pa.ssd.index')->with('success', "$request->name is created successfully");
@@ -55,7 +55,7 @@ class ssdController extends Controller
      */
     public function edit(ssd $ssd)
     {
-        // $this->ccan('Edit SSD');
+        $this->ccan('Edit SSD');
 
         $n['datum'] = $ssd;
         return view('backend.product-attribute.ssd.edit', $n);
@@ -66,7 +66,7 @@ class ssdController extends Controller
      */
     public function update(UpdatessdRequest $request, ssd $ssd)
     {
-        // $this->ccan('Edit SSD');
+        $this->ccan('Edit SSD');
 
         $ssd->update($request->all());
         return redirect()->route('pa.ssd.index')->with('success', "$request->name is Update successfully");
@@ -77,7 +77,7 @@ class ssdController extends Controller
      */
     public function destroy(ssd $ssd)
     {
-        // $this->ccan('Delete SSD');
+        $this->ccan('Delete SSD');
 
         $status = $ssd->delete();
 

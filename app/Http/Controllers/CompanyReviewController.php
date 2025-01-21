@@ -10,12 +10,12 @@ class CompanyReviewController extends Controller
 {
     public function __construct()
     {
-        // $this->middleware(['can:Show Review']);
+        $this->middleware(['can:Show Review']);
     }
 
     public function index()
     {
-            //$this->ccan('Show Review');
+        $this->ccan('Show Review');
 
         $n['reviews'] = CompanyReview::orderBy('id','desc')->paginate(10);
         $n['count'] = CompanyReview::get();
@@ -28,7 +28,7 @@ class CompanyReviewController extends Controller
 
     public function store(Request $request)
     {
-        // $this->ccan('Create Review');
+        $this->ccan('Create Review');
 
         // $this->validate($request, [
         //     'rate' => 'required|numeric|min:1'
@@ -66,7 +66,7 @@ class CompanyReviewController extends Controller
 
     public function edit($id)
     {
-        // $this->ccan('Edit Review');
+        $this->ccan('Edit Review');
 
         $review = CompanyReview::find($id);
         // return $review;
@@ -75,7 +75,7 @@ class CompanyReviewController extends Controller
 
     public function update(Request $request, $id)
     {
-        // $this->ccan('Edit Review');
+        $this->ccan('Edit Review');
 
         $request->validate([
             'name'=> 'required|string',

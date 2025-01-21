@@ -11,7 +11,7 @@ class ProcessorGenerationController extends Controller
 {
     public function __construct()
     {
-        // $this->middleware(['can:Show Processor Generation']);
+        $this->middleware(['can:Show Processor Generation']);
     }
     /**
      * Display a listing of the resource.
@@ -28,7 +28,7 @@ class ProcessorGenerationController extends Controller
      */
     public function create()
     {
-        // $this->ccan('Create Processor Generation');
+        $this->ccan('Create Processor Generation');
 
         return view('backend.product-attribute.pg.create');
 
@@ -39,7 +39,7 @@ class ProcessorGenerationController extends Controller
      */
     public function store(StoreProcessorGenerationRequest $request)
     {
-        // $this->ccan('Create Processor Generation');
+        $this->ccan('Create Processor Generation');
 
         ProcessorGeneration::create($request->all());
         return redirect()->route('pa.processor-generation.index')->with('success',"$request->name is created successfully");
@@ -58,7 +58,7 @@ class ProcessorGenerationController extends Controller
      */
     public function edit(ProcessorGeneration $processorGeneration)
     {
-        // $this->ccan('Edit Processor Generation');
+        $this->ccan('Edit Processor Generation');
 
         $n['datum'] = $processorGeneration;
         return view('backend.product-attribute.pg.edit',$n);
@@ -70,7 +70,7 @@ class ProcessorGenerationController extends Controller
      */
     public function update(UpdateProcessorGenerationRequest $request, ProcessorGeneration $processorGeneration)
     {
-        // $this->ccan('Edit Processor Generation');
+        $this->ccan('Edit Processor Generation');
 
          $processorGeneration->update($request->all());
         return redirect()->route('pa.processor-generation.index')->with('success', "$request->name is Update successfully");
@@ -81,7 +81,7 @@ class ProcessorGenerationController extends Controller
      */
     public function destroy(ProcessorGeneration $processorGeneration)
     {
-        // $this->ccan('Delete Processor Generation');
+        $this->ccan('Delete Processor Generation');
 
         $status = $processorGeneration->delete();
 

@@ -10,7 +10,7 @@ class ShippingController extends Controller
 {
     public function __construct()
     {
-        // $this->middleware(['can:Show Shipping']);
+        $this->middleware(['can:Show Shipping']);
     }
     /**
      * Display a listing of the resource.
@@ -19,7 +19,7 @@ class ShippingController extends Controller
      */
     public function index()
     {
-        // $this->ccan('Show Shipping');
+        $this->ccan('Show Shipping');
 
         $n['shippings']=Shipping::orderBy('id','DESC')->paginate(10);
         $n['count'] = Shipping::get();
@@ -33,7 +33,7 @@ class ShippingController extends Controller
      */
     public function create()
     {
-        // $this->ccan('Create Shipping');
+        $this->ccan('Create Shipping');
 
         return view('backend.shipping.create');
     }
@@ -46,7 +46,7 @@ class ShippingController extends Controller
      */
     public function store(Request $request)
     {
-        // $this->ccan('Create Shipping');
+        $this->ccan('Create Shipping');
 
         $this->validate($request,[
             'type'=>'string|required',
@@ -84,7 +84,7 @@ class ShippingController extends Controller
      */
     public function edit($id)
     {
-        // $this->ccan('Edit Shipping');
+        $this->ccan('Edit Shipping');
 
         $shipping=Shipping::find($id);
         if(!$shipping){
@@ -102,7 +102,7 @@ class ShippingController extends Controller
      */
     public function update(Request $request, $id)
     {
-        // $this->ccan('Edit Shipping');
+        $this->ccan('Edit Shipping');
 
         $shipping=Shipping::find($id);
         $this->validate($request,[
@@ -130,7 +130,7 @@ class ShippingController extends Controller
      */
     public function destroy($id)
     {
-        // $this->ccan('Delete Shipping');
+        $this->ccan('Delete Shipping');
 
         $shipping=Shipping::find($id);
         if($shipping){

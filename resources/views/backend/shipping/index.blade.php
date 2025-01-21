@@ -13,10 +13,10 @@
         <div class="py-3 card-header d-flex justify-content-between">
             <h6 class="float-left m-0 font-weight-bold text-primary">Shipping List</h6>
             <h6 class="font-weight-bold text-primary">Total: {{count($count)}} || Active: {{count($count->where('status','active'))}} || Inactive: {{count($count->where('status','inactive'))}}</h6>
-            {{-- @can('Create Shipping') --}}
+            @can('Create Shipping')
                 <a href="{{ route('shipping.create') }}" class="float-right btn btn-primary btn-sm" data-toggle="tooltip"
                     data-placement="bottom" title="Add User"><i class="fas fa-plus"></i> Add Shipping</a>
-            {{-- @endcan --}}
+            @endcan
         </div>
         <div class="card-body">
             <div class="table-responsive">
@@ -28,9 +28,9 @@
                                 <th>Title</th>
                                 <th>Price</th>
                                 <th>Status</th>
-                                {{-- @canany(['Edit Product', 'Delete Product']) --}}
+                                @canany(['Edit Product', 'Delete Product'])
                                     <th>Action</th>
-                                {{-- @endcanany --}}
+                                @endcanany
                             </tr>
                         </thead>
                         <tfoot>
@@ -39,9 +39,9 @@
                                 <th>Title</th>
                                 <th>Price</th>
                                 <th>Status</th>
-                                {{-- @canany(['Edit Product', 'Delete Product']) --}}
+                                @canany(['Edit Product', 'Delete Product'])
                                     <th>Action</th>
-                                {{-- @endcanany --}}
+                                @endcanany
                             </tr>
                         </tfoot>
                         <tbody>
@@ -58,13 +58,13 @@
                                         @endif
                                     </td>
                                     <td>
-                                        {{-- @can('Edit Shipping') --}}
+                                        @can('Edit Shipping')
                                             <a href="{{ route('shipping.edit', $shipping->id) }}"
                                                 class="float-left mr-1 btn btn-primary btn-sm"
                                                 style="height:30px; width:30px;border-radius:50%" data-toggle="tooltip"
                                                 title="edit" data-placement="bottom"><i class="fas fa-edit"></i></a>
-                                        {{-- @endcan --}}
-                                        {{-- @can('Delete Shipping') --}}
+                                        @endcan
+                                        @can('Delete Shipping')
                                             <form method="POST" action="{{ route('shipping.destroy', [$shipping->id]) }}">
                                                 @csrf
                                                 @method('delete')
@@ -73,7 +73,7 @@
                                                     data-placement="bottom" title="Delete"><i
                                                         class="fas fa-trash-alt"></i></button>
                                             </form>
-                                        {{-- @endcan --}}
+                                        @endcan
                                     </td>
                                     {{-- Delete Modal --}}
                                     {{-- <div class="modal fade" id="delModal{{$user->id}}" tabindex="-1" role="dialog" aria-labelledby="#delModal{{$user->id}}Label" aria-hidden="true">

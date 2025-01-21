@@ -13,10 +13,10 @@
         <div class="py-3 card-header d-flex justify-content-between">
             <h6 class="float-left m-0 font-weight-bold text-primary">Brand List</h6>
             <h6 class="font-weight-bold text-primary">Total: {{count($count)}} || Active: {{count($count->where('status','active'))}} || Inactive: {{count($count->where('status','inactive'))}}</h6>
-            {{-- @can('Create Brand') --}}
+            @can('Create Brand')
                 <a href="{{ route('brand.create') }}" class="float-right btn btn-primary btn-sm" data-toggle="tooltip"
                     data-placement="bottom" title="Add User"><i class="fas fa-plus"></i> Add Brand</a>
-            {{-- @endcan --}}
+            @endcan
         </div>
         <div class="card-body">
             <div class="table-responsive">
@@ -28,9 +28,9 @@
                                 <th>Title</th>
                                 <th>Slug</th>
                                 <th>Status</th>
-                                {{-- @canany(['Edit Brand', 'Delete Brand']) --}}
+                                @canany(['Edit Brand', 'Delete Brand'])
                                     <th>Action</th>
-                                {{-- @endcanany --}}
+                                @endcanany
                             </tr>
                         </thead>
                         <tfoot>
@@ -39,9 +39,9 @@
                                 <th>Title</th>
                                 <th>Slug</th>
                                 <th>Status</th>
-                                {{-- @canany(['Edit Brand', 'Delete Brand']) --}}
+                                @canany(['Edit Brand', 'Delete Brand'])
                                     <th>Action</th>
-                                {{-- @endcanany --}}
+                                @endcanany
                             </tr>
                         </tfoot>
                         <tbody>
@@ -58,13 +58,13 @@
                                         @endif
                                     </td>
                                     <td>
-                                        {{-- @can('Edit Brand') --}}
+                                        @can('Edit Brand')
                                             <a href="{{ route('brand.edit', $datum->id) }}"
                                                 class="float-left mr-1 btn btn-primary btn-sm"
                                                 style="height:30px; width:30px;border-radius:50%" data-toggle="tooltip"
                                                 title="edit" data-placement="bottom"><i class="fas fa-edit"></i></a>
-                                        {{-- @endcan --}}
-                                        {{-- @can('Delete Brand') --}}
+                                        @endcan
+                                        @can('Delete Brand')
                                             <form method="POST" action="{{ route('brand.destroy', [$datum->id]) }}">
                                                 @csrf
                                                 @method('delete')
@@ -73,7 +73,7 @@
                                                     data-placement="bottom" title="Delete"><i
                                                         class="fas fa-trash-alt"></i></button>
                                             </form>
-                                        {{-- @endcan --}}
+                                        @endcan
                                     </td>
 
                                 </tr>

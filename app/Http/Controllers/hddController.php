@@ -10,7 +10,7 @@ class hddController extends Controller
 {
     public function __construct()
     {
-        // $this->middleware(['can:Show HDD']);
+        $this->middleware(['can:Show HDD']);
     }
     /**
      * Display a listing of the resource.
@@ -27,7 +27,7 @@ class hddController extends Controller
      */
     public function create()
     {
-        // $this->ccan('Create HDD');
+        $this->ccan('Create HDD');
         return view('backend.product-attribute.hdd.create');
     }
 
@@ -36,7 +36,7 @@ class hddController extends Controller
      */
     public function store(StorehddRequest $request)
     {
-        // $this->ccan('Create HDD');
+        $this->ccan('Create HDD');
 
         hdd::create($request->all());
         return redirect()->route('pa.hdd.index')->with('success', "$request->name is created successfully");
@@ -55,7 +55,7 @@ class hddController extends Controller
      */
     public function edit(hdd $hdd)
     {
-        // $this->ccan('Edit HDD');
+        $this->ccan('Edit HDD');
 
         $n['datum'] = $hdd;
         return view('backend.product-attribute.hdd.edit', $n);
@@ -66,7 +66,7 @@ class hddController extends Controller
      */
     public function update(UpdatehddRequest $request, hdd $hdd)
     {
-        // $this->ccan('Edit HDD');
+        $this->ccan('Edit HDD');
 
         $hdd->update($request->all());
         return redirect()->route('pa.hdd.index')->with('success', "$request->name is Update successfully");
@@ -77,7 +77,7 @@ class hddController extends Controller
      */
     public function destroy(hdd $hdd)
     {
-        // $this->ccan('Delete HDD');
+        $this->ccan('Delete HDD');
 
         $status = $hdd->delete();
 

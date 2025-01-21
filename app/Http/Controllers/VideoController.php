@@ -11,7 +11,7 @@ class VideoController extends Controller
 {
     public function __construct()
     {
-        // $this->middleware(['can:Show Videos']);
+        $this->middleware(['can:Show Videos']);
     }
     /**
      * Display a listing of the resource.
@@ -28,7 +28,7 @@ class VideoController extends Controller
      */
     public function create()
     {
-        // $this->ccan('Create Videos');
+        $this->ccan('Create Videos');
         $n['serial'] = count(Video::all()) + 1;
         return view('backend.video.create', $n);
     }
@@ -38,7 +38,7 @@ class VideoController extends Controller
      */
     public function store(StoreVideoRequest $request)
     {
-        // $this->ccan('Create Videos');
+        $this->ccan('Create Videos');
 
         $data = $request->validated();
 
@@ -63,7 +63,7 @@ class VideoController extends Controller
      */
     public function edit(Video $Video)
     {
-        // $this->ccan('Edit Videos');
+        $this->ccan('Edit Videos');
 
         $n['datum'] = $Video;
         return view('backend.video.edit', $n);
@@ -74,7 +74,7 @@ class VideoController extends Controller
      */
     public function update(UpdateVideoRequest $request, Video $Video)
     {
-        // $this->ccan('Edit Videos');
+        $this->ccan('Edit Videos');
 
         $data = $request->validated();
         if ($data['type'] == 'youtube') {
@@ -90,7 +90,7 @@ class VideoController extends Controller
      */
     public function destroy(Video $Video)
     {
-        // $this->ccan('Delete Videos');
+        $this->ccan('Delete Videos');
 
         $status = $Video->delete();
 

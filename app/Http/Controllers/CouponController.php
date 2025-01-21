@@ -8,7 +8,7 @@ class CouponController extends Controller
 {
     public function __construct()
     {
-        // $this->middleware(['can:Show Cupon']);
+        $this->middleware(['can:Show Cupon']);
     }
 
     /**
@@ -18,7 +18,7 @@ class CouponController extends Controller
      */
     public function index()
     {
-        // $this->ccan('Show Cupon');
+        $this->ccan('Show Cupon');
         $n['count'] = Coupon::get();
         $n['coupons']=Coupon::orderBy('id','DESC')->paginate('10');
         return view('backend.coupon.index',$n);
@@ -31,7 +31,7 @@ class CouponController extends Controller
      */
     public function create()
     {
-        // $this->ccan('Create Cupon');
+        $this->ccan('Create Cupon');
 
         return view('backend.coupon.create');
     }
@@ -44,7 +44,7 @@ class CouponController extends Controller
      */
     public function store(Request $request)
     {
-        // $this->ccan('Create Cupon');
+        $this->ccan('Create Cupon');
 
         // return $request->all();
         $this->validate($request,[
@@ -82,7 +82,7 @@ class CouponController extends Controller
      */
     public function edit($id)
     {
-        // $this->ccan('Edit Cupon');
+        $this->ccan('Edit Cupon');
 
         $coupon=Coupon::find($id);
         if($coupon){
@@ -102,7 +102,7 @@ class CouponController extends Controller
      */
     public function update(Request $request, $id)
     {
-        // $this->ccan('Edit Cupon');
+        $this->ccan('Edit Cupon');
 
         $coupon=Coupon::find($id);
         $this->validate($request,[
@@ -132,7 +132,7 @@ class CouponController extends Controller
      */
     public function destroy($id)
     {
-        // $this->ccan('Delete Cupon');
+        $this->ccan('Delete Cupon');
 
         $coupon=Coupon::find($id);
         if($coupon){
