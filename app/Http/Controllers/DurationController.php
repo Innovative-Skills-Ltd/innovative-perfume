@@ -10,7 +10,7 @@ class DurationController extends Controller
 {
     public function __construct()
     {
-        // $this->middleware(['can:Show Duration']);
+        $this->middleware(['can:Show Duration']);
     }
     /**
      * Display a listing of the resource.
@@ -70,7 +70,7 @@ class DurationController extends Controller
      */
     public function edit(Duration $duration)
     {
-        // $this->ccan('Edit Duration');
+        $this->ccan('Edit Duration');
         if (!$duration) {
             request()->session()->flash('error', 'Duration not found');
         }
@@ -82,7 +82,7 @@ class DurationController extends Controller
      */
     public function update(UpdateDurationRequest $request, Duration $duration)
     {
-        // $this->ccan('Edit Duration');
+        $this->ccan('Edit Duration');
 
         $data = $request->all();
 
@@ -100,7 +100,7 @@ class DurationController extends Controller
      */
     public function destroy(Duration $duration)
     {
-        // $this->ccan('Delete Duration');
+        $this->ccan('Delete Duration');
         if ($duration) {
             $status = $duration->delete();
             if ($status) {

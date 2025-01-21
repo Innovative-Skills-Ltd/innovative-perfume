@@ -10,7 +10,7 @@ class ProductOfferController extends Controller
 {
     public function __construct()
     {
-        // $this->middleware(['can:Show Product Offer']);
+        $this->middleware(['can:Show Product Offer']);
     }
     /**
      * Display a listing of the resource.
@@ -27,7 +27,7 @@ class ProductOfferController extends Controller
      */
     public function create()
     {
-        // $this->ccan('Create Product Offer');
+        $this->ccan('Create Product Offer');
         return view('backend.product-attribute.product-offer.create');
     }
 
@@ -36,7 +36,7 @@ class ProductOfferController extends Controller
      */
     public function store(StoreProductOfferRequest $request)
     {
-        // $this->ccan('Create Product Offer');
+        $this->ccan('Create Product Offer');
 
         ProductOffer::create($request->all());
         return redirect()->route('pa.product-offers.index')->with('success', "$request->name is created successfully");
@@ -55,7 +55,7 @@ class ProductOfferController extends Controller
      */
     public function edit(ProductOffer $productOffer)
     {
-        // $this->ccan('Edit Product Offer');
+        $this->ccan('Edit Product Offer');
 
         $n['datum'] = $productOffer;
         return view('backend.product-attribute.product-offer.edit', $n);
@@ -66,7 +66,7 @@ class ProductOfferController extends Controller
      */
     public function update(UpdateProductOfferRequest $request, ProductOffer $productOffer)
     {
-        // $this->ccan('Edit Product Offer');
+        $this->ccan('Edit Product Offer');
 
         $productOffer->update($request->all());
         return redirect()->route('pa.product-offers.index')->with('success', "$request->name is Update successfully");
@@ -77,7 +77,7 @@ class ProductOfferController extends Controller
      */
     public function destroy(ProductOffer $productOffer)
     {
-        // $this->ccan('Delete Product Offer');
+        $this->ccan('Delete Product Offer');
 
         $status = $productOffer->delete();
 

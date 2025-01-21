@@ -10,7 +10,7 @@ class PixelController extends Controller
 {
     public function __construct()
     {
-        // $this->middleware(['can:Show Pixel']);
+        $this->middleware(['can:Show Pixel']);
     }
     /**
      * Display a listing of the resource.
@@ -27,7 +27,7 @@ class PixelController extends Controller
      */
     public function create()
     {
-        // $this->ccan('Create Pixel');
+        $this->ccan('Create Pixel');
         return view('backend.seo.pixel.create');
     }
 
@@ -36,7 +36,7 @@ class PixelController extends Controller
      */
     public function store(StorePixelRequest $request)
     {
-        // $this->ccan('Create Pixel');
+        $this->ccan('Create Pixel');
 
         Pixel::create($request->all());
         return redirect()->route('seo.pixel.index')->with('success', "$request->name is created successfully");
@@ -55,7 +55,7 @@ class PixelController extends Controller
      */
     public function edit(Pixel $pixel)
     {
-        // $this->ccan('Edit Pixel');
+        $this->ccan('Edit Pixel');
 
         $n['datum'] = $pixel;
         return view('backend.seo.pixel.edit', $n);
@@ -66,7 +66,7 @@ class PixelController extends Controller
      */
     public function update(UpdatePixelRequest $request, Pixel $pixel)
     {
-        // $this->ccan('Edit Pixel');
+        $this->ccan('Edit Pixel');
 
         $pixel->update($request->all());
         return redirect()->route('seo.pixel.index')->with('success', "$request->name is Update successfully");
@@ -77,7 +77,7 @@ class PixelController extends Controller
      */
     public function destroy(Pixel $pixel)
     {
-        // $this->ccan('Delete Pixel');
+        $this->ccan('Delete Pixel');
 
         $status = $pixel->delete();
 

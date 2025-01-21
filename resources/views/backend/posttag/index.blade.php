@@ -13,7 +13,8 @@
         <div class="py-3 card-header d-flex justify-content-between">
             <h6 class="float-left m-0 font-weight-bold text-primary">Post Tag Lists</h6>
             <h6 class="font-weight-bold text-primary">Total: {{count($count)}} || Active: {{count($count->where('status','active'))}} || Inactive: {{count($count->where('status','inactive'))}}</h6>
-
+            @can('Create Tag')
+            @endcan
             <a href="{{ route('post-tag.create') }}" class="float-right btn btn-primary btn-sm" data-toggle="tooltip"
                 data-placement="bottom" title="Add User"><i class="fas fa-plus"></i> Add Post Tag</a>
         </div>
@@ -27,9 +28,9 @@
                                 <th>Title</th>
                                 <th>Slug</th>
                                 <th>Status</th>
-                                {{-- @canany(['Edit Tag', 'Delete Tag']) --}}
+                                @canany(['Edit Tag', 'Delete Tag'])
                                     <th>Action</th>
-                                {{-- @endcanany --}}
+                                @endcanany
                             </tr>
                         </thead>
                         <tfoot>
@@ -38,9 +39,9 @@
                                 <th>Title</th>
                                 <th>Slug</th>
                                 <th>Status</th>
-                                {{-- @canany(['Edit Tag', 'Delete Tag']) --}}
+                                @canany(['Edit Tag', 'Delete Tag'])
                                     <th>Action</th>
-                                {{-- @endcanany --}}
+                                @endcanany
                             </tr>
                         </tfoot>
                         <tbody>
@@ -57,13 +58,13 @@
                                         @endif
                                     </td>
                                     <td>
-                                        {{-- @can('Edit Tag') --}}
+                                        @can('Edit Tag')
                                             <a href="{{ route('post-tag.edit', $data->id) }}"
                                                 class="float-left mr-1 btn btn-primary btn-sm"
                                                 style="height:30px; width:30px;border-radius:50%" data-toggle="tooltip"
                                                 title="edit" data-placement="bottom"><i class="fas fa-edit"></i></a>
-                                        {{-- @endcan --}}
-                                        {{-- @can('Delete Tag') --}}
+                                        @endcan
+                                        @can('Delete Tag')
                                             <form method="POST" action="{{ route('post-tag.destroy', [$data->id]) }}">
                                                 @csrf
                                                 @method('delete')
@@ -72,7 +73,7 @@
                                                     data-placement="bottom" title="Delete"><i
                                                         class="fas fa-trash-alt"></i></button>
                                             </form>
-                                        {{-- @endcan --}}
+                                        @endcan
                                     </td>
                                 </tr>
                             @endforeach

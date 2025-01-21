@@ -10,7 +10,7 @@ class PostCategoryController extends Controller
 
     public function __construct()
     {
-        // $this->middleware(['can:Show pCategory']);
+        $this->middleware(['can:Show pCategory']);
     }
 
     /**
@@ -20,7 +20,7 @@ class PostCategoryController extends Controller
      */
     public function index()
     {
-        // $this->ccan('Show pCategory');
+        $this->ccan('Show pCategory');
 
         $n['postCategories']=PostCategory::orderBy('id','DESC')->paginate(10);
         $n['count'] = PostCategory::get();
@@ -34,7 +34,7 @@ class PostCategoryController extends Controller
      */
     public function create()
     {
-        // $this->ccan('Create pCategory');
+        $this->ccan('Create pCategory');
 
         return view('backend.postcategory.create');
     }
@@ -47,10 +47,10 @@ class PostCategoryController extends Controller
      */
     public function store(Request $request)
     {
-        // $this->ccan('Create pCategory');
+        $this->ccan('Create pCategory');
 
         // return $request->all();
-        // $this->validate($request,[
+        $this->validate($request,[
             'title'=>'string|required',
             'status'=>'required|in:active,inactive'
         ]);
@@ -90,7 +90,7 @@ class PostCategoryController extends Controller
      */
     public function edit($id)
     {
-        // $this->ccan('Edit pCategory');
+        $this->ccan('Edit pCategory');
 
         $postCategory=PostCategory::findOrFail($id);
         return view('backend.postcategory.edit')->with('postCategory',$postCategory);
@@ -105,11 +105,11 @@ class PostCategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        // $this->ccan('Edit pCategory');
+        $this->ccan('Edit pCategory');
 
         $postCategory=PostCategory::findOrFail($id);
          // return $request->all();
-         // $this->validate($request,[
+         $this->validate($request,[
             'title'=>'string|required',
             'status'=>'required|in:active,inactive'
         ]);
@@ -132,7 +132,7 @@ class PostCategoryController extends Controller
      */
     public function destroy($id)
     {
-        // $this->ccan('Delete pCategory');
+        $this->ccan('Delete pCategory');
 
         $postCategory=PostCategory::findOrFail($id);
 

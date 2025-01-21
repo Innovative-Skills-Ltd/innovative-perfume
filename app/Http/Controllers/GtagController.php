@@ -10,7 +10,7 @@ class GtagController extends Controller
 {
     public function __construct()
     {
-        // $this->middleware(['can:Show Google Tag']);
+        $this->middleware(['can:Show Google Tag']);
     }
     /**
      * Display a listing of the resource.
@@ -26,7 +26,7 @@ class GtagController extends Controller
      */
     public function create()
     {
-        // $this->ccan('Create Google Tag');
+        $this->ccan('Create Google Tag');
         return view('backend.seo.gtag.create');
     }
 
@@ -35,7 +35,7 @@ class GtagController extends Controller
      */
     public function store(StoregtagRequest $request)
     {
-        // $this->ccan('Create Google Tag');
+        $this->ccan('Create Google Tag');
 
         gtag::create($request->all());
         return redirect()->route('seo.gtag.index')->with('success', "$request->name is created successfully");
@@ -54,7 +54,7 @@ class GtagController extends Controller
      */
     public function edit(gtag $gtag)
     {
-        // $this->ccan('Edit Google Tag');
+        $this->ccan('Edit Google Tag');
 
         $n['datum'] = $ram;
         return view('backend.seo.gtag.edit', $n);
@@ -65,7 +65,7 @@ class GtagController extends Controller
      */
     public function update(UpdategtagRequest $request, gtag $gtag)
     {
-        // $this->ccan('Edit Google Tag');
+        $this->ccan('Edit Google Tag');
 
         $ram->update($request->all());
         return redirect()->route('seo.gtag.index')->with('success', "$request->name is Update successfully");
@@ -76,7 +76,7 @@ class GtagController extends Controller
      */
     public function destroy(gtag $gtag)
     {
-        // $this->ccan('Delete Google Tag');
+        $this->ccan('Delete Google Tag');
 
         $status = $ram->delete();
 

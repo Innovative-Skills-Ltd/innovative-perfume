@@ -9,7 +9,7 @@ class PostTagController extends Controller
 {
     public function __construct()
     {
-        // $this->middleware(['can:Show Tag']);
+        $this->middleware(['can:Show Tag']);
     }
     /**
      * Display a listing of the resource.
@@ -18,7 +18,7 @@ class PostTagController extends Controller
      */
     public function index()
     {
-        // $this->ccan('Show Tag');
+        $this->ccan('Show Tag');
         $n['count'] = PostTag::get();
         $n['postTags']=PostTag::orderBy('id','DESC')->paginate(10);
         return view('backend.posttag.index',$n);
@@ -31,7 +31,7 @@ class PostTagController extends Controller
      */
     public function create()
     {
-        // $this->ccan('Create Tag');
+        $this->ccan('Create Tag');
 
         return view('backend.posttag.create');
     }
@@ -44,7 +44,7 @@ class PostTagController extends Controller
      */
     public function store(Request $request)
     {
-        // $this->ccan('Create Tag');
+        $this->ccan('Create Tag');
 
         $this->validate($request,[
             'title'=>'string|required',
@@ -86,7 +86,7 @@ class PostTagController extends Controller
      */
     public function edit($id)
     {
-        // $this->ccan('Edit Tag');
+        $this->ccan('Edit Tag');
 
         $postTag=PostTag::findOrFail($id);
         return view('backend.posttag.edit')->with('postTag',$postTag);
@@ -101,7 +101,7 @@ class PostTagController extends Controller
      */
     public function update(Request $request, $id)
     {
-        // $this->ccan('Edit Tag');
+        $this->ccan('Edit Tag');
 
         $postTag=PostTag::findOrFail($id);
          // return $request->all();
@@ -128,7 +128,7 @@ class PostTagController extends Controller
      */
     public function destroy($id)
     {
-        // $this->ccan('Delete Tag');
+        $this->ccan('Delete Tag');
 
         $postTag=PostTag::findOrFail($id);
 

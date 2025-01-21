@@ -13,7 +13,7 @@ class ProductReviewController extends Controller
 {
     public function __construct()
     {
-        // $this->middleware(['can:Show Review']);
+        $this->middleware(['can:Show Review']);
     }
     /**
      * Display a listing of the resource.
@@ -22,7 +22,7 @@ class ProductReviewController extends Controller
      */
     public function index()
     {
-        // $this->ccan('Show Review');
+        $this->ccan('Show Review');
 
         $n['reviews'] = ProductReview::orderBy('id','desc')->paginate(10);
         $n['count'] = ProductReview::get();
@@ -46,7 +46,7 @@ class ProductReviewController extends Controller
      */
     public function store(Request $request)
     {
-        // $this->ccan('Create Review');
+        $this->ccan('Create Review');
 
         $this->validate($request, [
             'rate' => 'required|numeric|min:1'
@@ -96,7 +96,7 @@ class ProductReviewController extends Controller
      */
     public function edit($id)
     {
-        // $this->ccan('Edit Review');
+        $this->ccan('Edit Review');
 
         $review = ProductReview::find($id);
         // dd($review);
@@ -113,7 +113,7 @@ class ProductReviewController extends Controller
      */
     public function update(Request $request, $id)
     {
-        // $this->ccan('Edit Review');
+        $this->ccan('Edit Review');
 
         $review = ProductReview::find($id);
         if ($review) {

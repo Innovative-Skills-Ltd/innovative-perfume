@@ -12,10 +12,10 @@
         </div>
         <div class="py-3 card-header">
             <h6 class="float-left m-0 font-weight-bold text-primary">Google Tag List</h6>
-            {{-- @can('Create Google Tag') --}}
+            @can('Create Google Tag')
                 <a href="{{ route('seo.gtag.create') }}" class="float-right btn btn-primary btn-sm" data-toggle="tooltip"
                     data-placement="bottom" title="Add User"><i class="fas fa-plus"></i> Add Google Tag</a>
-            {{-- @endcan --}}
+            @endcan
         </div>
         <div class="card-body">
             <div class="table-responsive">
@@ -27,9 +27,9 @@
                                 <th>Header Tag</th>
                                 <th>Footer Tag</th>
                                 <th>Status</th>
-                                {{-- @canany(['Edit Google Tag', 'Delete Google Tag']) --}}
+                                @canany(['Edit Google Tag', 'Delete Google Tag'])
                                     <th>Action</th>
-                                {{-- @endcanany --}}
+                                @endcanany
                             </tr>
                         </thead>
                         <tfoot>
@@ -38,9 +38,9 @@
                                 <th>Header Tag</th>
                                 <th>Footer Tag</th>
                                 <th>Status</th>
-                                {{-- @canany(['Edit Google Tag', 'Delete Google Tag']) --}}
+                                @canany(['Edit Google Tag', 'Delete Google Tag'])
                                     <th>Action</th>
-                                {{-- @endcanany --}}
+                                @endcanany
                             </tr>
                         </tfoot>
                         <tbody>
@@ -57,13 +57,13 @@
                                         @endif
                                     </td>
                                     <td>
-                                        {{-- @can('Edit Google Tag') --}}
+                                        @can('Edit Google Tag')
                                             <a href="{{ route('seo.gtag.edit', $datum->id) }}"
                                                 class="float-left mr-1 btn btn-primary btn-sm"
                                                 style="height:30px; width:30px;border-radius:50%" data-toggle="tooltip"
                                                 title="edit" data-placement="bottom"><i class="fas fa-edit"></i></a>
-                                            {{-- @endcan --}}
-                                        {{-- @can('Delete Google Tag') --}}
+                                        @endcan
+                                        @can('Delete Google Tag')
                                             <form method="POST" action="{{ route('seo.gtag.destroy', [$datum->id]) }}">
                                                 @csrf
                                                 @method('delete')
@@ -72,7 +72,7 @@
                                                     data-placement="bottom" title="Delete"><i
                                                         class="fas fa-trash-alt"></i></button>
                                             </form>
-                                        {{-- @endcan --}}
+                                        @endcan
                                     </td>
                                 </tr>
                             @endforeach

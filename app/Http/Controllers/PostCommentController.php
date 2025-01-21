@@ -12,7 +12,7 @@ class PostCommentController extends Controller
 {
     public function __construct()
     {
-        // $this->middleware(['can:Show Comment']);
+        $this->middleware(['can:Show Comment']);
     }
     /**
      * Display a listing of the resource.
@@ -21,7 +21,7 @@ class PostCommentController extends Controller
      */
     public function index()
     {
-        // $this->ccan('Show Comment');
+        $this->ccan('Show Comment');
 
         $n['comments']=PostComment::getAllComments();
         $n['count'] = PostComment::get();
@@ -46,7 +46,7 @@ class PostCommentController extends Controller
      */
     public function store(Request $request)
     {
-        // $this->ccan('Create Comment');
+        $this->ccan('Create Comment');
 
         // return $request->all();
         $post_info=Post::getPostBySlug($request->slug);
@@ -92,7 +92,7 @@ class PostCommentController extends Controller
      */
     public function edit($id)
     {
-        // $this->ccan('Edit Comment');
+        $this->ccan('Edit Comment');
 
         $comments=PostComment::find($id);
         if($comments){
@@ -113,7 +113,7 @@ class PostCommentController extends Controller
      */
     public function update(Request $request, $id)
     {
-        // $this->ccan('Edit Comment');
+        $this->ccan('Edit Comment');
 
         $comment=PostComment::find($id);
         if($comment){
@@ -143,7 +143,7 @@ class PostCommentController extends Controller
      */
     public function destroy($id)
     {
-        // $this->ccan('Delete Comment');
+        $this->ccan('Delete Comment');
 
         $comment=PostComment::find($id);
         if($comment){

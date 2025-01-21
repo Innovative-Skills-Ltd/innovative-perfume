@@ -13,10 +13,10 @@
         <div class="py-3 card-header d-flex justify-content-between">
             <h6 class="float-left m-0 font-weight-bold text-primary">Category Lists</h6>
             <h6 class="font-weight-bold text-primary">Total: {{count($count)}} || Active: {{count($count->where('status','active'))}} || Inactive: {{count($count->where('status','inactive'))}}</h6>
-            {{-- @can('Create Category') --}}
+            @can('Create Category')
                 <a href="{{ route('category.create') }}" class="float-right btn btn-primary btn-sm" data-toggle="tooltip"
                     data-placement="bottom" title="Add User"><i class="fas fa-plus"></i> Add Category</a>
-            {{-- @endcan --}}
+            @endcan
         </div>
         <div class="card-body">
             <div class="table-responsive">
@@ -31,9 +31,9 @@
                                 <th>Parent Category</th>
                                 <th>Photo</th>
                                 <th>Status</th>
-                                {{-- @canany(['Edit Category', 'Delete Category']) --}}
+                                @canany(['Edit Category', 'Delete Category'])
                                     <th>Action</th>
-                                {{-- @endcanany --}}
+                                @endcanany
                             </tr>
                         </thead>
                         <tfoot>
@@ -45,9 +45,9 @@
                                 <th>Parent Category</th>
                                 <th>Photo</th>
                                 <th>Status</th>
-                                {{-- @canany(['Edit Category', 'Delete Category']) --}}
+                                @canany(['Edit Category', 'Delete Category'])
                                     <th>Action</th>
-                                {{-- @endcanany --}}
+                                @endcanany
                             </tr>
                         </tfoot>
                         <tbody>
@@ -79,12 +79,12 @@
                                     </td>
                                     <td>
 
-                                        {{-- @can('Edit Category') --}}
+                                        @can('Edit Category')
                                             <a href="{{ route('category.edit', $category->id) }}"
                                                 class="float-left mr-1 btn btn-primary btn-sm"
                                                 style="height:30px; width:30px;border-radius:50%" data-toggle="tooltip"
                                                 title="edit" data-placement="bottom"><i class="fas fa-edit"></i></a>
-                                        {{-- @endcan --}}
+                                        @endcan
                                         {{-- @can('Delete Category')
                                             <form method="POST" action="{{ route('category.destroy', [$category->id]) }}">
                                                 @csrf
