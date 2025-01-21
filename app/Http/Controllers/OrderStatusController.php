@@ -12,14 +12,14 @@ class OrderStatusController extends Controller
 {
     public function __construct()
     {
-        // $this->middleware(['can:Show Order Status']);
+        $this->middleware(['can:Show Order Status']);
     }
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        // $this->ccan('Show Order Status');
+        $this->ccan('Show Order Status');
 
         $n['data'] = OrderStatus::orderBy('id', 'DESC')->paginate();
         $n['count'] = OrderStatus::get();
@@ -31,7 +31,7 @@ class OrderStatusController extends Controller
      */
     public function create()
     {
-        // $this->ccan('Create Order Status');
+        $this->ccan('Create Order Status');
 
         return view('backend.order-status.create');
     }
@@ -41,7 +41,7 @@ class OrderStatusController extends Controller
      */
     public function store(StoreOrderStatusRequest $request)
     {
-        // $this->ccan('Create Order Status');
+        $this->ccan('Create Order Status');
 
         $data = $request->all();
         $slug = Str::slug($request->title);
@@ -73,7 +73,7 @@ class OrderStatusController extends Controller
      */
     public function edit(OrderStatus $orderStatus)
     {
-        // $this->ccan('Edit Order Status');
+        $this->ccan('Edit Order Status');
 
         if (!$orderStatus) {
             request()->session()->flash('error', 'Brand not found');
@@ -86,7 +86,7 @@ class OrderStatusController extends Controller
      */
     public function update(UpdateOrderStatusRequest $request, OrderStatus $orderStatus)
     {
-        // $this->ccan('Edit Order Status');
+        $this->ccan('Edit Order Status');
 
         $data = $request->all();
 
@@ -104,7 +104,7 @@ class OrderStatusController extends Controller
      */
     public function destroy(OrderStatus $orderStatus)
     {
-        // $this->ccan('Delete Order Status');
+        $this->ccan('Delete Order Status');
         if ($orderStatus) {
             $status = $orderStatus->delete();
             if ($status) {
