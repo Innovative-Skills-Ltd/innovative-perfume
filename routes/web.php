@@ -1,6 +1,7 @@
 <?php
 
 use App\Livewire\Blog;
+use App\Livewire\CheckoutStore;
 use App\Livewire\Contact;
 use App\Livewire\CreateCart;
 use Illuminate\Support\Facades\Route;
@@ -70,6 +71,7 @@ use App\Livewire\TermComdition;
 use App\Livewire\Offer;
 use App\Livewire\OrderConfirm;
 use App\Livewire\OrderReceived;
+use App\Livewire\OrderStore;
 use App\Livewire\OtpConfirm;
 use App\Livewire\RedirectToPay;
 use App\Livewire\ResetPassword;
@@ -376,6 +378,8 @@ Route::get('/search/{stext?}/{cat?}', SearchingProduct::class)->name('searching_
 Route::get('/category-searching-product/{cat?}', SearchingProduct::class)->name('cat.search.product');
 Route::get('/product-details/{slug}', ProductDeatils::class)->name('product.details');
 Route::get('/checkout', Checkout::class)->name('checkout');
+Route::post('/checkout', CheckoutStore::class)->name('checkout.store');
+Route::post('/order/store', OrderStore::class)->name('user.order.store');
 Route::get('/view-cart', ViewCart::class)->name('vcart');
 Route::get('/create-cart/{slug}', CreateCart::class)->name('create_cart');
 Route::get('/blogs', Blog::class)->name('blogs');
