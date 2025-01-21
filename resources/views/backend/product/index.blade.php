@@ -15,10 +15,10 @@
             <h6 class="font-weight-bold text-primary">Total: {{ count($count) }} || Active:
                 {{ count($count->where('status', 'active')) }} || Inactive: {{ count($count->where('status', 'inactive')) }}
             </h6>
-            {{-- @can('Create Product') --}}
+            @can('Create Product')
                 <a href="{{ route('product.create') }}" class="float-right btn btn-primary btn-sm" data-toggle="tooltip"
                     data-placement="bottom" title="Add User"><i class="fas fa-plus"></i> Add Product</a>
-            {{-- @endcan --}}
+            @endcan
         </div>
         <div class="card-body">
             <div class="table-responsive">
@@ -38,9 +38,9 @@
                                 <th>Stock</th>
                                 <th>Photo</th>
                                 <th>Status</th>
-                                {{-- @canany(['Edit Product', 'Delete Product']) --}}
+                                @canany(['Edit Product', 'Delete Product'])
                                     <th>Action</th>
-                                {{-- @endcanany --}}
+                                @endcanany
                             </tr>
                         </thead>
                         <tfoot>
@@ -57,9 +57,9 @@
                                 <th>Stock</th>
                                 <th>Photo</th>
                                 <th>Status</th>
-                                {{-- @canany(['Edit Product', 'Delete Productd']) --}}
+                                @canany(['Edit Product', 'Delete Productd'])
                                     <th>Action</th>
-                                {{-- @endcanany --}}
+                                @endcanany
                             </tr>
                         </tfoot>
                         <tbody>
@@ -118,14 +118,14 @@
                                             class="float-left mr-1 btn btn-warning btn-sm"
                                             style="height:30px; width:30px;border-radius:50%" data-toggle="tooltip"
                                             title="view" data-placement="bottom"><i class="fas fa-eye"></i></a>
-                                        {{-- @can('Edit Product') --}}
+                                        @can('Edit Product')
                                             <a href="{{ route('product.edit', $product->id) }}"
                                                 class="float-left mr-1 btn btn-primary btn-sm"
                                                 style="height:30px; width:30px;border-radius:50%" data-toggle="tooltip"
                                                 title="edit" data-placement="bottom"><i class="fas fa-edit"></i>
                                             </a>
-                                        {{-- @endcan --}}
-                                        {{-- @can('Delete Product') --}}
+                                        @endcan
+                                        @can('Delete Product')
                                             <form method="POST" action="{{ route('product.destroy', [$product->id]) }}">
                                                 @csrf
                                                 @method('delete')
@@ -134,7 +134,7 @@
                                                     data-placement="bottom" title="Delete"><i
                                                         class="fas fa-trash-alt"></i></button>
                                             </form>
-                                        {{-- @endcan --}}
+                                        @endcan
 
                                     </td>
 

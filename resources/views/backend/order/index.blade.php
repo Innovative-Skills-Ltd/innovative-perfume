@@ -31,9 +31,9 @@
                                 <th>Total Amount</th>
                                 <th>Payment Status</th>
                                 <th>Status</th>
-                                {{-- @canany(['Edit Order', 'Delete Order']) --}}
+                                @canany(['Edit Order', 'Delete Order'])
                                     <th>Action</th>
-                                {{-- @endcanany --}}
+                                @endcanany
                             </tr>
                         </thead>
                         <tfoot>
@@ -47,9 +47,9 @@
                                 <th>Total Amount</th>
                                 <th>Payment Status</th>
                                 <th>Status</th>
-                                {{-- @canany(['Edit Order', 'Delete Order']) --}}
+                                @canany(['Edit Order', 'Delete Order'])
                                     <th>Action</th>
-                                {{-- @endcanany --}}
+                                @endcanany
                             </tr>
                         </tfoot>
                         <tbody>
@@ -81,22 +81,22 @@
                                             class="float-left mr-1 btn btn-warning btn-sm"
                                             style="height:30px; width:30px;border-radius:50%" data-toggle="tooltip"
                                             title="view" data-placement="bottom"><i class="fas fa-eye"></i></a>
-                                        {{-- @can('Edit Order') --}}
+                                        @can('Edit Order')
                                             <a href="{{ route('order.edit', $order->id) }}"
                                                 class="float-left mr-1 btn btn-primary btn-sm"
                                                 style="height:30px; width:30px;border-radius:50%" data-toggle="tooltip"
                                                 title="edit" data-placement="bottom"><i class="fas fa-edit"></i></a>
-                                        {{-- @endcan --}}
-                                        {{-- @can('Delet Order') --}}
+                                        @endcan
+                                        @can('Delet Order')
                                             <form method="POST" action="{{ route('order.destroy', [$order->id]) }}">
                                                 @csrf
                                                 @method('delete')
-                                                        <button class="btn btn-danger btn-sm dltBtn" data-id={{ $order->id }}
+                                                <button class="btn btn-danger btn-sm dltBtn" data-id={{ $order->id }}
                                                     style="height:30px; width:30px;border-radius:50%" data-toggle="tooltip"
                                                     data-placement="bottom" title="Delete"><i
-                                                        class="fas fa-trash-alt"></i></button> --}}
+                                                        class="fas fa-trash-alt"></i></button>
                                             </form>
-                                        {{-- @endcan --}}
+                                        @endcan
                                     </td>
                                 </tr>
                             @endforeach
