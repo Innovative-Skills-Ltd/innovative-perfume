@@ -9,7 +9,7 @@
     src="https://js.sentry-cdn.com/93dc89a5646af7515c353ded6b155415.min.js"
     crossorigin="anonymous"
   ></script>
-  
+
     <!-- Open Graph meta tags for sharing -->
     <meta property="og:title" content="{{ ENV('APP_NAME') }}">
     <meta property="og:description"
@@ -63,9 +63,9 @@
     <!-------header-section-end----->
 
     <!--------- Nav Section -->
-    <div>
+    {{-- <div>
         @livewire('nav')
-    </div>
+    </div> --}}
     <!----------nav-end---------->
 
     {{ $slot }}

@@ -1,5 +1,7 @@
 <?php
 
+use App\Livewire\Blog;
+use App\Livewire\Contact;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Artisan;
 use App\Http\Controllers\AdminController;
@@ -110,8 +112,8 @@ Route::get('storage-link', [AdminController::class, 'storageLink'])->name('stora
 
 
 Auth::routes(['register' => false,'login' => false]);
-Route::get('/lfksdjfls/klfsjdfkl',[LoginController::class,'showLoginForm'])->name('login');
-Route::post('/lfksdjfls/klfsjdfkl',[LoginController::class,'login'])->name('login');
+Route::get('/admin-panel',[LoginController::class,'showLoginForm'])->name('login');
+Route::post('/admin-panel',[LoginController::class,'login'])->name('login');
 
 Route::get('user/login', [FrontendController::class, 'login'])->name('login.form');
 Route::post('user/login', [FrontendController::class, 'loginSubmit'])->name('login.submit');
@@ -374,6 +376,8 @@ Route::get('/category-searching-product/{cat?}', SearchingProduct::class)->name(
 Route::get('/product-details/{slug}', ProductDeatils::class)->name('product.details');
 Route::get('/checkout', Checkout::class)->name('checkout');
 Route::get('/view-cart', ViewCart::class)->name('vcart');
+Route::get('/blogs', Blog::class)->name('blogs');
+Route::get('/contact', Contact::class)->name('contact');
 Route::get('/user/register', Signup::class)->name('user.register');
 Route::get('/user/login', Login::class)->name('user.login');
 Route::get('/user/forget-password', ForgetPassword::class)->name('user.fp');
