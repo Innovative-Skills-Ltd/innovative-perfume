@@ -31,7 +31,6 @@ class Login extends Component
 
     public function routeChange()
     {
-
         if (Auth::user()) {
             $this->redirect(url()->previous(), navigate: true);
         }
@@ -41,7 +40,7 @@ class Login extends Component
     public function login()
     {
         $user = User::where('email', $this->email)->first();
-        dd($user);
+
         if (!$user) {
             $this->check_msg = "You have no account. Please, register";
             return false;
@@ -66,10 +65,8 @@ class Login extends Component
 
     public function render()
     {
-
-
         $this->routeChange();
-        // dd('login');
+
         return view('livewire.login');
     }
 }

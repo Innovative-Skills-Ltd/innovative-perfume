@@ -1,285 +1,316 @@
 <div>
-    <style>
-        .bg-primary {
-            background-color: #ab8e66 !important;
-        }
-    </style>
-    <!-- Top Bar Start -->
-    <section class="bg-primary py-5">
-        <div class="container mx-auto px-2 md:px-0 flex items-center justify-between text-white">
-            <span class="">Welcome to our online store!</span>
-            <div class="flex items-center gap-2">
-                @if(auth()->user())
-                <a href="{{ route('user.logout') }}">
-                    <button class="cursor-pointer hover:italic hover:underline transition-all duration-300 ease-in-out">
-                        Logout
-                    </button>
-                </a>
-                @else
-                <a href="{{ route('user.login') }}">
-                    <button class="cursor-pointer hover:italic hover:underline transition-all duration-300 ease-in-out">
-                        Login
-                    </button>
-                </a>
-                <span>or</span>
-                <a href="{{ route('user.login') }}">
-                    <button class="cursor-pointer hover:italic hover:underline transition-all duration-300 ease-in-out">
-                        Register
-                    </button>
-                </a>
-                @endif
+    <header
+        class="h-[78px] z-[10000] max-sm:h-[50px] max-xl:h-[68px] max-xl:fixed max-xl:top-0 max-xl:left-0 max-xl:right-0 max-xl:z-150 max-xl:flex max-xl:justify-between max-xl:items-center max-xl:border-b-[2px] max-xl:border-[#f2f2f2] relative
+         bg-gradient-to-r from-[#380D37] to-[#DC275C] text-[#f2f2f2] px-[72px] max-xl:px-[40px]">
+        <div id="body-overlay1"></div>
+
+        {{-- Mobile menue  --}}
+        {{-- ------responsive---show----- --}}
+        <div class="xl:hidden max-xl:block">
+            <div class="menu-toggle">
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+            </div>
+            <div class="menu">
+                {{-- Mobile menue  --}}
+                <nav class="bg-[#f2f2f2] ">
+                    <ul class="flex flex-col scroll-auto">
+                        <li
+                            class="menu-container2pt-2 font-[jost] font-[500] text-[#353535] text-[16px] max-sm:text-[14px] bg-[#f2f2f2]">
+                            <div class="flex items-center justify-between px-6 py-3 max-sm:px-4 max-sm:py-2 toggleBtn2">
+                                <div class="max-sm:text-[14px] cursor-pointer">All Categories</div>
+                                <div class="">
+                                    <svg class="plus" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                                        width="24" height="24" fill="none" stroke="currentColor"
+                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <line x1="12" y1="5" x2="12" y2="19"></line>
+                                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                                    </svg>
+                                    <svg class="minus" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                                        width="24" height="24" fill="none" stroke="currentColor"
+                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                        style="display: none;">
+                                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                                    </svg>
+                                </div>
+                            </div>
+                            <ul
+                                class="toggleDiv2 hidden list-none bg-[#fff] mt-[10px] text-[#380D37] hover:text-[#f2f2f2] text-[16px] max-sm:text-[14px] font-[jost] font-[400] w-full transition-opacity duration-[3s] ease-in-out origin-top">
+                                <li class="border-y-[1px] border-[#764A87]"><a href="{{ route('shop') }}"
+                                        wire:navigate>All</a></li>
+                                @foreach ($menus as $menu1)
+                                    @if (count($menu1->products) > 0)
+                                        <li class="border-b-[1px] border-[#764A87] "><a
+                                                href="{{ route('cate_wise.shop', [$menu1->slug]) }}"
+                                                wire:navigate>{{ $menu1->title }}</a></li>
+                                    @endif
+                                @endforeach
+                            </ul>
+                        </li>
+                        @foreach ($menus as $menu)
+                            <div class="h-[1px] bg-[#764D8733]"></div>
+                            <li
+                                class="whitespace-nowrap rounded font-[jost] font-[500] text-[#353535] text-[16px] max-sm:text-[14px] bg-[#f2f2f2]">
+                                @if (count($menu->products) > 0)
+                                    <div class="flex items-center justify-between px-6 py-3 max-sm:px-4 max-sm:py-2 ">
+                                        <div class="max-sm:text-[14px] cursor-pointer">
+                                            <a href="{{ route('cate_wise.shop', [$menu->slug]) }}"
+                                                wire:navigate>{{ $menu->title }}</a>
+                                        </div>
+                                        @php
+                                            $has_child = 0;
+                                        @endphp
+                                        @foreach ($menu->child_cat as $menu2)
+                                            @if (count($menu2->sub_products) > 0)
+                                                @php
+                                                    ++$has_child;
+                                                @endphp
+                                            @endif
+                                        @endforeach
+                                        @if (count($menu->child_cat) > 0 && $has_child > 0)
+                                            <div class="toggleBtn2">
+                                                <svg class="plus text-[black]" xmlns="http://www.w3.org/2000/svg"
+                                                    viewBox="0 0 24 24" width="24" height="24" fill="none"
+                                                    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                                    stroke-linejoin="round">
+                                                    <line x1="12" y1="5" x2="12" y2="19">
+                                                    </line>
+                                                    <line x1="5" y1="12" x2="19" y2="12">
+                                                    </line>
+                                                </svg>
+                                                <svg class="minus text-[red]" xmlns="http://www.w3.org/2000/svg"
+                                                    viewBox="0 0 24 24" width="24" height="24" fill="none"
+                                                    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                                    stroke-linejoin="round" style="display: none;">
+                                                    <line x1="5" y1="12" x2="19" y2="12">
+                                                    </line>
+                                                </svg>
+                                            </div>
+                                        @endif
+                                    </div>
+                                    @if (count($menu->child_cat) > 0 && $has_child > 0)
+                                        <ul
+                                            class="toggleDiv2 hidden list-none bg-[#fff] mt-[10px] text-[#380D37] hover:text-[#f2f2f2] text-[16px] max-sm:text-[14px] font-[jost] font-[400] w-full transition-opacity duration-[3s] ease-in-out origin-top">
+                                            @foreach ($menu->child_cat as $menu2)
+                                                @if (count($menu2->sub_products) > 0)
+                                                    @if ($loop->first)
+                                                        <li class="border-y-[1px] border-[#764A87]"><a
+                                                                href="{{ route('cate_wise.shop', [$menu->slug, $menu2->slug]) }}"
+                                                                wire:navigate>{{ $menu2->title }}</a></li>
+                                                    @else
+                                                        <li class="border-b-[1px] border-[#764A87]"><a
+                                                                href="{{ route('cate_wise.shop', [$menu->slug, $menu2->slug]) }}"
+                                                                wire:navigate>{{ $menu2->title }}</a></li>
+                                                    @endif
+                                                @endif
+                                            @endforeach
+                                        </ul>
+                                    @endif
+                                @endif
+                            </li>
+                        @endforeach
+                        <div class="h-[1px] bg-[#764D8733]"></div>
+                    </ul>
+                </nav>
             </div>
         </div>
-    </section>
-    <!-- Top Bar End -->
+        {{-- responsive ---show -----end --}}
 
-    <!-- Top Header Start -->
-    <section>
-        <div class="container mx-auto px-2 md:px-0 flex items-center justify-between py-10">
-            <div>
-                <a href="{{ route('home') }}">
-                    <h2 class="font-bold text-primary text-2xl">SIGNORCHOICE</h2>
+        <div class="flex items-center justify-between h-full  py-[10px] gap-[30px]">
+            <!-- <!- Logo -->
+            <div class='items-center'>
+                <a href="{{ route('home') }}" wire:navigate>
+                    <img class="h-[60px] max-xl:h-[40px] w-[232px] max-sm:w-[150px] max-xl:w-[180px] max-xl:flex max-xl:items-center"
+                        src="/storage/product/Logo.svg" alt="">
                 </a>
             </div>
-            <div x-data="{ search: '', suggestions: ['Shoes', 'Shirts', 'Accessories', 'Hats', 'Bags'], filteredSuggestions: [] }" class="relative hidden md:block">
-                <input type="text" class="px-5 py-2 w-96 border rounded-full outline-none" placeholder="Search here"
-                    x-model="search"
-                    @input="filteredSuggestions = suggestions.filter(item => item.toLowerCase().includes(search.toLowerCase()))" />
-                <div x-show="search.length > 0 && filteredSuggestions.length > 0" x-transition
-                    class="absolute left-0 mt-1 bg-white text-black shadow-lg rounded w-96">
-                    <ul>
-                        <template x-for="item in filteredSuggestions" :key="item">
-                            <li class="hover:bg-gray-200 cursor-pointer p-2"
-                                @click="search = item; filteredSuggestions = []" x-text="item"></li>
-                        </template>
-                    </ul>
-                </div>
-                <div class="absolute right-0 top-0 flex items-center h-full">
-                    <div @mouseenter="open = true" @mouseleave="open = false" class="px-5 py-2 border"
-                        x-data="{ open: false, selectedCategory: 'Accessories' }">
-                        <!-- Title that dynamically updates -->
-                        <h3 class="selected-category" x-text="selectedCategory"></h3>
-
-                        <!-- Main Dropdown Menu -->
-                        <div x-show="open" x-transition
-                            class="absolute top-full left-0 mt-2 bg-white text-black shadow-lg rounded w-56 z-50">
-                            <ul class="p-0">
-                                <!-- Category 1 -->
-                                <li x-data="{ subOpen: false }" class="relative" @mouseenter="subOpen = true"
-                                    @mouseleave="subOpen = false">
-                                    <div class="w-full text-left hover:bg-gray-200 cursor-pointer border-b p-4 flex justify-between"
-                                        @click="selectedCategory = 'Category 1'">
-                                        Category 1
-                                        <span>&#9656;</span>
+            <div id="search-bar"
+                class="search-bar max-xl:fixed max-sm:top-[49px] max-md:top-[67px] max-xl:top-[67px] max-xl:left-0 max-xl:w-full">
+                <div>
+                    <div>
+                        <div class="relative" x-data="{
+                            search: '',
+                            open: false,
+                            items: null,
+                            get filteredItems() {
+                                const searchLower = this.search.toLowerCase();
+                                return this.items.filter((i) => i.title.toLowerCase().startsWith(searchLower));
+                            }
+                        }">
+                            <div  class='h-[44px] max-xl:h-full w-[655px] max-xl:w-full'>
+                                <div class="flex" @click.outside='open = false'>
+                                    <select name="cat_id" wire:model.live='cat' wire:change='searchFuc'
+                                        @change='open=true'
+                                        class="block w-[80px] p-2.5 text-[#380D37] text-[14px] bg-[#f2f2f2] font-[jost] font-[400] leading-[20.23px] border-r-[2px] border-[#380D37]">
+                                        <option value="" selected>All</option>
+                                        @foreach ($cats as $ct)
+                                            <option value="{{ $ct->slug }}">{{ $ct->title }}</option>
+                                        @endforeach
+                                    </select>
+                                    <div class="relative flex w-full">
+                                        <div class="w-full">
+                                            <span class="">
+                                                <input name="search_text" wire:model.live="search" wire:keyup.enter="searchTo"
+                                                    wire:keyup="searchFuc" @click="open = true" type="search"
+                                                    id="search-dropdown" autocomplete="off"
+                                                    class=" z-20 block p-2.5 w-full bg-[#f2f2f2] text-[#380D37]"
+                                                    placeholder="I am shopping for...">
+                                                <div wire:loading wire:target='searchFuc'
+                                                    class="absolute right-0 top-2.5 inline-block h-6 w-6 mr-[7px] animate-spin rounded-full
+                                                            border-4 border-solid border-current border-r-transparent align-[-0.125em]
+                                                             text-success motion-reduce:animate-[spin_1.5s_linear_infinite]"
+                                                    role="status">
+                                                    <span
+                                                        class="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]">Loading...
+                                                    </span>
+                                                </div>
+                                            </span>
+                                            @if (count($products) > 0)
+                                                <ul x-show='open'
+                                                    class="absolute z-50 bg-[white] max-h-[500px] text-[black] overflow-scroll w-[100%]">
+                                                    @php
+                                                        $products_group = $products->groupBy('slug');
+                                                    @endphp
+                                                    @foreach ($products_group as $products)
+                                                        @php
+                                                            $prd = $products->last();
+                                                        @endphp
+                                                        <li
+                                                            class="hover:bg-[#380D37] hover:rounded-sm px-[10px] items-center">
+                                                            <a href="{{ route('product.details', [$prd->slug]) }}"
+                                                                target="_blank"
+                                                                class="flex items-center font-[400] font-[jost] hover:text-[#f2f2f2] text-[#380D37] text-[14px] max-sm:text-[12px]">
+                                                                <img src="{{ explode(',', $prd->photo)[0] }}"
+                                                                    alt=""
+                                                                    class="w-[40px] items-center max-sm:h-auto h-full">
+                                                                <div>
+                                                                    <span>{{ $prd->title }}</span>
+                                                                    <p>
+                                                                        <span>{{ $prd->final_price }}</span>
+                                                                        <span
+                                                                            class="line-through">{{ $prd->price }}</span>
+                                                                    </p>
+                                                                </div>
+                                                            </a>
+                                                        </li>
+                                                    @endforeach
+                                                </ul>
+                                            @endif
+                                        </div>
                                     </div>
-                                    <!-- Submenu -->
-                                    <ul x-show="subOpen" x-transition
-                                        class="absolute left-full top-0 mt-0 bg-gray-100 shadow-lg w-56">
-                                        <li class="hover:bg-gray-200 cursor-pointer border-b p-4"
-                                            @click="selectedCategory = 'Accessories'">
-                                            <span>Accessories</span>
-                                        </li>
-                                        <li class="hover:bg-gray-200 cursor-pointer border-b p-4"
-                                            @click="selectedCategory = 'Subcategory 1-2'">
-                                            <span>Subcategory 1-2</span>
-                                        </li>
-                                    </ul>
-                                </li>
+                                    <button type="button" wire:click='searchTo'
+                                        class=" top-0 end-0 py-2.5 px-[30px] h-full bg-[#df146e] text-[#f2f2f2] rounded-r-[2px] overflow-hidden">
+                                        <span class="">Search</span>
+                                    </button>
 
-                                <!-- Category 2 -->
-                                <li x-data="{ subOpen: false }" class="relative" @mouseenter="subOpen = true"
-                                    @mouseleave="subOpen = false">
-                                    <div class="w-full text-left hover:bg-gray-200 cursor-pointer border-b p-4 flex justify-between"
-                                        @click="selectedCategory = 'Category 2'">
-                                        Category 2
-                                        <span>&#9656;</span>
-                                    </div>
-                                    <!-- Submenu -->
-                                    <ul x-show="subOpen" x-transition
-                                        class="absolute left-full top-0 mt-0 bg-gray-100 shadow-lg w-56">
-                                        <li class="hover:bg-gray-200 cursor-pointer border-b p-4"
-                                            @click="selectedCategory = 'Subcategory 2-1'">
-                                            <span>Subcategory 2-1</span>
-                                        </li>
-                                        <li class="hover:bg-gray-200 cursor-pointer border-b p-4"
-                                            @click="selectedCategory = 'Subcategory 2-2'">
-                                            <span>Subcategory 2-2</span>
-                                        </li>
-                                    </ul>
-                                </li>
-
-                                <!-- Single Category without submenu -->
-                                <li class="hover:bg-gray-200 cursor-pointer border-b p-4"
-                                    @click="selectedCategory = 'Category 3'">
-                                    <span>Category 3</span>
-                                </li>
-                            </ul>
+                                </div>
+                            </div>
                         </div>
                     </div>
-
-                    <!-- Search Button -->
-
-                    <div>
-                        <a href="shop.html">
-                            <button
-                                class="w-14 h-full py-2 rounded-r-full bg-primary text-secondary flex items-center justify-center">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                    viewBox="0 0 24 24">
-                                    <g fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round"
-                                        stroke-width="2">
-                                        <circle cx="11" cy="11" r="8" />
-                                        <path d="m21 21l-4.3-4.3" />
-                                    </g>
-                                </svg>
-                            </button>
-                        </a>
-                    </div>
                 </div>
             </div>
-            <div class="flex items-center justify-between gap-4">
-                <div class="relative">
-                    <a href="{{route('vcart')}}">
+            <!-- Right-Side Logos/Icons -->
+            <div class='flex items-center justify-between gap-[30px] max-xl:hidden'>
+                <!-- <div class="flex item-center "> -->
+                <a href="{{ route('offer') }}" wire:navigate
+                    class='nav-colors flex justify-between items-center gap-[10px] text-[16px] max-sm:text-[14px] text-[#FFFFFF] font-[jost] font-[500]'><img
+                        class='w-[30px] h-[30px]' src="/storage/product/gift.svg" alt="Logo 1">
+                    <span class="nav-colors">
+                        Offers
+                    </span></a>
+                <a href="{{ route('vcart') }}" wire:navigate
+                    class='nav-colors relative flex justify-between items-center gap-[10px] text-[16px] max-sm:text-[14px] text-[#FFFFFF] font-[jost] font-[500]'><img
+                        class='w-[25.6px] h-[24.84px]' src="/storage/product/cart(2).svg" alt="Logo 2">
+                    <div
+                        class='rounded-[100%] w-[12px] h-[12px] bg-[#f2f2f2] text-center items-center flex justify-center absolute top-0 left-0 ml-[18px]'>
                         <span
-                            class="bg-primary absolute -top-3 -right-2 p-[2px] w-[20px] h-[20px] text-sm flex items-center justify-center text-white rounded-full">{{$cart_count}}</span>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 16 16">
-                            <path fill="#000"
-                                d="M2.5 2a.5.5 0 0 0 0 1h.246a.5.5 0 0 1 .48.363l1.586 5.55A1.5 1.5 0 0 0 6.254 10h4.569a1.5 1.5 0 0 0 1.393-.943l1.474-3.686A1 1 0 0 0 12.762 4H4.448l-.261-.912A1.5 1.5 0 0 0 2.746 2zm3.274 6.637L4.734 5h8.028l-1.475 3.686a.5.5 0 0 1-.464.314H6.254a.5.5 0 0 1-.48-.363M6.5 14a1.5 1.5 0 1 0 0-3a1.5 1.5 0 0 0 0 3m0-1a.5.5 0 1 1 0-1a.5.5 0 0 1 0 1m4 1a1.5 1.5 0 1 0 0-3a1.5 1.5 0 0 0 0 3m0-1a.5.5 0 1 1 0-1a.5.5 0 0 1 0 1" />
-                        </svg>
-                    </a>
-                </div>
-                <div>
-                    <a href="{{route('user.login')}}">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 16 16">
-                            <path fill="#000"
-                                d="M10.561 8.073a6 6 0 0 1 3.432 5.142a.75.75 0 1 1-1.498.07a4.5 4.5 0 0 0-8.99 0a.75.75 0 0 1-1.498-.07a6 6 0 0 1 3.431-5.142a3.999 3.999 0 1 1 5.123 0M10.5 5a2.5 2.5 0 1 0-5 0a2.5 2.5 0 0 0 5 0" />
-                        </svg>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- Top Header End -->
-
-    <!-- Navbar Start -->
-    <nav class="bg-tertiary">
-        <div class="container mx-auto px-2 md:px-0 text-sm flex items-center justify-between md:justify-start gap-10">
-            <!-- Dropdown Wrapper -->
-            <div x-data="{ open: false }"
-                class="relative px-7 py-4 flex items-center font-bold gap-3 bg-primary text-white w-54"
-                @mouseenter="open = true" @mouseleave="open = false">
-                <!-- Dropdown Toggle -->
-                <div class="flex items-center gap-3">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                        <path fill="#fff" fill-rule="evenodd" d="M3 16h18v2H3zm0-5h18v2H3zm0-5h18v2H3z" />
-                    </svg>
-                    <button>ALL CATEGORIES</button>
-                </div>
-
-                <!-- Main Dropdown Menu -->
-                <div x-show="open" x-transition
-                    class="absolute top-full left-0 mt-2 bg-white text-black shadow-lg rounded w-56 z-50">
-                    <ul class="p-0">
-                        <!-- Category 1 -->
-                        <li x-data="{ subOpen: false }" class="relative" @mouseenter="subOpen = true"
-                            @mouseleave="subOpen = false">
-                            <a href="shop.html">
-                                <div
-                                    class="w-full text-left hover:bg-gray-200 cursor-pointer border-b p-4 flex justify-between">
-                                    Category 1
-                                    <!-- Chevron Icon -->
-                                    <span>&#9656;</span>
-                                </div>
-                            </a>
-
-                            <!-- Submenu -->
-                            <ul x-show="subOpen" x-transition
-                                class="absolute left-full top-0 mt-0 bg-gray-100 shadow-lg w-56">
-                                <li class="hover:bg-gray-200 cursor-pointer border-b p-4">
-                                    <a href="shop.html">Accessories</a>
-                                </li>
-                                <li class="hover:bg-gray-200 cursor-pointer border-b p-4">
-                                    <a href="shop.html">Subcategory 1-2</a>
-                                </li>
-                            </ul>
-                        </li>
-
-                        <!-- Category 2 -->
-                        <li x-data="{ subOpen: false }" class="relative" @mouseenter="subOpen = true"
-                            @mouseleave="subOpen = false">
-                            <a href="shop.html">
-                                <div
-                                    class="w-full text-left hover:bg-gray-200 cursor-pointer border-b p-4 flex justify-between">
-                                    Category 2
-                                    <!-- Chevron Icon -->
-                                    <span>&#9656;</span>
-                                </div>
-                            </a>
-
-                            <!-- Submenu -->
-                            <ul x-show="subOpen" x-transition
-                                class="absolute left-full top-0 mt-0 bg-gray-100 shadow-lg w-56">
-                                <li class="hover:bg-gray-200 cursor-pointer border-b p-4">
-                                    <a href="shop.html">Subcategory 2-1</a>
-                                </li>
-                                <li class="hover:bg-gray-200 cursor-pointer border-b p-4">
-                                    <a href="shop.html">Subcategory 2-2</a>
-                                </li>
-                            </ul>
-                        </li>
-
-                        <!-- Single Category without submenu -->
-                        <li class="hover:bg-gray-200 cursor-pointer border-b p-4">
-                            <a href="shop.html">Category 3</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-
-            <!-- Navigation Menu -->
-            <div>
-                <div class="text-right w-full relative md:hidden" x-data="{ open: false }">
-                    <!-- SVG Icon Button -->
-                    <svg @click.stop="open = !open" class="cursor-pointer" xmlns="http://www.w3.org/2000/svg"
-                        width="34" height="34" viewBox="0 0 24 24">
-                        <path fill="#ab8e66" fill-rule="evenodd" d="M3 16h18v2H3zm0-5h18v2H3zm0-5h18v2H3z" />
-                    </svg>
-
-                    <!-- Main Dropdown Menu -->
-                    <div x-show="open" x-transition @click.away="open = false"
-                        class="absolute top-full right-0 mt-2 bg-white text-black shadow-lg rounded w-40">
-                        <ul class="p-0">
-                            <!-- Category 1 -->
-                            <li class="hover:bg-gray-200 cursor-pointer border-b p-4">
-                                <a href="{{ route('home') }}">Home</a>
-                            </li>
-
-                            <!-- Category 2 -->
-                            <li class="hover:bg-gray-200 cursor-pointer border-b p-4">
-                                <a href="{{ route('shop') }}">Shop</a>
-                            </li>
-
-                            <!-- Single Category without submenu -->
-                            <li class="hover:bg-gray-200 cursor-pointer border-b p-4">
-                                <a href="{{ route('about_us') }}">About</a>
-                            </li>
-                            <li class="hover:bg-gray-200 cursor-pointer border-b p-4">
-                                <a href="{{ route('blogs') }}">Blogs</a>
-                            </li>
-                        </ul>
+                            class='carts-count cart_count text-[#353535] text-[10px] items items-center'>{{ $cart_count }}
+                        </span>
                     </div>
-                </div>
+                    <span class="nav-colors">Cart</span>
+                </a>
 
-                <ul class="hidden md:flex items-center gap-10 font-bold uppercase">
-                    <li><a href="{{ route('home') }}">Home</a></li>
-                    <li><a href="{{ route('shop') }}">Shop</a></li>
-                    <li><a href="{{ route('about_us') }}">About</a></li>
-                    <li><a href="{{ route('blogs') }}">Blogs</a></li>
-                </ul>
+                @auth
+                    <a href="{{ route('account') }}" wire:navigate
+                        class='nav-colors flex justify-between items-center gap-[10px] text-[16px] max-sm:text-[14px] text-[#FFFFFF] font-[jost] font-[500]'>
+                        <img class='w-[30.72px] h-[29.81px]' src="/storage/product/account2.svg" alt="Logo 3">
+
+                        <span class="nav-colors">Account</span>
+                    </a>
+                @else
+                    <a href="{{ route('user.login') }}" wire:navigate
+                        class='flex justify-between items-center gap-[10px] text-[16px] max-sm:text-[14px] text-[#FFFFFF] font-[jost] font-[500]'>
+                        <img class='w-[30.72px] h-[29.81px]' src="/storage/product/account2.svg" alt="Logo 3">
+                        <span class="nav-colors">Account</span>
+                    </a>
+                @endauth
             </div>
         </div>
-    </nav>
-    <!-- Navbar End -->
+        {{-- -----search-icon----- --}}
+        <div id="search-icon" class="xl:hidden">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"
+                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                stroke-linejoin="round">
+                <circle cx="11" cy="11" r="6"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+        </div>
+        {{-- ------search--icon--end----- --}}
+        {{-- ---whatsapp-icon--- --}}
+        <a href="https://wa.me/+8801712644209" target="_blank"
+            class="fixed flex items-center justify-center bg-green-500 rounded-[50%] bottom-20 max-sm:bottom-18 right-10 max-sm:right-8 z-40 hover:w-16 duration-300 hover:h-16 max-sm:w-12 w-14 max-sm:h-12 h-14">
+            <div>
+                <img src="/storage/product/whatsapp-symbol-logo-svgrepo-com.svg" alt="" class=" w-8 h-10">
+            </div>
+        </a>
+        {{-- ---whatsapp-icon--- --}}
+    </header>
 
+    <div
+        class='h-[68px] max-sm:h-[50px] text-[#f2f2f2] px-[72px] max-xl:px-[60px] max-md:px-[40px] font-[jost] xl:hidden max-xl:block items-center z-[9999] fixed bottom-0 left-0 right-0 shadow bg-gradient-to-r from-[#380D37] to-[#DC275C] border-t-[2px] border-[#f2f2f2]'>
+        <div class='flex items-center justify-between gap-[20px] my-[15px]'>
+            <!-- <div class="flex item-center "> -->
+            <a href="{{ route('offer') }}" wire:navigate
+                class='flex justify-between items-center gap-[10px] text-[16px] max-sm:text-[14px] text-[#FFFFFF] font-[jost] font-[500]'>
+                <img class='w-[30px] max-sm:w-[20px] max-sm:h-[20px] h-[30px]' src="/storage/product/gift.svg"
+                    alt="Logo 1">
+                <span class="">
+                    Offers
+                </span>
+            </a>
+            <a href="{{ route('vcart') }}" wire:navigate
+                class='relative flex justify-between items-center gap-[10px] text-[16px] max-sm:text-[14px] text-[#FFFFFF] font-[jost] font-[500]'><img
+                    class='w-[25.6px] max-sm:w-[20px] max-sm:h-[20px] h-[24.84px]' src="/storage/product/cart(2).svg"
+                    alt="Logo 2">
+                <div
+                    class='carts-count rounded-[100%] w-[12px] h-[12px] max-sm:w-[10px] max-sm:h-[10px] bg-[#f2f2f2] text-center items-center flex justify-center absolute top-0 left-0 ml-[18px] max-sm:ml-[15px]'>
+                    <span
+                        class='carts-count cart_count text-[#353535] text-[10px] max-sm:text-[8px] items items-center'>
+                        {{ $cart_count }}
+                    </span>
+                </div>
+                <span class="">Cart</span>
+            </a>
+            @auth
+                <a href="{{ route('account') }}" wire:navigate
+                    class='flex justify-between items-center gap-[10px] text-[16px] max-sm:text-[14px] text-[#FFFFFF] font-[jost] font-[500]'>
+                    <img class='w-[30.72px] h-[29.81px] max-sm:w-[20px] max-sm:h-[20px]'
+                        src="/storage/product/account2.svg" alt="Logo 3">
+                    <span>
+                        Account
+                    </span>
+                </a>
+            @else
+                <a href="{{ route('user.login') }}" wire:navigate
+                    class='flex justify-between items-center gap-[10px] text-[16px] max-sm:text-[14px] text-[#FFFFFF] font-[jost] font-[500]'>
+                    <img class='w-[30.72px] h-[29.81px] max-sm:w-[20px] max-sm:h-[20px]'
+                        src="/storage/product/account2.svg" alt="Logo 3">
+                    <span class="">Account</span>
+                </a>
+            @endauth
+        </div>
+    </div>
 </div>
 
 @script

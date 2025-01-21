@@ -64,7 +64,6 @@ class Checkout extends Component
     public $err_msg;
     public $payment_possess;
 
-
     public function orderSubmit()
     {
         $this->validate();

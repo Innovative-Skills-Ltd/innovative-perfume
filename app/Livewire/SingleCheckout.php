@@ -70,7 +70,6 @@ class SingleCheckout extends Component
 
     public function mount()
     {
-        $request = request();
         $product = Product::where('slug', $this->pslug)->where('is_showable_to_user',1)->first();
         if ($product->stock < 1) {
             session()->flash('error', 'Stock not sufficient');

@@ -5,8 +5,11 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     {{-- sentry video error  --}}
-    <script src="https://js.sentry-cdn.com/93dc89a5646af7515c353ded6b155415.min.js" crossorigin="anonymous"></script>
-
+    <script
+    src="https://js.sentry-cdn.com/93dc89a5646af7515c353ded6b155415.min.js"
+    crossorigin="anonymous"
+  ></script>
+  
     <!-- Open Graph meta tags for sharing -->
     <meta property="og:title" content="{{ ENV('APP_NAME') }}">
     <meta property="og:description"
@@ -18,33 +21,13 @@
     <title>{{ $title ? $title . ' || ' : '' }} {{ ENV('APP_NAME') }}</title>
     <link rel="icon" href="{{ asset('storage/default/logo-lappy.png') }}" type="img/svg">
     <link rel="stylesheet" href="{{ asset('dist/toastr/toastr.css') }}">
-    {{-- <link rel="stylesheet" href="{{ asset('library/tailwind-eliment/te.min.css') }}"> --}}
+    <link rel="stylesheet" href="{{ asset('library/tailwind-eliment/te.min.css') }}">
     <script type="text/javascript" src="{{ asset('dist/toastr/tastr-helper.js') }}"></script>
     <script type="text/javascript" src="{{ asset('dist/toastr/toastr.js') }}"></script>
     <link rel="stylesheet" href="{{ asset('library/swiper/swiper.min.css') }}" />
     <link rel="stylesheet" type="text/css" href="{{ asset('frontend/owl-carousel-libraries/owl.carousel.min.css') }}">
     <link rel="stylesheet" href="{{ asset('dist/output.css') }}">
-    <link rel="stylesheet" href="{{ asset('frontend/css/style.css') }}">
-    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
-    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-          theme: {
-            extend: {
-              colors: {
-                primary: "#ab8e66",
-                secondary: "#888",
-                hard: "#666",
-                tertiary: "#f3f3f3",
-              },
-            },
-          },
-        };
-      </script>
-
+    <link rel="stylesheet" href="{{ asset('frontend/css/cstyle.css') }}">
 </head>
 
 <body>
@@ -80,9 +63,9 @@
     <!-------header-section-end----->
 
     <!--------- Nav Section -->
-    {{-- <div>
+    <div>
         @livewire('nav')
-    </div> --}}
+    </div>
     <!----------nav-end---------->
 
     {{ $slot }}
