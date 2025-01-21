@@ -120,7 +120,7 @@
                     <!-- Search Button -->
 
                     <div>
-                        <a href="shop.html">
+                        <a href="{{route('shop')}}">
                             <button
                                 class="w-14 h-full py-2 rounded-r-full bg-primary text-secondary flex items-center justify-center">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
@@ -182,7 +182,7 @@
                         <!-- Category 1 -->
                         <li x-data="{ subOpen: false }" class="relative" @mouseenter="subOpen = true"
                             @mouseleave="subOpen = false">
-                            <a href="shop.html">
+                            <a href="{{ route('shop') }}">
                                 <div
                                     class="w-full text-left hover:bg-gray-200 cursor-pointer border-b p-4 flex justify-between">
                                     Category 1
@@ -195,10 +195,10 @@
                             <ul x-show="subOpen" x-transition
                                 class="absolute left-full top-0 mt-0 bg-gray-100 shadow-lg w-56">
                                 <li class="hover:bg-gray-200 cursor-pointer border-b p-4">
-                                    <a href="shop.html">Accessories</a>
+                                    <a href="{{ route('shop') }}">Accessories</a>
                                 </li>
                                 <li class="hover:bg-gray-200 cursor-pointer border-b p-4">
-                                    <a href="shop.html">Subcategory 1-2</a>
+                                    <a href="{{ route('shop') }}">Subcategory 1-2</a>
                                 </li>
                             </ul>
                         </li>
@@ -206,7 +206,7 @@
                         <!-- Category 2 -->
                         <li x-data="{ subOpen: false }" class="relative" @mouseenter="subOpen = true"
                             @mouseleave="subOpen = false">
-                            <a href="shop.html">
+                            <a href="{{ route('shop') }}">
                                 <div
                                     class="w-full text-left hover:bg-gray-200 cursor-pointer border-b p-4 flex justify-between">
                                     Category 2
@@ -219,17 +219,17 @@
                             <ul x-show="subOpen" x-transition
                                 class="absolute left-full top-0 mt-0 bg-gray-100 shadow-lg w-56">
                                 <li class="hover:bg-gray-200 cursor-pointer border-b p-4">
-                                    <a href="shop.html">Subcategory 2-1</a>
+                                    <a href="{{ route('shop') }}">Subcategory 2-1</a>
                                 </li>
                                 <li class="hover:bg-gray-200 cursor-pointer border-b p-4">
-                                    <a href="shop.html">Subcategory 2-2</a>
+                                    <a href="{{ route('shop') }}">Subcategory 2-2</a>
                                 </li>
                             </ul>
                         </li>
 
                         <!-- Single Category without submenu -->
                         <li class="hover:bg-gray-200 cursor-pointer border-b p-4">
-                            <a href="shop.html">Category 3</a>
+                            <a href="{{ route('shop') }}">Category 3</a>
                         </li>
                     </ul>
                 </div>

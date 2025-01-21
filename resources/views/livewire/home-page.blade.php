@@ -49,6 +49,9 @@
         }
     </style>
 
+@php
+    $first_product = $new_arrival->first();
+@endphp
     <!-- Hero Section Start -->
     <section class="mt-5 mb-10">
         <div class="container mx-auto px-2 md:px-0">
@@ -109,7 +112,7 @@
                     </div>
                 </div>
 
-                <a href="product_details.html">
+                <a href="{{route('product.details', $first_product->slug)}}">
                     <div style="width: 100%; height: 298px" class="bg-no-repeat py-14 pl-7 pr-40 relative">
                         <img class="absolute top-0 bottom-0 left-0 right-0 w-full h-full -z-10"
                             src="https://dreamingtheme.kiendaotac.com/html/stelina/assets/images/banner-home-6.jpg" />
@@ -125,7 +128,7 @@
                     </div>
                 </a>
 
-                <a href="product_details.html">
+                <a href="{{route('product.details', $first_product->slug)}}">
                     <div style="width: 100%; height: 298px" class="bg-no-repeat py-14 pl-7 pr-40 relative">
                         <img class="absolute top-0 bottom-0 left-0 right-0 w-full h-full -z-10"
                             src="https://dreamingtheme.kiendaotac.com/html/stelina/assets/images/banner-home-6.jpg" />
@@ -343,7 +346,7 @@
     <!-- Best Collection Start -->
     <section class="my-10">
         <div class="container grid-cols-1 grid md:grid-cols-2 gap-5 mx-auto">
-            <a href="product_details.html">
+            <a href="{{route('product.details', $first_product->slug)}}">
                 <div style="width: 100%"
                     class="bg-no-repeat p-5 md:h-[300px] md:py-14 md:pl-10 bg-cover md:pr-[300px] relative">
                     <img class="absolute top-0 bottom-0 left-0 right-0 -z-10 w-full h-full"
@@ -361,7 +364,7 @@
                     </button>
                 </div>
             </a>
-            <a href="product_details.html">
+            <a href="{{route('product.details', $first_product->slug)}}">
                 <div style="width: 100%; height: 300px"
                     class="bg-no-repeat p-5 md:py-14 md:pl-10 bg-cover md:pr-[300px] relative">
                     <img class="absolute top-0 bottom-0 left-0 right-0 -z-10 w-full h-full"
@@ -586,7 +589,7 @@
                         </div>
                     </a>
                 @endforeach
-                {{-- <a href="product_details.html">
+                {{-- <a href="{{route('product.details', $first_product->slug)}}">
                     <div class="group cursor-pointer">
                         <div class="border group-hover:border-[#ab8e66] transition-all duration-300">
                             <div class="relative w-full">
@@ -739,7 +742,7 @@
             </div>
             <div class="swiper news-swiper pb-20">
                 <div class="swiper-wrapper pb-5">
-                    <a href="product_details.html" class="swiper-slide">
+                    <a href="{{route('product.details', $first_product->slug)}}" class="swiper-slide">
                         <div>
                             <div class="relative group">
                                 <img src="https://dreamingtheme.kiendaotac.com/html/stelina/assets/images/slider-blog-thumb-2.jpg"
@@ -764,7 +767,7 @@
                             </button>
                         </div>
                     </a>
-                    <a href="product_details.html" class="swiper-slide">
+                    <a href="{{route('product.details', $first_product->slug)}}" class="swiper-slide">
                         <div>
                             <div class="relative group">
                                 <img src="https://dreamingtheme.kiendaotac.com/html/stelina/assets/images/slider-blog-thumb-2.jpg"
@@ -789,7 +792,7 @@
                             </button>
                         </div>
                     </a>
-                    <a href="product_details.html" class="swiper-slide">
+                    <a href="{{route('product.details', $first_product->slug)}}" class="swiper-slide">
                         <div>
                             <div class="relative group">
                                 <img src="https://dreamingtheme.kiendaotac.com/html/stelina/assets/images/slider-blog-thumb-2.jpg"
@@ -814,7 +817,7 @@
                             </button>
                         </div>
                     </a>
-                    <a href="product_details.html" class="swiper-slide">
+                    <a href="{{route('product.details', $first_product->slug)}}" class="swiper-slide">
                         <div>
                             <div class="relative group">
                                 <img src="https://dreamingtheme.kiendaotac.com/html/stelina/assets/images/slider-blog-thumb-2.jpg"
@@ -839,7 +842,7 @@
                             </button>
                         </div>
                     </a>
-                    <a href="product_details.html" class="swiper-slide">
+                    <a href="{{route('product.details', $first_product->slug)}}" class="swiper-slide">
                         <div>
                             <div class="relative group">
                                 <img src="https://dreamingtheme.kiendaotac.com/html/stelina/assets/images/slider-blog-thumb-2.jpg"
