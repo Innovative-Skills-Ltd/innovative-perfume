@@ -44,8 +44,8 @@ class CreateProductsTable extends Migration
             $table->unsignedBigInteger('cat_id')->nullable();
             $table->unsignedBigInteger('child_cat_id')->nullable();
             $table->date('upcomming')->nullable();
-            $table->boolean('is_featured')->default(false);
-            $table->boolean('is_student')->default(false);
+            $table->boolean('is_featured')->deault(false);
+            $table->boolean('is_student')->deault(false);
             $table->enum('status', ['active', 'inactive'])->default('active');
             $table->longText('special_feature')->nullable();
             $table->integer('average_rating')->default(5);

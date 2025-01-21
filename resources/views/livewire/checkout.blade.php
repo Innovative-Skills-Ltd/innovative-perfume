@@ -1,273 +1,373 @@
-<div>
-    <!-- cHECKOUT Start -->
+ <div
+     class="px-[100px] max-2xl:px-[70px] max-xl:px-[60px] max-lg:px-[38px] max-md:px-[35px] max-sm:px-[15px] max-sm:mt-[70px] max-xl:mt-[100px]">
+     @if ($success = session('success'))
+         <script>
+             toastr.success("{{ $success }}")
+         </script>
+     @endif
+     @if ($error = session('error'))
+         <script>
+             toastr.error("{{ $error }}")
+         </script>
+     @endif
 
-    <section class="pb-20">
-        <div class="container mx-auto px-2 md:px-0">
-            <div class="py-8 flex items-center gap-2 text-sm">
-                <a href="#">Home</a>
-                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 1024 1024">
-                    <path fill=""
-                        d="M452.864 149.312a29.12 29.12 0 0 1 41.728.064L826.24 489.664a32 32 0 0 1 0 44.672L494.592 874.624a29.12 29.12 0 0 1-41.728 0a30.59 30.59 0 0 1 0-42.752L764.736 512L452.864 192a30.59 30.59 0 0 1 0-42.688m-256 0a29.12 29.12 0 0 1 41.728.064L570.24 489.664a32 32 0 0 1 0 44.672L238.592 874.624a29.12 29.12 0 0 1-41.728 0a30.59 30.59 0 0 1 0-42.752L508.736 512L196.864 192a30.59 30.59 0 0 1 0-42.688" />
-                </svg>
-                <span>Checkout</span>
-            </div>
-            <h2 class="text-xl font-semibold mb-10 uppercase">Checkout</h2>
-            <form action="{{route('user.order.store')}}" method="POST">
-                @csrf
-                <div x-data="{
-                    step: 'shipping',
-                    shipping: { firstName: '', lastName: '', country: '', state: '', city: '', zipCode: '', address: '' },
-                    payment: { method: 'CREDIT CARD', cardNumber: '', month: '', year: '', cvv: '' },
-                    orderConfirmed: false
-                }">
-                    <!-- Shipping Start -->
-                    <div x-show="step === 'shipping'" class="container mx-auto px-2 md:px-0">
-                        <div class="border rounded px-5 md:ps-7 py-10 mb-6">
-                            <div class="grid grid-cols-1 md:grid-cols-3 gap-20">
-                                <div class="md:col-span-2">
-                                    <h3 class="pb-1 text-lg font-medium">Shipping Address</h3>
-                                    <div class="mb-6">
-                                        <span class="inline-block h-[2px] w-5 bg-primary"></span>
-                                    </div>
-                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mb-5">
-                                        <div>
-                                            <label class="text-sm mb-1">First name</label>
-                                            <input name="name" type="text" value="{{$name}}" class="py-2 px-5 rounded-full w-full border" />
-                                        </div>
-                                        <div>
-                                            <label class="text-sm mb-1">Last name</label>
-                                            <input name="l_name" type="text" value="{{$l_name}}" class="py-2 px-5 rounded-full w-full border" />
-                                        </div>
-                                    </div>
-                                    <div class="grid grid-cols-1 md:grid-cols-3 gap-5 mb-5">
-                                        <div>
-                                            <label class="text-sm mb-1">Country</label>
-                                            <select name="country" class="py-2 px-5 rounded-md w-full border">
-                                                <option>BD</option>
-                                                <option>India</option>
-                                                <option>Malaysian</option>
-                                            </select>
-                                        </div>
-                                        <div>
-                                            <label class="text-sm mb-1">State</label>
-                                            <select name="state" class="py-2 px-5 rounded-md w-full border">
-                                                <option>BD</option>
-                                                <option>India</option>
-                                                <option>Malaysian</option>
-                                            </select>
-                                        </div>
-                                        <div>
-                                            <label class="text-sm mb-1">City</label>
-                                            <select name="city" class="py-2 px-5 rounded-md w-full border">
-                                                <option>BD</option>
-                                                <option>India</option>
-                                                <option>Malaysian</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mb-5">
-                                        <div>
-                                            <label class="text-sm mb-1">Zip Code</label>
-                                            <input name="zip_code" type="text" class="py-2 px-5 rounded-full w-full border" />
-                                        </div>
-                                        <div>
-                                            <label class="text-sm mb-1">Address</label>
-                                            <input name="address"  accept=""type="text" class="py-2 px-5 rounded-full w-full border" />
-                                        </div>
-                                    </div>
-                                </div>
-                                <div>
-                                    <h3 class="pb-1 text-lg font-medium">Your Order</h3>
-                                    <div class="mb-6">
-                                        <span class="inline-block h-[2px] w-5 bg-primary"></span>
-                                    </div>
-                                    <div>
-                                        @php
-                                            $total_amount = 0;
-                                        @endphp
-                                        @foreach($carts as $cart)
-                                        @php
-                                            $photo = explode(',', $cart->product->photo);
-                                            $total_amount += $cart->product->final_price * $cart->quantity;
-                                        @endphp
-                                        <div class="flex items-center gap-7 pb-7 border-b mb-7">
-                                            <img class="w-24 h-24"
-                                                src="{{$photo[0]}}" />
-                                            <div>
-                                                <h4 class="py-1 font-medium">{{$cart->product->title}}</h4>
-                                                <p class="text-sm py-1 text-secondary">Black, XXL</p>
-                                                <h4 class="font-semibold">
-                                                    ${{$cart->product->final_price}} <span class="text-secondary">x{{$cart->quantity}}</span>
-                                                </h4>
-                                            </div>
-                                        </div>
-                                        @endforeach
+     @php
+         $sub_total = 0;
+         $final_price_sum = 0;
+     @endphp
 
-                                    </div>
-                                    <h3 class="font-medium">
-                                        Total Price: <span class="text-xl font-medium">${{$total_amount}}</span>
-                                    </h3>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="flex items-end justify-end mb-12">
-                            <button type="button"
-                                class="flex items-center gpa-2 py-2 px-5 border rounded-full text-xs font-semibold uppercase"
-                                @click="step = 'payment'">
-                                <span>PAYMENT</span>
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                                    <path fill="currentColor"
-                                        d="M13.293 7.293a1 1 0 0 0 0 1.414L15.586 11H8a1 1 0 0 0 0 2h7.586l-2.293 2.293a.999.999 0 1 0 1.414 1.414L19.414 12l-4.707-4.707a1 1 0 0 0-1.414 0" />
-                                </svg>
-                            </button>
-                        </div>
-                    </div>
-                    <!-- Shipping End -->
+     @foreach ($carts as $cart)
+         @php
+             $sub_total += (App\Http\Helper::commaRemove($cart->product->price) * $cart->quantity);
+             $final_price_sum += (App\Http\Helper::commaRemove($cart->product->final_price)* $cart->quantity);
+         @endphp
+     @endforeach
 
-                    <!-- Pay Start -->
-                    <div x-show="step === 'payment'" class="container mx-auto px-2 md:px-0">
-                        <div class="border rounded px-5 md:ps-7 py-10 mb-6">
-                            <div class="grid grid-cols-1 md:grid-cols-3 gap-20">
-                                <div class="md:col-span-2">
-                                    <h3 class="pb-1 text-lg font-medium">Payment Method</h3>
-                                    <div class="mb-6">
-                                        <span class="inline-block h-[2px] w-5 bg-primary"></span>
-                                    </div>
-                                    <div class="flex items-end mb-5 gap-5">
-                                        <input type="hidden" id="paymentMethod" name="payment_method" value="CREDIT CARD" />
-                                        <label type="button" onclick="selectPaymentMethod('CREDIT CARD', this)"
-                                            class="payment-option flex items-center gpa-2 py-2 px-5 border bg-primary text-white rounded-full text-xs font-semibold uppercase">
-                                            CREDIT CARD
-                                        </label>
-                                        <label type="button" onclick="selectPaymentMethod('PAYPAL', this)"
-                                            class="payment-option flex items-center gpa-5 py-2 px-5 border rounded-full text-xs font-semibold uppercase">
-                                            <span>PAYPAL</span>
-                                        </label>
-                                    </div>
-                                    <script>
-                                        function selectPaymentMethod(method, element) {
-                                            // Update hidden input value
-                                            document.getElementById('paymentMethod').value = method;
+     @php
+        $coupon_discount = $coupon->discount($sub_total);
+         $discount = $sub_total - $final_price_sum + $coupon_discount;
+         $total = $final_price_sum - $coupon_discount;
+     @endphp
 
-                                            // Remove active class from all options
-                                            // document.querySelectorAll('.payment-option').forEach(option => {
-                                            //     option.classList.remove('bg-primary', 'text-white');
-                                            // });
+     <form wire:submit='orderSubmit' x-data="{
+         total: {{ $total }},
+         shipping_price: 0,
+         sub_total: {{ $sub_total }},
+         all_total: {{ $total }},
+         discount: {{$discount}},
+         shipChange(price) {
+             this.all_total -= this.shipping_price;
+             this.all_total += price;
+             this.shipping_price = price;
+         },
+     }">
+         <div>
+             <h1 class='font-[jost] text-[16px] font-[400] leading-[25.3px] text-[#353535]'><a
+                     href="{{ route('vcart') }}">Shopping Cart</a>/ Checkout
+             </h1>
+             <div class='h-1 bg-[#764A8733]'></div>
+         </div>
 
-                                            // Add active class to selected option
-                                            // element.classList.add('bg-primary', 'text-white');
-                                        }
-                                    </script>
-                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mb-5">
-                                        <div>
-                                            <label class="text-sm mb-1">Card number</label>
-                                            <input name="card_number" type="text" class="py-2 px-5 rounded-full w-full border" />
-                                        </div>
-                                    </div>
-                                    <div class="grid grid-cols-1 md:grid-cols-3 gap-5 mb-5">
-                                        <div>
-                                            <label class="text-sm mb-1">Month</label>
-                                            <select name="month" class="py-2 px-5 rounded-md w-full border">
-                                                <option>BD</option>
-                                                <option>India</option>
-                                                <option>Malaysian</option>
-                                            </select>
-                                        </div>
-                                        <div>
-                                            <label class="text-sm mb-1">Year</label>
-                                            <select name="year" class="py-2 px-5 rounded-md w-full border">
-                                                <option>BD</option>
-                                                <option>India</option>
-                                                <option>Malaysian</option>
-                                            </select>
-                                        </div>
-                                        <div>
-                                            <label class="text-sm mb-1">CVV</label>
-                                            <select name="cvv" class="py-2 px-5 rounded-md w-full border">
-                                                <option>BD</option>
-                                                <option>India</option>
-                                                <option>Malaysian</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div>
-                                    <h3 class="pb-1 text-lg font-medium">Your Order</h3>
-                                    <div class="mb-6">
-                                        <span class="inline-block h-[2px] w-5 bg-primary"></span>
-                                    </div>
-                                    <div>
-                                        @foreach($carts as $cart)
-                                        @php
-                                            $photo = explode(',', $cart->product->photo);
-                                        @endphp
-                                        <div class="flex items-center gap-7 pb-7 border-b mb-7">
-                                            <img class="w-24 h-24"
-                                                src="{{$photo[0]}}" />
-                                            <div>
-                                                <h4 class="py-1 font-medium">{{$cart->product->title}}</h4>
-                                                <p class="text-sm py-1 text-secondary">Black, XXL</p>
-                                                <h4 class="font-semibold">
-                                                    ${{$cart->product->final_price}} <span class="text-secondary">x{{$cart->quantity}}</span>
-                                                </h4>
-                                            </div>
-                                        </div>
-                                        @endforeach
-                                    </div>
-                                    <h3 class="font-medium">
-                                        Total Price: <span class="text-xl font-medium">${{$total_amount}}</span>
-                                    </h3>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="flex items-end justify-end mb-12 gap-5">
-                            <button @click="step = 'shipping'" type="button"
-                                class="flex items-center gpa-5 py-2 px-5 border rounded-full text-xs font-semibold uppercase">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12"
-                                    viewBox="0 0 24 24">
-                                    <path fill="currentColor"
-                                        d="M11.884 6.116a1.25 1.25 0 0 0-1.768 0l-5 5a1.25 1.25 0 0 0 0 1.768l5 5a1.25 1.25 0 0 0 1.768-1.768L9.018 13.25H18a1.25 1.25 0 1 0 0-2.5H9.018l2.866-2.866a1.25 1.25 0 0 0 0-1.768" />
-                                </svg>
-                                <span>BACK TO SHIPPING</span>
-                            </button>
-                            <button type="submit"
-                                class="flex items-center gpa-2 py-2 px-5 border bg-primary text-white rounded-full text-xs font-semibold uppercase">
-                                <span>PAY NOW</span>
-                            </button>
-                        </div>
-                    </div>
-                    <!-- Pay End -->
+         <!-- -------------check-out--section----------- -->
+         <div>
+             <h1 class="text-[20px] text-[#353535] font-[jost] font-[500] mt-16 max-lg:mt-8 mb-4 mx-auto ">Checkout</h1>
+         </div>
 
-                    <!-- Confirmation Start -->
-                    <div x-show="step === 'confirmation'" class="container mx-auto px-2 md:px-0">
-                        <div class="border rounded px-5 md:ps-7 py-10 mb-6 flex flex-col items-center justify-center">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="92" height="92" class="mb-6"
-                                viewBox="0 0 1200 1200">
-                                <path fill="#000"
-                                    d="M600 0C268.63 0 0 268.63 0 600s268.63 600 600 600s600-268.63 600-600S931.369 0 600 0m0 130.371c259.369 0 469.556 210.325 469.556 469.629S859.369 1069.556 600 1069.556c-259.37 0-469.556-210.251-469.556-469.556C130.445 340.696 340.63 130.371 600 130.371m229.907 184.717L482.153 662.915L369.36 550.122L258.691 660.718l112.793 112.793l111.401 111.401l110.597-110.669l347.826-347.754z" />
-                            </svg>
-                            <h3 class="text-center text-xl font-medium mb-2">
-                                Congratulation! Your order has been processed.
-                            </h3>
-                            <p class="text-center text-sm mb-10 text-secondary">
-                                Aenean dui mi, tempus non volutpat eget, molestie a orci. Nullam
-                                eget sem et eros laoreet rutrum. Quisque sem ante, feugiat quis
-                                lorem in.
-                            </p>
-                            <div>
-                                <a href="shop.html"><button
-                                        class="flex items-center gpa-2 py-2 px-5 border bg-primary text-white rounded-full text-xs font-semibold uppercase">
-                                        <span>RETURN TO STORE</span>
-                                    </button></a>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Confirmation End -->
-                </div>
-            </form>
-        </div>
-    </section>
+         <section class="grid grid-cols-3 gap-6 max-lg:gap-[0px] max-lg:grid-cols-1">
+             {{-- Customer information  --}}
+             <div class="grid grid-cols-1 col-span-1 max-lg:mb-[25px]">
+                 <div class="border-[3px] border-[#380D37] rounded-[5px] p-[20px]">
+                     <div class="flex gap-[15px] font-[jost] font-[500] text-center">
+                         <div class="w-[22px] h-[22px] bg-[#380D37] text-[#F2F2F2] rounded-[100%] text-center mt-[5px]">
+                             <h1>1</h1>
+                         </div>
+                         <div>
+                             <h1 class="text-[#380D37] text-[20px] font-[jost] font-[500] tracking-[.5px] text-center">
+                                 Customer Information</h1>
+                         </div>
+                     </div>
 
-    <!-- cHECKOUT End -->
+                     <div class="flex max-xl:flex-col gap-[15px] my-[10px] w-full">
+                         <div class="w-full">
+                             <label class="block font-[jost] font-[500] text-[#353535] text-[12px]" for="name">
+                                 First Name<span class="text-[red]">*</span></label>
+                             <input name="name" id="name"
+                                 class=" w-full py-[10px] pl-[10px] border-[1px] border-[#380D37] italic rounded-[4px] font-[jost] font-[500] text-[12px] text-[#380D37] placeholder-[#C4C4C4]"
+                                 type="text" placeholder="First Name"
+                                 @if (auth()->user()) value='{{ auth()->user()->name ?? old('name') }}' @else value='{{ old('name') }}' @endif
+                                 wire:model='name'>
+                             @error('name')
+                                 <span class="text-[red] text-[12px]">{{ $message }}</span>
+                             @enderror
+                         </div>
+                         <div class="w-full">
+                             <label class="block font-[jost] font-[500] text-[#353535] text-[12px]" for="f_name">
+                                 Last Name<span class="text-[red]">*</span></label>
+                             <input name="l_name" id="l_name"
+                                 class=" w-full py-[10px] pl-[10px] border-[1px] border-[#380D37] italic rounded-[4px] font-[jost] font-[500] text-[12px] text-[#380D37] placeholder-[#C4C4C4]"
+                                 type="text"
+                                 @if (auth()->user()) value='@if (auth()->user()->l_name) {{ auth()->user()->l_name }} @else {{ old('l_name') }} @endif'
+                             @else value='{{ old('l_name') }}' @endif
+                             placeholder="Last Name"
+                             wire:model='l_name'>
+                             @error('l_name')
+                                 <span class="text-[red] text-[12px]">{{ $message }}</span>
+                             @enderror
+                         </div>
+                     </div>
 
-</div>
+                     <div class="my-[10px]">
+                         <label class="block font-[jost] font-[500] text-[#353535] text-[12px]"
+                             for="address">Address<span class="text-[red]">*</span></label>
+                         <input name="address" id="address"
+                             class="w-full py-[10px] pl-[10px] border-[1px] border-[#380D37] italic rounded-[4px] font-[jost] font-[500] text-[12px] text-[#380D37] placeholder-[#C4C4C4]"
+                             type="text" placeholder="Address"
+                             @if (auth()->user()) value='{{ auth()->user()->address ?? 'address' }}' @else value='{{ old('address') }}' @endif
+                             wire:model='address'>
+                         @error('address')
+                             <span class="text-[red] text-[12px]">{{ $message }}</span>
+                         @enderror
+                     </div>
+
+                     <div class="my-[10px]">
+                         <label class="block font-[jost] font-[500] text-[#353535] text-[12px]"
+                             for="phone">Mobile<span class="text-[red]">*</span></label>
+                         <input name="phone" id="phone"
+                             class="w-full py-[10px] pl-[10px] border-[1px] border-[#380D37] italic rounded-[4px] font-[jost] font-[500] text-[12px] text-[#380D37] placeholder-[#C4C4C4]"
+                             type="number" placeholder="Mobile Number"
+                             @if (auth()->user()) value='{{ auth()->user()->phone ?? old('phone') }}' @else value='{{ old('phone') }}' @endif
+                             wire:model='phone'>
+                         @error('phone')
+                             <span class="text-[red] text-[12px]">{{ $message }}</span>
+                         @enderror
+                     </div>
+
+                     <div class="my-[10px]">
+                         <label class="block font-[jost] font-[500] text-[#353535] text-[12px]"
+                             for="email">Email:</label>
+                         <input name="email" id="email"
+                             class=" w-full py-[10px] pl-[10px] border-[1px] border-[#380D37] italic rounded-[4px] font-[jost] font-[500] text-[12px] text-[#380D37] placeholder-[#C4C4C4]"
+                             type="email" placeholder="Email:"
+                             @if (auth()->user()) value='{{ auth()->user()->email ?? old('email') }}' @else value='{{ old('email') }}' @endif
+                             wire:model='email'>
+                         @error('email')
+                             <span class="text-[red] text-[12px]">{{ $message }}</span>
+                         @enderror
+                     </div>
+
+                     <div class="flex max-xl:flex-col gap-[15px] my-[10px] w-full">
+                         <div class="w-full">
+                             <label class="block font-[jost] font-[500] text-[#353535] text-[12px]"
+                                 for="city">City<span class="text-[red]">*</span></label>
+
+                             <input name="city" id="city"
+                                 class=" w-full py-[10px] pl-[10px] border-[1px] border-[#380D37] italic rounded-[4px] font-[jost] font-[500] text-[12px] text-[#380D37] placeholder-[#C4C4C4]"
+                                 type="text" placeholder="City"
+                                 @if (auth()->user()) value='{{ auth()->user()->city }}' @else value="{{ old('city') }}" @endif
+                                 wire:model='city'>
+                             @error('city')
+                                 <span class="text-[red] text-[12px]">{{ $message }}</span>
+                             @enderror
+                         </div>
+                         {{-- @dd(auth()->user()) --}}
+                         <div class="w-full">
+                             <label class="block font-[jost] font-[500] text-[#353535] text-[12px]"
+                                 for="divission_id">Zone <span class="text-[red]">*</span></label>
+                             <select name="divission_id" id="divission_id"
+                                 class="w-full py-[10px] pl-[10px] border-[1px] rounded-[4px] italic border-[#380D37] font-[jost] font-[500] text-[12px] text-[#380D37] placeholder-[#C4C4C4]"
+                                 wire:model='divission_id'>
+                                 <option value="">Choose...</option>
+                                 @foreach ($divissions as $division)
+                                     <option value="{{ $division->id }}" @selected($division->id == (auth()->user() ? auth()->user()->divission_id : 0))>
+                                         {{ $division->name }}</option>
+                                 @endforeach
+                             </select>
+                             @error('divission_id')
+                                 <span class="text-[red] text-[12px]">{{ $message }}</span>
+                             @enderror
+                         </div>
+                     </div>
+
+                     <div>
+                         <label class="block font-[jost] font-[500] text-[#353535] text-[12px]"
+                             for="comment">Comment:</label>
+                         <input id="comment"
+                             class="w-full pt-[10px] pb-[80px] pl-[10px] border-[1px] border-[#380D37] italic rounded-[4px] font-[jost] font-[500] text-[12px] text-[#380D37] placeholder-[#C4C4C4]"
+                             type="text" placeholder="comment" wire:model='comment'>
+                         @error('comment')
+                             <span class="text-[red] text-[12px]">{{ $message }}</span>
+                         @enderror
+                     </div>
+                 </div>
+             </div>
+
+             <div class="col-span-2">
+                 {{-- Payment and delivery method  --}}
+                 <div class="grid grid-cols-2 gap-4 max-sm:grid-cols-1">
+
+                     {{-- Payment mehtod  --}}
+                     <div class="border-[#380D37] border-[3px] rounded-[4px] p-[20px]">
+
+                         <div class="flex gap-[15px] font-[jost] font-[500] text-center my-[10px]">
+                             <div
+                                 class="w-[22px] h-[22px] bg-[#380D37] text-[#f2f2f2] rounded-[100%] text-center mt-[5px]">
+                                 <h1>2</h1>
+                             </div>
+                             <div>
+                                 <h1
+                                     class="text-[#380D37] text-[20px] font-[jost] font-[500] tracking-[.5px] text-center">
+                                     Payment Method</h1>
+                             </div>
+                         </div>
+                         <div class="my-[10px]">
+                             <h1 class="text-[#353535] text-[14px] font-[jost] font-[500]">Select Payment Method</h1>
+                         </div>
+                         <div class="my-[10px] flex items-center gap-[5px]">
+                             <input name="payment_method" id="cod" class="w-[14px] h-[14px] accent-[#380D37]"
+                                 type="radio" value="cod" wire:model='payment_method'>
+                             <label class="text-[#353535] text-[14px] font-[jost] font-[400]" for="cod">
+                                 Cash on Delivery</label>
+                         </div>
+                         <div class="my-[10px] flex items-center gap-[5px]">
+                             <input id="online" name="payment_method" class="w-[14px] h-[14px] accent-[#380D37]"
+                                 type="radio" value="online" wire:model='payment_method'>
+                             <label class="text-[#353535] text-[14px] font-[jost] font-[400]" for="online">
+                                 Online Payment</label>
+                         </div>
+
+                         <div>
+                             <div class="my-[9px]">
+                                 <h1 class="text-[#353535] text-[14px] font-[jost] font-[400]">We Accept:</h1>
+                             </div>
+                             <div class="my-[8px]">
+                                 <img src="/storage/product/payment.svg" alt="">
+                             </div>
+                         </div>
+                     </div>
+
+                     {{-- Delivery method  --}}
+                     <div class="border-[#380D37] border-[3px] rounded-[4px] p-[20px] flex flex-col">
+
+                         <div class="flex gap-[15px] font-[jost] font-[500] text-center my-[10px]">
+                             <div
+                                 class="w-[22px] h-[22px] bg-[#380D37] text-[#f2f2f2] rounded-[100%] text-center mt-[5px]">
+                                 <h1>3</h1>
+                             </div>
+                             <div>
+                                 <h1
+                                     class="text-[#380D37] text-[20px] font-[jost] font-[500] tracking-[.5px] text-center">
+                                     Delivery Method
+                                 </h1>
+                             </div>
+                         </div>
+                         <div class="my-[10px]">
+                             <h1 class="text-[#353535] text-[16px] font-[jost] font-[400]">Select Delivery Method
+                             </h1>
+                         </div>
+                         @foreach ($shippings as $shipping)
+                             <div class="my-[10px] flex items-center gap-[5px]">
+                                 <input @checked($loop->first) name="shipping_id"
+                                     id="shipping{{ $shipping->id }}" value="{{ $shipping->id }}"
+                                     class="w-[14px] h-[14px] accent-[#380D37]" type="radio"
+                                     wire:model='shipping_id' @change="shipChange({{ $shipping->price }})">
+                                 <label class="text-[#353535] text-[14px] font-[jost] font-[400]"
+                                     for="shipping{{ $shipping->id }}">
+                                     {{ $shipping->type . '- ' . $shipping->price . ' Taka ' . $shipping->through ?? '' }}</label>
+                             </div>
+                         @endforeach
+                     </div>
+                 </div>
+
+                 <!-- ----------order-view--section-------- -->
+                 <div
+                     class="overflow-x-auto border-[#380D37] border-[3px] rounded-[5px] mt-[35px] pl-[20px] pt-[20px] pr-[20px]">
+                     <div class="overflow-x-auto flex gap-[15px] font-[jost] font-[500] text-center my-[10px]">
+                         <div
+                             class="w-[22px] h-[22px] bg-[#380D37] text-[#f2f2f2] rounded-[100%] text-center mt-[5px]">
+                             <h1>4</h1>
+                         </div>
+                         <div>
+                             <h1 class="text-[#380D37] text-[20px] font-[jost] font-[500] tracking-[.5px] text-center">
+                                 Order Overview</h1>
+                         </div>
+                     </div>
+                     <div class="">
+                         <table class="text-[#380D37] text-[12px] font-[jost] font-[700] min-w-full">
+                             <thead>
+                                 <tr class="border-b-[rgba(#00000033] border-b-[1px] py-[20px] text-left">
+                                     <th>Product Name</th>
+                                     <th class="text-right py-[10px] text-[12px] font-[jost] font-[700]">
+                                         Price
+                                     </th>
+                                     <th class="text-right text-[12px] font-[jost] font-[700]">
+                                         Total
+                                     </th>
+                                 </tr>
+                             </thead>
+                             <tbody>
+                                 @foreach ($carts as $cart)
+                                     <tr class="border-b-[rgba(#00000033] border-b-[1px] font-[jost]">
+                                         <td
+                                             class="max-sm:w-[130px] max-sm:text-[10px] text-[12px] font-[500] py-[10px]">
+                                             {{ $cart->product->title }}
+                                         </td>
+                                         <td
+                                             class="text-right text-[12px] max-sm:text-[10px] font-[700] text-[#353535]">
+                                             {{ $cart->product->price }} Taka x {{ $cart->quantity }}
+                                         </td>
+                                         <td
+                                             class="text-right text-[#DC275C] text-[12px] max-sm:text-[10px] font-[700]">
+                                             {{ App\Http\Helper::commaRemove($cart->product->price) * $cart->quantity }} Taka
+                                         </td>
+                                     </tr>
+                                 @endforeach
+                                 <tr class="border-b-[rgba(#00000033] border-b-[1px] font-[jost]">
+                                     <td></td>
+                                     <td
+                                         class="text-right py-[10px] text-[12px] max-sm:text-[10px] font-[700] text-[#353535]">
+                                         Sub Total:
+                                     </td>
+                                     <td class="text-right text-[#DC275C]  text-[12px] max-sm:text-[10px] font-[700]">
+                                         <span x-text="mFormat(sub_total)"></span> Taka
+                                     </td>
+                                 </tr>
+
+                                 <tr class="border-b-[rgba(#00000033] border-b-[1px] font-[jost]">
+                                     <td></td>
+                                     <td
+                                         class="text-right py-[10px] text-[12px] max-sm:text-[10px] font-[700] text-[#353535]">
+                                         Discount:
+                                     </td>
+                                     <td class="text-right text-[#DC275C] text-[12px] max-sm:text-[10px] font-[700]">
+                                         <span><span x-text='discount'></span>৳</span>
+                                     </td>
+                                 </tr>
+
+                                 <tr class="border-b-[rgba(#00000033] border-b-[1px] font-[jost]">
+                                    <td></td>
+                                    <td
+                                        class="text-right py-[10px] text-[12px] max-sm:text-[10px] font-[700] text-[#353535]">
+                                        Delivery
+                                        Charge:
+                                    </td>
+                                    <td class="text-right text-[#DC275C] text-[12px] max-sm:text-[10px] font-[700]">
+                                        <span x-text='shipping_price'></span> Taka
+                                    </td>
+                                </tr>
+
+                                 <tr class="border-b-[rgba(#00000033] border-b-[1px] font-[jost]">
+                                     <td></td>
+                                     <td
+                                         class="text-right py-[10px] text-[12px] max-sm:text-[10px] font-[700] text-[#353535]">
+                                         Total:
+                                     </td>
+                                     <td class="text-right text-[#DC275C] text-[12px] max-sm:text-[10px] font-[700]">
+                                         <span x-text="mFormat(all_total)"></span> Taka
+                                     </td>
+                                 </tr>
+                             </tbody>
+                         </table>
+                     </div>
+                 </div>
+             </div>
+         </section>
+
+         <div class="mt-6">
+             @if ($err_msg)
+                 <span class="text-[red] block text-right mb-1">{{ $err_msg }}</span>
+             @endif
+             <button
+                 class="fill-up-btn ml-auto flex justify-center items-center rounded-[4px] px-[20px] py-[10px] text-[16px] text-center text-[#f2f2f2] font-[jost] font-[500] bg-gradient-to-r from-[#380D37] to-[#DC275C]">
+                 Confirm Order
+                 <div wire:loading wire:target='orderSubmit'
+                     class="inline-block ml-2 h-6 w-6 animate-spin rounded-full border-4 border-solid border-current border-r-transparent align-[-0.125em] text-success motion-reduce:animate-[spin_1.5s_linear_infinite]"
+                     role="status">
+                     <span
+                         class="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]">Loading...
+                     </span>
+                 </div>
+             </button>
+
+         </div>
+     </form>
+ </div>

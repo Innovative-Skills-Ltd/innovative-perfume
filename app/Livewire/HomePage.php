@@ -39,7 +39,6 @@ class HomePage extends Component
 
     public function mount()
     {
-        // dd(auth()->user());
         if ($user = auth()->user()) {
             $this->name = $user->name;
             $this->email = $user->email;
@@ -87,7 +86,6 @@ class HomePage extends Component
                                     ->get()
                                     ->take(10);
         $n['features'] = $pd;
-
         $n['student_laptops'] = Product::where('cat_id',39)
                                 ->orderBy('serial','desc')
                                 ->get();

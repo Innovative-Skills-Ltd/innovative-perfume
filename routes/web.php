@@ -1,12 +1,5 @@
-
-
-
 <?php
 
-use App\Http\Controllers\LoginStoreController;
-use App\Livewire\Blog;
-use App\Livewire\CheckoutStore;
-use App\Livewire\SingleCheckoutStore;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Artisan;
 use App\Http\Controllers\AdminController;
@@ -59,8 +52,6 @@ use App\Livewire\CatWiseShop;
 use App\Livewire\ChangePassword;
 use App\Livewire\Checkout;
 use App\Livewire\ConfirmPassword;
-use App\Livewire\Contact;
-use App\Livewire\CreateCart;
 use App\Livewire\EditProfile;
 use App\Livewire\ForgetPassword;
 use App\Livewire\HomePage;
@@ -76,7 +67,6 @@ use App\Livewire\TermComdition;
 use App\Livewire\Offer;
 use App\Livewire\OrderConfirm;
 use App\Livewire\OrderReceived;
-use App\Livewire\OrderStore;
 use App\Livewire\OtpConfirm;
 use App\Livewire\RedirectToPay;
 use App\Livewire\ResetPassword;
@@ -85,7 +75,6 @@ use App\Livewire\ReviewPost;
 use App\Livewire\SearchingProduct;
 use App\Livewire\SingleCheckout;
 use App\Livewire\StudentLaptop;
-use App\Livewire\ThankYou;
 use App\Livewire\Video;
 use App\Livewire\ViewCart;
 use App\Livewire\Wishlist;
@@ -121,15 +110,15 @@ Route::get('storage-link', [AdminController::class, 'storageLink'])->name('stora
 
 
 Auth::routes(['register' => false,'login' => false]);
-Route::get('/admin-panel/login',[LoginStoreController::class,'showLoginForm'])->name('login');
-Route::post('/admin-panel/login',[LoginStoreController::class,'login'])->name('login');
+Route::get('/lfksdjfls/klfsjdfkl',[LoginController::class,'showLoginForm'])->name('login');
+Route::post('/lfksdjfls/klfsjdfkl',[LoginController::class,'login'])->name('login');
 
 Route::get('user/login', [FrontendController::class, 'login'])->name('login.form');
 Route::post('user/login', [FrontendController::class, 'loginSubmit'])->name('login.submit');
 Route::get('user/logout', [FrontendController::class, 'logout'])->name('user.logout');
 
 // Route::get('user/register', [FrontendController::class, 'register'])->name('register.form');
-Route::post('user/register', [FrontendController::class, 'registerSubmit'])->name('register.submit');
+// Route::post('user/register', [FrontendController::class, 'registerSubmit'])->name('register.submit');
 // Reset password
 Route::post('password-reset', [FrontendController::class, 'showResetForm'])->name('password.reset');
 
@@ -141,8 +130,7 @@ Route::get('login/{provider}/callback', [LoginController::class, 'Callback'])->n
 
 // Frontend Routes
 Route::get('/home', [FrontendController::class, 'index']);
-// Route::get('/about-us', [FrontendController::class, 'aboutUs'])->name('about-us');
-// Route::get('/blogs', [FrontendController::class, 'blog'])->name('blogs');
+Route::get('/about-us', [FrontendController::class, 'aboutUs'])->name('about-us');
 Route::get('/contact', [FrontendController::class, 'contact'])->name('contact');
 Route::post('/contact/message', [MessageController::class, 'store'])->name('contact.store');
 Route::get('/product-detail/{slug}', [FrontendController::class, 'productDetail'])->name('product-detail');
@@ -177,14 +165,13 @@ Route::match(['get', 'post'], '/filter', [FrontendController::class, 'productFil
 // Order Track
 Route::get('/product/track', [OrderController::class, 'orderTrack'])->name('order.track');
 Route::post('product/track/order', [OrderController::class, 'productTrackOrder'])->name('product.track.order');
-
 // Blog
-// Route::get('/blog', [FrontendController::class, 'blog'])->name('blog');
-// Route::get('/blog-detail/{slug}', [FrontendController::class, 'blogDetail'])->name('blog.detail');
-// Route::get('/blog/search', [FrontendController::class, 'blogSearch'])->name('blog.search');
-// Route::post('/blog/filter', [FrontendController::class, 'blogFilter'])->name('blog.filter');
-// Route::get('blog-cat/{slug}', [FrontendController::class, 'blogByCategory'])->name('blog.category');
-// Route::get('blog-tag/{slug}', [FrontendController::class, 'blogByTag'])->name('blog.tag');
+Route::get('/blog', [FrontendController::class, 'blog'])->name('blog');
+Route::get('/blog-detail/{slug}', [FrontendController::class, 'blogDetail'])->name('blog.detail');
+Route::get('/blog/search', [FrontendController::class, 'blogSearch'])->name('blog.search');
+Route::post('/blog/filter', [FrontendController::class, 'blogFilter'])->name('blog.filter');
+Route::get('blog-cat/{slug}', [FrontendController::class, 'blogByCategory'])->name('blog.category');
+Route::get('blog-tag/{slug}', [FrontendController::class, 'blogByTag'])->name('blog.tag');
 
 // NewsLetter
 Route::post('/subscribe', [FrontendController::class, 'subscribe'])->name('subscribe');
@@ -386,14 +373,8 @@ Route::get('/search/{stext?}/{cat?}', SearchingProduct::class)->name('searching_
 Route::get('/category-searching-product/{cat?}', SearchingProduct::class)->name('cat.search.product');
 Route::get('/product-details/{slug}', ProductDeatils::class)->name('product.details');
 Route::get('/checkout', Checkout::class)->name('checkout');
-Route::post('/checkout', CheckoutStore::class)->name('checkout.store');
-Route::post('/order/store', OrderStore::class)->name('user.order.store');
 Route::get('/view-cart', ViewCart::class)->name('vcart');
-Route::get('/create-cart/{slug}', CreateCart::class)->name('create_cart');
-Route::get('/thank-you/{order_number}', ThankYou::class)->name('thank_you');
-Route::get('/blogs', Blog::class)->name('blogs');
-Route::get('/contact', Contact::class)->name('contact');
-Route::get('/user/register', action: Signup::class)->name('user.register');
+Route::get('/user/register', Signup::class)->name('user.register');
 Route::get('/user/login', Login::class)->name('user.login');
 Route::get('/user/forget-password', ForgetPassword::class)->name('user.fp');
 Route::get('/user/reset-password', ResetPassword::class)->name('user.rp');
@@ -417,7 +398,6 @@ Route::get('/add-to-cart', [AjaxController::class, 'addToCart'])->name('add_to_c
 Route::get('/order-received/{order_number}', OrderReceived::class)->name('order.receive');
 Route::post('/product-review', [AjaxController::class, 'productReview'])->name('product_review');
 Route::get('/coupon-fetch', [AjaxController::class, 'couponFetch'])->name('coupon.fetch');
-
 Route::get('/single-checkout/{pslug}', SingleCheckout::class)->name('single_checkout');
 Route::get('/installment-checkout/{pslug}', InstallmentCheckout::class)->name('installment_checkout');
 
