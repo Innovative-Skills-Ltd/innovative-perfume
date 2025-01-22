@@ -179,58 +179,53 @@
                 <div x-show="open" x-transition
                     class="absolute top-full left-0 mt-2 bg-white text-black shadow-lg rounded w-56 z-50">
                     <ul class="p-0">
-                        <!-- Category 1 -->
-                        <li x-data="{ subOpen: false }" class="relative" @mouseenter="subOpen = true"
-                            @mouseleave="subOpen = false">
-                            <a href="{{ route('shop') }}">
-                                <div
-                                    class="w-full text-left hover:bg-gray-200 cursor-pointer border-b p-4 flex justify-between">
-                                    Category 1
-                                    <!-- Chevron Icon -->
-                                    <span>&#9656;</span>
-                                </div>
-                            </a>
+                        <!-- Category show -->
+                        @foreach ($menus as $menu)
+                            @if (count($menu->products) > 0)
+                                <li x-data="{ subOpen: false }" class="relative" @mouseenter="subOpen = true"
+                                    @mouseleave="subOpen = false">
+                                    @php
+                                        $has_child = 0;
+                                    @endphp
+                                    @foreach ($menu->child_cat as $menu2)
+                                        @if (count($menu2->sub_products) > 0)
+                                            @php
+                                                ++$has_child;
+                                            @endphp
+                                        @endif
+                                    @endforeach
+                                    <a href="{{ route('cate_wise.shop', [$menu->slug]) }}">
+                                        <div
+                                            class="w-full text-left hover:bg-gray-200 cursor-pointer border-b p-4 flex justify-between">
+                                            {{ $menu->title }}
+                                            @if (count($menu->child_cat) > 0 && $has_child > 0)
+                                                <!-- Chevron Icon -->
+                                                <span>&#9656;</span>
+                                            @endif
+                                        </div>
+                                    </a>
 
-                            <!-- Submenu -->
-                            <ul x-show="subOpen" x-transition
-                                class="absolute left-full top-0 mt-0 bg-gray-100 shadow-lg w-56">
-                                <li class="hover:bg-gray-200 cursor-pointer border-b p-4">
-                                    <a href="{{ route('shop') }}">Accessories</a>
+                                    @if (count($menu->child_cat) > 0 && $has_child > 0)
+                                        <!-- Submenu -->
+                                        <ul x-show="subOpen" x-transition
+                                            class="absolute left-full top-0 mt-0 bg-gray-100 shadow-lg w-56">
+                                            @foreach ($menu->child_cat as $menu2)
+                                                @if (count($menu2->sub_products) > 0)
+                                                    <li class="hover:bg-gray-200 cursor-pointer border-b p-4">
+                                                        <a href="{{ route('cate_wise.shop', [$menu->slug, $menu2->slug]) }}"
+                                                            >{{ $menu2->title }}</a>
+                                                    </li>
+                                                @endif
+                                            @endforeach
+                                        </ul>
+                                    @endif
                                 </li>
-                                <li class="hover:bg-gray-200 cursor-pointer border-b p-4">
-                                    <a href="{{ route('shop') }}">Subcategory 1-2</a>
-                                </li>
-                            </ul>
-                        </li>
-
-                        <!-- Category 2 -->
-                        <li x-data="{ subOpen: false }" class="relative" @mouseenter="subOpen = true"
-                            @mouseleave="subOpen = false">
-                            <a href="{{ route('shop') }}">
-                                <div
-                                    class="w-full text-left hover:bg-gray-200 cursor-pointer border-b p-4 flex justify-between">
-                                    Category 2
-                                    <!-- Chevron Icon -->
-                                    <span>&#9656;</span>
-                                </div>
-                            </a>
-
-                            <!-- Submenu -->
-                            <ul x-show="subOpen" x-transition
-                                class="absolute left-full top-0 mt-0 bg-gray-100 shadow-lg w-56">
-                                <li class="hover:bg-gray-200 cursor-pointer border-b p-4">
-                                    <a href="{{ route('shop') }}">Subcategory 2-1</a>
-                                </li>
-                                <li class="hover:bg-gray-200 cursor-pointer border-b p-4">
-                                    <a href="{{ route('shop') }}">Subcategory 2-2</a>
-                                </li>
-                            </ul>
-                        </li>
-
-                        <!-- Single Category without submenu -->
+                            @endif
+                        @endforeach
+                        {{-- <!-- Single Category without submenu -->
                         <li class="hover:bg-gray-200 cursor-pointer border-b p-4">
                             <a href="{{ route('shop') }}">Category 3</a>
-                        </li>
+                        </li> --}}
                     </ul>
                 </div>
             </div>
