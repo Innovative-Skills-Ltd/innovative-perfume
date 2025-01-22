@@ -65,6 +65,5 @@ class SearchingProduct extends Component
         $n['graphics'] = Graphic::get();
         $n['s_features'] = SpecialFeature::get();
         return view('livewire.shop', $n);
-        // return view('livewire.searching-product');
     }
 }
