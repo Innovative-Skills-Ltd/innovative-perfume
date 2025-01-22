@@ -38,7 +38,7 @@
         <div class="container mx-auto px-2 md:px-0 flex items-center justify-between py-10">
             <div>
                 <a href="{{ route('home') }}">
-                    <h2 class="font-bold text-primary text-2xl">SIGNORCHOICE</h2>
+                    <h2 class="font-bold text-primary text-2xl">{{env('APP_NAME')}}</h2>
                 </a>
             </div>
             <form action="{{route('searching_product')}}" method="get">
