@@ -41,101 +41,96 @@
                     <h2 class="font-bold text-primary text-2xl">SIGNORCHOICE</h2>
                 </a>
             </div>
-            <div x-data="{ search: '', suggestions: ['Shoes', 'Shirts', 'Accessories', 'Hats', 'Bags'], filteredSuggestions: [] }" class="relative hidden md:block">
-                <input type="text" class="px-5 py-2 w-96 border rounded-full outline-none" placeholder="Search here"
-                    x-model="search"
-                    @input="filteredSuggestions = suggestions.filter(item => item.toLowerCase().includes(search.toLowerCase()))" />
-                <div x-show="search.length > 0 && filteredSuggestions.length > 0" x-transition
-                    class="absolute left-0 mt-1 bg-white text-black shadow-lg rounded w-96">
-                    <ul>
-                        <template x-for="item in filteredSuggestions" :key="item">
-                            <li class="hover:bg-gray-200 cursor-pointer p-2"
-                                @click="search = item; filteredSuggestions = []" x-text="item"></li>
-                        </template>
-                    </ul>
-                </div>
-                <div class="absolute right-0 top-0 flex items-center h-full">
-                    <div @mouseenter="open = true" @mouseleave="open = false" class="px-5 py-2 border"
-                        x-data="{ open: false, selectedCategory: 'Accessories' }">
-                        <!-- Title that dynamically updates -->
-                        <h3 class="selected-category" x-text="selectedCategory"></h3>
+            <form action="{{route('searching_product')}}" method="get">
+                <div x-data="{ search: '', suggestions: ['Shoes', 'Shirts', 'Accessories', 'Hats', 'Bags'], filteredSuggestions: [] }" class="relative hidden md:block">
+                    <input type="text" name="search_text" class="px-5 py-2 w-96 border rounded-full outline-none" placeholder="Search here"
+                        x-model="search"
+                        @input="filteredSuggestions = suggestions.filter(item => item.toLowerCase().includes(search.toLowerCase()))" />
+                    <div x-show="search.length > 0 && filteredSuggestions.length > 0" x-transition
+                        class="absolute left-0 mt-1 bg-white text-black shadow-lg rounded w-96">
+                        <ul>
+                            <template x-for="item in filteredSuggestions" :key="item">
+                                <li class="hover:bg-gray-200 cursor-pointer p-2"
+                                    @click="search = item; filteredSuggestions = []" x-text="item"></li>
+                            </template>
+                        </ul>
+                    </div>
+                    <div class="absolute right-0 top-0 flex items-center h-full">
+                        <div @mouseenter="open = true" @mouseleave="open = false" class="px-5 py-2 border"
+                            x-data="{ open: false, selectedCategory: 'Accessories' }">
+                            <!-- Title that dynamically updates -->
+                            <h3 class="selected-category" x-text="selectedCategory"></h3>
 
-                        <!-- Main Dropdown Menu -->
-                        <div x-show="open" x-transition
-                            class="absolute top-full left-0 mt-2 bg-white text-black shadow-lg rounded w-56 z-50">
-                            <ul class="p-0">
-                                <!-- Category 1 -->
-                                <li x-data="{ subOpen: false }" class="relative" @mouseenter="subOpen = true"
-                                    @mouseleave="subOpen = false">
-                                    <div class="w-full text-left hover:bg-gray-200 cursor-pointer border-b p-4 flex justify-between"
-                                        @click="selectedCategory = 'Category 1'">
-                                        Category 1
-                                        <span>&#9656;</span>
-                                    </div>
-                                    <!-- Submenu -->
-                                    <ul x-show="subOpen" x-transition
-                                        class="absolute left-full top-0 mt-0 bg-gray-100 shadow-lg w-56">
-                                        <li class="hover:bg-gray-200 cursor-pointer border-b p-4"
-                                            @click="selectedCategory = 'Accessories'">
-                                            <span>Accessories</span>
-                                        </li>
-                                        <li class="hover:bg-gray-200 cursor-pointer border-b p-4"
-                                            @click="selectedCategory = 'Subcategory 1-2'">
-                                            <span>Subcategory 1-2</span>
-                                        </li>
-                                    </ul>
-                                </li>
+                            <!-- Main Dropdown Menu -->
+                            <div x-show="open" x-transition
+                                class="absolute top-full left-0 mt-2 bg-white text-black shadow-lg rounded w-56 z-50">
+                                <ul class="p-0">
+                                    <input type="text" name="cat_id" x-model='selectedCategory' hidden>
+                                    <!-- Category  -->
+                                    @foreach ($menus as $menu)
+                                        @if (count($menu->products) > 0)
+                                            <li x-data="{ subOpen: false }" class="relative" @mouseenter="subOpen = true"
+                                                @mouseleave="subOpen = false">
 
-                                <!-- Category 2 -->
-                                <li x-data="{ subOpen: false }" class="relative" @mouseenter="subOpen = true"
-                                    @mouseleave="subOpen = false">
-                                    <div class="w-full text-left hover:bg-gray-200 cursor-pointer border-b p-4 flex justify-between"
-                                        @click="selectedCategory = 'Category 2'">
-                                        Category 2
-                                        <span>&#9656;</span>
-                                    </div>
-                                    <!-- Submenu -->
-                                    <ul x-show="subOpen" x-transition
-                                        class="absolute left-full top-0 mt-0 bg-gray-100 shadow-lg w-56">
-                                        <li class="hover:bg-gray-200 cursor-pointer border-b p-4"
-                                            @click="selectedCategory = 'Subcategory 2-1'">
-                                            <span>Subcategory 2-1</span>
-                                        </li>
-                                        <li class="hover:bg-gray-200 cursor-pointer border-b p-4"
-                                            @click="selectedCategory = 'Subcategory 2-2'">
-                                            <span>Subcategory 2-2</span>
-                                        </li>
-                                    </ul>
-                                </li>
+                                                {{-- checking child category contain product or not  --}}
+                                                @php
+                                                    $has_child = 0;
+                                                @endphp
+                                                @foreach ($menu->child_cat as $menu2)
+                                                    @if (count($menu2->sub_products) > 0)
+                                                        @php
+                                                            ++$has_child;
+                                                        @endphp
+                                                    @endif
+                                                @endforeach
+                                                <div class="w-full text-left hover:bg-gray-200 cursor-pointer border-b p-4 flex justify-between"
+                                                    @click="selectedCategory = '{{$menu->slug }}'">
+                                                    {{$menu->title}}
+                                                    @if (count($menu->child_cat) > 0 && $has_child > 0)
+                                                        <span>&#9656;</span>
+                                                    @endif
+                                                </div>
+                                                <!-- Submenu -->
+                                                @if (count($menu->child_cat) > 0 && $has_child > 0)
+                                                    <ul x-show="subOpen" x-transition
+                                                        class="absolute left-full top-0 mt-0 bg-gray-100 shadow-lg w-56">
+                                                        @foreach ($menu->child_cat as $menu2)
+                                                            @if (count($menu2->sub_products) > 0)
+                                                                <li class="hover:bg-gray-200 cursor-pointer border-b p-4"
+                                                                    @click="selectedCategory = '{{$menu2->slug}}'">
+                                                                    <span>{{$menu2->title}}</span>
+                                                                </li>
+                                                            @endif
+                                                        @endforeach
+                                                    </ul>
+                                                @endif
+                                            </li>
+                                        @endif
+                                    @endforeach
+                                </ul>
+                            </div>
+                        </div>
 
-                                <!-- Single Category without submenu -->
-                                <li class="hover:bg-gray-200 cursor-pointer border-b p-4"
-                                    @click="selectedCategory = 'Category 3'">
-                                    <span>Category 3</span>
-                                </li>
-                            </ul>
+                        <!-- Search Button -->
+
+                        <div>
+                            <a href="{{route('shop')}}">
+                                <button
+                                    class="w-14 h-full py-2 rounded-r-full bg-primary text-secondary flex items-center justify-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                        viewBox="0 0 24 24">
+                                        <g fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round"
+                                            stroke-width="2">
+                                            <circle cx="11" cy="11" r="8" />
+                                            <path d="m21 21l-4.3-4.3" />
+                                        </g>
+                                    </svg>
+                                </button>
+                            </a>
                         </div>
                     </div>
-
-                    <!-- Search Button -->
-
-                    <div>
-                        <a href="{{route('shop')}}">
-                            <button
-                                class="w-14 h-full py-2 rounded-r-full bg-primary text-secondary flex items-center justify-center">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                    viewBox="0 0 24 24">
-                                    <g fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round"
-                                        stroke-width="2">
-                                        <circle cx="11" cy="11" r="8" />
-                                        <path d="m21 21l-4.3-4.3" />
-                                    </g>
-                                </svg>
-                            </button>
-                        </a>
-                    </div>
                 </div>
-            </div>
+            </form>
             <div class="flex items-center justify-between gap-4">
                 <div class="relative">
                     <a href="{{route('vcart')}}">
