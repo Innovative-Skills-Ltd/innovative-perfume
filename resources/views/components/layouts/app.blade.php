@@ -5,10 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     {{-- sentry video error  --}}
-    <script
-    src="https://js.sentry-cdn.com/93dc89a5646af7515c353ded6b155415.min.js"
-    crossorigin="anonymous"
-  ></script>
+    <script src="https://js.sentry-cdn.com/93dc89a5646af7515c353ded6b155415.min.js" crossorigin="anonymous"></script>
 
     <!-- Open Graph meta tags for sharing -->
     <meta property="og:title" content="{{ ENV('APP_NAME') }}">

@@ -77,22 +77,39 @@
     </footer>
     <!-- Footer Section End -->
     <!-- Back To TOP Start -->
-    <div class="w-12 h-12 rounded-full flex items-center justify-center fixed bottom-10 right-10 bg-primary">
+    <div id="scrollButton"
+        class="w-12 h-12 rounded-full items-center justify-center fixed bottom-10 right-10 bg-primary z-[9999] hidden">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 16 16">
             <path fill="#fff" fill-rule="evenodd"
                 d="m8 4.293l3.854 3.853l-.707.708L8 5.707L4.854 8.854l-.708-.708zm0 3l3.854 3.853l-.707.708L8 8.707l-3.146 3.147l-.708-.707z"
                 clip-rule="evenodd" />
         </svg>
     </div>
+
     <!-- Back To TOP End -->
     <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const scrollButton = document.getElementById('scrollButton');
+            const scrollDistance = 100; // Adjust the scroll distance as needed
+
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > scrollDistance) {
+                    scrollButton.classList.add('flex');
+                    scrollButton.classList.remove('hidden');
+                } else {
+                    scrollButton.classList.remove('flex');
+                    scrollButton.classList.add('hidden');
+                }
+            });
+        });
+
         const swiper = new Swiper(".hero-swiper", {
             // Optional parameters
             // direction: "vertical",
             loop: true,
 
             autoplay: {
-                delay: 3000,
+                delay: 7000,
                 disableOnInteraction: false,
             },
 
@@ -137,7 +154,7 @@
                 },
             },
             autoplay: {
-                delay: 2500,
+                delay: 5000,
                 // disableOnInteraction: false,
             },
 
@@ -168,7 +185,34 @@
                 },
             },
             autoplay: {
-                delay: 2500,
+                delay: 5000,
+                // disableOnInteraction: false,
+            },
+
+            // If we need pagination
+            pagination: {
+                el: ".news-swiper-pagination",
+                // clickable: true,
+            },
+        });
+        const instagramSwiper = new Swiper(".instagram-swiper", {
+            // Optional parameters
+            // direction: "vertical",
+            slidesPerView: 1,
+            loop: true,
+            breakpoints: {
+                640: {
+                    slidesPerView: 1,
+                },
+                768: {
+                    slidesPerView: 5,
+                },
+                1024: {
+                    slidesPerView: 6,
+                },
+            },
+            autoplay: {
+                delay: 5000,
                 // disableOnInteraction: false,
             },
 
@@ -209,122 +253,122 @@
         //                       toastr.error(response.msg);
         //                   } else {
         //                       const product = `
-  //                         <div x-data="{
-  //                                 qty: 1,
-  //                                 price:'${response.product.price.replace(/,/g,'')}',
-  //                                 dis_price:'${response.product.final_price.replace(/,/g,'')}',
-  //                                 subtotal:0,
-  //                                 cp_show:true,
-  //                                 setup() {
-  //                                     this.subtotal = Number(this.dis_price) * Number(this.qty);
-  //                                     total = Number(total) + Number(this.subtotal);
-  //                                 },
-  //                                 priceCal(new_qty) {
-  //                                     const new_subtotal = new_qty * Number(this.dis_price);
-  //                                     total = total - Number(this.subtotal) + new_subtotal;
-  //                                     this.subtotal = new_subtotal;
-  //                                 },
-  //                                 mplus() {
-  //                                     if(this.qty>= 5){
-  //                                         toastr.warning('You can not add more then 5 products');
-  //                                         return false;
-  //                                     }
-  //                                     $.ajax({
-  //                                             url:'{{ route('plus') }}',
-  //                                             method:'get',
-  //                                             data:{id:${response.id}},
-  //                                             success:(res)=>{
-  //                                                 if(res.msg){
-  //                                                     toastr.warning(res.msg)
-  //                                                 }else{
-  //                                                     this.priceCal(++this.qty);
-  //                                                     console.log('Successfully decrease quantity')
-  //                                                 }
-  //                                             }
-  //                                         });
-  //                                 }, mminus() {
-  //                                     if(this.qty <= 1){
-  //                                         toastr.warning('You can not remove all quantity');
-  //                                         return false;
-  //                                     }
-  //                                     $.ajax({
-  //                                             url:'{{ route('minus') }}',
-  //                                             method:'get',
-  //                                             data:{id:${response.id}},
-  //                                             success:(res)=>{
-  //                                                 if(res.msg){
-  //                                                     toastr.warning(res.msg)
-  //                                                 }else{
-  //                                                     this.priceCal(--this.qty)
-  //                                                     console.log('Successfully decrease quantity')
-  //                                                 }
-  //                                             }
-  //                                         });
+    //                         <div x-data="{
+    //                                 qty: 1,
+    //                                 price:'${response.product.price.replace(/,/g,'')}',
+    //                                 dis_price:'${response.product.final_price.replace(/,/g,'')}',
+    //                                 subtotal:0,
+    //                                 cp_show:true,
+    //                                 setup() {
+    //                                     this.subtotal = Number(this.dis_price) * Number(this.qty);
+    //                                     total = Number(total) + Number(this.subtotal);
+    //                                 },
+    //                                 priceCal(new_qty) {
+    //                                     const new_subtotal = new_qty * Number(this.dis_price);
+    //                                     total = total - Number(this.subtotal) + new_subtotal;
+    //                                     this.subtotal = new_subtotal;
+    //                                 },
+    //                                 mplus() {
+    //                                     if(this.qty>= 5){
+    //                                         toastr.warning('You can not add more then 5 products');
+    //                                         return false;
+    //                                     }
+    //                                     $.ajax({
+    //                                             url:'{{ route('plus') }}',
+    //                                             method:'get',
+    //                                             data:{id:${response.id}},
+    //                                             success:(res)=>{
+    //                                                 if(res.msg){
+    //                                                     toastr.warning(res.msg)
+    //                                                 }else{
+    //                                                     this.priceCal(++this.qty);
+    //                                                     console.log('Successfully decrease quantity')
+    //                                                 }
+    //                                             }
+    //                                         });
+    //                                 }, mminus() {
+    //                                     if(this.qty <= 1){
+    //                                         toastr.warning('You can not remove all quantity');
+    //                                         return false;
+    //                                     }
+    //                                     $.ajax({
+    //                                             url:'{{ route('minus') }}',
+    //                                             method:'get',
+    //                                             data:{id:${response.id}},
+    //                                             success:(res)=>{
+    //                                                 if(res.msg){
+    //                                                     toastr.warning(res.msg)
+    //                                                 }else{
+    //                                                     this.priceCal(--this.qty)
+    //                                                     console.log('Successfully decrease quantity')
+    //                                                 }
+    //                                             }
+    //                                         });
 
-  //                                 },removeProd(){
-  //                                     $.ajax({
-  //                                             url:'{{ route('delete') }}',
-  //                                             method:'get',
-  //                                             data:{id:${response.id},mt:'Cart'},
-  //                                             success:(res)=>{
-  //                                                 if(res.msg){
-  //                                                     toastr.warning(res.msg)
-  //                                                 }else{
-  //                                                     this.priceCal(0)
-  //                                                     this.cp_show = false;
-  //                                                     let cart_count =  Number($('.cart_count:eq(1)').text());
-  //                                                     $('.cart_count').text(cart_count-1);
-  //                                                 }
-  //                                             }
-  //                                         });
-  //                                 } }" x-init='setup()' x-show='cp_show'
-  //                             class='cart-product flex justify-around mt-[10px] border-t-[#3535354D] border-t-[2px] border-b-[#3535354D] border-b-[2px] py-[10px] px-[5px] gap-[10px]'>
+    //                                 },removeProd(){
+    //                                     $.ajax({
+    //                                             url:'{{ route('delete') }}',
+    //                                             method:'get',
+    //                                             data:{id:${response.id},mt:'Cart'},
+    //                                             success:(res)=>{
+    //                                                 if(res.msg){
+    //                                                     toastr.warning(res.msg)
+    //                                                 }else{
+    //                                                     this.priceCal(0)
+    //                                                     this.cp_show = false;
+    //                                                     let cart_count =  Number($('.cart_count:eq(1)').text());
+    //                                                     $('.cart_count').text(cart_count-1);
+    //                                                 }
+    //                                             }
+    //                                         });
+    //                                 } }" x-init='setup()' x-show='cp_show'
+    //                             class='cart-product flex justify-around mt-[10px] border-t-[#3535354D] border-t-[2px] border-b-[#3535354D] border-b-[2px] py-[10px] px-[5px] gap-[10px]'>
 
-  //                             <input type="hidden" name="cps[${cart_product_no}][product_id]"
-  //                                 value="${response.product_id}">
-  //                             <input type="hidden" name="cps[${cart_product_no}][qty]"
-  //                                 value="${response.id}">
-  //                             <div class='flex items-center'>
-  //                                 <img class="w-[80px] h-[px]" src="${response.product.photo ? response.product.photo.split(',')[0] : '/backend/img/thumbnail-default.jpg' }"
-  //                                     alt="${response.product.title}">
-  //                             </div>
+    //                             <input type="hidden" name="cps[${cart_product_no}][product_id]"
+    //                                 value="${response.product_id}">
+    //                             <input type="hidden" name="cps[${cart_product_no}][qty]"
+    //                                 value="${response.id}">
+    //                             <div class='flex items-center'>
+    //                                 <img class="w-[80px] h-[px]" src="${response.product.photo ? response.product.photo.split(',')[0] : '/backend/img/thumbnail-default.jpg' }"
+    //                                     alt="${response.product.title}">
+    //                             </div>
 
-  //                             <div>
-  //                                 <div>
-  //                                     <p class='text-[12px] text-[#380D37] font-[jost] font-[500]'>
-  //                                         ${response.product.title}
-  //                                     </p>
-  //                                 </div>
-  //                                 <div
-  //                                     class='border-[#380D37] w-[85px] h-[19.231px] border-[2px] rounded-[4px] my-[10px] flex items-center justify-around'>
-  //                                     <span @click="mminus"
-  //                                         class='cplus text-[#380D37] h-[19.231px] border-[#380D37] border-r-[2px] pr-[5px] flex items-center cursor-pointer  text-center'>-</span>
-  //                                     <span x-text="qty"
-  //                                     class='text-[#380D37] h-[19.231px] w-[40px] border-[#380D37] border-r-[2px]  flex items-center  justify-center'
-  //                                         >
+    //                             <div>
+    //                                 <div>
+    //                                     <p class='text-[12px] text-[#380D37] font-[jost] font-[500]'>
+    //                                         ${response.product.title}
+    //                                     </p>
+    //                                 </div>
+    //                                 <div
+    //                                     class='border-[#380D37] w-[85px] h-[19.231px] border-[2px] rounded-[4px] my-[10px] flex items-center justify-around'>
+    //                                     <span @click="mminus"
+    //                                         class='cplus text-[#380D37] h-[19.231px] border-[#380D37] border-r-[2px] pr-[5px] flex items-center cursor-pointer  text-center'>-</span>
+    //                                     <span x-text="qty"
+    //                                     class='text-[#380D37] h-[19.231px] w-[40px] border-[#380D37] border-r-[2px]  flex items-center  justify-center'
+    //                                         >
 
-  //                                     </span>
-  //                                     <span @click="mplus"
-  //                                         class='cplus text-[#380D37] h-[19.231px] pr-[5px] flex items-center cursor-pointer text-center'>+</span>
-  //                                 </div>
-  //                                 <div>
-  //                                     <p class='text-[#353535] text-[16px] font-[jost] font-[500] text-center'>
-  //                                         <span x-text="qty"></span> x <span class='text-[#DC275C]'> ${response.product.final_price}</span>
-  //                                         TAKA
-  //                                     </p>
+    //                                     </span>
+    //                                     <span @click="mplus"
+    //                                         class='cplus text-[#380D37] h-[19.231px] pr-[5px] flex items-center cursor-pointer text-center'>+</span>
+    //                                 </div>
+    //                                 <div>
+    //                                     <p class='text-[#353535] text-[16px] font-[jost] font-[500] text-center'>
+    //                                         <span x-text="qty"></span> x <span class='text-[#DC275C]'> ${response.product.final_price}</span>
+    //                                         TAKA
+    //                                     </p>
 
-  //                                 </div>
-  //                             </div>
+    //                                 </div>
+    //                             </div>
 
-  //                             <div>
-  //                                 <span @click="removeProd" class="cursor-pointer cart_prd_delete">
-  //                                     <svg  xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-  //                                         stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-  //                                         <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-  //                                     </svg>
-  //                                 </span>
-  //                             </div>
-  //                         </div>`;
+    //                             <div>
+    //                                 <span @click="removeProd" class="cursor-pointer cart_prd_delete">
+    //                                     <svg  xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+    //                                         stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+    //                                         <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+    //                                     </svg>
+    //                                 </span>
+    //                             </div>
+    //                         </div>`;
 
         //                       $('#side_cart_body').append(product);
         //                       $('#side_cart').show(500);

@@ -89,7 +89,7 @@
         </ul>
     </nav>
     <!-- ------------------container--section-------start--- -->
-    <div class="container mx-auto">
+    <div class="mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl">
         <div class=>
             <h1 class='font-[jost] xl:text-[20px] font-[400] leading-[25.3px] text-[#353535]'>Home/Brand New/
                 Lenovo/Lenovo IdeaPad 15AMN7 AMD Ryzen 5 7520U 8-512 GB </h1>
