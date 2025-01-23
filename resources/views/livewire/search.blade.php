@@ -1,12 +1,12 @@
 <div>
-        <div class='ml-[40px]'>
+    <div class='ml-[40px]'>
         <h1 class='font-[jost] xl:text-[20px] font-[400] leading-[25.3px] text-[#353535]'>Search / Lenovo</h1>
         <div class='h-1 bg-[#764A8733]'></div>
     </div>
 
 
     <!-- Sidenav -->
-    <div class="container mx-auto mt-4">
+    <div class="mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl mt-4">
 
         <!-- ------------right---part--start--- -->
         <div class="mt-2">

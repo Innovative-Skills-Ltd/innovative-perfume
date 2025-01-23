@@ -17,9 +17,9 @@
                 }
             }
         </style>
-        <div class="container mx-auto">
+        <div class="mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl">
             <section id="slider" class="pt-5 mx-auto">
-                <div class="container mx-auto">
+                <div class="mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl">
                     {{-- <h1 class="text-center"><b>Responsive Owl Carousel</b></h1> --}}
                     <div class="slider">
                         <div class="owl-carousel">
@@ -184,7 +184,7 @@
                                 this.msg = '';
                                 this.spin = false;
                             }
-
+            
                         }
                     });
                 }
@@ -245,10 +245,10 @@
 
 </div>
 @script
-<script>
-    $(document).ready(function(){
+    <script>
+        $(document).ready(function() {
 
-        $(".owl-carousel").owlCarousel({
+            $(".owl-carousel").owlCarousel({
                 loop: true,
                 margin: 10,
                 nav: true,
@@ -279,6 +279,6 @@
                     }
                 }
             });
-    })
-</script>
+        })
+    </script>
 @endscript

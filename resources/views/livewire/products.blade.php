@@ -8,20 +8,24 @@
                     $photo = explode(',', $product->photo);
                     // dd($photo);
                 @endphp
-                <img src="{{ $photo[0] }}" class="img-fluid zoom h-[180px] object-container mx-auto" style="max-width:80px"
+                <img src="{{ $photo[0] }}"
+                    class="img-fluid zoom h-[180px] object-mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl" style="max-width:80px"
                     alt="{{ $product->photo }}">
             @else
-                <img src="{{ asset('backend/img/thumbnail-default.jpg') }}" class="img-fluid h-[180px] mx-auto object-container"
-                    style="max-width:80px" alt="avatar.png">
+                <img src="{{ asset('backend/img/thumbnail-default.jpg') }}"
+                    class="img-fluid h-[180px] mx-auto object-container" style="max-width:80px" alt="avatar.png">
             @endif
             {{-- <img class="object-center pimg" src="{{$product->photo}}" alt=""> --}}
         </a>
-            <span class="text-[14px] bg-[#ef4a23] text-[#fff] absolute top-[-8px] left-[-8px] px-2 py-[2px] rounded-r-lg">Out Of Stock</span>
-            @if ($product->discount)
-            <span class="text-[14px] text-[#fff] bg-[#ef4a23] absolute top-[-8px] right-[-8px] px-2 py-[2px] rounded-l-lg">
-                -{{$product->discount}}%
+        <span
+            class="text-[14px] bg-[#ef4a23] text-[#fff] absolute top-[-8px] left-[-8px] px-2 py-[2px] rounded-r-lg">Out
+            Of Stock</span>
+        @if ($product->discount)
+            <span
+                class="text-[14px] text-[#fff] bg-[#ef4a23] absolute top-[-8px] right-[-8px] px-2 py-[2px] rounded-l-lg">
+                -{{ $product->discount }}%
             </span>
-            @endif
+        @endif
         <div>
             <div
                 class="w-[221px] mx-auto max-sm:mb-[10px] max-md:mb-[10px] max-md:gap-[8px] flex flex-col bg-white p-2 gap-[16px] text-left shadow-[2px_2px_5px_2px_#0000001A]">
@@ -58,10 +62,11 @@
 
                     <div>
                         <span class="pprice text-[#DC275C]"
-                            value='{{ App\Http\Helper::commaRemove($product->final_price) }}'>{{ $product->final_price }} ৳
+                            value='{{ App\Http\Helper::commaRemove($product->final_price) }}'>{{ $product->final_price }}
+                            ৳
                         </span>
                         <span class="text-[#380D37] text-[14px] font-[jost] font-[700] line-through">
-                            {{$product->price}} ৳
+                            {{ $product->price }} ৳
                         </span>
                     </div>
 
