@@ -13,36 +13,41 @@ class Product extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'slug', 'title', 'model', 'mpn', 'price', 'discount', 'final_price', 'inventory_cost', 'summary', 'description', 'photo', 'stock', 'brand_id',
-        'cat_id', 'child_cat_id', 'upcomming', 'is_featured', 'is_student', 'status', 'special_feature', 'average_rating', 'views','serial', 'condition','is_showable_to_user', 'product_offer_id',
-        //processor Attributes
-        'processor_model_id', 'processor_generation_id', 'p_brand', 'c_speed', 'l1_cache', 'l2_cache', 'l3_cache', 'p_core', 'p_thread', 'p_other',
-        //Display attributes
-        'display_size_id', 'display_type_id', 'd_resolution', 'touch_screen', 'd_other',
-        //Memory Attributes (Ram)
-        'ram_id', 'm_type', 'bus_speed', 'm_slot', 'm_removal', 'm_other',
-        //Storage Attributes (SSD/HDD)
-        'ssd_id', 'hdd_id', 's_extra_m2_slot', 's_support_type', 's_upgrade', 's_slot', 'stor_other',
-        //Graphics Attributes
-        'g_model', 'graphic_id', 'g_other',
-        //Keyboard & Touchpad Attributes
-        'k_type', 'touchpad', 'k_other', 'k_backlight',
-        //Camera & Audio Attributes
-        'webcam', 'microphone', 'speaker', 'ca_other',
-        //Port & Slots Attributes
-        'optical_drive', 'card_reader', 'hdmi_p', 'usb2_p', 'usb3_p', 'type_c_tb_p', 'headphone_p', 'microphone_p', 'ps_other',
-        //Network & Connectivity Attributes
-        'wifi', 'bluetooth', 'nc_other',
-        //Security Attributes
-        'finger_print', 'facelock', 's_other',
-        //Software Attributes
-        'operating_system', 'soft_other',
-        //Power Attributes
-        'battery_type', 'battery_capacity', 'adapter_type', 'power_other',
-        //Physical Specification Attributes
-        'color', 'dimension', 'weight', 'physi_other',
-        //Warranty Attributes
-        'w_details', 'replacement_warranty', 'motherboard_warranty', 'service_warranty', 'disclaimer', 'note',
+        'slug',
+        'title',
+        'photo',
+        'mpn',
+        'summary',
+        'description',
+        'stock',
+        'brand_id',
+        'cat_id',
+        'child_cat_id',
+        'upcomming',
+        'is_featured',
+        'status',
+        'average_rating',
+        'views',
+        'serial',
+        'condition',
+        'is_showable_to_user',
+        'product_offer_id',
+        'replacement_warranty',
+        'motherboard_warranty',
+        'service_warranty',
+        'disclaimer',
+        'note',
+        'w_details'
+    ];
+
+    protected $casts = [
+        'is_featured' => 'boolean',
+        'is_showable_to_user' => 'boolean',
+        'upcomming' => 'date',
+        'stock' => 'integer',
+        'views' => 'integer',
+        'serial' => 'integer',
+        'average_rating' => 'integer'
     ];
 
     static public function orderByFinalpriceAsc()
@@ -162,7 +167,7 @@ class Product extends Model
 
     public function brand()
     {
-        return $this->hasOne(Brand::class, 'id', 'brand_id');
+        return $this->belongsTo(Brand::class);
     }
 
     public function ProcessorGeneration()
@@ -287,5 +292,10 @@ class Product extends Model
             }
         }
         return $html;
+    }
+
+    public function sizes()
+    {
+        return $this->hasMany(ProductSize::class);
     }
 }

@@ -1,5 +1,8 @@
 <?php
 
+use Database\Seeders\PerfumeBrandSeeder;
+use Database\Seeders\PerfumeCategorySeeder;
+use Database\Seeders\PerfumeDisplaySizeSeeder;
 use Database\Seeders\RolePermissionSeeder;
 use Database\Seeders\ProductAttributeSeeder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -20,6 +23,9 @@ class DatabaseSeeder extends Seeder
             // ProductAttributeSeeder::class,
             UsersTableSeeder::class,
             RolePermissionSeeder::class,
+            PerfumeCategorySeeder::class,
+            PerfumeDisplaySizeSeeder::class,
+            PerfumeBrandSeeder::class,
             // SettingTableSeeder::class,
             // CouponSeeder::class,
         ]);

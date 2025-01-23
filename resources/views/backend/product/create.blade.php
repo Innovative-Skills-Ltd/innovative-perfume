@@ -9,6 +9,8 @@
             <form method="post" action="{{ route('product.store') }}" enctype="multipart/form-data">
                 {{ csrf_field() }}
                 <div>
+
+                    {{-- title  --}}
                     <div class="form-group">
                         <label for="inputTitle" class="col-form-label">Title<span class="text-danger">*</span></label>
                         <input id="inputTitle" type="text" name="title" placeholder="Exp:- Enter title"
@@ -17,43 +19,49 @@
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
                     </div>
-                    <div class="form-group">
+
+                    {{-- model  --}}
+                    {{-- <div class="form-group">
                         <label for="model" class="col-form-label">Model</label>
                         <input id="model" type="text" name="model" placeholder="Exp:- Enter Model"
                             value="{{ old('model') }}" class="form-control">
                         @error('model')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
-                    </div>
+                    </div> --}}
 
-                    <div class="form-group">
+                    {{-- mpn  --}}
+                    {{-- <div class="form-group">
                         <label for="mpn" class="col-form-label">Manufacture Name</label>
                         <input id="mpn" type="text" name="mpn" placeholder="Exp:- Enter Manufacture Name"
                             value="{{ old('mpn') }}" class="form-control">
                         @error('mpn')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
-                    </div>
+                    </div> --}}
 
-                    <div class="form-group">
+                    {{-- price  --}}
+                    {{-- <div class="form-group">
                         <label for="price" class="col-form-label">Price(BDT)<span class="text-danger">*</span> </label>
                         <input id="price" type="text" name="price" placeholder="Exp:- Enter price" step="1"
                             value="{{ old('price') }}" class="form-control">
                         @error('price')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
-                    </div>
+                    </div> --}}
 
-                    <div class="form-group">
+                    {{-- discount  --}}
+                    {{-- <div class="form-group">
                         <label for="discount" class="col-form-label">Discount(%)</label>
                         <input id="discount" type="number" name="discount" min="0" max="100"
                             placeholder="Exp:- Enter discount" value="{{ old('discount') ?? '0' }}" class="form-control">
                         @error('discount')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
-                    </div>
+                    </div> --}}
 
-                    <div class="form-group" id="final_price_div">
+                    {{-- final price  --}}
+                    {{-- <div class="form-group" id="final_price_div">
                         <label for="final_price" class="col-form-label">Final Price(tk)<span
                                 class="text-danger">*</span></label>
                         <input id="final_price" type="text" name="final_price" min="0" max="500000"
@@ -61,9 +69,10 @@
                         @error('final_price')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
-                    </div>
+                    </div> --}}
 
-                    <div class="form-group">
+                    {{-- inventory cost  --}}
+                    {{-- <div class="form-group">
                         <label for="inventory_cost" class="col-form-label">Inventory Cost</label>
                         <input id="inventory_cost" type="text" name="inventory_cost" min="0" max="1000000"
                             placeholder="Exp:- Enter Inventory Cost" value="{{ old('inventory_cost') ?? '0' }}"
@@ -71,8 +80,9 @@
                         @error('inventory_cost')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
-                    </div>
+                    </div> --}}
 
+                    {{-- summary  --}}
                     <div class="form-group">
                         <label for="summary" class="col-form-label">Summary </label>
                         <textarea class="form-control" id="summary" name="summary">{{ old('summary') }}</textarea>
@@ -81,6 +91,7 @@
                         @enderror
                     </div>
 
+                    {{-- description  --}}
                     <div class="form-group">
                         <label for="description" class="col-form-label">Description</label>
                         <textarea class="form-control" id="description" name="description">{{ old('description') }}</textarea>
@@ -89,53 +100,14 @@
                         @enderror
                     </div>
 
-                    {{-- Brand  --}}
+                        {{-- Brand  --}}
                     <x-exchangable-input-select-div label_for='brand' label_title='Brand' :select_data="$brands"
                         select_data_echo='title' />
-                    {{-- <div class="form-group">
-                        <label for="brand_id">Brand</label>
-                        <div class="input-group mb-3">
-                            <select name="brand_id" class="form-control exchangable_select">
-                                <option value="">--Select Brand--</option>
-                                @foreach ($brands as $brand)
-                                    <option value="{{ $brand->id }}" @selected($brand->id == old('brand_id'))>
-                                        {{ $brand->title }}
-                                    </option>
-                                @endforeach
-                            </select>
 
-                            <input id="brand_name" type="text" name="brand_name" min="0" max="1000000"
-                                placeholder="Exp:- Enter brand name" value="{{ old('brand_name') }}"
-                                class="form-control exchangable_input">
-
-                            <div class="input-group-append">
-                                <button type="button" class="btn btn-success  m-0 p-0 input_instead_select"><svg
-                                        xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                        stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                            d="M13.5 16.875h3.375m0 0h3.375m-3.375 0V13.5m0 3.375v3.375M6 10.5h2.25a2.25 2.25 0 0 0 2.25-2.25V6a2.25 2.25 0 0 0-2.25-2.25H6A2.25 2.25 0 0 0 3.75 6v2.25A2.25 2.25 0 0 0 6 10.5Zm0 9.75h2.25A2.25 2.25 0 0 0 10.5 18v-2.25a2.25 2.25 0 0 0-2.25-2.25H6a2.25 2.25 0 0 0-2.25 2.25V18A2.25 2.25 0 0 0 6 20.25Zm9.75-9.75H18a2.25 2.25 0 0 0 2.25-2.25V6A2.25 2.25 0 0 0 18 3.75h-2.25A2.25 2.25 0 0 0 13.5 6v2.25a2.25 2.25 0 0 0 2.25 2.25Z" />
-                                    </svg>
-                                </button>
-                                <button type="button" class="btn btn-danger m-0 p-0 select_restore"><svg
-                                        xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                        stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                            d="M8.25 9.75h4.875a2.625 2.625 0 0 1 0 5.25H12M8.25 9.75 10.5 7.5M8.25 9.75 10.5 12m9-7.243V21.75l-3.75-1.5-3.75 1.5-3.75-1.5-3.75 1.5V4.757c0-1.108.806-2.057 1.907-2.185a48.507 48.507 0 0 1 11.186 0c1.1.128 1.907 1.077 1.907 2.185Z" />
-                                    </svg>
-                                </button>
-                            </div>
-                        </div>
-                        @error('brand_id')
-                            <span class="text-danger">{{ $message }}</span>
-                        @enderror
-                        @error('brand_name')
-                            <span class="text-danger">{{ $message }}</span>
-                        @enderror
-                    </div> --}}
 
                     {{-- {{$categories}} --}}
                     <div class="form-group" id="cat_div">
-                        <label for="cat_id">Category</label>
+                        <label for="cat_id">Category <span class="text-danger">*</span></label>
                         <select name="cat_id" id="cat_id" class="form-control">
                             <option value="">--Select any category--</option>
                             @foreach ($categories as $key => $cat_data)
@@ -148,13 +120,7 @@
                         @enderror
                     </div>
 
-                    {{-- rest of categories  --}}
-                    <div class="d-none" id="paren_other_cat">
-                        <span>Other Categories:</span>
-                        <div class="input-group mb-3 " id="other_cat_div">
 
-                        </div>
-                    </div>
 
                     <x-exchangable-input-select-div label_for='child_cat' label_title='Sub Category' />
                     {{-- <div class="form-group">
@@ -176,6 +142,7 @@
                         @enderror
                     </div> --}}
 
+                    {{-- is featured  --}}
                     <div class="form-group">
                         <label for="is_featured">Is Featured</label><br>
                         <input type="checkbox" name='is_featured' @checked(old('is_featured')) id='is_featured'
@@ -190,7 +157,8 @@
                         <label for="is_student">Yes</label>
                     </div> --}}
 
-                    <div class="form-group">
+                    {{-- upcomming  --}}
+                    {{-- <div class="form-group">
                         <label for="upcomming_toggler">Up Comming</label><br>
                         <input type="checkbox" name='upcomming_toggler' @checked(old('upcomming_toggler'))
                             id='upcomming_toggler' value='1'>
@@ -204,7 +172,7 @@
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
-                    </div>
+                    </div> --}}
 
                     {{-- <div class="form-group">
                         <label for="isOfferToggler">Is Offer Products</label><br>
@@ -242,6 +210,8 @@
                         @enderror
                     </div> --}}
 
+
+                    {{-- stock  --}}
                     <div class="form-group">
                         <label for="stock">Stock<span class="text-danger">*</span></label>
                         <input id="quantity" type="number" name="stock" min="0" step=""
@@ -251,148 +221,7 @@
                         @enderror
                     </div>
                 </div>
-                {{-- ======== Processor Attributes  --}}
-              {{-- <div class="mt-4">
-                    <h4 class="fw-bold">Processor Attributes:</h4>
-                    <div class="ml-3">
 
-                        <!-- Processor Brand  -->
-                        <div class="form-group">
-                            <label for="p_brand" class="col-form-label">Processor Brand </label>
-                            <input id="p_brand" type="text" name="p_brand" placeholder="Exp:- 2.8 GHz upto 4.3 GHz"
-                                value="{{ old('p_brand') }}" class="form-control">
-                            @error('p_brand')
-                                <span class="text-danger">{{ $message }}</span>
-                            @enderror
-                        </div>
-
-                        <!-- Processore Type  -->
-                        <x-exchangable-input-select-div label_for='processor_model' label_title='Prosessor Type'
-                            :select_data="$p_models" select_data_echo='name' />
-
-                        <!-- Processore Generation -->
-                        <x-exchangable-input-select-div label_for='processor_generation'
-                            label_title='Prosessor Generation' :select_data="$p_generations" select_data_echo='name' />
-
-                        <!-- Processor Speed  -->
-                        <div class="form-group">
-                            <label for="c_speed" class="col-form-label">Processor Speed </label>
-                            <input id="c_speed" type="text" name="c_speed" placeholder="Exp:- 2.8 GHz upto 4.3 GHz"
-                                value="{{ old('c_speed') }}" class="form-control">
-                            @error('c_speed')
-                                <span class="text-danger">{{ $message }}</span>
-                            @enderror
-                        </div>
-
-                        <!-- L1 cache  -->
-                        <div class="form-group">
-                            <label for="l1_cache" class="col-form-label">L1 Cache </label>
-                            <input id="l1_cache" type="text" name="l1_cache" placeholder="Exp:- 256 KB"
-                                value="{{ old('l1_cache') }}" class="form-control">
-                            @error('l1_cache')
-                                <span class="text-danger">{{ $message }}</span>
-                            @enderror
-                        </div>
-
-                        <!-- L2 cache  -->
-                        <div class="form-group">
-                            <label for="l2_cache" class="col-form-label">L2 Cache </label>
-                            <input id="l2_cache" type="text" name="l2_cache" placeholder="Exp:- 2 MB"
-                                value="{{ old('l2_cache') }}" class="form-control">
-                            @error('l2_cache')
-                                <span class="text-danger">{{ $message }}</span>
-                            @enderror
-                        </div>
-
-                        <!-- l3_cache  -->
-                        <div class="form-group">
-                            <label for="l3_cache" class="col-form-label">L3 Cache </label>
-                            <input id="l3_cache" type="text" name="l3_cache" placeholder="Exp:- 4 MB"
-                                value="{{ old('l3_cache') }}" class="form-control">
-                            @error('l3_cache')
-                                <span class="text-danger">{{ $message }}</span>
-                            @enderror
-                        </div>
-
-                        <!-- p_core  -->
-                        <div class="form-group">
-                            <label for="p_core" class="col-form-label">Processore Core</label>
-                            <input id="p_core" type="number" name="p_core" placeholder="Exp:- 2"
-                                value="{{ old('p_core') }}" class="form-control">
-                            @error('p_core')
-                                <span class="text-danger">{{ $message }}</span>
-                            @enderror
-                        </div>
-
-                            <!-- p_thread  -->
-                        <div class="form-group">
-                            <label for="p_thread" class="col-form-label">Processore Thread</label>
-                            <input id="p_thread" type="number" name="p_thread" placeholder="Exp:- 4"
-                                value="{{ old('p_thread') }}" class="form-control">
-                            @error('p_thread')
-                                <span class="text-danger">{{ $message }}</span>
-                            @enderror
-                        </div>
-
-                        <!-- Other's information -->
-                        <div class="form-group">
-                            <label for="p_other" class="col-form-label">Others</label>
-                            <textarea class="form-control" id="p_other" name="p_other">{{ old('p_other') }}</textarea>
-                            @error('p_other')
-                                <span class="text-danger">{{ $message }}</span>
-                            @enderror
-                        </div>
-                    </div>
-                </div> --}}
-
-                {{-- ========== Display Attributes  --}}
-                {{-- <div class="mt-4">
-                    <h4>Display Attributes:</h4>
-                    <div class="ml-3">
-                        <!-- display Size -->
-                        <x-exchangable-input-select-div label_for='display_size' label_title='Display Size'
-                            :select_data="$d_sizes" select_data_echo='size' />
-
-
-                        <!-- display type -->
-                        <x-exchangable-input-select-div label_for='display_type' label_title='Display Type'
-                            :select_data="$d_types" select_data_echo='name' />
-
-
-
-                        <!-- d_resolution  -->
-                        <div class="form-group">
-                            <label for="d_resolution" class="col-form-label">Display Resolution </label>
-                            <input id="d_resolution" type="text" name="d_resolution" placeholder="Exp:- 1920 x 1080"
-                                value="{{ old('d_resolution') }}" class="form-control">
-                            @error('d_resolution')
-                                <span class="text-danger">{{ $message }}</span>
-                            @enderror
-                        </div>
-
-                        <!-- d_other  -->
-                        <div class="form-group">
-                            <label for="d_other" class="col-form-label">Other Features</label>
-                            <input id="d_other" type="text" name="d_other"
-                                placeholder="Exp:- 220 nits, anti-glare, 171* Viewing Angle" value="{{ old('d_other') }}"
-                                class="form-control">
-                            @error('d_other')
-                                <span class="text-danger">{{ $message }}</span>
-                            @enderror
-                        </div>
-
-                        <!-- touch_screen  -->
-                        <div class="form-group">
-                            <label for="touch_screen">Touch Screen</label><br>
-                            <input type="checkbox" name='touch_screen' @checked(old('touch_screen')) id='is_featured'
-                                value="1">
-                            Yes
-                            @error('touch_screen')
-                                <span class="text-danger">{{ $message }}</span>
-                            @enderror
-                        </div>
-                    </div>
-                </div> --}}
 
 
                 {{-- Warranty Attributes --}}
@@ -509,6 +338,7 @@
                     @enderror
                 </div>
 
+                {{-- status  --}}
                 <div class="form-group">
                     <label for="status" class="col-form-label">Status</label>
                     <select name="status" class="form-control">
@@ -518,6 +348,111 @@
                     @error('status')
                         <span class="text-danger">{{ $message }}</span>
                     @enderror
+                </div>
+
+                <div class="form-group">
+                    <label class="col-form-label">Product Sizes</label>
+                    @error('sizes')
+                        <span class="text-danger d-block">{{ $message }}</span>
+                    @enderror
+                    <div class="size-container">
+                        <div id="size-rows">
+                            @if(old('sizes'))
+                                @foreach(old('sizes') as $key => $size)
+                                    <div class="row mb-2">
+                                        <div class="col-md-2">
+                                            <select name="sizes[{{ $key }}][display_size_id]" class="form-control">
+                                                <option value="">Select Size</option>
+                                                @foreach($d_sizes as $d_size)
+                                                    <option value="{{ $d_size->id }}" {{ $size['display_size_id'] == $d_size->id ? 'selected' : '' }}>
+                                                        {{ $d_size->size }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                            @error("sizes.{$key}.display_size_id")
+                                                <span class="text-danger">{{ $message }}</span>
+                                            @enderror
+                                        </div>
+                                        <div class="col-md-2">
+                                            <input type="number" name="sizes[{{ $key }}][price]"
+                                                   value="{{ $size['price'] }}"
+                                                   class="form-control price-input"
+                                                   placeholder="Price" step="0.01">
+                                            @error("sizes.{$key}.price")
+                                                <span class="text-danger">{{ $message }}</span>
+                                            @enderror
+                                        </div>
+                                        <div class="col-md-2">
+                                            <input type="number" name="sizes[{{ $key }}][discount]"
+                                                   value="{{ $size['discount'] ?? 0 }}"
+                                                   class="form-control discount-input"
+                                                   placeholder="Discount" step="0.01">
+                                            @error("sizes.{$key}.discount")
+                                                <span class="text-danger">{{ $message }}</span>
+                                            @enderror
+                                        </div>
+                                        <div class="col-md-2">
+                                            <input type="number" name="sizes[{{ $key }}][final_price]"
+                                                   value="{{ $size['final_price'] }}"
+                                                   class="form-control final-price"
+                                                   placeholder="Final Price" step="0.01" readonly>
+                                            @error("sizes.{$key}.final_price")
+                                                <span class="text-danger">{{ $message }}</span>
+                                            @enderror
+                                        </div>
+                                        <div class="col-md-2">
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input"
+                                                       name="sizes[{{ $key }}][is_show]"
+                                                       id="isShow_{{ $key }}"
+                                                       value="1"
+                                                       {{ isset($size['is_show']) ? 'checked' : '' }}>
+                                                <label class="custom-control-label" for="isShow_{{ $key }}">Show by default</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <button type="button" class="btn btn-danger btn-remove-size">Remove</button>
+                                        </div>
+                                    </div>
+                                @endforeach
+                            @else
+                                <!-- Default single size row -->
+                                <div class="row mb-2">
+                                    <div class="col-md-2">
+                                        <select name="sizes[0][display_size_id]" class="form-control">
+                                            <option value="">Select Size</option>
+                                            @foreach($d_sizes as $size)
+                                                <option value="{{ $size->id }}">{{ $size->size }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <input type="number" name="sizes[0][price]" class="form-control price-input"
+                                               placeholder="Price" step="0.01">
+                                    </div>
+                                    <div class="col-md-2">
+                                        <input type="number" name="sizes[0][discount]" class="form-control discount-input"
+                                               placeholder="Discount" step="0.01" value="0">
+                                    </div>
+                                    <div class="col-md-2">
+                                        <input type="number" name="sizes[0][final_price]" class="form-control final-price"
+                                               placeholder="Final Price" step="0.01" readonly>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="custom-control custom-checkbox">
+                                            <input type="checkbox" class="custom-control-input"
+                                                   name="sizes[0][is_show]" id="isShow_0" value="1">
+                                            <label class="custom-control-label" for="isShow_0">Show by default</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <button type="button" class="btn btn-danger btn-remove-size">Remove</button>
+                                    </div>
+                                </div>
+                            @endif
+                        </div>
+                        <button type="button" class="btn btn-primary" id="add-size">Add Size</button>
+                    </div>
                 </div>
 
                 <div class="mb-3 form-group">
@@ -709,6 +644,74 @@
                     $('#photo_show').html(images_div);
                 }
 
+            });
+        });
+    </script>
+
+    <script>
+        $(document).ready(function() {
+            let sizeIndex = 0;
+
+            // Calculate final price
+            function calculateFinalPrice(row) {
+                let price = parseFloat(row.find('.price-input').val()) || 0;
+                let discount = parseFloat(row.find('.discount-input').val()) || 0;
+                let finalPrice = price - discount;
+                row.find('.final-price').val(finalPrice.toFixed(2));
+            }
+
+            // Add event listeners for price and discount changes
+            $(document).on('input', '.price-input, .discount-input', function() {
+                calculateFinalPrice($(this).closest('.row'));
+            });
+
+            // Add new size row
+            $('#add-size').click(function() {
+                sizeIndex++;
+                let newRow = `
+                    <div class="row mb-2">
+                        <div class="col-md-2">
+                            <select name="sizes[${sizeIndex}][display_size_id]" class="form-control">
+                                <option value="">Select Size</option>
+                                @foreach($d_sizes as $size)
+                                    <option value="{{ $size->id }}">{{ $size->size }}</option>
+                                @endforeach
+                            </select>
+                            <span class="text-danger" id="error-size-${sizeIndex}"></span>
+                        </div>
+                        <div class="col-md-2">
+                            <input type="number" name="sizes[${sizeIndex}][price]" class="form-control price-input"
+                                   placeholder="Price" step="0.01">
+                            <span class="text-danger" id="error-price-${sizeIndex}"></span>
+                        </div>
+                        <div class="col-md-2">
+                            <input type="number" name="sizes[${sizeIndex}][discount]" class="form-control discount-input"
+                                   placeholder="Discount" step="0.01" value="0">
+                        </div>
+                        <div class="col-md-2">
+                            <input type="number" name="sizes[${sizeIndex}][final_price]" class="form-control final-price"
+                                   placeholder="Final Price" step="0.01" readonly>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="custom-control custom-checkbox">
+                                <input type="checkbox" class="custom-control-input"
+                                       name="sizes[${sizeIndex}][is_show]" id="isShow_${sizeIndex}" value="1">
+                                <label class="custom-control-label" for="isShow_${sizeIndex}">Show With product</label>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <button type="button" class="btn btn-danger btn-remove-size">Remove</button>
+                        </div>
+                    </div>
+                `;
+                $('#size-rows').append(newRow);
+            });
+
+            // Remove size row
+            $(document).on('click', '.btn-remove-size', function() {
+                if ($('#size-rows .row').length > 1) {
+                    $(this).closest('.row').remove();
+                }
             });
         });
     </script>
