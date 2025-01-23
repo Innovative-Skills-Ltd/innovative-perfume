@@ -520,6 +520,36 @@
                     @enderror
                 </div>
 
+                <div class="form-group">
+                    <label class="col-form-label">Product Sizes</label>
+                    <div class="size-container">
+                        <div id="size-rows">
+                            <div class="row mb-2">
+                                <div class="col-md-3">
+                                    <select name="sizes[0][display_size_id]" class="form-control">
+                                        <option value="">Select Size</option>
+                                        @foreach($d_sizes as $size)
+                                            <option value="{{ $size->id }}">{{ $size->size }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="col-md-3">
+                                    <input type="number" name="sizes[0][percentage]" class="form-control"
+                                           placeholder="Adjustment %" step="0.01">
+                                </div>
+                                <div class="col-md-3">
+                                    <input type="number" name="sizes[0][amount]" class="form-control"
+                                           placeholder="Adjustment Amount" step="0.01">
+                                </div>
+                                <div class="col-md-3">
+                                    <button type="button" class="btn btn-danger btn-remove-size">Remove</button>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="button" class="btn btn-primary" id="add-size">Add Size</button>
+                    </div>
+                </div>
+
                 <div class="mb-3 form-group">
                     <button type="reset" class="btn btn-warning">Reset</button>
                     <button class="btn btn-success" type="submit">Submit</button>
@@ -709,6 +739,48 @@
                     $('#photo_show').html(images_div);
                 }
 
+            });
+        });
+    </script>
+
+    <script>
+        $(document).ready(function() {
+            let sizeIndex = 0;
+
+            // Add new size row
+            $('#add-size').click(function() {
+                sizeIndex++;
+                let newRow = `
+                    <div class="row mb-2">
+                        <div class="col-md-3">
+                            <select name="sizes[${sizeIndex}][display_size_id]" class="form-control">
+                                <option value="">Select Size</option>
+                                @foreach($d_sizes as $size)
+                                    <option value="{{ $size->id }}">{{ $size->size }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <input type="number" name="sizes[${sizeIndex}][percentage]" class="form-control"
+                                   placeholder="Adjustment %" step="0.01">
+                        </div>
+                        <div class="col-md-3">
+                            <input type="number" name="sizes[${sizeIndex}][amount]" class="form-control"
+                                   placeholder="Adjustment Amount" step="0.01">
+                        </div>
+                        <div class="col-md-3">
+                            <button type="button" class="btn btn-danger btn-remove-size">Remove</button>
+                        </div>
+                    </div>
+                `;
+                $('#size-rows').append(newRow);
+            });
+
+            // Remove size row
+            $(document).on('click', '.btn-remove-size', function() {
+                if ($('#size-rows .row').length > 1) {
+                    $(this).closest('.row').remove();
+                }
             });
         });
     </script>

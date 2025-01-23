@@ -1,6 +1,6 @@
 @extends('backend.layouts.master')
 @push('title')
-    Display Size
+    Size
 @endpush
 @section('main-content')
     <!-- DataTales Example -->
@@ -11,11 +11,11 @@
             </div>
         </div>
         <div class="py-3 card-header d-flex justify-content-between">
-            <h6 class="float-left m-0 font-weight-bold text-primary">Display Size List</h6>
+            <h6 class="float-left m-0 font-weight-bold text-primary"> Sizes List</h6>
             <h6 class="font-weight-bold text-primary">Total: {{count($count)}} || Active: {{count($count->where('status','active'))}} || Inactive: {{count($count->where('status','inactive'))}}</h6>
             @can('Create Display Size')
                 <a href="{{ route('pa.display-size.create') }}" class="float-right btn btn-primary btn-sm" data-toggle="tooltip"
-                    data-placement="bottom" title="Add User"><i class="fas fa-plus"></i> Add Display Size</a>
+                    data-placement="bottom" title="Add User"><i class="fas fa-plus"></i> Add Size</a>
             @endcan
         </div>
         <div class="card-body">
@@ -69,7 +69,7 @@
                     </table>
                     <span>{{ $mdata->links('vendor.pagination.bootstrap-5') }}</span>
                 @else
-                    <h6 class="text-center">No brands found!!! Please create brand</h6>
+                    <h6 class="text-center">No sizes found!!! Please create size</h6>
                 @endif
             </div>
         </div>

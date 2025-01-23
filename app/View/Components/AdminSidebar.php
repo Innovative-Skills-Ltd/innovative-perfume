@@ -25,18 +25,18 @@ class AdminSidebar extends Component
                 ['access' => 'Show Category','title' => 'Category', 'route' => 'category.index',],
                 ['access' => 'Create Category','title' => 'Add Category', 'route' => 'category.create']
             ]],
-            // ['access' => 'Product Attributes','title' => 'Product Attributes', 'route' => 'pa.*', 'child' => [
-            //     ['access' => 'Show Processor Model','title' => 'Processor Model', 'route' => 'pa.processor-model.index',],
-            //     ['access' => 'Show Processor Generation','title' => 'Processor Generation', 'route' => 'pa.processor-generation.index'],
-            //     ['access' => 'Show Display Size','title' => 'Display Size', 'route' => 'pa.display-size.index'],
-            //     ['access' => 'Show Display Type','title' => 'Display Type', 'route' => 'pa.display-type.index'],
-            //     ['access' => 'Show RAM','title' => 'RAM', 'route' => 'pa.ram.index'],
-            //     ['access' => 'Show HDD','title' => 'HDD', 'route' => 'pa.hdd.index'],
-            //     ['access' => 'Show SSD','title' => 'SSD', 'route' => 'pa.ssd.index'],
-            //     ['access' => 'Show Graphic','title' => 'Graphic', 'route' => 'pa.graphic.index'],
-            //     ['access' => 'Show Special Feature','title' => 'Special Feature', 'route' => 'pa.special-feature.index'],
-            //     ['access' => 'Show Product Offer','title' => 'Offer', 'route' => 'pa.product-offers.index'],
-            // ]],
+            ['access' => 'Product Attributes','title' => 'Product Attributes', 'route' => 'pa.*', 'child' => [
+                // ['access' => 'Show Processor Model','title' => 'Processor Model', 'route' => 'pa.processor-model.index',],
+                // ['access' => 'Show Processor Generation','title' => 'Processor Generation', 'route' => 'pa.processor-generation.index'],
+                ['access' => 'Show Display Size','title' => 'Size', 'route' => 'pa.display-size.index'],
+                ['access' => 'Show Display Type','title' => 'Color', 'route' => 'pa.display-type.index'],
+                // ['access' => 'Show RAM','title' => 'RAM', 'route' => 'pa.ram.index'],
+                // ['access' => 'Show HDD','title' => 'HDD', 'route' => 'pa.hdd.index'],
+                // ['access' => 'Show SSD','title' => 'SSD', 'route' => 'pa.ssd.index'],
+                // ['access' => 'Show Graphic','title' => 'Graphic', 'route' => 'pa.graphic.index'],
+                // ['access' => 'Show Special Feature','title' => 'Special Feature', 'route' => 'pa.special-feature.index'],
+                // ['access' => 'Show Product Offer','title' => 'Offer', 'route' => 'pa.product-offers.index'],
+            ]],
             ['title' => 'Products', 'route' => 'product.*', 'access'=>'Show Product', 'child' => [
                 ['title' => 'Products', 'route' => 'product.index', 'access' => 'Show Product',],
                 ['title' => 'Add Products', 'route' => 'product.create','access'=>'Create Product',]
