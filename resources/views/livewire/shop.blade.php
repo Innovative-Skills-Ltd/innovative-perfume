@@ -6,7 +6,7 @@
             <!-- Top Bar Start -->
             <section class="pb-12">
 
-                <div class="container mx-auto px-2 md:px-0">
+                <div class="mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl ">
                     <div class="py-8 flex items-center gap-2 text-sm">
                         <a href="{{ route('home') }}">Home</a>
                         <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 1024 1024">
@@ -18,7 +18,8 @@
                     <h2 class="text-xl font-semibold mb-10 uppercase">Shop</h2>
                 </div>
 
-                <div class="container mx-auto px-2 md:px-0 py-4 bg-tertiary mb-10 flex items-center justify-between">
+                <div
+                    class="mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl  py-4 bg-tertiary mb-10 flex items-center justify-between">
                     <div class="flex flex-col md:flex-row gap-5 items-center">
                         <div class="flex items-center gap-2 px-3 font-medium">
                             <span class="text-[13px] text-secondary">Sort</span>
@@ -69,13 +70,13 @@
             <!-- Top Bar End -->
             <!-- Products Start Columns -->
             <section :class="isGridView ? ' hidden' : 'block'">
-                <div class="container mx-auto px-2 md:px-0 pb-20">
+                <div class="mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl  pb-20">
                     <div class="grid grid-cols-1 gap-5">
                         @foreach ($products as $cproduct)
                             <div class="group cursor-pointer w-full">
                                 <div
                                     class="border group-hover:border-[#ab8e66] transition-all duration-300 grid grid-cols-12">
-                                    <div class="col-span-10 grid grid-cols-12 gap-5">
+                                    <div class="col-span-12  md:col-span-10 grid grid-cols-12 gap-5">
                                         <div class="relative w-full col-span-3">
                                             <img src="{{ $cproduct->photo }}" class="w-full" />
                                             <div class="top-0 left-0 right-0 bottom-0 m-auto absolute h-full">
@@ -141,7 +142,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-span-2 border-l p-7 flex flex-col gap-3">
+                                    <div class="col-span-12  md:col-span-2 border-l p-7 flex flex-col gap-3">
                                         <h3 class="font-bold text-black text-2xl">${{ $cproduct->final_price }}</h3>
                                         <h4 class="flex items-center gap-1 text-sm">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
@@ -177,7 +178,7 @@
 
             <!-- Products Start Grid -->
             <section :class="isGridView ? ' block' : 'hidden'">
-                <div class="container mx-auto px-2 md:px-0 pb-20">
+                <div class="mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl  pb-20">
                     <div class="grid grid-cols-1 md:grid-cols-4 gap-5">
                         @foreach ($products as $gproduct)
                             <a href="{{ route('product.details', $gproduct->slug) }}">
@@ -248,8 +249,9 @@
                     <div class="flex items-center justify-center gap-2 mt-10">
                         {{-- Previous Page --}}
                         <div onclick="submitPage({{ $products->currentPage() - 1 }})"
-                             class="w-10 h-10 rounded-full border flex items-center justify-center font-medium cursor-pointer {{ $products->onFirstPage() ? 'opacity-50 cursor-not-allowed' : '' }}">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24">
+                            class="w-10 h-10 rounded-full border flex items-center justify-center font-medium cursor-pointer {{ $products->onFirstPage() ? 'opacity-50 cursor-not-allowed' : '' }}">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                viewBox="0 0 24 24">
                                 <path fill="none" stroke="currentColor" stroke-linecap="round"
                                     stroke-linejoin="round" d="m14 7l-5 5l5 5" />
                             </svg>
@@ -258,16 +260,18 @@
                         {{-- Page Numbers --}}
                         @for ($i = 1; $i <= $products->lastPage(); $i++)
                             <div onclick="submitPage({{ $i }})"
-                                 class="w-10 h-10 rounded-full border flex items-center justify-center font-medium cursor-pointer {{ $products->currentPage() == $i ? 'bg-primary text-white' : '' }}">
+                                class="w-10 h-10 rounded-full border flex items-center justify-center font-medium cursor-pointer {{ $products->currentPage() == $i ? 'bg-primary text-white' : '' }}">
                                 <span>{{ $i }}</span>
                             </div>
                         @endfor
 
                         {{-- Next Page --}}
                         <div onclick="submitPage({{ $products->currentPage() + 1 }})"
-                             class="w-10 h-10 rounded-full border flex items-center justify-center font-medium cursor-pointer {{ $products->hasMorePages() ? '' : 'opacity-50 cursor-not-allowed' }}">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24">
-                                <path fill="currentColor" d="m13.292 12l-4.6-4.6l.708-.708L14.708 12L9.4 17.308l-.708-.708z" />
+                            class="w-10 h-10 rounded-full border flex items-center justify-center font-medium cursor-pointer {{ $products->hasMorePages() ? '' : 'opacity-50 cursor-not-allowed' }}">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                viewBox="0 0 24 24">
+                                <path fill="currentColor"
+                                    d="m13.292 12l-4.6-4.6l.708-.708L14.708 12L9.4 17.308l-.708-.708z" />
                             </svg>
                         </div>
                     </div>

@@ -6,27 +6,30 @@
     </style>
     <!-- Top Bar Start -->
     <section class="bg-primary py-5">
-        <div class="container mx-auto px-2 md:px-0 flex items-center justify-between text-white">
+        <div class="mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl  flex items-center justify-between text-white">
             <span class="">Welcome to our online store!</span>
             <div class="flex items-center gap-2">
-                @if(auth()->user())
-                <a href="{{ route('user.logout') }}">
-                    <button class="cursor-pointer hover:italic hover:underline transition-all duration-300 ease-in-out">
-                        Logout
-                    </button>
-                </a>
+                @if (auth()->user())
+                    <a href="{{ route('user.logout') }}">
+                        <button
+                            class="cursor-pointer hover:italic hover:underline transition-all duration-300 ease-in-out">
+                            Logout
+                        </button>
+                    </a>
                 @else
-                <a href="{{ route('user.login') }}">
-                    <button class="cursor-pointer hover:italic hover:underline transition-all duration-300 ease-in-out">
-                        Login
-                    </button>
-                </a>
-                <span>or</span>
-                <a href="{{ route('user.login') }}">
-                    <button class="cursor-pointer hover:italic hover:underline transition-all duration-300 ease-in-out">
-                        Register
-                    </button>
-                </a>
+                    <a href="{{ route('user.login') }}">
+                        <button
+                            class="cursor-pointer hover:italic hover:underline transition-all duration-300 ease-in-out">
+                            Login
+                        </button>
+                    </a>
+                    <span>or</span>
+                    <a href="{{ route('user.login') }}">
+                        <button
+                            class="cursor-pointer hover:italic hover:underline transition-all duration-300 ease-in-out">
+                            Register
+                        </button>
+                    </a>
                 @endif
             </div>
         </div>
@@ -35,16 +38,16 @@
 
     <!-- Top Header Start -->
     <section>
-        <div class="container mx-auto px-2 md:px-0 flex items-center justify-between py-10">
+        <div class="mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl  flex items-center justify-between py-10">
             <div>
                 <a href="{{ route('home') }}">
-                    <h2 class="font-bold text-primary text-2xl">{{env('APP_NAME')}}</h2>
+                    <h2 class="font-bold text-primary text-2xl">{{ env('APP_NAME') }}</h2>
                 </a>
             </div>
-            <form action="{{route('searching_product')}}" method="get">
+            <form action="{{ route('searching_product') }}" method="get">
                 <div x-data="{ search: '', suggestions: ['Shoes', 'Shirts', 'Accessories', 'Hats', 'Bags'], filteredSuggestions: [] }" class="relative hidden md:block">
-                    <input type="text" name="search_text" class="px-5 py-2 w-96 border rounded-full outline-none" placeholder="Search here"
-                        x-model="search"
+                    <input type="text" name="search_text" class="px-5 py-2 w-96 border rounded-full outline-none"
+                        placeholder="Search here" x-model="search"
                         @input="filteredSuggestions = suggestions.filter(item => item.toLowerCase().includes(search.toLowerCase()))" />
                     <div x-show="search.length > 0 && filteredSuggestions.length > 0" x-transition
                         class="absolute left-0 mt-1 bg-white text-black shadow-lg rounded w-96">
@@ -62,7 +65,7 @@
                             <h3 class="selected-category" x-text="selectedCategory"></h3>
 
                             <!-- Main Dropdown Menu -->
-                            <div x-show="open" x-transition
+                            <div x-show="open" x-transition style="display: none;"
                                 class="absolute top-full left-0 mt-2 bg-white text-black shadow-lg rounded w-56 z-50">
                                 <ul class="p-0">
                                     <input type="text" name="cat_id" x-model='selectedCategory' hidden>
@@ -84,8 +87,8 @@
                                                     @endif
                                                 @endforeach
                                                 <div class="w-full text-left hover:bg-gray-200 cursor-pointer border-b p-4 flex justify-between"
-                                                    @click="selectedCategory = '{{$menu->slug }}'">
-                                                    {{$menu->title}}
+                                                    @click="selectedCategory = '{{ $menu->slug }}'">
+                                                    {{ $menu->title }}
                                                     @if (count($menu->child_cat) > 0 && $has_child > 0)
                                                         <span>&#9656;</span>
                                                     @endif
@@ -97,8 +100,8 @@
                                                         @foreach ($menu->child_cat as $menu2)
                                                             @if (count($menu2->sub_products) > 0)
                                                                 <li class="hover:bg-gray-200 cursor-pointer border-b p-4"
-                                                                    @click="selectedCategory = '{{$menu2->slug}}'">
-                                                                    <span>{{$menu2->title}}</span>
+                                                                    @click="selectedCategory = '{{ $menu2->slug }}'">
+                                                                    <span>{{ $menu2->title }}</span>
                                                                 </li>
                                                             @endif
                                                         @endforeach
@@ -114,7 +117,7 @@
                         <!-- Search Button -->
 
                         <div>
-                            <a href="{{route('shop')}}">
+                            <a href="{{ route('shop') }}">
                                 <button
                                     class="w-14 h-full py-2 rounded-r-full bg-primary text-secondary flex items-center justify-center">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
@@ -133,9 +136,9 @@
             </form>
             <div class="flex items-center justify-between gap-4">
                 <div class="relative">
-                    <a href="{{route('vcart')}}">
+                    <a href="{{ route('vcart') }}">
                         <span
-                            class="bg-primary absolute -top-3 -right-2 p-[2px] w-[20px] h-[20px] text-sm flex items-center justify-center text-white rounded-full">{{$cart_count}}</span>
+                            class="bg-primary absolute -top-3 -right-2 p-[2px] w-[20px] h-[20px] text-sm flex items-center justify-center text-white rounded-full">{{ $cart_count }}</span>
                         <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 16 16">
                             <path fill="#000"
                                 d="M2.5 2a.5.5 0 0 0 0 1h.246a.5.5 0 0 1 .48.363l1.586 5.55A1.5 1.5 0 0 0 6.254 10h4.569a1.5 1.5 0 0 0 1.393-.943l1.474-3.686A1 1 0 0 0 12.762 4H4.448l-.261-.912A1.5 1.5 0 0 0 2.746 2zm3.274 6.637L4.734 5h8.028l-1.475 3.686a.5.5 0 0 1-.464.314H6.254a.5.5 0 0 1-.48-.363M6.5 14a1.5 1.5 0 1 0 0-3a1.5 1.5 0 0 0 0 3m0-1a.5.5 0 1 1 0-1a.5.5 0 0 1 0 1m4 1a1.5 1.5 0 1 0 0-3a1.5 1.5 0 0 0 0 3m0-1a.5.5 0 1 1 0-1a.5.5 0 0 1 0 1" />
@@ -143,7 +146,7 @@
                     </a>
                 </div>
                 <div>
-                    <a href="{{route('user.login')}}">
+                    <a href="{{ route('user.login') }}">
                         <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 16 16">
                             <path fill="#000"
                                 d="M10.561 8.073a6 6 0 0 1 3.432 5.142a.75.75 0 1 1-1.498.07a4.5 4.5 0 0 0-8.99 0a.75.75 0 0 1-1.498-.07a6 6 0 0 1 3.431-5.142a3.999 3.999 0 1 1 5.123 0M10.5 5a2.5 2.5 0 1 0-5 0a2.5 2.5 0 0 0 5 0" />
@@ -157,7 +160,8 @@
 
     <!-- Navbar Start -->
     <nav class="bg-tertiary">
-        <div class="container mx-auto px-2 md:px-0 text-sm flex items-center justify-between md:justify-start gap-10">
+        <div
+            class="mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl  text-sm flex items-center justify-between md:justify-start gap-10">
             <!-- Dropdown Wrapper -->
             <div x-data="{ open: false }"
                 class="relative px-7 py-4 flex items-center font-bold gap-3 bg-primary text-white w-54"
@@ -171,7 +175,7 @@
                 </div>
 
                 <!-- Main Dropdown Menu -->
-                <div x-show="open" x-transition
+                <div x-show="open" x-transition style="display: none;"
                     class="absolute top-full left-0 mt-2 bg-white text-black shadow-lg rounded w-56 z-50">
                     <ul class="p-0">
                         <!-- Category show -->
@@ -207,8 +211,8 @@
                                             @foreach ($menu->child_cat as $menu2)
                                                 @if (count($menu2->sub_products) > 0)
                                                     <li class="hover:bg-gray-200 cursor-pointer border-b p-4">
-                                                        <a href="{{ route('cate_wise.shop', [$menu->slug, $menu2->slug]) }}"
-                                                            >{{ $menu2->title }}</a>
+                                                        <a
+                                                            href="{{ route('cate_wise.shop', [$menu->slug, $menu2->slug]) }}">{{ $menu2->title }}</a>
                                                     </li>
                                                 @endif
                                             @endforeach
@@ -236,7 +240,7 @@
 
                     <!-- Main Dropdown Menu -->
                     <div x-show="open" x-transition @click.away="open = false"
-                        class="absolute top-full right-0 mt-2 bg-white text-black shadow-lg rounded w-40">
+                        class="absolute top-full right-0 mt-2 bg-white text-black shadow-lg rounded w-40 z-[9999]">
                         <ul class="p-0">
                             <!-- Category 1 -->
                             <li class="hover:bg-gray-200 cursor-pointer border-b p-4">

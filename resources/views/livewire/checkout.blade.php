@@ -2,7 +2,7 @@
     <!-- cHECKOUT Start -->
 
     <section class="pb-20">
-        <div class="container mx-auto px-2 md:px-0">
+        <div class="mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl ">
             <div class="py-8 flex items-center gap-2 text-sm">
                 <a href="#">Home</a>
                 <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 1024 1024">
@@ -12,7 +12,7 @@
                 <span>Checkout</span>
             </div>
             <h2 class="text-xl font-semibold mb-10 uppercase">Checkout</h2>
-            <form action="{{route('user.order.store')}}" method="POST">
+            <form action="{{ route('user.order.store') }}" method="POST">
                 @csrf
                 <div x-data="{
                     step: 'shipping',
@@ -21,7 +21,7 @@
                     orderConfirmed: false
                 }">
                     <!-- Shipping Start -->
-                    <div x-show="step === 'shipping'" class="container mx-auto px-2 md:px-0">
+                    <div x-show="step === 'shipping'" class="mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl ">
                         <div class="border rounded px-5 md:ps-7 py-10 mb-6">
                             <div class="grid grid-cols-1 md:grid-cols-3 gap-20">
                                 <div class="md:col-span-2">
@@ -32,18 +32,19 @@
                                     <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mb-5">
                                         <div>
                                             <label class="text-sm mb-1">First name</label>
-                                            <input name="name" type="text" value="{{$name}}" class="py-2 px-5 rounded-full w-full border" />
+                                            <input name="name" type="text" value="{{ $name }}"
+                                                class="py-2 px-5 rounded-full w-full border" />
                                         </div>
                                         <div>
                                             <label class="text-sm mb-1">Last name</label>
-                                            <input name="l_name" type="text" value="{{$l_name}}" class="py-2 px-5 rounded-full w-full border" />
+                                            <input name="l_name" type="text" value="{{ $l_name }}"
+                                                class="py-2 px-5 rounded-full w-full border" />
                                         </div>
                                     </div>
                                     <div class="grid grid-cols-1 md:grid-cols-3 gap-5 mb-5">
                                         <div>
                                             <label class="text-sm mb-1">Country</label>
                                             <select name="country" class="py-2 px-5 rounded-md w-full border">
-                                                <option>BD</option>
                                                 <option>India</option>
                                                 <option>Malaysian</option>
                                             </select>
@@ -51,28 +52,28 @@
                                         <div>
                                             <label class="text-sm mb-1">State</label>
                                             <select name="state" class="py-2 px-5 rounded-md w-full border">
-                                                <option>BD</option>
-                                                <option>India</option>
-                                                <option>Malaysian</option>
+                                                <option>Faridpur</option>
+                                                <option>Dhaka</option>
                                             </select>
                                         </div>
                                         <div>
                                             <label class="text-sm mb-1">City</label>
                                             <select name="city" class="py-2 px-5 rounded-md w-full border">
-                                                <option>BD</option>
-                                                <option>India</option>
-                                                <option>Malaysian</option>
+                                                <option>Dhaka</option>
+                                                <option>GopalGonj</option>
                                             </select>
                                         </div>
                                     </div>
                                     <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mb-5">
                                         <div>
                                             <label class="text-sm mb-1">Zip Code</label>
-                                            <input name="zip_code" type="text" class="py-2 px-5 rounded-full w-full border" />
+                                            <input name="zip_code" type="text"
+                                                class="py-2 px-5 rounded-full w-full border" />
                                         </div>
                                         <div>
                                             <label class="text-sm mb-1">Address</label>
-                                            <input name="address"  accept=""type="text" class="py-2 px-5 rounded-full w-full border" />
+                                            <input name="address" accept=""type="text"
+                                                class="py-2 px-5 rounded-full w-full border" />
                                         </div>
                                     </div>
                                 </div>
@@ -85,27 +86,27 @@
                                         @php
                                             $total_amount = 0;
                                         @endphp
-                                        @foreach($carts as $cart)
-                                        @php
-                                            $photo = explode(',', $cart->product->photo);
-                                            $total_amount += $cart->product->final_price * $cart->quantity;
-                                        @endphp
-                                        <div class="flex items-center gap-7 pb-7 border-b mb-7">
-                                            <img class="w-24 h-24"
-                                                src="{{$photo[0]}}" />
-                                            <div>
-                                                <h4 class="py-1 font-medium">{{$cart->product->title}}</h4>
-                                                <p class="text-sm py-1 text-secondary">Black, XXL</p>
-                                                <h4 class="font-semibold">
-                                                    ${{$cart->product->final_price}} <span class="text-secondary">x{{$cart->quantity}}</span>
-                                                </h4>
+                                        @foreach ($carts as $cart)
+                                            @php
+                                                $photo = explode(',', $cart->product->photo);
+                                                $total_amount += $cart->product->final_price * $cart->quantity;
+                                            @endphp
+                                            <div class="flex items-center gap-7 pb-7 border-b mb-7">
+                                                <img class="w-24 h-24" src="{{ $photo[0] }}" />
+                                                <div>
+                                                    <h4 class="py-1 font-medium">{{ $cart->product->title }}</h4>
+                                                    <p class="text-sm py-1 text-secondary">Black, XXL</p>
+                                                    <h4 class="font-semibold">
+                                                        ${{ $cart->product->final_price }} <span
+                                                            class="text-secondary">x{{ $cart->quantity }}</span>
+                                                    </h4>
+                                                </div>
                                             </div>
-                                        </div>
                                         @endforeach
 
                                     </div>
                                     <h3 class="font-medium">
-                                        Total Price: <span class="text-xl font-medium">${{$total_amount}}</span>
+                                        Total Price: <span class="text-xl font-medium">${{ $total_amount }}</span>
                                     </h3>
                                 </div>
                             </div>
@@ -115,7 +116,8 @@
                                 class="flex items-center gpa-2 py-2 px-5 border rounded-full text-xs font-semibold uppercase"
                                 @click="step = 'payment'">
                                 <span>PAYMENT</span>
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                    viewBox="0 0 24 24">
                                     <path fill="currentColor"
                                         d="M13.293 7.293a1 1 0 0 0 0 1.414L15.586 11H8a1 1 0 0 0 0 2h7.586l-2.293 2.293a.999.999 0 1 0 1.414 1.414L19.414 12l-4.707-4.707a1 1 0 0 0-1.414 0" />
                                 </svg>
@@ -125,7 +127,7 @@
                     <!-- Shipping End -->
 
                     <!-- Pay Start -->
-                    <div x-show="step === 'payment'" class="container mx-auto px-2 md:px-0">
+                    <div x-show="step === 'payment'" class="mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl">
                         <div class="border rounded px-5 md:ps-7 py-10 mb-6">
                             <div class="grid grid-cols-1 md:grid-cols-3 gap-20">
                                 <div class="md:col-span-2">
@@ -134,7 +136,8 @@
                                         <span class="inline-block h-[2px] w-5 bg-primary"></span>
                                     </div>
                                     <div class="flex items-end mb-5 gap-5">
-                                        <input type="hidden" id="paymentMethod" name="payment_method" value="CREDIT CARD" />
+                                        <input type="hidden" id="paymentMethod" name="payment_method"
+                                            value="CREDIT CARD" />
                                         <label type="button" onclick="selectPaymentMethod('CREDIT CARD', this)"
                                             class="payment-option flex items-center gpa-2 py-2 px-5 border bg-primary text-white rounded-full text-xs font-semibold uppercase">
                                             CREDIT CARD
@@ -161,35 +164,57 @@
                                     <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mb-5">
                                         <div>
                                             <label class="text-sm mb-1">Card number</label>
-                                            <input name="card_number" type="text" class="py-2 px-5 rounded-full w-full border" />
+                                            <input name="card_number" type="text"
+                                                class="py-2 px-5 rounded-full w-full border" />
                                         </div>
                                     </div>
                                     <div class="grid grid-cols-1 md:grid-cols-3 gap-5 mb-5">
+                                        <!-- Month Dropdown -->
                                         <div>
-                                            <label class="text-sm mb-1">Month</label>
-                                            <select name="month" class="py-2 px-5 rounded-md w-full border">
-                                                <option>BD</option>
-                                                <option>India</option>
-                                                <option>Malaysian</option>
+                                            <label for="month" class="text-sm mb-1 block">Month</label>
+                                            <select id="month" name="month"
+                                                class="py-2 px-5 rounded-md w-full border">
+                                                <option value="" disabled selected>Select Month</option>
+                                                <option value="01">January</option>
+                                                <option value="02">February</option>
+                                                <option value="03">March</option>
+                                                <option value="04">April</option>
+                                                <option value="05">May</option>
+                                                <option value="06">June</option>
+                                                <option value="07">July</option>
+                                                <option value="08">August</option>
+                                                <option value="09">September</option>
+                                                <option value="10">October</option>
+                                                <option value="11">November</option>
+                                                <option value="12">December</option>
                                             </select>
                                         </div>
+
+                                        <!-- Year Dropdown -->
                                         <div>
-                                            <label class="text-sm mb-1">Year</label>
-                                            <select name="year" class="py-2 px-5 rounded-md w-full border">
-                                                <option>BD</option>
-                                                <option>India</option>
-                                                <option>Malaysian</option>
+                                            <label for="year" class="text-sm mb-1 block">Year</label>
+                                            <select id="year" name="year"
+                                                class="py-2 px-5 rounded-md w-full border">
+                                                <option value="" disabled selected>Select Year</option>
+                                                @php
+                                                    $currentYear = date('Y');
+                                                    $endYear = $currentYear + 10; // Show years up to 10 years in the future
+                                                @endphp
+                                                @for ($year = $currentYear; $year <= $endYear; $year++)
+                                                    <option value="{{ $year }}">{{ $year }}</option>
+                                                @endfor
                                             </select>
                                         </div>
+
+                                        <!-- CVV Field -->
                                         <div>
-                                            <label class="text-sm mb-1">CVV</label>
-                                            <select name="cvv" class="py-2 px-5 rounded-md w-full border">
-                                                <option>BD</option>
-                                                <option>India</option>
-                                                <option>Malaysian</option>
-                                            </select>
+                                            <label for="cvv" class="text-sm mb-1 block">CVV</label>
+                                            <input id="cvv" name="cvv" type="text"
+                                                class="py-2 px-5 rounded-md w-full border" placeholder="Enter CVV"
+                                                maxlength="3" />
                                         </div>
                                     </div>
+
                                 </div>
                                 <div>
                                     <h3 class="pb-1 text-lg font-medium">Your Order</h3>
@@ -197,25 +222,25 @@
                                         <span class="inline-block h-[2px] w-5 bg-primary"></span>
                                     </div>
                                     <div>
-                                        @foreach($carts as $cart)
-                                        @php
-                                            $photo = explode(',', $cart->product->photo);
-                                        @endphp
-                                        <div class="flex items-center gap-7 pb-7 border-b mb-7">
-                                            <img class="w-24 h-24"
-                                                src="{{$photo[0]}}" />
-                                            <div>
-                                                <h4 class="py-1 font-medium">{{$cart->product->title}}</h4>
-                                                <p class="text-sm py-1 text-secondary">Black, XXL</p>
-                                                <h4 class="font-semibold">
-                                                    ${{$cart->product->final_price}} <span class="text-secondary">x{{$cart->quantity}}</span>
-                                                </h4>
+                                        @foreach ($carts as $cart)
+                                            @php
+                                                $photo = explode(',', $cart->product->photo);
+                                            @endphp
+                                            <div class="flex items-center gap-7 pb-7 border-b mb-7">
+                                                <img class="w-24 h-24" src="{{ $photo[0] }}" />
+                                                <div>
+                                                    <h4 class="py-1 font-medium">{{ $cart->product->title }}</h4>
+                                                    <p class="text-sm py-1 text-secondary">Black, XXL</p>
+                                                    <h4 class="font-semibold">
+                                                        ${{ $cart->product->final_price }} <span
+                                                            class="text-secondary">x{{ $cart->quantity }}</span>
+                                                    </h4>
+                                                </div>
                                             </div>
-                                        </div>
                                         @endforeach
                                     </div>
                                     <h3 class="font-medium">
-                                        Total Price: <span class="text-xl font-medium">${{$total_amount}}</span>
+                                        Total Price: <span class="text-xl font-medium">${{ $total_amount }}</span>
                                     </h3>
                                 </div>
                             </div>
@@ -239,7 +264,7 @@
                     <!-- Pay End -->
 
                     <!-- Confirmation Start -->
-                    <div x-show="step === 'confirmation'" class="container mx-auto px-2 md:px-0">
+                    <div x-show="step === 'confirmation'" class="mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl ">
                         <div class="border rounded px-5 md:ps-7 py-10 mb-6 flex flex-col items-center justify-center">
                             <svg xmlns="http://www.w3.org/2000/svg" width="92" height="92" class="mb-6"
                                 viewBox="0 0 1200 1200">
