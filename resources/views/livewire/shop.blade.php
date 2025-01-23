@@ -143,7 +143,13 @@
                                         </div>
                                     </div>
                                     <div class="col-span-12  md:col-span-2 border-l p-7 flex flex-col gap-3">
-                                        <h3 class="font-bold text-black text-2xl">${{ $cproduct->final_price }}</h3>
+                                        <h3 class="font-bold text-black text-2xl">
+                                            @if($cproduct->sizes->where('is_show', true)->first())
+                                                @php $defaultSize = $cproduct->sizes->where('is_show', true)->first(); @endphp
+                                                ${{ $defaultSize->final_price }}
+                                                <span class="text-sm">({{ $defaultSize->size->size }})</span>
+                                            @endif
+                                        </h3>
                                         <h4 class="flex items-center gap-1 text-sm">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                                 viewBox="0 0 24 24">
@@ -233,9 +239,12 @@
                                                 {!! $gproduct->echoStar() !!}
                                             </div>
                                             <h4 class="text-sm text-center pb-3">
-                                                <del class="">${{ $gproduct->price }}</del>
-                                                <span
-                                                    class="font-bold text-black">${{ $gproduct->final_price }}</span>
+                                                @if($gproduct->sizes->where('is_show', true)->first())
+                                                    @php $defaultSize = $gproduct->sizes->where('is_show', true)->first(); @endphp
+                                                    <del class="">${{ $defaultSize->price }}</del>
+                                                    <span class="font-bold text-black">${{ $defaultSize->final_price }}</span>
+                                                    <span class="text-xs">({{ $defaultSize->size->size }})</span>
+                                                @endif
                                             </h4>
                                         </div>
                                     </div>
