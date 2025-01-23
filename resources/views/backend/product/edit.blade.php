@@ -18,6 +18,7 @@
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
                     </div>
+                    {{--
                     <div class="form-group">
                         <label for="model" class="col-form-label">Model </label>
                         <input id="model" type="text" name="model" placeholder="Exp:- Enter Model"
@@ -72,7 +73,7 @@
                         @error('inventory_cost')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
-                    </div>
+                    </div> --}}
 
                     <div class="form-group">
                         <label for="summary" class="col-form-label">Summary </label>
@@ -105,27 +106,6 @@
                             @endforeach
                         </select>
                     </div>
-                    {{-- rest of categories  --}}
-                    <div>
-                        <span>Other Categories:</span>
-                        <div class="input-group mb-3 " id="other_cat_div">
-                            @foreach ($others_cats as $other_cat)
-                                <div class="input-group-prepend ml-1">
-                                    <div class="input-group-text bg-white">
-                                        <input type="checkbox" @checked($other_cat->isHasThisProduct($product->slug))
-                                            id="other_cats{{ $loop->index }}" name="other_cats_id[{{ $loop->index }}]"
-                                            value="{{ $other_cat->id }}">
-                                    </div>
-                                    <label for="other_cats{{ $loop->index }}"
-                                        class="input-group-text">{{ $other_cat->title }}</label>
-                                </div>
-                            @endforeach
-
-                        </div>
-                        @error('condition.*')
-                            <span class="text-danger">{{ $message }}</span>
-                        @enderror
-                    </div>
 
                     {{-- sub categories --}}
                     <x-exchangable-input-select-div label_for='child_cat' label_title='Sub Category' :select_data="$sub_categories"
@@ -139,7 +119,7 @@
                         <label for="is_featured">Yes</label>
                     </div>
 
-
+                    {{--
                     <div class="form-group">
                         <label for="upcomming_toggler">Up Comming</label><br>
                         <input type="checkbox" name='upcomming_toggler' @checked($product->upcomming)
@@ -154,7 +134,7 @@
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
-                    </div>
+                    </div> --}}
 
                     <div class="form-group">
                         <label for="stock">Stock<span class="text-danger">*</span> </label>
@@ -165,117 +145,6 @@
                         @enderror
                     </div>
                 </div>
-
-
-                {{-- ========== Display Attributes  --}}
-                {{-- <div class="mt-4">
-                    <h4>Display Attributes:</h4>
-                    <div class="ml-3">
-                        <!-- display Size -->
-                        <x-exchangable-input-select-div label_for='display_size' label_title='Display Size'
-                            :select_data="$d_sizes" select_data_echo='size' :id_for_selected="$product->display_size_id" />
-
-
-                        <!-- display type -->
-                        <x-exchangable-input-select-div label_for='display_type' label_title='Display Type'
-                            :select_data="$d_types" select_data_echo='name' :id_for_selected="$product->display_type_id" />
-
-
-                        <!-- d_resolution  -->
-                        <div class="form-group">
-                            <label for="d_resolution" class="col-form-label">Display Resolution </label>
-                            <input id="d_resolution" type="text" name="d_resolution" placeholder="Exp:- 1920 x 1080"
-                                value="{{ $product->d_resolution }}" class="form-control">
-                            @error('d_resolution')
-                                <span class="text-danger">{{ $message }}</span>
-                            @enderror
-                        </div>
-
-                        <!-- d_other  -->
-                        <div class="form-group">
-                            <label for="d_other" class="col-form-label">Other Features</label>
-                            <input id="d_other" type="text" name="d_other"
-                                placeholder="Exp:- 220 nits, anti-glare, 171* Viewing Angle"
-                                value="{{ $product->d_other }}" class="form-control">
-                            @error('d_other')
-                                <span class="text-danger">{{ $message }}</span>
-                            @enderror
-                        </div>
-
-                        <!-- touch_screen  -->
-                        <div class="form-group">
-                            <label for="touch_screen">Touch Screen</label><br>
-                            <input type="checkbox" name='touch_screen' @checked($product->touch_screen) id='touch_screen'
-                                value="1">
-                            Yes
-                            @error('touch_screen')
-                                <span class="text-danger">{{ $message }}</span>
-                            @enderror
-                        </div>
-                    </div>
-                </div> --}}
-
-                {{-- =========== Memory Attributes  --}}
-                {{-- <div class="mt-4">
-                    <h4 class="font-weight-bold">Memory Attributes</h4>
-                    <div class="ml-3">
-                        <!-- Ram  -->
-                        <x-exchangable-input-select-div label_for='ram' label_title='RAM (GB)' :select_data="$rams"
-                            select_data_echo='capacity' :id_for_selected="$product->ram_id" />
-
-                        <!-- m_type  -->
-                        <div class="form-group">
-                            <label for="m_type" class="col-form-label">Memory Type</label>
-                            <input id="m_type" type="text" name="m_type" placeholder="Exp:- DDR4"
-                                value="{{ $product->m_type }}" class="form-control">
-                            @error('m_type')
-                                <span class="text-danger">{{ $message }}</span>
-                            @enderror
-                        </div>
-
-                        <!-- bus_speed  -->
-                        <div class="form-group">
-                            <label for="bus_speed" class="col-form-label">Bus Speed</label>
-                            <input id="bus_speed" type="text" name="bus_speed" placeholder="Exp:- 5100"
-                                value="{{ $product->bus_speed }}" class="form-control">
-                            @error('bus_speed')
-                                <span class="text-danger">{{ $message }}</span>
-                            @enderror
-                        </div>
-
-                        <!-- m_removal  -->
-                        <div class="form-group">
-                            <label for="m_removal">Memory Removable</label><br>
-                            <input type="checkbox" name='m_removal' @checked($product->m_removal) id='m_removal'
-                                value='1'>
-                            Yes
-                            @error('m_removal')
-                                <span class="text-danger">{{ $message }}</span>
-                            @enderror
-                        </div>
-
-                        <!-- m_slot  -->
-                        <div class="form-group">
-                            <label for="m_slot" class="col-form-label">Slots</label>
-                            <input id="m_slot" type="number" name="m_slot" placeholder="Exp:- 2"
-                                value="{{ $product->m_slot }}" class="form-control">
-                            @error('m_slot')
-                                <span class="text-danger">{{ $message }}</span>
-                            @enderror
-                        </div>
-
-                        <!-- Other's information -->
-                        <div class="form-group">
-                            <label for="m_other" class="col-form-label">Others</label>
-                            <textarea class="form-control" id="m_other" name="m_other">{{ $product->m_other }}</textarea>
-                            @error('m_other')
-                                <span class="text-danger">{{ $message }}</span>
-                            @enderror
-                        </div>
-                    </div>
-                </div> --}}
-
-
 
 
                 {{-- Warranty Attributes --}}
@@ -407,6 +276,124 @@
                     @enderror
                 </div>
 
+
+                <div class="form-group">
+                    <label class="col-form-label">Product Sizes</label>
+                    @error('sizes')
+                        <span class="text-danger d-block">{{ $message }}</span>
+                    @enderror
+                    <div class="size-container">
+                        <div id="size-rows">
+                            @if(old('sizes'))
+                                @foreach(old('sizes') as $key => $size)
+                                    <div class="row mb-2">
+                                        <div class="col-md-2">
+                                            <select name="sizes[{{ $key }}][display_size_id]" class="form-control">
+                                                <option value="">Select Size</option>
+                                                @foreach($d_sizes as $d_size)
+                                                    <option value="{{ $d_size->id }}" {{ $size['display_size_id'] == $d_size->id ? 'selected' : '' }}>
+                                                        {{ $d_size->size }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                            @error("sizes.{$key}.display_size_id")
+                                                <span class="text-danger">{{ $message }}</span>
+                                            @enderror
+                                        </div>
+                                        <div class="col-md-2">
+                                            <input type="number" name="sizes[{{ $key }}][price]"
+                                                   value="{{ $size['price'] }}"
+                                                   class="form-control price-input"
+                                                   placeholder="Price" step="0.01">
+                                            @error("sizes.{$key}.price")
+                                                <span class="text-danger">{{ $message }}</span>
+                                            @enderror
+                                        </div>
+                                        <div class="col-md-2">
+                                            <input type="number" name="sizes[{{ $key }}][discount]"
+                                                   value="{{ $size['discount'] ?? 0 }}"
+                                                   class="form-control discount-input"
+                                                   placeholder="Discount" step="0.01">
+                                            @error("sizes.{$key}.discount")
+                                                <span class="text-danger">{{ $message }}</span>
+                                            @enderror
+                                        </div>
+                                        <div class="col-md-2">
+                                            <input type="number" name="sizes[{{ $key }}][final_price]"
+                                                   value="{{ $size['final_price'] }}"
+                                                   class="form-control final-price"
+                                                   placeholder="Final Price" step="0.01" readonly>
+                                            @error("sizes.{$key}.final_price")
+                                                <span class="text-danger">{{ $message }}</span>
+                                            @enderror
+                                        </div>
+                                        <div class="col-md-2">
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input"
+                                                       name="sizes[{{ $key }}][is_show]"
+                                                       id="isShow_{{ $key }}"
+                                                       value="1"
+                                                       {{ isset($size['is_show']) ? 'checked' : '' }}>
+                                                <label class="custom-control-label" for="isShow_{{ $key }}">Show by default</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <button type="button" class="btn btn-danger btn-remove-size">Remove</button>
+                                        </div>
+                                    </div>
+                                @endforeach
+                            @else
+                                @foreach($product->sizes as $key => $size)
+                                    <div class="row mb-2">
+                                        <div class="col-md-2">
+                                            <select name="sizes[{{ $key }}][display_size_id]" class="form-control">
+                                                <option value="">Select Size</option>
+                                                @foreach($d_sizes as $d_size)
+                                                    <option value="{{ $d_size->id }}" {{ $size->display_size_id == $d_size->id ? 'selected' : '' }}>
+                                                        {{ $d_size->size }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <input type="number" name="sizes[{{ $key }}][price]"
+                                                   value="{{ $size->price }}"
+                                                   class="form-control price-input"
+                                                   placeholder="Price" step="0.01">
+                                        </div>
+                                        <div class="col-md-2">
+                                            <input type="number" name="sizes[{{ $key }}][discount]"
+                                                   value="{{ $size->discount }}"
+                                                   class="form-control discount-input"
+                                                   placeholder="Discount" step="0.01">
+                                        </div>
+                                        <div class="col-md-2">
+                                            <input type="number" name="sizes[{{ $key }}][final_price]"
+                                                   value="{{ $size->final_price }}"
+                                                   class="form-control final-price"
+                                                   placeholder="Final Price" step="0.01" readonly>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input"
+                                                       name="sizes[{{ $key }}][is_show]"
+                                                       id="isShow_{{ $key }}"
+                                                       value="1"
+                                                       {{ $size->is_show ? 'checked' : '' }}>
+                                                <label class="custom-control-label" for="isShow_{{ $key }}">Show by default</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <button type="button" class="btn btn-danger btn-remove-size">Remove</button>
+                                        </div>
+                                    </div>
+                                @endforeach
+                            @endif
+                        </div>
+                        <button type="button" class="btn btn-primary" id="add-size">Add Size</button>
+                    </div>
+                </div>
+
                 <div class="mb-3 form-group">
                     <button type="reset" class="btn btn-warning">Reset</button>
                     <button class="btn btn-success" type="submit">Update</button>
@@ -526,16 +513,7 @@
                                     });
                                 }
                             }
-                            let other_cats = '';
-                            $.each(response.data.categories, function(index, cat) {
-                                other_cats += `<div class="input-group-prepend ml-1">
-                                                    <div class="input-group-text bg-white">
-                                                        <input id="other_cats${index}" @checked($other_cat->isHasThisProduct($product->slug)) name="other_cats_id[${index}]" value="${cat.id}" type="checkbox">
-                                                    </div>
-                                                    <label for="other_cats${index}" class="input-group-text">${cat.title}</label>
-                                                </div>`;
-                            });
-                            $('#other_cat_div').html(other_cats);
+
                             $('#child_cat_id').html(html_option);
                         }
                     });
@@ -590,6 +568,64 @@
 
                 function photoShow() {
                     $('#photo_show').html(images_div);
+                }
+            });
+
+            let sizeIndex = $('#size-rows .row').length - 1;
+
+            // Calculate final price
+            $(document).on('input', '.price-input, .discount-input', function() {
+                let row = $(this).closest('.row');
+                let price = parseFloat(row.find('.price-input').val()) || 0;
+                let discount = parseFloat(row.find('.discount-input').val()) || 0;
+                let finalPrice = price - discount;
+                row.find('.final-price').val(finalPrice >= 0 ? finalPrice : 0);
+            });
+
+            // Add new size row
+            $('#add-size').click(function() {
+                sizeIndex++;
+                let newRow = `
+                    <div class="row mb-2">
+                        <div class="col-md-2">
+                            <select name="sizes[${sizeIndex}][display_size_id]" class="form-control">
+                                <option value="">Select Size</option>
+                                @foreach($d_sizes as $size)
+                                    <option value="{{ $size->id }}">{{ $size->size }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="col-md-2">
+                            <input type="number" name="sizes[${sizeIndex}][price]" class="form-control price-input"
+                                   placeholder="Price" step="0.01">
+                        </div>
+                        <div class="col-md-2">
+                            <input type="number" name="sizes[${sizeIndex}][discount]" class="form-control discount-input"
+                                   placeholder="Discount" step="0.01" value="0">
+                        </div>
+                        <div class="col-md-2">
+                            <input type="number" name="sizes[${sizeIndex}][final_price]" class="form-control final-price"
+                                   placeholder="Final Price" step="0.01" readonly>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="custom-control custom-checkbox">
+                                <input type="checkbox" class="custom-control-input"
+                                       name="sizes[${sizeIndex}][is_show]" id="isShow_${sizeIndex}" value="1">
+                                <label class="custom-control-label" for="isShow_${sizeIndex}">Show by default</label>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <button type="button" class="btn btn-danger btn-remove-size">Remove</button>
+                        </div>
+                    </div>
+                `;
+                $('#size-rows').append(newRow);
+            });
+
+            // Remove size row
+            $(document).on('click', '.btn-remove-size', function() {
+                if ($('#size-rows .row').length > 1) {
+                    $(this).closest('.row').remove();
                 }
             });
         });

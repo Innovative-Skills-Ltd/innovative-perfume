@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UpdateProductRequest extends FormRequest
 {
@@ -21,22 +22,36 @@ class UpdateProductRequest extends FormRequest
      */
     public function rules(): array
     {
-        return   [
-            'title' => 'string|required|max:255',
+        return [
+            'title' => 'required|string|max:255',
+            'slug' => ['required', 'string', Rule::unique('products')->ignore($this->product)],
+            'photo' => 'nullable|array',
+            'photo.*' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
+            'mpn' => 'nullable|string|max:255',
+            'summary' => 'nullable|string',
+            'description' => 'nullable|string',
+            'stock' => 'required|integer|min:0',
+            'brand_id' => 'required|exists:brands,id',
+            'cat_id' => 'required|exists:categories,id',
+            'child_cat_id' => 'nullable|exists:categories,id',
+            'is_featured' => 'boolean',
+            'status' => ['required', Rule::in(['active', 'inactive'])],
+            'serial' => 'required|integer',
+
+            // Product sizes validation
+            'sizes' => 'required|array|min:1',
+            'sizes.*.display_size_id' => 'required|exists:display_sizes,id',
+            'sizes.*.price' => 'required|numeric|min:0',
+            'sizes.*.discount' => 'nullable|numeric|min:0',
+            'sizes.*.final_price' => 'required|numeric|min:0',
+            'sizes.*.is_show' => 'nullable|boolean',
+
             'price' => 'required|string',
             'final_price' => 'nullable|string',
             'inventory_cost' => 'required|string',
-            'photo' => 'array|nullable',
-            'stock' => "required|numeric",
             'model' => 'string|nullable|max:255',
-            'mpn' => 'string|nullable|max:255',
             'discount' => 'nullable|numeric',
-            'summary' => 'string|nullable',
-            'description' => 'string|nullable',
-            'brand_id' => 'nullable|exists:brands,id',
-            'cat_id' => 'nullable|exists:categories,id',
             'other_cats.*' => 'nullable|exists:categories,id',
-            'child_cat_id' => 'nullable|exists:categories,id',
             'condition' => 'string|nullable|max:255',
             'brand_name' => 'nullable|string|max:255',
             'processor_model_name' => 'nullable|string|max:255',
@@ -47,11 +62,6 @@ class UpdateProductRequest extends FormRequest
             'ssd_name' => 'nullable|string|max:255',
             'hdd_name' => 'nullable|string|max:255',
             'graphic_name' => 'nullable|string|max:255',
-            // 'upcomming'=> "sometimes|in:1",
-            'is_featured' => 'sometimes|in:1',
-            'serial' => 'required|numeric|max:20000',
-            'status' => 'nullable|in:active,inactive',
-            // 'condition'=> 'nullable|in:default,new,hot',
             'special_feature' => 'nullable',
 
             //Processore Attributes
@@ -131,6 +141,21 @@ class UpdateProductRequest extends FormRequest
 
             //Warranty Attributes
             'w_details' => 'nullable|string|max:255',
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'title.required' => 'Product title is required',
+            'slug.required' => 'Product slug is required',
+            'slug.unique' => 'This slug has already been taken',
+            'serial.required' => 'Product serial is required',
+            'status.required' => 'Product status is required',
+            'sizes.required' => 'At least one size is required',
+            'sizes.*.display_size_id.required' => 'Size selection is required',
+            'sizes.*.price.required' => 'Price is required for each size',
+            'sizes.*.final_price.required' => 'Final price is required for each size'
         ];
     }
 }
