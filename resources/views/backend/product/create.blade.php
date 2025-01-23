@@ -107,7 +107,7 @@
 
                     {{-- {{$categories}} --}}
                     <div class="form-group" id="cat_div">
-                        <label for="cat_id">Category</label>
+                        <label for="cat_id">Category <span class="text-danger">*</span></label>
                         <select name="cat_id" id="cat_id" class="form-control">
                             <option value="">--Select any category--</option>
                             @foreach ($categories as $key => $cat_data)
@@ -352,40 +352,104 @@
 
                 <div class="form-group">
                     <label class="col-form-label">Product Sizes</label>
+                    @error('sizes')
+                        <span class="text-danger d-block">{{ $message }}</span>
+                    @enderror
                     <div class="size-container">
                         <div id="size-rows">
-                            <div class="row mb-2">
-                                <div class="col-md-2">
-                                    <select name="sizes[0][display_size_id]" class="form-control">
-                                        <option value="">Select Size</option>
-                                        @foreach($d_sizes as $size)
-                                            <option value="{{ $size->id }}">{{ $size->size }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                                <div class="col-md-2">
-                                    <input type="number" name="sizes[0][price]" class="form-control price-input"
-                                           placeholder="Price" step="0.01">
-                                </div>
-                                <div class="col-md-2">
-                                    <input type="number" name="sizes[0][discount]" class="form-control discount-input"
-                                           placeholder="Discount" step="0.01" value="0">
-                                </div>
-                                <div class="col-md-2">
-                                    <input type="number" name="sizes[0][final_price]" class="form-control final-price"
-                                           placeholder="Final Price" step="0.01" readonly>
-                                </div>
-                                <div class="col-md-2">
-                                    <div class="custom-control custom-checkbox">
-                                        <input type="checkbox" class="custom-control-input"
-                                               name="sizes[0][is_show]" id="isShow_0" value="1">
-                                        <label class="custom-control-label" for="isShow_0">Show by default</label>
+                            @if(old('sizes'))
+                                @foreach(old('sizes') as $key => $size)
+                                    <div class="row mb-2">
+                                        <div class="col-md-2">
+                                            <select name="sizes[{{ $key }}][display_size_id]" class="form-control">
+                                                <option value="">Select Size</option>
+                                                @foreach($d_sizes as $d_size)
+                                                    <option value="{{ $d_size->id }}" {{ $size['display_size_id'] == $d_size->id ? 'selected' : '' }}>
+                                                        {{ $d_size->size }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                            @error("sizes.{$key}.display_size_id")
+                                                <span class="text-danger">{{ $message }}</span>
+                                            @enderror
+                                        </div>
+                                        <div class="col-md-2">
+                                            <input type="number" name="sizes[{{ $key }}][price]"
+                                                   value="{{ $size['price'] }}"
+                                                   class="form-control price-input"
+                                                   placeholder="Price" step="0.01">
+                                            @error("sizes.{$key}.price")
+                                                <span class="text-danger">{{ $message }}</span>
+                                            @enderror
+                                        </div>
+                                        <div class="col-md-2">
+                                            <input type="number" name="sizes[{{ $key }}][discount]"
+                                                   value="{{ $size['discount'] ?? 0 }}"
+                                                   class="form-control discount-input"
+                                                   placeholder="Discount" step="0.01">
+                                            @error("sizes.{$key}.discount")
+                                                <span class="text-danger">{{ $message }}</span>
+                                            @enderror
+                                        </div>
+                                        <div class="col-md-2">
+                                            <input type="number" name="sizes[{{ $key }}][final_price]"
+                                                   value="{{ $size['final_price'] }}"
+                                                   class="form-control final-price"
+                                                   placeholder="Final Price" step="0.01" readonly>
+                                            @error("sizes.{$key}.final_price")
+                                                <span class="text-danger">{{ $message }}</span>
+                                            @enderror
+                                        </div>
+                                        <div class="col-md-2">
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input"
+                                                       name="sizes[{{ $key }}][is_show]"
+                                                       id="isShow_{{ $key }}"
+                                                       value="1"
+                                                       {{ isset($size['is_show']) ? 'checked' : '' }}>
+                                                <label class="custom-control-label" for="isShow_{{ $key }}">Show by default</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <button type="button" class="btn btn-danger btn-remove-size">Remove</button>
+                                        </div>
+                                    </div>
+                                @endforeach
+                            @else
+                                <!-- Default single size row -->
+                                <div class="row mb-2">
+                                    <div class="col-md-2">
+                                        <select name="sizes[0][display_size_id]" class="form-control">
+                                            <option value="">Select Size</option>
+                                            @foreach($d_sizes as $size)
+                                                <option value="{{ $size->id }}">{{ $size->size }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <input type="number" name="sizes[0][price]" class="form-control price-input"
+                                               placeholder="Price" step="0.01">
+                                    </div>
+                                    <div class="col-md-2">
+                                        <input type="number" name="sizes[0][discount]" class="form-control discount-input"
+                                               placeholder="Discount" step="0.01" value="0">
+                                    </div>
+                                    <div class="col-md-2">
+                                        <input type="number" name="sizes[0][final_price]" class="form-control final-price"
+                                               placeholder="Final Price" step="0.01" readonly>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="custom-control custom-checkbox">
+                                            <input type="checkbox" class="custom-control-input"
+                                                   name="sizes[0][is_show]" id="isShow_0" value="1">
+                                            <label class="custom-control-label" for="isShow_0">Show by default</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <button type="button" class="btn btn-danger btn-remove-size">Remove</button>
                                     </div>
                                 </div>
-                                <div class="col-md-2">
-                                    <button type="button" class="btn btn-danger btn-remove-size">Remove</button>
-                                </div>
-                            </div>
+                            @endif
                         </div>
                         <button type="button" class="btn btn-primary" id="add-size">Add Size</button>
                     </div>
@@ -613,10 +677,12 @@
                                     <option value="{{ $size->id }}">{{ $size->size }}</option>
                                 @endforeach
                             </select>
+                            <span class="text-danger" id="error-size-${sizeIndex}"></span>
                         </div>
                         <div class="col-md-2">
                             <input type="number" name="sizes[${sizeIndex}][price]" class="form-control price-input"
                                    placeholder="Price" step="0.01">
+                            <span class="text-danger" id="error-price-${sizeIndex}"></span>
                         </div>
                         <div class="col-md-2">
                             <input type="number" name="sizes[${sizeIndex}][discount]" class="form-control discount-input"
