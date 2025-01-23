@@ -23,13 +23,50 @@ class CatWiseShop extends Component
 {
     public $cat;
     public $subcat;
-    public $prds=null;
+    public $prds = null;
     // public $slug_wise_product;
     // public function mount(){
     //     $this->slug_wise_product = Product::where('cat_id',$cat->id)->orderBy('id','desc')->paginate(20)->where('status','active')->orderBy('id','desc')->paginate(20);
     // }
     public function render()
     {
+        $per_page = request()->per_page ?? 20;
+        $sort_by = request()->sort_by ?? 'newest';
+
+        // Get base query
+        $query = Product::with(['sizes', 'sizes.size', 'cat_info', 'sub_cat_info', 'brand'])
+                        ->where('status', 'active');
+
+        // Apply category filters
+        if ($this->subcat) {
+            $subcat = Category::where('slug', $this->subcat)->first();
+            $query->where('child_cat_id', $subcat->id);
+        } else {
+            $cat = Category::where('slug', $this->cat)->first();
+            $query->where('cat_id', $cat->id);
+        }
+
+        // Apply sorting
+        switch ($sort_by) {
+            case 'price_asc':
+                $query->orderBy('final_price', 'asc');
+                break;
+            case 'price_desc':
+                $query->orderBy('final_price', 'desc');
+                break;
+            case 'popularity':
+                $query->orderBy('views', 'desc');
+                break;
+            case 'average_rating':
+                $query->orderBy('average_rating', 'desc');
+                break;
+            default:
+                $query->orderBy('id', 'desc');
+                break;
+        }
+
+        // Get filter options
+        $n['products'] = $query->paginate($per_page);
         $n['brands'] = Brand::get();
         $n['p_models'] = ProcessorModel::get();
         $n['p_generations'] = ProcessorGeneration::get();
@@ -40,22 +77,6 @@ class CatWiseShop extends Component
         $n['hdds'] = hdd::get();
         $n['graphics'] = Graphic::get();
         $n['s_features'] = SpecialFeature::get();
-        if($this->subcat){
-            $subcat = Category::where('slug', $this->subcat)->first();
-            $n['products'] = Product::with('sizes','sizes.size','cat_info','sub_cat_info','brand')
-                                    // ->where('is_showable_to_user',1)
-                                    ->where('child_cat_id', $subcat->id)
-                                    ->where('status', 'active')
-                                    ->orderBy('id','desc')
-                                    ->paginate(20);
-        }else{
-            $cat = Category::where('slug', $this->cat)->first();
-            $n['products'] = Product::with('sizes','sizes.size','cat_info','sub_cat_info','brand')
-                                    // ->where('is_showable_to_user',1)
-                                    ->where('cat_id', $cat->id)
-                                    ->where('status', 'active')
-                                    ->orderBy('id','desc')->paginate(20);
-        }
 
         return view('livewire.shop', $n);
     }
