@@ -40,7 +40,7 @@ class ProductController extends Controller
 
     public function index()
     {
-        $n['products'] = Product::with('cat_info', 'sub_cat_info', 'brand', 'ProcessorGeneration', 'ProcessorModel', 'DisplayType', 'DisplaySize', 'Ram', 'ssd', 'hdd', 'Graphic', 'SpecialFeature')
+        $n['products'] = Product::with('cat_info', 'sub_cat_info', 'brand')
             ->orderBy('serial', 'desc')
             ->where('is_showable_to_user', 1)
             // ->where('slug','possimus-dolorum-mo')
@@ -244,7 +244,7 @@ class ProductController extends Controller
     public function show($id)
     {
         // dd($id);
-        $product = Product::with('cat_info', 'sub_cat_info', 'brand', 'ProcessorGeneration', 'ProcessorModel', 'DisplayType', 'DisplaySize', 'Ram', 'ssd', 'hdd', 'Graphic', 'SpecialFeature')
+        $product = Product::with('cat_info', 'sub_cat_info', 'brand','sizes','sizes.size')
             ->find($id);
         // return $products;
         return view('backend.product.show')->with('product', $product);
@@ -259,7 +259,7 @@ class ProductController extends Controller
     public function edit($id)
     {
         $this->ccan('Edit Product');
-        $n['product'] = Product::with('cat_info', 'installment', 'sub_cat_info', 'brand', 'ProcessorGeneration', 'ProcessorModel', 'DisplayType', 'DisplaySize', 'Ram', 'ssd', 'hdd', 'Graphic', 'SpecialFeature')
+        $n['product'] = Product::with('cat_info', 'installment', 'sub_cat_info', 'brand', 'sizes','sizes.size')
             ->find($id);
         $n['brands'] = Brand::get();
         $n['brands'] = Brand::get();

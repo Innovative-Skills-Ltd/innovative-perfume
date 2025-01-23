@@ -170,50 +170,6 @@ class Product extends Model
         return $this->belongsTo(Brand::class);
     }
 
-    public function ProcessorGeneration()
-    {
-        return $this->belongsTo(ProcessorGeneration::class);
-    }
-
-    public function ProcessorModel()
-    {
-        return $this->belongsTo(ProcessorModel::class);
-    }
-
-    public function DisplayType()
-    {
-        return $this->belongsTo(DisplayType::class);
-    }
-
-    public function DisplaySize()
-    {
-        return $this->belongsTo(DisplaySize::class);
-    }
-
-    public function Ram()
-    {
-        return $this->belongsTo(Ram::class);
-    }
-
-    public function ssd()
-    {
-        return $this->belongsTo(ssd::class);
-    }
-
-    public function hdd()
-    {
-        return $this->belongsTo(hdd::class);
-    }
-
-    public function Graphic()
-    {
-        return $this->belongsTo(Graphic::class);
-    }
-
-    public function SpecialFeature()
-    {
-        return $this->belongsTo(SpecialFeature::class);
-    }
     public function ProductOffer()
     {
         return $this->belongsTo(ProductOffer::class);
