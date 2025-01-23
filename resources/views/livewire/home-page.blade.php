@@ -81,7 +81,7 @@
                                         </h1>
                                         <p class="text-lg font-medium animate__fadeInRightBig animate__animated">
                                             New Price:
-                                            <span class="text-3xl font-semibold text-primary">BDT {{ $product_size?->final_price }}</span>
+                                            <span class="text-3xl font-semibold text-primary">BDT {{ number_format($product_size?->final_price, 2) }}</span>
                                         </p>
                                     </div>
                                     <div>
@@ -214,8 +214,8 @@
                                             <h4 class="text-sm text-center pb-3">
                                                 @if($na->sizes->where('is_show', true)->first())
                                                     @php $defaultSize = $na->sizes->where('is_show', true)->first(); @endphp
-                                                    <del class="">${{ number_format($defaultSize->price, 2) }}</del>
-                                                    <span class="font-bold text-black">${{ number_format($defaultSize->final_price, 2) }}</span>
+                                                    <del class="">BDT {{ number_format($defaultSize->price, 2) }}</del>
+                                                    <span class="font-bold text-black">BDT {{ number_format($defaultSize->final_price, 2) }}</span>
                                                     <span class="text-xs">({{ $defaultSize->size->size }})</span>
                                                 @endif
                                             </h4>
@@ -287,7 +287,7 @@
                 </p>
                 <p class="mb-5 text-hard">
                     Price from:
-                    <span class="text-primary text-3xl font-semibold">$45.00</span>
+                    <span class="text-primary text-3xl font-semibold">BDT 45.00</span>
                 </p>
                 <button class="text-sm font-bold pb-2 border-b-2 uppercase border-black">
                     Shop Now
@@ -297,28 +297,28 @@
     <!-- Collection Arrival End  -->
 
     <!-- Products Start -->
-        <section class="my-20" x-data="productFilter()">
+        <section class="my-20" x-data="{ selectedCategory: 'new_arrivals' }">
             <div class="mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl">
                 <!-- Category Buttons -->
                 <div class="flex flex-wrap gap-5 items-center justify-center mb-14">
                     <div class="mx-5">
-                        <button class="font-medium text-lg rounded-full bg-black text-white py-2 px-6"
-                            :class="selectedCategory === 'bestseller' ? 'bg-primary' : 'bg-black'"
-                            @click="selectCategory('bestseller')">
+                        <button class="font-medium text-lg rounded-full py-2 px-6"
+                            :class="selectedCategory === 'bestseller' ? 'bg-primary text-white' : 'bg-black text-white'"
+                            @click="selectedCategory = 'bestseller'">
                             Bestseller
                         </button>
                     </div>
                     <div class="mx-5">
-                        <button class="font-medium text-lg rounded-full bg-black text-white py-2 px-6"
-                            :class="selectedCategory === 'new_arrivals' ? 'bg-primary' : 'bg-black'"
-                            @click="selectCategory('new_arrivals')">
+                        <button class="font-medium text-lg rounded-full py-2 px-6"
+                            :class="selectedCategory === 'new_arrivals' ? 'bg-primary text-white' : 'bg-black text-white'"
+                            @click="selectedCategory = 'new_arrivals'">
                             New Arrivals
                         </button>
                     </div>
                     <div class="mx-5">
-                        <button class="font-medium text-lg rounded-full bg-black text-white py-2 px-6"
-                            :class="selectedCategory === 'top_rated' ? 'bg-primary' : 'bg-black'"
-                            @click="selectCategory('top_rated')">
+                        <button class="font-medium text-lg rounded-full py-2 px-6"
+                            :class="selectedCategory === 'top_rated' ? 'bg-primary text-white' : 'bg-black text-white'"
+                            @click="selectedCategory = 'top_rated'">
                             Top Rated
                         </button>
                     </div>
@@ -326,53 +326,22 @@
 
                 <!-- Product Grid -->
                 <div class="grid grid-cols-1 md:grid-cols-4 gap-5">
-                    <template x-for="product in filteredProducts" :key="product.id">
-                        <a :href="product.link">
-                            <div class="group cursor-pointer">
-                                <div class="border group-hover:border-[#ab8e66] transition-all duration-300">
-                                    <div class="relative w-full">
-                                        <img :src="product.photo" class="w-full" />
-                                        <div class="top-0 left-0 right-0 bottom-0 m-auto absolute h-full">
-                                            <div class="h-full flex items-center justify-center">
-                                                <div
-                                                    class="bg-primary flex rounded-full group-hover:mt-0 transition-all duration-300 ease-in-out group-hover:opacity-100 opacity-0 mt-20">
-                                                    <div class="w-11 h-11 flex items-center justify-end">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="24"
-                                                            height="24" viewBox="0 0 24 24">
-                                                            <path fill="none" stroke="#fff" stroke-linecap="round"
-                                                                stroke-linejoin="round" stroke-width="1.5"
-                                                                d="M7.75 3.5C5.127 3.5 3 5.76 3 8.547C3 14.125 12 20.5 12 20.5s9-6.375 9-11.953C21 5.094 18.873 3.5 16.25 3.5c-1.86 0-3.47 1.136-4.25 2.79c-.78-1.654-2.39-2.79-4.25-2.79" />
-                                                        </svg>
-                                                    </div>
-                                                    <div class="w-11 h-11 flex items-center justify-center">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="24"
-                                                            height="24" viewBox="0 0 24 24">
-                                                            <path fill="none" stroke="#fff" stroke-linecap="round"
-                                                                stroke-linejoin="round" stroke-width="1.5"
-                                                                d="m21 21l-4.343-4.343m0 0A8 8 0 1 0 5.343 5.343a8 8 0 0 0 11.314 11.314" />
-                                                        </svg>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="items-center justify-center absolute top-2 left-2">
-                                            <div
-                                                class="bg-primary w-10 h-5 flex items-center justify-center text-white font-bold rounded-full">
-                                                <span class="text-xs" x-text="product.tag"></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <h3 class="text-primary text-lg font-medium text-center mt-5 mb-2"
-                                        x-text="product.title"></h3>
-                                    <div>
-                                        <h4 class="text-sm text-center pb-3">
-                                            <del x-text="product.originalPrice"></del>
-                                            <span class="font-bold text-black" x-text="product.discountedPrice"></span>
-                                        </h4>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
+                    <template x-if="selectedCategory === 'new_arrivals'">
+                        @foreach($new_arrival as $product)
+                            @include('components.product-card', ['product' => $product])
+                        @endforeach
+                    </template>
+
+                    <template x-if="selectedCategory === 'bestseller'">
+                        @foreach($bestsellers as $product)
+                            @include('components.product-card', ['product' => $product])
+                        @endforeach
+                    </template>
+
+                    <template x-if="selectedCategory === 'top_rated'">
+                        @foreach($top_rated as $product)
+                            @include('components.product-card', ['product' => $product])
+                        @endforeach
                     </template>
                 </div>
             </div>
@@ -545,7 +514,7 @@
                             </button>
                         </div>
                     </a>
-                    <a href="{{ route('product.details', $first_product->slug) }}" class="swiper-slide">
+                    <a href="{{ route('product.details', $first_product?->slug) }}" class="swiper-slide">
                         <div>
                             <div class="relative group">
                                 <img src="https://dreamingtheme.kiendaotac.com/html/stelina/assets/images/slider-blog-thumb-2.jpg"
@@ -666,7 +635,7 @@
                             class="absolute group-hover:opacity-100 opacity-0 transition-all duration-300 top-0 right-0 bottom-0 left-0 m-auto">
                             <g fill="none" stroke="#fff" stroke-width="1.5">
                                 <path stroke-linecap="round" stroke-linejoin="round"
-                                    d="M12 16a4 4 0 1 0 0-8a4 4 0 0 0 0 8" />
+                                      d="M12 16a4 4 0 1 0 0-8a4 4 0 0 0 0 8" />
                                 <path d="M3 16V8a5 5 0 0 1 5-5h8a5 5 0 0 1 5 5v8a5 5 0 0 1-5 5H8a5 5 0 0 1-5-5Z" />
                                 <path stroke-linecap="round" stroke-linejoin="round" d="m17.5 6.51l.01-.011" />
                             </g>
@@ -685,7 +654,7 @@
                             class="absolute group-hover:opacity-100 opacity-0 transition-all duration-300 top-0 right-0 bottom-0 left-0 m-auto">
                             <g fill="none" stroke="#fff" stroke-width="1.5">
                                 <path stroke-linecap="round" stroke-linejoin="round"
-                                      d="M12 16a4 4 0 1 0 0-8a4 4 0 0 0 0 8" />
+                                    d="M12 16a4 4 0 1 0 0-8a4 4 0 0 0 0 8" />
                                 <path d="M3 16V8a5 5 0 0 1 5-5h8a5 5 0 0 1 5 5v8a5 5 0 0 1-5 5H8a5 5 0 0 1-5-5Z" />
                                 <path stroke-linecap="round" stroke-linejoin="round" d="m17.5 6.51l.01-.011" />
                             </g>

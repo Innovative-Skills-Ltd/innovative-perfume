@@ -254,4 +254,18 @@ class Product extends Model
     {
         return $this->hasMany(ProductSize::class);
     }
+
+    public function scopeBestSellers($query)
+    {
+        return $query->where('status', 'active')
+                    ->where('is_showable_to_user', 1)
+                    ->orderBy('views', 'desc');  // Assuming 'views' indicates popularity
+    }
+
+    public function scopeTopRated($query)
+    {
+        return $query->where('status', 'active')
+                    ->where('is_showable_to_user', 1)
+                    ->orderBy('average_rating', 'desc');
+    }
 }

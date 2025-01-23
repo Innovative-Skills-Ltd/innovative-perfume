@@ -146,7 +146,7 @@
                                         <h3 class="font-bold text-black text-2xl">
                                             @if($cproduct->sizes->where('is_show', true)->first())
                                                 @php $defaultSize = $cproduct->sizes->where('is_show', true)->first(); @endphp
-                                                ${{ $defaultSize->final_price }}
+                                                BDT {{ number_format($defaultSize->final_price, 2) }}
                                                 <span class="text-sm">({{ $defaultSize->size->size }})</span>
                                             @endif
                                         </h3>
@@ -241,8 +241,8 @@
                                             <h4 class="text-sm text-center pb-3">
                                                 @if($gproduct->sizes->where('is_show', true)->first())
                                                     @php $defaultSize = $gproduct->sizes->where('is_show', true)->first(); @endphp
-                                                    <del class="">${{ $defaultSize->price }}</del>
-                                                    <span class="font-bold text-black">${{ $defaultSize->final_price }}</span>
+                                                    <del class="">BDT {{ number_format($defaultSize->price, 2) }}</del>
+                                                    <span class="font-bold text-black">BDT {{ number_format($defaultSize->final_price, 2) }}</span>
                                                     <span class="text-xs">({{ $defaultSize->size->size }})</span>
                                                 @endif
                                             </h4>
