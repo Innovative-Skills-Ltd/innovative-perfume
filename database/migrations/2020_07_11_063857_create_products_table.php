@@ -30,12 +30,12 @@ class CreateProductsTable extends Migration
             $table->id();
             $table->string('slug');
             $table->string('title');
-            $table->string('price');
+            // $table->string('price');
             $table->text('photo');
-            $table->string('final_price');
-            $table->float('discount')->default(0);
-            $table->string('inventory_cost');
-            $table->text('model')->nullable();
+            // $table->string('final_price');
+            // $table->float('discount')->default(0);
+            // $table->string('inventory_cost');
+            // $table->text('model')->nullable();
             $table->string('mpn')->nullable();
             $table->text('summary')->nullable();
             $table->longText('description')->nullable();
@@ -45,9 +45,9 @@ class CreateProductsTable extends Migration
             $table->unsignedBigInteger('child_cat_id')->nullable();
             $table->date('upcomming')->nullable();
             $table->boolean('is_featured')->deault(false);
-            $table->boolean('is_student')->deault(false);
+            // $table->boolean('is_student')->deault(false);
             $table->enum('status', ['active', 'inactive'])->default('active');
-            $table->longText('special_feature')->nullable();
+            // $table->longText('special_feature')->nullable();
             $table->integer('average_rating')->default(5);
             $table->unsignedBigInteger('views')->nullable();
             $table->unsignedBigInteger('serial');
@@ -61,10 +61,10 @@ class CreateProductsTable extends Migration
 
 
             //Physical Specification => (4)
-            $table->string('color')->nullable();
-            $table->string('dimension')->nullable();
-            $table->string('weight')->nullable();
-            $table->text('physi_other')->nullable();
+            // $table->string('color')->nullable();
+            // $table->string('dimension')->nullable();
+            // $table->string('weight')->nullable();
+            // $table->text('physi_other')->nullable();
 
             //Warranty => (1)
             $table->string('replacement_warranty')->nullable(); //replacement_warranty

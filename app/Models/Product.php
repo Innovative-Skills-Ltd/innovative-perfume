@@ -13,13 +13,41 @@ class Product extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'slug', 'title', 'model', 'mpn', 'price', 'discount', 'final_price', 'inventory_cost', 'summary', 'description', 'photo', 'stock', 'brand_id',
-        'cat_id', 'child_cat_id', 'upcomming', 'is_featured', 'is_student', 'status', 'special_feature', 'average_rating', 'views','serial', 'condition','is_showable_to_user', 'product_offer_id',
+        'slug',
+        'title',
+        'photo',
+        'mpn',
+        'summary',
+        'description',
+        'stock',
+        'brand_id',
+        'cat_id',
+        'child_cat_id',
+        'upcomming',
+        'is_featured',
+        'status',
+        'average_rating',
+        'views',
+        'serial',
+        'condition',
+        'is_showable_to_user',
+        'product_offer_id',
+        'replacement_warranty',
+        'motherboard_warranty',
+        'service_warranty',
+        'disclaimer',
+        'note',
+        'w_details'
+    ];
 
-        //Physical Specification Attributes
-        'color', 'dimension', 'weight', 'physi_other',
-        //Warranty Attributes
-        'w_details', 'replacement_warranty', 'motherboard_warranty', 'service_warranty', 'disclaimer', 'note',
+    protected $casts = [
+        'is_featured' => 'boolean',
+        'is_showable_to_user' => 'boolean',
+        'upcomming' => 'date',
+        'stock' => 'integer',
+        'views' => 'integer',
+        'serial' => 'integer',
+        'average_rating' => 'integer'
     ];
 
     static public function orderByFinalpriceAsc()
@@ -139,7 +167,7 @@ class Product extends Model
 
     public function brand()
     {
-        return $this->hasOne(Brand::class, 'id', 'brand_id');
+        return $this->belongsTo(Brand::class);
     }
 
     public function ProcessorGeneration()

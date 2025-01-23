@@ -7,7 +7,18 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class ProductSize extends Model
 {
-    protected $fillable = ['product_id', 'display_size_id', 'percentage', 'amount'];
+    protected $fillable = [
+        'product_id',
+        'display_size_id',
+        'price',
+        'discount',
+        'final_price',
+        'is_show'
+    ];
+
+    protected $casts = [
+        'is_show' => 'boolean'
+    ];
 
     public function product(): BelongsTo
     {

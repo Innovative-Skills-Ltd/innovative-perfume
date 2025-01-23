@@ -86,161 +86,152 @@ class ProductController extends Controller
     {
         $this->ccan('Create Product');
 
-        $data = $request->all();
-        $special_feature = '';
-        if ($request->special_feature) {
-            foreach ($request->special_feature as $sp) {
-                $special_feature = $special_feature . ', ' . $sp;
-            }
-        }
+        DB::beginTransaction();
+        try {
+            // Create product with existing logic
+            $data = $request->except('sizes');
 
-        $data['special_feature'] = $special_feature;
-        $slug = Str::slug($request->title);
-        $count = Product::where('slug', $slug)->count();
-
-        if ($count > 0) {
-            $slug = $slug . '-' . date('ymdis') . '-' . rand(0, 999);
-        }
-
-        $data['slug'] = $slug;
-        $data['is_featured'] = $request->input('is_featured', 0);
-
-        //brand firstOrCreate
-        if ($request->brand_name) {
-            $slug = Str::slug($request->brand_name);
-            $brand_first = Brand::firstOrCreate([
-                'title' => $request->brand_name,
-                'slug' => $slug
-            ]);
-            $data['brand_id'] = $brand_first->id;
-        }
-
-        //child_cat firstOrCreate
-        if ($request->child_cat_name && $data['cat_id']) {
-            $slug = Str::slug($request->child_cat_name);
-            $child_cat_first = Category::firstOrCreate([
-                'title' => $request->child_cat_name,
-                'slug' => $slug,
-                'is_parent' => 0,
-                'parent_id' => $data['cat_id'],
-            ]);
-            $data['child_cat_id'] = $child_cat_first->id;
-        }
-
-        //processor_model firstOrCreate
-        if ($request->processor_model_name) {
-            $processor_model_first = ProcessorModel::firstOrCreate([
-                'name' => $request->processor_model_name
-            ]);
-            $data['processor_model_id'] = $processor_model_first->id;
-        }
-
-        //processor_generation firstOrCreate
-        if ($request->processor_generation_name) {
-            $processor_generation_first = ProcessorGeneration::firstOrCreate([
-                'name' => $request->processor_generation_name
-            ]);
-            $data['processor_generation_id'] = $processor_generation_first->id;
-        }
-
-        //display_size firstOrCreate
-        if ($request->display_size_name) {
-            $display_size_first = DisplaySize::firstOrCreate([
-                'size' => $request->display_size_name
-            ]);
-            $data['display_size_id'] = $display_size_first->id;
-        }
-
-        //display_type firstOrCreate
-        if ($request->display_type_name) {
-            $display_type_first = DisplayType::firstOrCreate([
-                'name' => $request->display_type_name
-            ]);
-            $data['display_type_id'] = $display_type_first->id;
-        }
-
-        //ram firstOrCreate
-        if ($request->ram_name) {
-            $ram_first = Ram::firstOrCreate([
-                'capacity' => $request->ram_name
-            ]);
-            $data['ram_id'] = $ram_first->id;
-        }
-
-        //ssd firstOrCreate
-        if ($request->ssd_name) {
-            $ssd_first = ssd::firstOrCreate([
-                'name' => $request->ssd_name
-            ]);
-            $data['ssd_id'] = $ssd_first->id;
-        }
-
-        //hdd firstOrCreate
-        if ($request->hdd_name) {
-            $hdd_first = hdd::firstOrCreate([
-                'name' => $request->hdd_name
-            ]);
-            $data['hdd_id'] = $hdd_first->id;
-        }
-
-        //graphic firstOrCreate
-        if ($request->graphic_name) {
-            $graphic_first = Graphic::firstOrCreate([
-                'name' => $request->graphic_name
-            ]);
-            $data['graphic_id'] = $graphic_first->id;
-        }
-
-        // Photo Processing
-        if ($images = $request->file('photo')) {
-            $data['photo'] = '';
-            $name = Str::of($request->title)->before(' ');
-            $loop = 0;
-            $photo_count = count($images);
-            foreach ($images as $photo) {
-                ++$loop;
-                $rand = rand(1, 999999);
-                $named = $name . $rand . '.' . $photo->extension();
-                $path = Storage::putFileAs('laptops', $photo, $named);
-                $image_url = asset('/storage/' . $path);
-                $data['photo'] = $data['photo'] . $image_url . ($loop >= $photo_count ? '' : ',');
-            }
-        }
-        $data['is_showable_to_user'] = 1;
-        $status = Product::create($data);
-        // dd($data);
-        $data['is_showable_to_user'] = 0;
-        $child_cat_id = $data['child_cat_id'];
-        if ($ocats = $request->other_cats_id) {
-            foreach ($ocats as $ocat) {
-                $data['cat_id'] = $ocat;
-                $data['child_cat_id'] = $child_cat_id;
-
-                $is_exit_sub_cat = Category::where('parent_id', $ocat)->where('id', $data['child_cat_id'])->first();
-                if (!$is_exit_sub_cat) {
-                    unset($data['child_cat_id']);
-                }
-
-                Product::create($data);
-            }
-        }
-
-        if ($status) {
-            if ($drs = $request->durations) {
-                foreach ($drs as $dr) {
-                    if ($dr) {
-                        Installment::create([
-                            'duration_id' => $dr,
-                            'product_id' => $status->id,
-                        ]);
-                    }
+            $special_feature = '';
+            if ($request->special_feature) {
+                foreach ($request->special_feature as $sp) {
+                    $special_feature = $special_feature . ', ' . $sp;
                 }
             }
-            request()->session()->flash('success', 'Product Successfully added');
-        } else {
-            request()->session()->flash('error', 'Please try again!!');
+
+            $data['special_feature'] = $special_feature;
+            $slug = Str::slug($request->title);
+            $count = Product::where('slug', $slug)->count();
+
+            if ($count > 0) {
+                $slug = $slug . '-' . date('ymdis') . '-' . rand(0, 999);
+            }
+
+            $data['slug'] = $slug;
+            $data['is_featured'] = $request->input('is_featured', 0);
+
+            //brand firstOrCreate
+            if ($request->brand_name) {
+                $slug = Str::slug($request->brand_name);
+                $brand_first = Brand::firstOrCreate([
+                    'title' => $request->brand_name,
+                    'slug' => $slug
+                ]);
+                $data['brand_id'] = $brand_first->id;
+            }
+
+            //child_cat firstOrCreate
+            if ($request->child_cat_name && $data['cat_id']) {
+                $slug = Str::slug($request->child_cat_name);
+                $child_cat_first = Category::firstOrCreate([
+                    'title' => $request->child_cat_name,
+                    'slug' => $slug,
+                    'is_parent' => 0,
+                    'parent_id' => $data['cat_id'],
+                ]);
+                $data['child_cat_id'] = $child_cat_first->id;
+            }
+
+            //processor_model firstOrCreate
+            if ($request->processor_model_name) {
+                $processor_model_first = ProcessorModel::firstOrCreate([
+                    'name' => $request->processor_model_name
+                ]);
+                $data['processor_model_id'] = $processor_model_first->id;
+            }
+
+            //processor_generation firstOrCreate
+            if ($request->processor_generation_name) {
+                $processor_generation_first = ProcessorGeneration::firstOrCreate([
+                    'name' => $request->processor_generation_name
+                ]);
+                $data['processor_generation_id'] = $processor_generation_first->id;
+            }
+
+            //display_size firstOrCreate
+            if ($request->display_size_name) {
+                $display_size_first = DisplaySize::firstOrCreate([
+                    'size' => $request->display_size_name
+                ]);
+                $data['display_size_id'] = $display_size_first->id;
+            }
+
+            //display_type firstOrCreate
+            if ($request->display_type_name) {
+                $display_type_first = DisplayType::firstOrCreate([
+                    'name' => $request->display_type_name
+                ]);
+                $data['display_type_id'] = $display_type_first->id;
+            }
+
+            //ram firstOrCreate
+            if ($request->ram_name) {
+                $ram_first = Ram::firstOrCreate([
+                    'capacity' => $request->ram_name
+                ]);
+                $data['ram_id'] = $ram_first->id;
+            }
+
+            //ssd firstOrCreate
+            if ($request->ssd_name) {
+                $ssd_first = ssd::firstOrCreate([
+                    'name' => $request->ssd_name
+                ]);
+                $data['ssd_id'] = $ssd_first->id;
+            }
+
+            //hdd firstOrCreate
+            if ($request->hdd_name) {
+                $hdd_first = hdd::firstOrCreate([
+                    'name' => $request->hdd_name
+                ]);
+                $data['hdd_id'] = $hdd_first->id;
+            }
+
+            //graphic firstOrCreate
+            if ($request->graphic_name) {
+                $graphic_first = Graphic::firstOrCreate([
+                    'name' => $request->graphic_name
+                ]);
+                $data['graphic_id'] = $graphic_first->id;
+            }
+
+            // Photo Processing
+            if ($images = $request->file('photo')) {
+                $data['photo'] = '';
+                $name = Str::of($request->title)->before(' ');
+                $loop = 0;
+                $photo_count = count($images);
+                foreach ($images as $photo) {
+                    ++$loop;
+                    $rand = rand(1, 999999);
+                    $named = $name . $rand . '.' . $photo->extension();
+                    $path = Storage::putFileAs('laptops', $photo, $named);
+                    $image_url = asset('/storage/' . $path);
+                    $data['photo'] = $data['photo'] . $image_url . ($loop >= $photo_count ? '' : ',');
+                }
+            }
+            $data['is_showable_to_user'] = 1;
+            $product = Product::create($data);
+
+            // Handle product sizes
+            foreach ($request->sizes as $size) {
+                if (!empty($size['display_size_id'])) {
+                    $product->sizes()->create([
+                        'display_size_id' => $size['display_size_id'],
+                        'price' => $size['price'],
+                        'discount' => $size['discount'] ?? 0,
+                        'final_price' => $size['final_price'],
+                        'is_show' => isset($size['is_show']) ? true : false,
+                    ]);
+                }
+            }
+
+            DB::commit();
+            return redirect()->route('product.index')->with('success', 'Product successfully created');
+        } catch (\Exception $e) {
+            DB::rollback();
+            return redirect()->back()->with('error', $e->getMessage());
         }
-        return redirect()->route('product.index');
     }
 
     /**

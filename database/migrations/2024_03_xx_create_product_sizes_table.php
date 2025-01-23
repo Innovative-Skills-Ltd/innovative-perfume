@@ -12,8 +12,10 @@ return new class extends Migration
             $table->id();
             $table->foreignId('product_id')->constrained()->onDelete('cascade');
             $table->foreignId('display_size_id')->constrained()->onDelete('cascade');
-            $table->decimal('percentage', 5, 2)->nullable(); // Allow for -100.00 to 100.00
-            $table->decimal('amount', 10, 2)->nullable();
+            $table->decimal('price', 10, 2);
+            $table->decimal('discount', 10, 2)->default(0);
+            $table->decimal('final_price', 10, 2);
+            $table->boolean('is_show')->default(false);
             $table->timestamps();
         });
     }
