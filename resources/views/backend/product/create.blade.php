@@ -6,6 +6,15 @@
     <div class="card">
         <h5 class="card-header">Add Product</h5>
         <div class="card-body">
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
             <form method="post" action="{{ route('product.store') }}" enctype="multipart/form-data">
                 {{ csrf_field() }}
                 <div>
