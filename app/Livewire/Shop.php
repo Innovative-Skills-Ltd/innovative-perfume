@@ -34,16 +34,27 @@ class Shop extends Component
         $per_page = request()->per_page ?? 8;
         $sort_by = request()->sort_by ?? 'newest';
 
-        $query = Product::with(['ProcessorModel','ram','ssd','hdd','DisplaySize','DisplayType'])
-                        ->where('status', 'active')
-                        ->where('is_showable_to_user', 1);
+        $query = Product::with(['sizes' => function($q) {
+            $q->where('is_show', true);
+        }])
+        ->whereHas('sizes', function($q) {
+            $q->where('is_show', true);
+        })
+        ->where('status', 'active')
+        ->where('is_showable_to_user', 1);
 
         switch ($sort_by) {
             case 'price_asc':
-                $query->orderBy('final_price', 'asc');
+                $query->whereHas('sizes', function($q) {
+                    $q->where('is_show', true)
+                      ->orderBy('final_price', 'asc');
+                });
                 break;
             case 'price_desc':
-                $query->orderBy('final_price', 'desc');
+                $query->whereHas('sizes', function($q) {
+                    $q->where('is_show', true)
+                      ->orderBy('final_price', 'desc');
+                });
                 break;
             case 'popularity':
                 $query->orderBy('views', 'desc');
@@ -56,7 +67,7 @@ class Shop extends Component
                 break;
         }
 
-        $n['products'] = $query->paginate(20);
+        $n['products'] = $query->paginate($per_page);
         $n['brands'] = Brand::get();
         $n['p_models'] = ProcessorModel::get();
         $n['p_generations'] = ProcessorGeneration::get();

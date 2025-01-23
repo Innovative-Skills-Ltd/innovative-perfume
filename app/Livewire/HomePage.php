@@ -74,7 +74,21 @@ class HomePage extends Component
 
     public function render()
     {
-        $os =  OtherSetting::first();
+        $os = OtherSetting::first();
+
+        // Get featured products with their default sizes for hero section
+        $n['hero_products'] = Product::with(['sizes', 'sizes.size'])
+        ->whereHas('sizes', function($q) {
+            $q->where('is_show', true);
+        })
+        ->where('status', 'active')
+        ->where('is_showable_to_user', 1)
+        ->where('is_featured', true)  // Assuming you want to show featured products
+        ->orderBy('serial', 'desc')
+        ->take(2)  // For two slides
+        ->get();
+
+
         $n['news'] = DB::table('news')->where('status','active')->orderBy('serial','desc')->get();
         $pd = Product::orderBy('views')
                         ->where('is_showable_to_user',1)
