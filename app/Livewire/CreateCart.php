@@ -21,7 +21,6 @@ class CreateCart extends Component
 
     public function mount($slug = null){
         $this->slug = $slug;
-
         //User checking
         $this->user = auth()->user();
         if(!$this->user){

@@ -26,16 +26,53 @@
                         @endforeach
                     </div>
                 </div>
-                <form action="{{ route('vcart', $product->slug) }}" method="GET">
+                <form action="{{ route('create_cart', $product->slug) }}" method="GET">
                     @csrf
                     <div>
                         <!-- Dynamic title and price -->
                         <h1 class="mb-2 text-2xl font-medium">{{ $product->title }}</h1>
-                        <div class="mb-5">
-                            <span class="text-2xl font-medium">৳{{ $product->final_price }}</span>
-                            @if ($product->discount > 0)
-                                <del class="text-gray-500 ml-2">৳{{ $product->price }}</del>
-                            @endif
+                        <div x-data="{
+                            selectedSize: null,
+                            sizes: {{ json_encode($product->sizes->map(function($size) {
+                                return [
+                                    'id' => $size->id,
+                                    'size' => $size->size->size,
+                                    'price' => $size->price,
+                                    'discount' => $size->discount,
+                                    'final_price' => $size->final_price,
+                                    'is_show' => $size->is_show
+                                ];
+                            })) }},
+                            init() {
+                                this.selectedSize = this.sizes.find(s => s.is_show) || this.sizes[0];
+                            }
+                        }">
+                            <!-- Price Display -->
+                            <div class="mb-5">
+                                <span class="text-2xl font-medium" x-text="'৳' + selectedSize?.final_price"></span>
+                                <template x-if="selectedSize?.discount > 0">
+                                    <del class="text-gray-500 ml-2" x-text="'৳' + selectedSize?.price"></del>
+                                </template>
+                            </div>
+
+                            <!-- Size Selector -->
+                            <div class="text-sm font-semibold">
+                                <span>Size:</span>
+                            </div>
+                            <div class="mt-3 mb-2 flex items-center">
+                                <template x-for="size in sizes" :key="size.id">
+                                    <div class="mr-2 mb-4">
+                                        <div @click="selectedSize = size"
+                                            :class="selectedSize?.id === size.id ? 'bg-primary text-white border' : 'border text-gray-700'"
+                                            class="p-2 px-4 text-xs cursor-pointer"
+                                            x-text="size.size">
+                                        </div>
+                                    </div>
+                                </template>
+                            </div>
+
+                            <!-- Hidden input for selected size -->
+                            <input type="hidden" name="size_id" x-model="selectedSize.id">
                         </div>
 
                         <!-- Keep existing static notes section -->
@@ -48,22 +85,6 @@
                             <div class="p-2 bg-orange-200 border mr-2 mb-4">Sweet</div>
                             <div class="p-2 bg-yellow-200 border mr-2 mb-4">Balastic</div>
                             <div class="p-2 bg-green-200 border mr-2 mb-4">Rose</div>
-                        </div>
-
-                        <!-- Keep existing static size selector -->
-                        <div x-data="{ selectedSize: '8ML' }">
-                            <div class="text-sm font-semibold">
-                                <span>Size:</span>
-                            </div>
-                            <div class="mt-3 mb-2 flex items-center">
-                                <template x-for="size in ['3ML', '6ML', '8ML', '10ML', '12ML', '14ML']"
-                                    :key="size">
-                                    <div @click="selectedSize = size"
-                                        :class="selectedSize === size ? 'bg-primary text-white border' : 'border text-gray-700'"
-                                        class="flex items-center justify-center w-14 h-7 text-xs font-semibold mr-2 mb-4 cursor-pointer"
-                                        x-text="size"></div>
-                                </template>
-                            </div>
                         </div>
 
                         <!-- Keep existing static buttons -->
@@ -129,11 +150,11 @@
                                     </span>
                                 </div>
                                 <div>
-                                    <a href="{{ route('create_cart', $product->slug) }}">
-                                        <span class="p-2 px-4 text-xs rounded-full bg-primary text-white font-bold">
+                                    <span class="cursor-pointer">
+                                        <button class="p-2 px-4 text-xs rounded-full bg-primary text-white font-bold">
                                             ADD TO CART
-                                        </span>
-                                    </a>
+                                        </button>
+                                    </span>
                                 </div>
                             </div>
                         </div>

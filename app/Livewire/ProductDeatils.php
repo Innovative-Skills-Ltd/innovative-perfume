@@ -52,7 +52,7 @@ class ProductDeatils extends Component
 
     public function mount()
     {
-       $product = Product::with('cat_info', 'sub_cat_info', 'brand', 'ProcessorGeneration', 'ProcessorModel', 'DisplayType', 'DisplaySize', 'Ram', 'ssd', 'hdd', 'Graphic', 'SpecialFeature')
+       $product = Product::with('cat_info', 'sub_cat_info', 'brand','sizes','sizes.size')
                 ->where('slug', $this->slug)
                 ->where('is_showable_to_user',1)
                 ->first();
@@ -79,7 +79,7 @@ class ProductDeatils extends Component
     public function render()
     {
 
-        $n['product'] = Product::with('cat_info', 'sub_cat_info', 'brand', 'ProcessorGeneration', 'ProcessorModel', 'DisplayType', 'DisplaySize', 'Ram', 'ssd', 'hdd', 'Graphic', 'SpecialFeature', 'installment', 'installment.duration')
+        $n['product'] = Product::with('cat_info', 'sub_cat_info', 'brand','sizes','sizes.size')
                         ->where('slug', $this->slug)
                         ->where('is_showable_to_user',1)
                         ->first();
