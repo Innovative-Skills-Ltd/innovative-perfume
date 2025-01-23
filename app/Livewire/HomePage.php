@@ -116,6 +116,22 @@ class HomePage extends Component
         // $n['menus'] = Category::with('child_cat')->where('status', 'active')->where('is_parent', 1)->orderBy('title', 'ASC')->get();
         $n['home_banner'] = Banner::where('status', 'active')->where('slug', 'home-page')->first();
 
+        // Best Sellers
+        $n['bestsellers'] = Product::bestSellers()
+                                  ->with(['sizes', 'sizes.size'])
+                                  ->where('status', 'active')
+                                  ->where('is_showable_to_user', 1)
+                                  ->take(10)
+                                  ->get();
+
+        // Top Rated
+        $n['top_rated'] = Product::topRated()
+                                ->with(['sizes', 'sizes.size'])
+                                ->where('status', 'active')
+                                ->where('is_showable_to_user', 1)
+                                ->take(10)
+                                ->get();
+
         if (auth()->user()) {
             $this->name = auth()->user()->name;
             $this->email = auth()->user()->email;
