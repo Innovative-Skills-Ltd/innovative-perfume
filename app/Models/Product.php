@@ -268,4 +268,9 @@ class Product extends Model
                     ->where('is_showable_to_user', 1)
                     ->orderBy('average_rating', 'desc');
     }
+
+    public function colors()
+    {
+        return $this->hasMany(ProductColor::class);
+    }
 }

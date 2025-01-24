@@ -1,5 +1,6 @@
 <?php
 
+use Database\Seeders\ColorSeeder;
 use Database\Seeders\PerfumeBrandSeeder;
 use Database\Seeders\PerfumeCategorySeeder;
 use Database\Seeders\PerfumeDisplaySizeSeeder;
@@ -26,6 +27,8 @@ class DatabaseSeeder extends Seeder
             PerfumeCategorySeeder::class,
             PerfumeDisplaySizeSeeder::class,
             PerfumeBrandSeeder::class,
+            ColorSeeder::class,
+
             // SettingTableSeeder::class,
             // CouponSeeder::class,
         ]);

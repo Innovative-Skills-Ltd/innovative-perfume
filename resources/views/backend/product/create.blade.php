@@ -416,7 +416,7 @@
                                                        id="isShow_{{ $key }}"
                                                        value="1"
                                                        {{ isset($size['is_show']) ? 'checked' : '' }}>
-                                                <label class="custom-control-label" for="isShow_{{ $key }}">Show by default</label>
+                                                <label class="custom-control-label" for="isShow_{{ $key }}">Show With product</label>
                                             </div>
                                         </div>
                                         <div class="col-md-2">
@@ -464,6 +464,23 @@
                     </div>
                 </div>
 
+                <div class="form-group">
+                    <label class="col-form-label">Product Colors <span class="text-danger">*</span></label>
+                    <div class="color-container">
+                        <select name="colors[]" class="form-control select2"  multiple="multiple">
+                            <option value="">Select Colors</option>
+                            @foreach($colors as $color)
+                                <option value="{{ $color->id }}">
+                                    {{ $color->name }}
+                                </option>
+                            @endforeach
+                        </select>
+                        @error('colors')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
+                    </div>
+                </div>
+
                 <div class="mb-3 form-group">
                     <button type="reset" class="btn btn-warning">Reset</button>
                     <button class="btn btn-success" type="submit">Submit</button>
@@ -490,10 +507,15 @@
         .h-150px {
             height: 150px !important;
         }
+        .select2-search.select2-search--inline{
+            position: absolute;
+        }
     </style>
     <link rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" />
     <link rel="stylesheet" href="{{ asset('backend/summernote/summernote-lite.css') }}">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ttskch/select2-bootstrap4-theme@x.x.x/dist/select2-bootstrap4.min.css">
 @endpush
 @push('scripts')
     <script src="/vendor/laravel-filemanager/js/stand-alone-button.js"></script>
@@ -721,6 +743,19 @@
                 if ($('#size-rows .row').length > 1) {
                     $(this).closest('.row').remove();
                 }
+            });
+        });
+    </script>
+
+    {{-- <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script> --}}
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            // Initialize select2 for colors
+            $('.select2').select2({
+                theme: 'bootstrap4',
+                placeholder: 'Select Colors',
+                allowClear: true
             });
         });
     </script>

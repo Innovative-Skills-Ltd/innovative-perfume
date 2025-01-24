@@ -53,7 +53,10 @@ class StoreProductRequest extends FormRequest
             'sizes.*.price' => 'required|numeric|min:0',
             'sizes.*.discount' => 'nullable|numeric|min:0',
             'sizes.*.final_price' => 'required|numeric|min:0',
-            'sizes.*.is_show' => 'nullable|boolean'
+            'sizes.*.is_show' => 'nullable|boolean',
+
+            'colors' => 'required|array|min:1',
+            'colors.*' => 'exists:colors,id'
         ];
     }
 
@@ -69,7 +72,9 @@ class StoreProductRequest extends FormRequest
             'sizes.required' => 'At least one size is required',
             'sizes.*.display_size_id.required' => 'Size selection is required',
             'sizes.*.price.required' => 'Price is required for each size',
-            'sizes.*.final_price.required' => 'Final price is required for each size'
+            'sizes.*.final_price.required' => 'Final price is required for each size',
+            'colors.required' => 'Please select at least one color',
+            'colors.*.exists' => 'Selected color is invalid'
         ];
     }
 }

@@ -141,6 +141,9 @@ class UpdateProductRequest extends FormRequest
 
             //Warranty Attributes
             'w_details' => 'nullable|string|max:255',
+
+            'colors' => 'required|array|min:1',
+            'colors.*' => 'exists:colors,id'
         ];
     }
 
@@ -155,7 +158,9 @@ class UpdateProductRequest extends FormRequest
             'sizes.required' => 'At least one size is required',
             'sizes.*.display_size_id.required' => 'Size selection is required',
             'sizes.*.price.required' => 'Price is required for each size',
-            'sizes.*.final_price.required' => 'Final price is required for each size'
+            'sizes.*.final_price.required' => 'Final price is required for each size',
+            'colors.required' => 'Please select at least one color',
+            'colors.*.exists' => 'Selected color is invalid'
         ];
     }
 }
