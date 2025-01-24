@@ -6,7 +6,6 @@ namespace App\Livewire;
 
 use App\Models\Brand;
 use App\Models\DisplaySize;
-use App\Models\DisplayType;
 use App\Models\Graphic;
 use App\Models\hdd;
 use App\Models\ProcessorGeneration;
@@ -72,7 +71,6 @@ class Shop extends Component
         $n['p_models'] = ProcessorModel::get();
         $n['p_generations'] = ProcessorGeneration::get();
         $n['d_sizes'] = DisplaySize::get();
-        $n['d_types'] = DisplayType::get();
         $n['rams'] = Ram::get();
         $n['ssds'] = ssd::get();
         $n['hdds'] = hdd::get();

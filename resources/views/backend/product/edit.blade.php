@@ -6,6 +6,16 @@
     <div class="card">
         <h5 class="card-header">Edit Product</h5>
         <div class="card-body">
+            @if($errors->any())
+                @foreach($errors->all() as $error)
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        {{ $error }}
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                @endforeach
+            @endif
             <form method="post" action="{{ route('product.update', [$product->id]) }}" enctype="multipart/form-data">
                 {{ csrf_field() }}
                 @method('PUT')
@@ -394,6 +404,24 @@
                     </div>
                 </div>
 
+                <div class="form-group">
+                    <label class="col-form-label">Product Colors <span class="text-danger">*</span></label>
+                    <div class="color-container">
+                        <select name="colors[]" class="form-control select2" multiple="multiple">
+                            <option value="">Select Colors</option>
+                            @foreach($colors as $color)
+                                <option value="{{ $color->id }}"
+                                    @selected($product->colors->contains('color_id', $color->id))>
+                                    {{ $color->name }}
+                                </option>
+                            @endforeach
+                        </select>
+                        @error('colors')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
+                    </div>
+                </div>
+
                 <div class="mb-3 form-group">
                     <button type="reset" class="btn btn-warning">Reset</button>
                     <button class="btn btn-success" type="submit">Update</button>
@@ -407,6 +435,8 @@
     <link rel="stylesheet" href="{{ asset('backend/summernote/summernote-lite.css') }}">
     <link rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" />
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ttskch/select2-bootstrap4-theme@x.x.x/dist/select2-bootstrap4.min.css">
     <style>
         .h-6 {
             height: 32px;
@@ -415,13 +445,16 @@
         .h-150px {
             height: 150px !important;
         }
+        .select2-search.select2-search--inline{
+            position: absolute;
+        }
     </style>
 @endpush
 @push('scripts')
     <script src="/vendor/laravel-filemanager/js/stand-alone-button.js"></script>
     <script src="{{ asset('backend/summernote/summernote-lite.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script>
         $('#lfm').filemanager('image');
 
@@ -431,6 +464,8 @@
                 tabsize: 2,
                 height: 150,
             });
+
+            $('.select2').select2();
 
             $('#description').summernote({
                 placeholder: "Write detail description.....",

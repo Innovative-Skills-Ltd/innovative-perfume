@@ -75,17 +75,43 @@
                             <input type="hidden" name="size_id" x-model="selectedSize.id">
                         </div>
 
-                        <!-- Keep existing static notes section -->
-                        <div class="text-sm font-semibold">
-                            <span>Notes:</span>
+                        <!-- Color Selector -->
+                        <div x-data="{
+                            selectedColor: null,
+                            colors: {{ json_encode($product->colors->map(function($productColor) {
+                                return [
+                                    'id' => $productColor->id,
+                                    'name' => $productColor->color->name,
+                                    'code' => $productColor->color->code
+                                ];
+                            })) }},
+                            init() {
+                                this.selectedColor = this.colors[0];
+                            }
+                        }">
+
+                            <div class="text-sm font-semibold">
+                                <span>Notes:</span>
+                            </div>
+                            <div class="mt-4 mb-2 flex items-center flex-wrap">
+                                <template x-for="color in colors" :key="color.id">
+                                    <div @click="selectedColor = color"
+                                        :title="color.name"
+                                        :style="{ backgroundColor: color.code }"
+                                        :class="selectedColor?.id === color.id ? 'ring-2 ring-primary' : ''"
+                                        class="p-2 border mr-2 mb-4 cursor-pointer transition-all duration-300 hover:shadow-md">
+                                        <!-- Color Name -->
+                                        <span x-text="color.name"
+                                              class="text-sm font-medium"
+                                              :class="isLightColor(color.code) ? 'text-gray-800' : 'text-white'">
+                                        </span>
+                                    </div>
+                                </template>
+                            </div>
+                            <!-- Hidden input for selected color -->
+                            <input type="hidden" name="color_id" x-model="selectedColor.id">
                         </div>
-                        <div class="mt-4 mb-2 flex items-center">
-                            <div class="p-2 bg-red-200 border mr-2 mb-4">Oud</div>
-                            <div class="p-2 bg-lime-200 border mr-2 mb-4">Woody</div>
-                            <div class="p-2 bg-orange-200 border mr-2 mb-4">Sweet</div>
-                            <div class="p-2 bg-yellow-200 border mr-2 mb-4">Balastic</div>
-                            <div class="p-2 bg-green-200 border mr-2 mb-4">Rose</div>
-                        </div>
+
 
                         <!-- Keep existing static buttons -->
                         <div>
@@ -292,3 +318,15 @@
     @endif
     <!-- Products End -->
 </div>
+
+<!-- Add this Alpine.js function to check color brightness -->
+<script>
+    function isLightColor(color) {
+        const hex = color.replace('#', '');
+        const r = parseInt(hex.substr(0, 2), 16);
+        const g = parseInt(hex.substr(2, 2), 16);
+        const b = parseInt(hex.substr(4, 2), 16);
+        const brightness = ((r * 299) + (g * 587) + (b * 114)) / 1000;
+        return brightness > 155;
+    }
+</script>

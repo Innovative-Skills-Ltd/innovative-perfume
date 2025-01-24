@@ -219,6 +219,7 @@ class ProductController extends Controller
         $n['categories'] = Category::where('is_parent', 1)->where('status', 'active')->get();
         $n['sub_categories'] = Category::where('parent_id', $product->cat_id)->where('status', 'active')->get();
         $n['colors'] = Color::all();
+        $n['product'] = $product;
         return view('backend.product.edit', $n);
     }
 
@@ -236,7 +237,7 @@ class ProductController extends Controller
         DB::beginTransaction();
         try {
             $data = $request->except('sizes');
-
+            // dd($data);
             // Update product basic info
             $product->update($data);
 
