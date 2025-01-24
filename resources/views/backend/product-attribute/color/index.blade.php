@@ -25,7 +25,8 @@
                         <thead>
                             <tr>
                                 <th>S.N.</th>
-                                <th>Color</th>
+                                <th>Name</th>
+                                <th>Color Code</th>
                                 @canany(['Edit Color', 'Delete Color'])
                                     <th>Action</th>
                                 @endcanany
@@ -34,7 +35,8 @@
                         <tfoot>
                             <tr>
                                 <th>S.N.</th>
-                                <th>Color</th>
+                                <th>Name</th>
+                                <th>Color Code</th>
                                 @canany(['Edit Color', 'Delete Color'])
                                     <th>Action</th>
                                 @endcanany
@@ -44,7 +46,8 @@
                             @foreach ($mdata as $datum)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
-                                    <td class="d-flex align-items-center justify-content-center"><div style="background-color: {{ $datum->name }}; width: 50px; height: 25px; border: 1px solid #ccc;"></div> {{ $datum->name }}</td>
+                                    <td>{{ $datum->name }}</td>
+                                    <td class="d-flex align-items-center justify-content-center "><div class="mr-1" style="background-color: {{ $datum->code }}; width: 50px; height: 25px; border: 1px solid #ccc;"></div> {{ $datum->code }}</td>
                                     <td>
                                         @can('Edit Color')
                                             <a href="{{ route('pa.color.edit', $datum->id) }}"

@@ -9,12 +9,26 @@
             <form method="post" action="{{ route('pa.color.update',$datum->id) }}">
                 {{ csrf_field() }}
                 @method('PUT')
+
+                <!-- color name -->
                 <div class="form-group">
                     <label for="inputTitle" class="col-form-label">Color <span class="text-danger">*</span>
-                        <input id="inputTitle" type="color" name="name" placeholder="Enter Name of Color"
-                        value="{{$datum->name}}" class="form-control">
+
                     </label>
+                    <input id="inputTitle" type="text" name="name" placeholder="Enter Name of Color"
+                    value="{{$datum->name}}" class="form-control">
                     @error('name')
+                        <span class="text-danger">{{ $message }}</span>
+                    @enderror
+                </div>
+
+                <!-- color code -->
+                <div class="form-group">
+                    <label for="inputTitle" class="col-form-label">Color Code <span class="text-danger">*</span>
+                        <input id="inputTitle" type="color" name="code" placeholder="Enter Name of Color"
+                        value="{{$datum->code}}" class="form-control">
+                    </label>
+                    @error('code')
                         <span class="text-danger">{{ $message }}</span>
                     @enderror
                 </div>

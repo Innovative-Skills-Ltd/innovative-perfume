@@ -15,11 +15,22 @@
         <div class="card-body">
             <form method="post" action="{{ route('pa.color.store') }}">
                 {{ csrf_field() }}
+                <!-- color name -->
                 <div class="form-group">
-                    <label for="inputTitle" class="col-form-label">Color <span class="text-danger">*</span></label>
-                        <input id="inputTitle" type="color" name="name" class="form-control max-width-90px" placeholder="Enter Name of Color"
+                    <label for="inputTitle" class="col-form-label">Name <span class="text-danger">*</span></label>
+                        <input id="inputTitle" type="text" name="name" class="form-control" placeholder="Enter Name of Color"
                         value="{{ old('name') }}" class="form-control">
                     @error('name')
+                        <span class="text-danger">{{ $message }}</span>
+                    @enderror
+                </div>
+
+                <!-- color code -->
+                <div class="form-group">
+                    <label for="inputTitle" class="col-form-label">Color Code <span class="text-danger">*</span></label>
+                        <input id="inputTitle" type="color" name="code" class="form-control max-width-90px" placeholder="Enter Name of Color"
+                        value="{{ old('code') }}" class="form-control">
+                    @error('code')
                         <span class="text-danger">{{ $message }}</span>
                     @enderror
                 </div>
