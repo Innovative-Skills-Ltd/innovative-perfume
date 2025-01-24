@@ -29,7 +29,7 @@ class AdminSidebar extends Component
                 // ['access' => 'Show Processor Model','title' => 'Processor Model', 'route' => 'pa.processor-model.index',],
                 // ['access' => 'Show Processor Generation','title' => 'Processor Generation', 'route' => 'pa.processor-generation.index'],
                 ['access' => 'Show Display Size','title' => 'Size', 'route' => 'pa.display-size.index'],
-                ['access' => 'Show Display Type','title' => 'Color', 'route' => 'pa.display-type.index'],
+                ['access' => 'Show Color','title' => 'Color', 'route' => 'pa.color.index'],
                 // ['access' => 'Show RAM','title' => 'RAM', 'route' => 'pa.ram.index'],
                 // ['access' => 'Show HDD','title' => 'HDD', 'route' => 'pa.hdd.index'],
                 // ['access' => 'Show SSD','title' => 'SSD', 'route' => 'pa.ssd.index'],
