@@ -89,16 +89,24 @@
                                         @foreach ($carts as $cart)
                                             @php
                                                 $photo = explode(',', $cart->product->photo);
-                                                $total_amount += $cart->product->final_price * $cart->quantity;
+                                                $price = $cart->size ? $cart->size->final_price : $cart->product->final_price;
+                                                $total_amount += $price * $cart->quantity;
                                             @endphp
                                             <div class="flex items-center gap-7 pb-7 border-b mb-7">
                                                 <img class="w-24 h-24" src="{{ $photo[0] }}" />
                                                 <div>
                                                     <h4 class="py-1 font-medium">{{ $cart->product->title }}</h4>
-                                                    <p class="text-sm py-1 text-secondary">Black, XXL</p>
+                                                    <p class="text-sm py-1 text-secondary">
+                                                        @if($cart->color)
+                                                            {{ $cart->color->color->name }},
+                                                        @endif
+                                                        @if($cart->size)
+                                                            {{ $cart->size->size->size }}
+                                                        @endif
+                                                    </p>
                                                     <h4 class="font-semibold">
-                                                        ${{ $cart->product->final_price }} <span
-                                                            class="text-secondary">x{{ $cart->quantity }}</span>
+                                                        ${{ $price }}
+                                                        <span class="text-secondary">x{{ $cart->quantity }}</span>
                                                     </h4>
                                                 </div>
                                             </div>
@@ -230,10 +238,17 @@
                                                 <img class="w-24 h-24" src="{{ $photo[0] }}" />
                                                 <div>
                                                     <h4 class="py-1 font-medium">{{ $cart->product->title }}</h4>
-                                                    <p class="text-sm py-1 text-secondary">Black, XXL</p>
+                                                    <p class="text-sm py-1 text-secondary">
+                                                        @if($cart->color)
+                                                            {{ $cart->color->color->name }},
+                                                        @endif
+                                                        @if($cart->size)
+                                                            {{ $cart->size->size->size }}
+                                                        @endif
+                                                    </p>
                                                     <h4 class="font-semibold">
-                                                        ${{ $cart->product->final_price }} <span
-                                                            class="text-secondary">x{{ $cart->quantity }}</span>
+                                                        ${{ $cart->size ? $cart->size->final_price : $cart->product->final_price }}
+                                                        <span class="text-secondary">x{{ $cart->quantity }}</span>
                                                     </h4>
                                                 </div>
                                             </div>

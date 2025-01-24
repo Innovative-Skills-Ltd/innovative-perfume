@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="/dist/output.css">
     <link rel="icon" href="/product/figma.png" type="img/svg"> --}}
 
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
     @livewireStyles
 </head>

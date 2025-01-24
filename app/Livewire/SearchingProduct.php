@@ -29,11 +29,16 @@ class SearchingProduct extends Component
 
     public function mount()
     {
+        $this->stext = request()->search_text;
+        if(request()->cat_id != 'Accessories'){
+            $this->cat = request()->cat_id;
+        }
         // dd($this->stext,$this->cat);
     }
 
     public function render()
     {
+        // dd($this->stext,$this->cat);
         if (($id = $this->cat) && ($s = $this->stext)) {
             $cat = Category::where('slug', $id)->first();
             $slug_wise_product = Product::serachByTitleOrNothing($s)
@@ -55,15 +60,8 @@ class SearchingProduct extends Component
         }
         $n['products'] = $slug_wise_product;
         $n['brands'] = Brand::get();
-        $n['p_models'] = ProcessorModel::get();
-        $n['p_generations'] = ProcessorGeneration::get();
         $n['d_sizes'] = DisplaySize::get();
-        $n['d_types'] = DisplayType::get();
-        $n['rams'] = Ram::get();
-        $n['ssds'] = ssd::get();
-        $n['hdds'] = hdd::get();
-        $n['graphics'] = Graphic::get();
-        $n['s_features'] = SpecialFeature::get();
+
         return view('livewire.shop', $n);
     }
 }

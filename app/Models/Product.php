@@ -53,9 +53,8 @@ class Product extends Model
     static public function orderByFinalpriceAsc()
     {
         return self::select(
-            '*',
-            DB::raw('CAST(REPLACE(final_price, ",", "") AS UNSIGNED) AS nfinal_price'),
-        )->orderBy('nfinal_price', 'desc');
+            '*'
+        );
     }
     static public function orderByFinalpriceDesc()
     {
@@ -75,6 +74,12 @@ class Product extends Model
                 DB::raw('CAST(REPLACE(final_price, ",", "") AS UNSIGNED) AS nfinal_price'),
                 DB::raw('CAST(REPLACE(inventory_cost, ",", "") AS UNSIGNED) AS ninventory_cost')
             );
+    }
+    public function size(){
+        return $this->sizes->where('is_show', true)->first()?->size;
+    }
+    public function photo(){
+        return explode(',', $this->photo);
     }
 
     static protected function serachByTitleOrNothing($search_text = null)

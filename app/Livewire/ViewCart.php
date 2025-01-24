@@ -47,7 +47,7 @@ class ViewCart extends Component
             $n['coupon'] = 0;
         }
 
-        $n['carts'] = Cart::with('product')->where('user_id',$this->user->id)->where('order_id', null)->latest()->get();
+        $n['carts'] = Cart::with('product','size','color','size.size','color.color')->where('user_id',$this->user->id)->where('order_id', null)->latest()->get();
         return view('livewire.view-cart',$n);
     }
 }

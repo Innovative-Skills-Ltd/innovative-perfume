@@ -22,6 +22,7 @@ class CreateCartsTable extends Migration
             $table->foreignId('color_id')->constrained('product_colors')->cascadeOnDelete();
             $table->string('ip')->nullable();
             $table->unsignedBigInteger('price')->default(0);
+            $table->unsignedBigInteger('discount')->default(0);
             $table->enum('status',['new','progress','delivered','cancel'])->default('new');
             $table->integer('quantity')->default(1);
             $table->unsignedBigInteger('amount')->default(0);

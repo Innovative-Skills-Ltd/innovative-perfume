@@ -15,6 +15,7 @@ class Cart extends Model
         'color_id',
         'ip',
         'price',
+        'discount',
         'status',
         'quantity',
         'amount',

@@ -115,10 +115,18 @@ class OrderStore extends Component
             session()->flash('error', "Order not completed");
             $this->redirect(route('cart'), navigate: false);
         }
+        $total_amount = 0;
+        $total_product = 0;
         foreach($carts as $cart){
             $cart->order_id = $order->id;
             $cart->save();
+            $total_amount += $cart->amount;
+            ++$total_product;
         }
+        $order->update([
+            'amount' => $total_amount,
+            'quantity' => $total_product,
+        ]);
 
         return $this->redirect(route('thank_you',[$order->order_number]), navigate: false);
     }
