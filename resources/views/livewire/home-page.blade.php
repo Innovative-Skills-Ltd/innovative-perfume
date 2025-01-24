@@ -290,9 +290,9 @@
                     Price from:
                     <span class="text-primary text-3xl font-semibold">BDT {{ number_format($first_product->sizes->min('final_price'), 2) }}</span>
                 </p>
-                <button class="text-sm font-bold pb-2 border-b-2 uppercase border-black">
+                <a href="{{ route('product.details', $first_product->slug) }}" class="text-sm font-bold pb-2 border-b-2 uppercase border-black">
                     Shop Now
-                </button>
+                </a>
             </div>
         </section>
     <!-- Collection Arrival End  -->
