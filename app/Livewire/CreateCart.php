@@ -21,6 +21,7 @@ class CreateCart extends Component
 
     public function mount($slug = null){
         $this->slug = $slug;
+
         //User checking
         $this->user = auth()->user();
         if(!$this->user){
@@ -53,6 +54,8 @@ class CreateCart extends Component
             $cart = new Cart;
             $cart->user_id = $this->user->id;
             $cart->product_id = $this->product->id;
+            $cart->color_id = request()->color_id;
+            $cart->size_id = request()->size_id;
             $cart->price = ($this->product->price-($this->product->price * $this->product->discount)/100);
             $cart->quantity = 1;
             $cart->amount=$cart->price*$cart->quantity;

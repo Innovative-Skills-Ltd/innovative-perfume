@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class ProductSize extends Model
 {
@@ -28,5 +29,10 @@ class ProductSize extends Model
     public function size(): BelongsTo
     {
         return $this->belongsTo(DisplaySize::class, 'display_size_id');
+    }
+
+    public function carts(): HasMany
+    {
+        return $this->hasMany(Cart::class, 'size_id');
     }
 }

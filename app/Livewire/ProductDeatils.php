@@ -79,7 +79,7 @@ class ProductDeatils extends Component
     public function render()
     {
 
-        $n['product'] = Product::with('cat_info', 'sub_cat_info', 'brand','sizes','sizes.size')
+        $n['product'] = Product::with('cat_info', 'sub_cat_info', 'brand', 'sizes', 'sizes.size', 'colors', 'colors.color')
                         ->where('slug', $this->slug)
                         ->where('is_showable_to_user',1)
                         ->first();
