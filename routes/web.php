@@ -23,7 +23,7 @@ use App\Http\Controllers\ProductReviewController;
 use App\Http\Controllers\PostCommentController;
 use App\Http\Controllers\CouponController;
 use App\Http\Controllers\DisplaySizeController;
-use App\Http\Controllers\DisplayTypeController;
+use App\Http\Controllers\ColorController;
 use App\Http\Controllers\DurationController;
 use App\Http\Controllers\GraphicController;
 use App\Http\Controllers\GtagController;
@@ -257,7 +257,7 @@ Route::group(['prefix' => '/admin', 'middleware' => ['auth', 'admin']], function
         Route::resource('/processor-model', ProcessorModelController::class);
         Route::resource('/processor-generation', ProcessorGenerationController::class);
         Route::resource('/display-size', DisplaySizeController::class);
-        Route::resource('/display-type', DisplayTypeController::class);
+        Route::resource('/color', ColorController::class);
         Route::resource('/ram', RamController::class);
         Route::resource('/hdd', hddController::class);
         Route::resource('/ssd', ssdController::class);

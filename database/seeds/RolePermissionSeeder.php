@@ -164,11 +164,11 @@ class RolePermissionSeeder extends Seeder
             ['name' => 'Edit Display Size', 'guard_name' => 'web'],
             ['name' => 'Delete Display Size', 'guard_name' => 'web'],
 
-            //Display Type
-            ['name' => 'Show Display Type', 'guard_name' => 'web'],
-            ['name' => 'Create Display Type', 'guard_name' => 'web'],
-            ['name' => 'Edit Display Type', 'guard_name' => 'web'],
-            ['name' => 'Delete Display Type', 'guard_name' => 'web'],
+            //Color
+            ['name' => 'Show Color', 'guard_name' => 'web'],
+            ['name' => 'Create Color', 'guard_name' => 'web'],
+            ['name' => 'Edit Color', 'guard_name' => 'web'],
+            ['name' => 'Delete Color', 'guard_name' => 'web'],
 
             //RAM
             ['name' => 'Show RAM', 'guard_name' => 'web'],
