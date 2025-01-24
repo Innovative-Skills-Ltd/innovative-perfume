@@ -42,7 +42,7 @@
                                 <th>Order No.</th>
                                 <th>Name</th>
                                 <th>Email</th>
-                                <th>Quantity</th>
+                                <th>Total Product</th>
                                 <th>Charge</th>
                                 <th>Total Amount</th>
                                 <th>Payment Status</th>
@@ -57,10 +57,10 @@
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $order->order_number }}</td>
-                                    <td>{{ $order->name }} {{ $order->l_name }}</td>
-                                    <td>{{ $order->email }}</td>
+                                    <td>{{ $order->user?->name }} {{ $order->user?->l_name }}</td>
+                                    <td>{{ $order->user?->email }}</td>
                                     <td>{{ $order->quantity }}</td>
-                                    <td>{{ $order->shipping->price }}</td>
+                                    <td>{{ $order->shipping?->price }}</td>
                                     <td>৳{{ number_format($order->amount, 2) }}</td>
                                     <td>
                                        {{$order->payment_status}}

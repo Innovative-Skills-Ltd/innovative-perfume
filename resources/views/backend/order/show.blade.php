@@ -30,11 +30,11 @@
                         <tr>
                             <td>{{ $order->id }}</td>
                             <td>{{ $order->order_number }}</td>
-                            <td>{{ $order->name }} {{ $order->l_name }}</td>
-                            <td>{{ $order->email }}</td>
+                            <td>{{ $order->user?->name }} {{ $order->user?->l_name }}</td>
+                            <td>{{ $order->user?->email }}</td>
                             <td>{{ $order->quantity }}</td>
-                            <td>৳{{ $order->shipping->price }}</td>
-                            <td>৳{{ number_format($order->total_amount, 2) }}</td>
+                            <td>৳{{ $order->shipping?->price }}</td>
+                            <td>৳{{ number_format($order->amount, 2) }}</td>
                             <td>
                                 @if ($order->status == 'New')
                                     <span class="badge badge-primary">{{ $order->status }}</span>
@@ -90,7 +90,7 @@
                                         </tr>
                                         <tr>
                                             <td>Shipping Charge</td>
-                                            <td> : ৳ {{ $order->shipping->price }}</td>
+                                            <td> : ৳ {{ $order->shipping?->price }}</td>
                                         </tr>
                                         <tr>
                                             <td>Coupon</td>
@@ -163,8 +163,10 @@
                                             <th>S.N.</th>
                                             <th>Title</th>
                                             <th>Category</th>
-                                            <th>Price</th>
-                                            <th>Discount</th>
+                                            <th>Price (tk)</th>
+                                            <th>Discount (tk)</th>
+                                            <th>Quantity</th>
+                                            <th>Total Price (tk)</th>
                                             <th>Brand</th>
                                             <th>Stock</th>
                                             <th>Photo</th>
@@ -175,8 +177,10 @@
                                             <th>S.N.</th>
                                             <th>Title</th>
                                             <th>Category</th>
-                                            <th>Price</th>
-                                            <th>Discount</th>
+                                            <th>Price (tk)</th>
+                                            <th>Discount (tk)</th>
+                                            <th>Quantity</th>
+                                            <th>Total Price (tk)</th>
                                             <th>Brand</th>
                                             <th>Stock</th>
                                             <th>Photo</th>
@@ -194,8 +198,10 @@
                                                     </sub>
                                                 </td>
                                                 {{-- <td>{{ $cat->product->is_featured == 1 ? 'Yes' : 'No' }}</td> --}}
-                                                <td>BDT. {{ $cat->product->price }} /-</td>
-                                                <td> {{ $cat->product->discount }}% OFF</td>
+                                                <td>{{ $cat->price }} /-</td>
+                                                <td> {{ $cat->discount }}</td>
+                                                <td>{{ $cat->quantity }}</td>
+                                                <td>{{ $cat->amount }} /-</td>
                                                 <td> {{ ucfirst($cat->product->brand?->title) }}</td>
                                                 <td>
                                                     @if ($cat->product->stock > 0)

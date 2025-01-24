@@ -458,4 +458,21 @@ class FrontendController extends Controller
             }
     }
 
+    public function deleteCart(Cart $cart)
+    {
+        
+        try {
+            $cart->delete();
+            return response()->json([
+                'status' => true,
+                'message' => 'Item removed successfully'
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Error removing item'
+            ]);
+        }
+    }
+
 }

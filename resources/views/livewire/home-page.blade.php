@@ -51,6 +51,8 @@
 
     @php
         $first_product = $new_arrival->first();
+        $size = $first_product->size();
+        $photo = $first_product->photo();
     @endphp
     <!-- Hero Section Start -->
     <section class="mt-5 mb-10">
@@ -85,10 +87,10 @@
                                         </p>
                                     </div>
                                     <div>
-                                        <button
+                                        <a
                                             class="text-sm font-bold pb-2 border-b-2 uppercase border-black animate__fadeInUpBig  animate__animated">
                                             Shop Now
-                                        </button>
+                                        </a>
                                     </div>
                                 </div>
                             @endforeach
@@ -100,12 +102,12 @@
                 <a href="{{ route('product.details', $first_product->slug) }}">
                     <div style="width: 100%; height: 298px" class="bg-no-repeat py-14 pl-7 pr-40 relative">
                         <img class="absolute top-0 bottom-0 left-0 right-0 w-full h-full -z-10"
-                            src="https://dreamingtheme.kiendaotac.com/html/stelina/assets/images/banner-home-6.jpg" />
+                            src="{{ $photo[0] }}" />
                         <h3 x-bind:class="active ? 'top-0 opacity-100' : 'top-12 opacity-0'"
                             class="font-semibold uppercase mb-3 text-primary relative transition-all duration-500">
                             Pick Your Items
                         </h3>
-                        <p class="text-secondary mb-4">Adipiscing elit curabitur</p>
+                        <p class="text-secondary mb-4">{{$first_product->title}}</p>
 
                         <button class="text-sm font-bold pb-2 border-b-2 uppercase border-black">
                             Shop Now
@@ -116,9 +118,9 @@
                 <a href="{{ route('product.details', $first_product->slug) }}">
                     <div style="width: 100%; height: 298px" class="bg-no-repeat py-14 pl-7 pr-40 relative">
                         <img class="absolute top-0 bottom-0 left-0 right-0 w-full h-full -z-10"
-                            src="https://dreamingtheme.kiendaotac.com/html/stelina/assets/images/banner-home-6.jpg" />
+                            src="{{ $photo[0] }}" />
                         <h3 class="text-2xl mb-2 font-bold">Pick Your Items</h3>
-                        <p class="text-secondary mb-4">Adipiscing elit curabitur</p>
+                        <p class="text-secondary mb-4">{{$first_product->title}}</p>
 
                         <button class="text-sm font-bold pb-2 border-b-2 uppercase border-black">
                             Shop Now
@@ -238,13 +240,13 @@
                     <div style="width: 100%"
                         class="bg-no-repeat p-5 md:h-[300px] md:py-14 md:pl-10 bg-cover md:pr-[300px] relative">
                         <img class="absolute top-0 bottom-0 left-0 right-0 -z-10 w-full h-full"
-                            src="https://dreamingtheme.kiendaotac.com/html/stelina/assets/images/banner-home-6.jpg" />
+                            src="{{ $photo[0] }}" />
                         <h3 class="text-sm font-semibold mb-1 text-primary">
                             TOP STAFF PICK
                         </h3>
                         <h2 class="mb-3 text-2xl font-medium">Best Collection</h2>
                         <p class="text-secondary mb-7">
-                            Proin interdum magnaprimis id consequal
+                            {{$first_product->title}}
                         </p>
 
                         <button class="text-sm font-bold pb-2 border-b-2 uppercase border-black">
@@ -256,13 +258,13 @@
                     <div style="width: 100%; height: 300px"
                         class="bg-no-repeat p-5 md:py-14 md:pl-10 bg-cover md:pr-[300px] relative">
                         <img class="absolute top-0 bottom-0 left-0 right-0 -z-10 w-full h-full"
-                            src="https://dreamingtheme.kiendaotac.com/html/stelina/assets/images/banner-home-6.jpg" />
+                            src="{{ $photo[0] }}" />
                         <h3 class="text-sm font-semibold mb-1 text-primary">
                             TOP STAFF PICK
                         </h3>
                         <h2 class="mb-3 text-2xl font-medium">Best Collection</h2>
                         <p class="text-secondary mb-7">
-                            Proin interdum magnaprimis id consequal
+                            {{$first_product->title}}
                         </p>
 
                         <button class="text-sm font-bold pb-2 border-b-2 uppercase border-black">
@@ -279,15 +281,14 @@
             <div style="width: 100%"
                 class="mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl  flex flex-col items-center justify-center py-12 px-4 bg-no-repeat bg-cover relative">
                 <img class="absolute top-0 right-0 bottom-0 left-0 w-full h-full -z-10"
-                    src="https://dreamingtheme.kiendaotac.com/html/stelina/assets/images/banner-home-6.jpg" />
+                    src="{{ $photo[0] }}" />
                 <h2 class="font-medium text-4xl mb-2">Collection Arrived</h2>
                 <p class="mb-4 text-hard text-center">
-                    You have no items & Are you<br />
-                    ready to use? come & shop with us!
+                    {{$first_product->title}}
                 </p>
                 <p class="mb-5 text-hard">
                     Price from:
-                    <span class="text-primary text-3xl font-semibold">BDT 45.00</span>
+                    <span class="text-primary text-3xl font-semibold">BDT {{ number_format($first_product->price, 2) }}</span>
                 </p>
                 <button class="text-sm font-bold pb-2 border-b-2 uppercase border-black">
                     Shop Now
@@ -417,7 +418,7 @@
                     <a href="{{ route('product.details', $first_product->slug) }}" class="swiper-slide">
                         <div>
                             <div class="relative group">
-                                <img src="https://dreamingtheme.kiendaotac.com/html/stelina/assets/images/slider-blog-thumb-2.jpg"
+                                <img src="{{ $photo[0] }}"
                                     class="object-cover h-96" />
                                 <div
                                     class="bg-black top-0 right-0 left-0 absolute w-full h-96 group-hover:opacity-75 opacity-0 transition-all duration-150">
@@ -442,7 +443,7 @@
                     <a href="{{ route('product.details', $first_product->slug) }}" class="swiper-slide">
                         <div>
                             <div class="relative group">
-                                <img src="https://dreamingtheme.kiendaotac.com/html/stelina/assets/images/slider-blog-thumb-2.jpg"
+                                <img src="{{ $photo[0] }}"
                                     class="object-cover h-96" />
                                 <div
                                     class="bg-black top-0 right-0 left-0 absolute w-full h-96 group-hover:opacity-75 opacity-0 transition-all duration-150">
@@ -467,7 +468,7 @@
                     <a href="{{ route('product.details', $first_product->slug) }}" class="swiper-slide">
                         <div>
                             <div class="relative group">
-                                <img src="https://dreamingtheme.kiendaotac.com/html/stelina/assets/images/slider-blog-thumb-2.jpg"
+                                <img src="{{ $photo[0] }}"
                                     class="object-cover h-96" />
                                 <div
                                     class="bg-black top-0 right-0 left-0 absolute w-full h-96 group-hover:opacity-75 opacity-0 transition-all duration-150">
@@ -492,7 +493,7 @@
                     <a href="{{ route('product.details', $first_product->slug) }}" class="swiper-slide">
                         <div>
                             <div class="relative group">
-                                <img src="https://dreamingtheme.kiendaotac.com/html/stelina/assets/images/slider-blog-thumb-2.jpg"
+                                <img src="{{ $photo[0] }}"
                                     class="object-cover h-96" />
                                 <div
                                     class="bg-black top-0 right-0 left-0 absolute w-full h-96 group-hover:opacity-75 opacity-0 transition-all duration-150">
@@ -517,7 +518,7 @@
                     <a href="{{ route('product.details', $first_product?->slug) }}" class="swiper-slide">
                         <div>
                             <div class="relative group">
-                                <img src="https://dreamingtheme.kiendaotac.com/html/stelina/assets/images/slider-blog-thumb-2.jpg"
+                                <img src="{{ $photo[0] }}"
                                     class="object-cover h-96" />
                                 <div
                                     class="bg-black top-0 right-0 left-0 absolute w-full h-96 group-hover:opacity-75 opacity-0 transition-all duration-150">

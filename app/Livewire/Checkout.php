@@ -157,15 +157,19 @@ class Checkout extends Component
         $mail_content['view'] = 'mail.order-mail-to-user';
         Mail::to($user->email)->send(new OrderMail($mail_content));
 
+        $total_amount = 0;
         foreach ($carts as $cart) {
-            dd($cart);
+            $price = $cart->size ? $cart->size->final_price : $cart->product->final_price;
+            $total_amount += $price * $cart->quantity;
+            dd($total_amount);
             $cart->update([
                 'order_id' => $order->id,
-                'price' => $cart->product->final_price,
-                'amount' => Helper::commaRemove($cart->product->final_price) * $cart->quantity,
-                'inventory_cost' => $cart->product->inventory_cost,
             ]);
         }
+        $order->update([
+            'amount' => $total_amount,
+        ]);
+        dd($total_amount);
         request()->session()->flash('success', 'Your Order successfully placed in order');
         return $this->redirect(route('order.receive', [$order->order_number]));
     }

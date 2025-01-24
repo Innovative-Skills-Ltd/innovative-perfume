@@ -15,50 +15,119 @@
             <form action="{{ route('checkout') }}" method="POST">
                 @csrf
                 <div>
-                    <table class="border rounded-md w-full">
+                    <table class="border rounded-md w-full"
+                        x-data="{
+                            confirmDelete(el, cartId) {
+                                if (confirm('Are you sure you want to remove this item?')) {
+                                    fetch(`/cart/delete/${cartId}`, {
+                                        method: 'DELETE',
+                                        headers: {
+                                            'Content-Type': 'application/json',
+                                            'Accept': 'application/json',
+                                            'X-Requested-With': 'XMLHttpRequest',
+                                            'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                                        }
+                                    })
+                                    .then(response => response.json())
+                                    .then(data => {
+                                        console.log(data);
+                                        if (data.status) {
+                                            el.closest('tr').remove();
+                                            window.location.reload();
+                                            toast.success(data.message);
+                                        } else {
+                                            toast.error(data.message);
+                                        }
+                                    });
+                                }
+                            }
+                        }">
                         @php
-                            $total_price = 0;
+                            $total_price = $carts->sum(function($cart) {
+                                $price = $cart->size ? $cart->size->final_price : $cart->product->final_price;
+                                return $price * $cart->quantity;
+                            });
                         @endphp
                         @foreach ($carts as $cart)
                             <input type="hidden" name="product[{{ $loop->index }}][slug]"
                                 value="{{ $cart->product->slug }}">
                             @php
                                 $photo = explode(',', $cart->product->photo);
-                                $total_price += $cart->product->final_price * $cart->quantity;
                             @endphp
                             <tr class="border-b">
                                 <td class="p-7">
                                     <img class="w-24 h-24" src="{{ $photo[0] }}" />
                                     <a href="{{ route('product.details', $cart->product->slug) }}" class="block">
-                                        {{ $cart->product->title }} </a>
-                                    <span class="text-sm text-secondary">Black, XXL</span>
+                                        {{ $cart->product->title }}
+                                    </a>
+                                    <span class="text-sm text-secondary">
+                                        @if($cart->color)
+                                            {{ $cart->color->color->name }},
+                                        @endif
+                                        @if($cart->size)
+                                            {{ $cart->size->size->size }}
+                                        @endif
+                                    </span>
                                 </td>
                                 <td class="hidden md:block p-7 ps-0">
                                     <a href="{{ route('product.details', $cart->product->slug) }}" class="block">
-                                        {{ $cart->product->title }} </a>
-                                    <span class="text-sm text-secondary">Black, XXL</span>
+                                        {{ $cart->product->title }}
+                                    </a>
+                                    <span class="text-sm text-secondary">
+                                        @if($cart->color)
+                                            {{ $cart->color->color->name }},
+                                        @endif
+                                        @if($cart->size)
+                                            {{ $cart->size->size->size }}
+                                        @endif
+                                    </span>
                                 </td>
                                 <td class="p-7 ps-0">
                                     <div class="flex">
                                         <div class="border px-1 flex items-center justify-center gap-2">
-                                            <span class="text-secondary">-</span>
+                                            <button type="button" class="text-secondary hover:text-primary"
+                                                onclick="updateQuantity(this, -1)">-</button>
                                             <input type="number" name="product[{{ $loop->index }}][quantity]"
-                                                value="{{ $cart->quantity }}" class="w-10 text-center">
-                                            <span class="text-secondary">+</span>
+                                                value="{{ $cart->quantity }}" min="1" class="w-10 text-center"
+                                                onchange="validateQuantity(this)">
+                                            <button type="button" class="text-secondary hover:text-primary"
+                                                onclick="updateQuantity(this, 1)">+</button>
                                         </div>
+                                        <script>
+                                            function updateQuantity(btn, change) {
+                                                const input = btn.parentElement.querySelector('input');
+                                                const newValue = parseInt(input.value) + change;
+                                                if (newValue >= 1) {
+                                                    input.value = newValue;
+                                                    input.dispatchEvent(new Event('change'));
+                                                }
+                                            }
+
+                                            function validateQuantity(input) {
+                                                if (input.value < 1) input.value = 1;
+                                            }
+                                        </script>
                                     </div>
                                 </td>
                                 <td class="p-7 ps-0">
-                                    <span
-                                        class="text-xl font-medium">${{ $cart->product->final_price * $cart->quantity }}</span>
+                                    <span class="text-xl font-medium">
+                                        @php
+                                            $price = $cart->size ? $cart->size->final_price : $cart->product->final_price;
+                                            $total = $price * $cart->quantity;
+                                        @endphp
+                                        ${{ number_format($total, 2) }}
+                                    </span>
                                 </td>
                                 <td class="py-7">
-                                    <span class="text-xl font-medium"><svg xmlns="http://www.w3.org/2000/svg"
+                                    <button type="button"
+                                            @click="confirmDelete($el, {{ $cart->id }})"
+                                            class="text-xl font-medium">
+                                        <svg xmlns="http://www.w3.org/2000/svg"
                                             width="14" height="14" viewBox="0 0 24 24">
                                             <path fill="#333"
                                                 d="M7.616 20q-.691 0-1.153-.462T6 18.384V6H5V5h4v-.77h6V5h4v1h-1v12.385q0 .69-.462 1.153T16.384 20zm2.192-3h1V8h-1zm3.384 0h1V8h-1z" />
                                         </svg>
-                                    </span>
+                                    </button>
                                 </td>
                             </tr>
                         @endforeach
@@ -101,3 +170,14 @@
         </div>
     </section>
     <!-- shopping cart End -->
+
+@push('scripts')
+<script>
+    // Make sure CSRF token is available for AJAX requests
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+</script>
+@endpush

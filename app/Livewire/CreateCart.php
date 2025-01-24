@@ -50,15 +50,16 @@ class CreateCart extends Component
             $already_cart->save();
 
         }else{
-
+           $size = $this->product->sizes->where('is_show',1)->first();
             $cart = new Cart;
             $cart->user_id = $this->user->id;
             $cart->product_id = $this->product->id;
             $cart->color_id = request()->color_id;
             $cart->size_id = request()->size_id;
-            $cart->price = ($this->product->price-($this->product->price * $this->product->discount)/100);
-            $cart->quantity = 1;
-            $cart->amount=$cart->price*$cart->quantity;
+            $cart->price = $size->price;
+            $cart->discount = $size->discount;
+            $cart->quantity = request()->quant;
+            $cart->amount = ($size->price - $size->discount) * request()->quant;
             if ($cart->product->stock < $cart->quantity || $cart->product->stock <= 0)
             {
                 session()->flash('error','Stock not sufficient!.');

@@ -122,7 +122,7 @@ Route::post('/admin-panel',[LoginController::class,'login'])->name('login');
 Route::get('user/login', [FrontendController::class, 'login'])->name('login.form');
 Route::post('user/login', [FrontendController::class, 'loginSubmit'])->name('login.submit');
 Route::get('user/logout', [FrontendController::class, 'logout'])->name('user.logout');
-
+Route::delete('delete-cart', [CartController::class, 'deleteCart'])->name('delete.cart')->middleware(middleware: 'auth');
 // Route::get('user/register', [FrontendController::class, 'register'])->name('register.form');
 Route::post('user/register', [FrontendController::class, 'registerSubmit'])->name('register.submit');
 // Reset password
@@ -441,3 +441,5 @@ Route::post('/cancel', [SslCommerzPaymentController::class, 'cancel']);
 
 Route::post('/ipn', [SslCommerzPaymentController::class, 'ipn']);
 //SSLCOMMERZ END
+
+Route::delete('/cart/delete/{cart}', [FrontendController::class, 'deleteCart'])->name('cart.delete');
