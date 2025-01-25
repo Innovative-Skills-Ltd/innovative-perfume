@@ -271,7 +271,7 @@ class Product extends Model
     {
         return $query->where('status', 'active')
                     ->where('is_showable_to_user', 1)
-                    ->orderBy('average_rating', 'desc');
+                    ->orderBy('average_rating', 'asc');
     }
 
     public function colors()

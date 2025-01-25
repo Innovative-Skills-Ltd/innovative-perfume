@@ -59,7 +59,7 @@ class ProductDeatils extends Component
 
        //increase views
          $product->update([
-            'views' => $product->views,
+            'views' => $product->views + 1,
         ]);
 
         // added as recent view product

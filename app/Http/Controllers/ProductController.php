@@ -239,6 +239,8 @@ class ProductController extends Controller
             $data = $request->except('sizes');
             // dd($data);
             // Update product basic info
+            $data['is_featured'] = $request->input('is_featured', 0);
+
             $product->update($data);
 
             // Handle product sizes - First delete existing sizes
