@@ -92,7 +92,7 @@ class HomePage extends Component
         $n['news'] = DB::table('news')->where('status','active')->orderBy('serial','desc')->get();
         $pd = Product::orderBy('views')
                         ->where('is_showable_to_user',1)
-                        ->orderBy('serial','desc')
+                        // ->orderBy('serial','desc')
                         ->get();
         // $n['new_arrival'] = $pd->whereBetween('created_at', [Carbon::now()->subDays($os->new_product), Carbon::now()]);
         $n['new_arrival'] = Product::where('status','active')
@@ -102,12 +102,7 @@ class HomePage extends Component
                                     ->take(10);
         $n['features'] = $pd;
 
-        $n['student_laptops'] = Product::where('cat_id',39)
-                                ->orderBy('serial','desc')
-                                ->get();
-        $n['gamming_laptops'] = Product::where('cat_id',4)
-                                ->orderBy('serial','desc')
-                                ->get();
+
         // $n['gamming_laptops'] = Category::with('products')->find(4);
         $n['dpds'] = Product::where('status', 'active')
                             ->where('is_showable_to_user',1)

@@ -41,7 +41,9 @@
             <h4 class="text-sm text-center pb-3">
                 @if($product->sizes->where('is_show', true)->first())
                     @php $defaultSize = $product->sizes->where('is_show', true)->first(); @endphp
-                    <del class="">BDT {{ number_format($defaultSize->price, 2) }}</del>
+                    @if($defaultSize->discount > 0)
+                        <del class="">BDT {{ number_format($defaultSize->price, 2) }}</del>
+                    @endif
                     <span class="font-bold text-black">BDT {{ number_format($defaultSize->final_price, 2) }}</span>
                     <span class="text-xs">({{ $defaultSize->size->size }})</span>
                 @endif
