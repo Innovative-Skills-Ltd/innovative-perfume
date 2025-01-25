@@ -95,7 +95,7 @@
     </div>
 
     <!-- Sidenav -->
-    <div class="mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl mt-4">
+    <div class="mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl mt-4">
         <div class="flex justify-between gap-8">
             <div class="[min-width:230px] mt-2">
                 <!-- ---------------nav-1st--part--------------- -->

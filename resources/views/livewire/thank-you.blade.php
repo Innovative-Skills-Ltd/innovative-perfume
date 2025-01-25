@@ -2,7 +2,7 @@
     <!-- cHECKOUT Start -->
 
     <section class="pb-20">
-        <div class="mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl ">
+        <div class="mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl ">
             <div class="py-8 flex items-center gap-2 text-sm">
                 <a href="#">Home</a>
                 <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 1024 1024">
@@ -14,7 +14,7 @@
             <h2 class="text-xl font-semibold mb-10 uppercase">Order Completed</h2>
             <div>
                 <!-- Confirmation Start -->
-                <div class="mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl ">
+                <div class="mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl ">
                     <div class="border rounded px-5 md:ps-7 py-10 mb-6 flex flex-col items-center justify-center">
                         <svg xmlns="http://www.w3.org/2000/svg" width="92" height="92" class="mb-6"
                             viewBox="0 0 1200 1200">

@@ -6,7 +6,7 @@
     </style>
     <!-- Top Bar Start -->
     <section class="bg-primary py-5">
-        <div class="mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl  flex items-center justify-between text-white">
+        <div class="mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl  flex items-center justify-between text-white">
             <span class="">Welcome to our online store!</span>
             <div class="flex items-center gap-2">
                 @if (auth()->user())
@@ -38,7 +38,7 @@
 
     <!-- Top Header Start -->
     <section>
-        <div class="mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl  flex items-center justify-between py-10">
+        <div class="mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl  flex items-center justify-between py-10">
             <div>
                 <a href="{{ route('home') }}">
                     <h2 class="font-bold text-primary text-2xl">{{ env('APP_NAME') }}</h2>
@@ -161,7 +161,7 @@
     <!-- Navbar Start -->
     <nav class="bg-tertiary">
         <div
-            class="mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl  text-sm flex items-center justify-between md:justify-start gap-10">
+            class="mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl  text-sm flex items-center justify-between md:justify-start gap-10">
             <!-- Dropdown Wrapper -->
             <div x-data="{ open: false }"
                 class="relative px-7 py-4 flex items-center font-bold gap-3 bg-primary text-white w-54"

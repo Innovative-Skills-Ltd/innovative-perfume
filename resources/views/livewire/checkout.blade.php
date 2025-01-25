@@ -2,7 +2,7 @@
     <!-- cHECKOUT Start -->
 
     <section class="pb-20">
-        <div class="mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl ">
+        <div class="mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl ">
             <div class="py-8 flex items-center gap-2 text-sm">
                 <a href="#">Home</a>
                 <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 1024 1024">
@@ -21,7 +21,7 @@
                     orderConfirmed: false
                 }">
                     <!-- Shipping Start -->
-                    <div x-show="step === 'shipping'" class="mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl ">
+                    <div x-show="step === 'shipping'" class="mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl ">
                         <div class="border rounded px-5 md:ps-7 py-10 mb-6">
                             <div class="grid grid-cols-1 md:grid-cols-3 gap-20">
                                 <div class="md:col-span-2">
@@ -89,7 +89,9 @@
                                         @foreach ($carts as $cart)
                                             @php
                                                 $photo = explode(',', $cart->product->photo);
-                                                $price = $cart->size ? $cart->size->final_price : $cart->product->final_price;
+                                                $price = $cart->size
+                                                    ? $cart->size->final_price
+                                                    : $cart->product->final_price;
                                                 $total_amount += $price * $cart->quantity;
                                             @endphp
                                             <div class="flex items-center gap-7 pb-7 border-b mb-7">
@@ -97,10 +99,10 @@
                                                 <div>
                                                     <h4 class="py-1 font-medium">{{ $cart->product->title }}</h4>
                                                     <p class="text-sm py-1 text-secondary">
-                                                        @if($cart->color)
+                                                        @if ($cart->color)
                                                             {{ $cart->color->color->name }},
                                                         @endif
-                                                        @if($cart->size)
+                                                        @if ($cart->size)
                                                             {{ $cart->size->size->size }}
                                                         @endif
                                                     </p>
@@ -135,7 +137,7 @@
                     <!-- Shipping End -->
 
                     <!-- Pay Start -->
-                    <div x-show="step === 'payment'" class="mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl">
+                    <div x-show="step === 'payment'" class="mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
                         <div class="border rounded px-5 md:ps-7 py-10 mb-6">
                             <div class="grid grid-cols-1 md:grid-cols-3 gap-20">
                                 <div class="md:col-span-2">
@@ -239,10 +241,10 @@
                                                 <div>
                                                     <h4 class="py-1 font-medium">{{ $cart->product->title }}</h4>
                                                     <p class="text-sm py-1 text-secondary">
-                                                        @if($cart->color)
+                                                        @if ($cart->color)
                                                             {{ $cart->color->color->name }},
                                                         @endif
-                                                        @if($cart->size)
+                                                        @if ($cart->size)
                                                             {{ $cart->size->size->size }}
                                                         @endif
                                                     </p>
@@ -279,7 +281,7 @@
                     <!-- Pay End -->
 
                     <!-- Confirmation Start -->
-                    <div x-show="step === 'confirmation'" class="mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl ">
+                    <div x-show="step === 'confirmation'" class="mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl ">
                         <div class="border rounded px-5 md:ps-7 py-10 mb-6 flex flex-col items-center justify-center">
                             <svg xmlns="http://www.w3.org/2000/svg" width="92" height="92" class="mb-6"
                                 viewBox="0 0 1200 1200">

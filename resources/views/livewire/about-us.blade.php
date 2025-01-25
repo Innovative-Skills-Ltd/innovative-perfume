@@ -2,7 +2,7 @@
 
     <!-- About Us Start -->
     <section class="pb-20">
-        <div class="mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl ">
+        <div class="mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl ">
             <div class="py-8 flex items-center gap-2 text-sm">
                 <a href="{{ route('home') }}">Home</a>
                 <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 1024 1024">
@@ -13,7 +13,7 @@
             </div>
             <h2 class="text-xl font-semibold mb-10 uppercase">ABOUT US</h2>
         </div>
-        <div class="mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl">
+        <div class="mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
             <div class="bg-no-repeat w-full bg-cover"
                 style="
               background-image: url('https://dreamingtheme.kiendaotac.com/html/stelina/assets/images/about-background.jpg');
@@ -37,8 +37,8 @@
     </section>
     <!-- About End -->
     <!-- Services Start -->
-    <section class="mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl  py-12">
-        <div class="mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl  grid grid-cols-1 md:grid-cols-3">
+    <section class="mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl  py-12">
+        <div class="mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl  grid grid-cols-1 md:grid-cols-3">
             <div class="flex items-start flex-col gap-6">
                 <svg xmlns="http://www.w3.org/2000/svg" width="96" height="96" viewBox="0 0 24 24">
                     <g fill="none" stroke="#ab8e66" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
@@ -84,7 +84,7 @@
     </section>
     <!-- Services End -->
     <!-- Team Start -->
-    <section class="mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl  py-12">
+    <section class="mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl  py-12">
         <h2 class="text-xl font-semibold py-16 text-center">
             stelina’s Important Persons
         </h2>
