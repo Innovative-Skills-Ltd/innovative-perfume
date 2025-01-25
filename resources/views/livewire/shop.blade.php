@@ -18,54 +18,56 @@
                     <h2 class="text-xl font-semibold mb-10 uppercase">Shop</h2>
                 </div>
 
-                <div
-                    class="mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl  py-4 bg-tertiary mb-10 flex items-center justify-between">
-                    <div class="flex flex-col md:flex-row gap-5 items-center">
-                        <div class="flex items-center gap-2 px-3 font-medium">
-                            <span class="text-[13px] text-secondary">Sort</span>
-                            <select class="bg-white" name="per_page" id="per_page">
-                                @foreach ([8, 12, 16, 20, 40, 100] as $value)
-                                    <option value="{{ $value }}"
-                                        {{ request('per_page') == $value ? 'selected' : '' }}>
-                                        {{ $value }} Products/Page
-                                    </option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <div class="flex items-center gap-2 px-3 font-medium">
-                            <span class="text-[13px] text-secondary">Sort by</span>
-                            <select class="bg-white" name="sort_by" id="sort_by">
-                                @foreach ([
+                <div class="mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
+                    <div
+                        class="  py-4 bg-tertiary mb-10 flex items-center justify-between">
+                        <div class="flex flex-col md:flex-row gap-5 md:items-center">
+                            <div class="flex flex-col md:flex-row md:items-center gap-2 px-3 font-medium">
+                                <span class="text-[13px] text-secondary">Sort</span>
+                                <select class="bg-white" name="per_page" id="per_page">
+                                    @foreach ([8, 12, 16, 20, 40, 100] as $value)
+                                        <option value="{{ $value }}"
+                                            {{ request('per_page') == $value ? 'selected' : '' }}>
+                                            {{ $value }} Products/Page
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="flex flex-col md:flex-row md:items-center gap-2 px-3 font-medium">
+                                <span class="text-[13px] text-secondary">Sort by</span>
+                                <select class="bg-white" name="sort_by" id="sort_by">
+                                    @foreach ([
         'price_asc' => 'Low to High',
         'price_desc' => 'High to Low',
         'popularity' => 'Sort By Popularity',
         'average_rating' => 'Sort By Average Rating',
         'newest' => 'Sort By Newness',
     ] as $value => $label)
-                                    <option value="{{ $value }}"
-                                        {{ request('sort_by') == $value ? 'selected' : '' }}>
-                                        {{ $label }}
-                                    </option>
-                                @endforeach
-                            </select>
+                                        <option value="{{ $value }}"
+                                            {{ request('sort_by') == $value ? 'selected' : '' }}>
+                                            {{ $label }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-2 pr-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 56 56"
+                                class="cursor-pointer" @click="isGridView = false"
+                                :fill="isGridView ? 'currentColor' : '#ab8e66'">
+                                <path fill-rule="evenodd"
+                                    d="M10 36a3 3 0 1 1 0 6a3 3 0 0 1 0-6m35.998 1c1.106 0 2.002.888 2.002 2c0 1.105-.89 2-2.002 2H18.002A1.996 1.996 0 0 1 16 39c0-1.105.89-2 2.002-2zM10 26a3 3 0 1 1 0 6a3 3 0 0 1 0-6m35.998 1c1.106 0 2.002.888 2.002 2c0 1.105-.89 2-2.002 2H18.002A1.996 1.996 0 0 1 16 29c0-1.105.89-2 2.002-2zM10 16a3 3 0 1 1 0 6a3 3 0 0 1 0-6m35.998 1c1.106 0 2.002.888 2.002 2c0 1.105-.89 2-2.002 2H18.002A1.996 1.996 0 0 1 16 19c0-1.105.89-2 2.002-2z" />
+                            </svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                class="cursor-pointer" @click="isGridView = true"
+                                :fill="isGridView ? '#ab8e66' : 'currentColor'">
+                                <path fill-rule="evenodd"
+                                    d="M16 16h4v4h-4zm-6 0h4v4h-4zm-6 0h4v4H4zm12-6h4v4h-4zm-6 0h4v4h-4zm-6 0h4v4H4zm12-6h4v4h-4zm-6 0h4v4h-4zM4 4h4v4H4z" />
+                            </svg>
                         </div>
                     </div>
-                    <div class="flex items-center gap-2 pr-2">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 56 56"
-                            class="cursor-pointer" @click="isGridView = false"
-                            :fill="isGridView ? 'currentColor' : '#ab8e66'">
-                            <path fill-rule="evenodd"
-                                d="M10 36a3 3 0 1 1 0 6a3 3 0 0 1 0-6m35.998 1c1.106 0 2.002.888 2.002 2c0 1.105-.89 2-2.002 2H18.002A1.996 1.996 0 0 1 16 39c0-1.105.89-2 2.002-2zM10 26a3 3 0 1 1 0 6a3 3 0 0 1 0-6m35.998 1c1.106 0 2.002.888 2.002 2c0 1.105-.89 2-2.002 2H18.002A1.996 1.996 0 0 1 16 29c0-1.105.89-2 2.002-2zM10 16a3 3 0 1 1 0 6a3 3 0 0 1 0-6m35.998 1c1.106 0 2.002.888 2.002 2c0 1.105-.89 2-2.002 2H18.002A1.996 1.996 0 0 1 16 19c0-1.105.89-2 2.002-2z" />
-                        </svg>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                            class="cursor-pointer" @click="isGridView = true"
-                            :fill="isGridView ? '#ab8e66' : 'currentColor'">
-                            <path fill-rule="evenodd"
-                                d="M16 16h4v4h-4zm-6 0h4v4h-4zm-6 0h4v4H4zm12-6h4v4h-4zm-6 0h4v4h-4zm-6 0h4v4H4zm12-6h4v4h-4zm-6 0h4v4h-4zM4 4h4v4H4z" />
-                        </svg>
-                    </div>
-                </div>
 
+                </div>
             </section>
             <!-- Top Bar End -->
             <!-- Products Start Columns -->

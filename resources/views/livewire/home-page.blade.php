@@ -360,7 +360,7 @@
     <!-- Services Start -->
     <section class="bg-primary py-12">
         <div class="mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl  grid grid-cols-1 md:grid-cols-3">
-            <div class="flex items-center gap-6">
+            <div class="flex flex-col md:flex-row justify-center md:justify-start items-center gap-6">
                 <svg xmlns="http://www.w3.org/2000/svg" width="96" height="96" viewBox="0 0 24 24">
                     <g fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round"
                         stroke-width="2">
@@ -369,7 +369,7 @@
                         <path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0m1 7v5s3.03-.55 4-2c1.08-1.62 0-5 0-5" />
                     </g>
                 </svg>
-                <div>
+                <div class="flex flex-col items-center justify-center md:items-start md:justify-start">
                     <h3 class="mb-2 text-white font-semibold uppercase">
                         EU FREE DELIVERY
                     </h3>
@@ -378,12 +378,12 @@
                     </p>
                 </div>
             </div>
-            <div class="flex items-center gap-6">
+            <div class="flex flex-col md:flex-row justify-center md:justify-start items-center gap-6">
                 <svg xmlns="http://www.w3.org/2000/svg" width="96" height="96" viewBox="0 0 24 24">
                     <path fill="#fff"
                         d="M11.896 18a.75.75 0 0 1-.75.75c-3.792 0-6.896-3.005-6.896-6.75s3.104-6.75 6.896-6.75c3.105 0 5.749 2.015 6.605 4.801l.603-1.02a.75.75 0 0 1 1.292.763l-1.63 2.755a.75.75 0 0 1-1.014.272L14.18 11.23a.75.75 0 1 1 .737-1.307l1.472.83c-.574-2.288-2.691-4.003-5.242-4.003C8.149 6.75 5.75 9.117 5.75 12s2.399 5.25 5.396 5.25a.75.75 0 0 1 .75.75" />
                 </svg>
-                <div>
+                <div class="flex flex-col items-center justify-center md:items-start md:justify-start">
                     <h3 class="mb-2 text-white font-semibold uppercase">
                         Money Back Gurantee
                     </h3>
@@ -392,7 +392,7 @@
                     </p>
                 </div>
             </div>
-            <div class="flex items-center gap-6">
+            <div class="flex flex-col md:flex-row justify-center md:justify-start items-center gap-6">
                 <svg xmlns="http://www.w3.org/2000/svg" width="96" height="96" viewBox="0 0 24 24">
                     <g fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round"
                         stroke-width="2">
@@ -400,7 +400,7 @@
                         <path d="M11 16a1 1 0 1 0 2 0a1 1 0 0 0-2 0m-3-5V7a4 4 0 1 1 8 0v4" />
                     </g>
                 </svg>
-                <div>
+                <div class="flex flex-col items-center justify-center md:items-start md:justify-start">
                     <h3 class="mb-2 text-white font-semibold uppercase">
                         Online Support 24/7
                     </h3>

@@ -76,9 +76,35 @@
         </div>
     </footer>
     <!-- Footer Section End -->
+    {{-- Footer Menu Start --}}
+    <section class="md:hidden grid grid-cols-2 border border-t bg-white fixed bottom-0 w-full py-1 pt-2">
+        <div class=" flex flex-col gap-1 items-center justify-center">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 512 512">
+                <path fill="currentColor"
+                    d="M261.56 101.28a8 8 0 0 0-11.06 0L66.4 277.15a8 8 0 0 0-2.47 5.79L63.9 448a32 32 0 0 0 32 32H192a16 16 0 0 0 16-16V328a8 8 0 0 1 8-8h80a8 8 0 0 1 8 8v136a16 16 0 0 0 16 16h96.06a32 32 0 0 0 32-32V282.94a8 8 0 0 0-2.47-5.79Z" />
+                <path fill="currentColor"
+                    d="m490.91 244.15l-74.8-71.56V64a16 16 0 0 0-16-16h-48a16 16 0 0 0-16 16v32l-57.92-55.38C272.77 35.14 264.71 32 256 32c-8.68 0-16.72 3.14-22.14 8.63l-212.7 203.5c-6.22 6-7 15.87-1.34 22.37A16 16 0 0 0 43 267.56L250.5 69.28a8 8 0 0 1 11.06 0l207.52 198.28a16 16 0 0 0 22.59-.44c6.14-6.36 5.63-16.86-.76-22.97" />
+            </svg>
+            <span>Home</span>
+        </div>
+        <div class=" flex flex-col gap-1 items-center justify-center">
+            <div class="relative">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                    <path fill="currentColor" fill-rule="evenodd"
+                        d="M10 2.25a1.75 1.75 0 0 0-1.582 1c-.684.006-1.216.037-1.692.223A3.25 3.25 0 0 0 5.3 4.563c-.367.493-.54 1.127-.776 1.998l-.047.17l-.513 2.964q-.277.191-.486.459c-.901 1.153-.472 2.87.386 6.301c.545 2.183.818 3.274 1.632 3.91C6.31 21 7.435 21 9.685 21h4.63c2.25 0 3.375 0 4.189-.635c.814-.636 1.086-1.727 1.632-3.91c.858-3.432 1.287-5.147.386-6.301a2.2 2.2 0 0 0-.487-.46l-.513-2.962l-.046-.17c-.237-.872-.41-1.506-.776-2a3.25 3.25 0 0 0-1.426-1.089c-.476-.186-1.009-.217-1.692-.222A1.75 1.75 0 0 0 14 2.25zm8.418 6.896l-.362-2.088c-.283-1.04-.386-1.367-.56-1.601a1.75 1.75 0 0 0-.768-.587c-.22-.086-.486-.111-1.148-.118A1.75 1.75 0 0 1 14 5.75h-4a1.75 1.75 0 0 1-1.58-.998c-.663.007-.928.032-1.148.118a1.75 1.75 0 0 0-.768.587c-.174.234-.277.56-.56 1.6l-.362 2.089C6.58 9 7.91 9 9.685 9h4.63c1.775 0 3.105 0 4.103.146M8 12.25a.75.75 0 0 1 .75.75v4a.75.75 0 0 1-1.5 0v-4a.75.75 0 0 1 .75-.75m8.75.75a.75.75 0 0 0-1.5 0v4a.75.75 0 0 0 1.5 0zM12 12.25a.75.75 0 0 1 .75.75v4a.75.75 0 0 1-1.5 0v-4a.75.75 0 0 1 .75-.75"
+                        clip-rule="evenodd" />
+                </svg>
+                <div class="w-4 h-4 rounded-full bg-primary text-white absolute top-0 -right-1 flex items-center justify-center text-xs">
+                    0
+                </div>
+            </div>
+            <span>Cart</span>
+        </div>
+    </section>
+    {{-- Footer Menu End --}}
     <!-- Back To TOP Start -->
     <div id="scrollButton"
-        class="w-12 h-12 rounded-full items-center justify-center fixed bottom-10 right-10 bg-primary z-[9999] hidden">
+        class="w-12 h-12 rounded-full items-center justify-center fixed bottom-14 right-5 bg-primary z-[9999] hidden cursor-pointer">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 16 16">
             <path fill="#fff" fill-rule="evenodd"
                 d="m8 4.293l3.854 3.853l-.707.708L8 5.707L4.854 8.854l-.708-.708zm0 3l3.854 3.853l-.707.708L8 8.707l-3.146 3.147l-.708-.707z"
@@ -92,6 +118,7 @@
             const scrollButton = document.getElementById('scrollButton');
             const scrollDistance = 100; // Adjust the scroll distance as needed
 
+            // Show/hide the button based on scroll position
             window.addEventListener('scroll', () => {
                 if (window.scrollY > scrollDistance) {
                     scrollButton.classList.add('flex');
@@ -101,8 +128,15 @@
                     scrollButton.classList.add('hidden');
                 }
             });
-        });
 
+            // Scroll to the top when the button is clicked
+            scrollButton.addEventListener('click', () => {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth' // Adds smooth scrolling animation
+                });
+            });
+        });
         const swiper = new Swiper(".hero-swiper", {
             // Optional parameters
             // direction: "vertical",

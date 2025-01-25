@@ -5,9 +5,9 @@
                 @php
                     $photo = explode(',', $product->photo);
                 @endphp
-                <img src="{{ $photo[0] }}" class="object-container pimg h-[180px] mx-auto" alt="{{ $product->photo }}">
+                <img src="{{ $photo[0] }}" class=" mx-auto object-contain h-[300px]" alt="{{ $product->photo }}">
             @else
-                <img src="{{ asset('backend/img/thumbnail-default.jpg') }}" class="object-container pimg h-[180px]"
+                <img src="{{ asset('backend/img/thumbnail-default.jpg') }}" class=" mx-auto object-contain h-[300px]"
                     alt="avatar.png">
             @endif
 
@@ -16,7 +16,7 @@
                     Out Of Stock
                 </span>
             @endif
-            <div class="top-0 left-0 right-0 bottom-0 m-auto absolute h-full">
+            <div class="top-0 left-0 right-0 bottom-0 m-auto absolute h-[300px]">
                 <!-- Action buttons -->
                 <div class="h-full flex items-center justify-center">
                     <div class="bg-primary flex rounded-full group-hover:mt-0 transition-all duration-300 ease-in-out group-hover:opacity-100 opacity-0 mt-20">

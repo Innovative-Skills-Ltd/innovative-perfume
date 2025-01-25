@@ -134,7 +134,7 @@
                     </table>
                     <div
                         class="flex flex-col md:flex-row items-center justify-between py-12 ps-7 pe-14 border border-t-0">
-                        <div class="flex flex-col md:flex-row items-center gap-1">
+                        {{-- <div class="flex flex-col md:flex-row items-center gap-1">
                             <label class="font-medium">Coupon Code:</label>
                             <div class="relative">
                                 <input class="py-2 px-5 border w-full rounded-full" type="text"
@@ -147,7 +147,8 @@
                                     </svg>
                                 </button>
                             </div>
-                        </div>
+                        </div> --}}
+                        <div></div>
                         <div>
                             <span class="font-medium">Total Price: $</span>
                             <span class="text-xl font-medium">{{ $total_price }}</span>
