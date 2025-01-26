@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Facades\DB;
 use Str;
+use Illuminate\Support\Facades\Storage;
 
 class Product extends Model
 {
@@ -37,7 +38,13 @@ class Product extends Model
         'service_warranty',
         'disclaimer',
         'note',
-        'w_details'
+        'w_details',
+        'banner_image',
+        'product_thumbnail_image',
+        'best_collection_image',
+        'collection_arrived_image',
+        'instagram_image',
+        'instragram_link'
     ];
 
     protected $casts = [
@@ -49,6 +56,13 @@ class Product extends Model
         'serial' => 'integer',
         'average_rating' => 'integer'
     ];
+
+    protected $appends = ['photo_formatted'];
+
+    public function getPhotoFormattedAttribute()
+    {
+        return explode(',', $this->photo);
+    }
 
     static public function orderByFinalpriceAsc()
     {
@@ -285,5 +299,77 @@ class Product extends Model
     public function colors()
     {
         return $this->hasMany(ProductColor::class);
+    }
+
+    // Collection scopes
+    public function scopeBestCollections($query)
+    {
+        return $query->whereNotNull('best_collection_image')
+                    ->where('status', 'active')
+                    ->where('is_showable_to_user', 1)
+                    ->orderBy('views', 'desc')
+                    ->take(2);
+    }
+
+    public function scopeNewArrivals($query)
+    {
+        return $query->whereNotNull('collection_arrived_image')
+                    ->where('status', 'active')
+                    ->where('is_showable_to_user', 1)
+                    ->latest()
+                    ->take(1);
+    }
+
+    // Helper methods for images
+    public function getImageUrl($field)
+    {
+        if ($this->$field) {
+            return Storage::url($this->$field);
+        }
+        return null;
+    }
+
+    public function getThumbnailUrl()
+    {
+        return $this->getImageUrl('product_thumbnail_image') ?? asset('backend/img/thumbnail-default.jpg');
+    }
+
+    public function getBannerUrl()
+    {
+        return $this->getImageUrl('banner_image') ?? asset('backend/img/banner-default.jpg');
+    }
+
+    public function getBestCollectionUrl()
+    {
+        return $this->getImageUrl('best_collection_image') ?? asset('backend/img/banner-default.jpg');
+    }
+
+    public function getCollectionArrivedUrl()
+    {
+        return $this->getImageUrl('collection_arrived_image') ?? asset('backend/img/banner-default.jpg');
+    }
+
+    public function getInstagramUrl()
+    {
+        return $this->getImageUrl('instagram_image') ?? asset('backend/img/banner-default.jpg');
+    }
+
+    // Image path getters for cleanup
+    public function getImagePath($field)
+    {
+        return $this->$field ? Str::after($this->$field, '/storage/') : null;
+    }
+
+    // Get all image paths for cleanup
+    public function getAllImagePaths()
+    {
+        return collect([
+            'banner_image',
+            'product_thumbnail_image',
+            'best_collection_image',
+            'collection_arrived_image',
+            'instagram_image'
+        ])->map(fn($field) => $this->getImagePath($field))
+          ->filter();
     }
 }

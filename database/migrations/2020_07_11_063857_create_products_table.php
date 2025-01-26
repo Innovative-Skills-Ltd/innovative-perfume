@@ -75,7 +75,21 @@ class CreateProductsTable extends Migration
             $table->string('w_details')->nullable(); //Other warranty
 
 
+
             $table->timestamps();
+        });
+
+        Schema::table('products', function (Blueprint $table) {
+            // Remove old photo column if needed
+            // $table->dropColumn('photo');
+
+            // Add new image columns
+            $table->string('banner_image')->nullable()->after('title');
+            $table->string('product_thumbnail_image')->nullable()->after('banner_image');
+            $table->string('best_collection_image')->nullable()->after('product_thumbnail_image');
+            $table->string('collection_arrived_image')->nullable()->after('best_collection_image');
+            $table->string('instagram_image')->nullable()->after('collection_arrived_image');
+            $table->string("instragram_link", 500)->nullable()->after('instagram_image');
         });
     }
 
@@ -87,5 +101,19 @@ class CreateProductsTable extends Migration
     public function down()
     {
         Schema::dropIfExists('products');
+
+        Schema::table('products', function (Blueprint $table) {
+            $table->dropColumn([
+                'banner_image',
+                'product_thumbnail_image',
+                'best_collection_image',
+                'collection_arrived_image',
+                'instagram_image',
+                'instragram_link'
+            ]);
+
+            // Restore old photo column if needed
+            // $table->text('photo')->nullable();
+        });
     }
 }
