@@ -627,7 +627,7 @@
                                     @if($product->product_thumbnail_image)
                                         <div class="col-md-6 mb-4">
                                             <h5>Thumbnail Image</h5>
-                                            <img src="{{ $product->getThumbnailUrl() }}" class="img-fluid rounded">
+                                            <img src="{{ $product->thumbnail_url }}" class="img-fluid rounded">
                                         </div>
                                     @endif
 
@@ -635,7 +635,7 @@
                                         <div class="col-md-6 mb-4">
                                             <h5>Banner Image</h5>
                                             {{-- @dd($product->getBannerUrl()) --}}
-                                            <img src="{{ $product->getBannerUrl() }}" class="img-fluid rounded">
+                                            <img src="{{ $product->banner_url }}" class="img-fluid rounded">
                                         </div>
                                     @endif
 
@@ -644,21 +644,21 @@
                                     @if($product->instagram_image)
                                         <div class="col-md-6 mb-4">
                                             <h5>Instagram Image</h5>
-                                            <img src="{{ $product->getInstagramUrl() }}" class="img-fluid rounded">
+                                            <img src="{{ $product->instagram_url }}" class="img-fluid rounded">
                                         </div>
                                     @endif
 
                                     @if($product->best_collection_image)
                                         <div class="col-md-6 mb-4">
                                             <h5>Best Collection Image</h5>
-                                            <img src="{{ $product->getBestCollectionUrl() }}" class="img-fluid rounded">
+                                            <img src="{{ $product->best_collection_url }}" class="img-fluid rounded">
                                         </div>
                                     @endif
 
                                     @if($product->collection_arrived_image)
                                         <div class="col-md-6 mb-4">
                                             <h5>Collection Arrived Image</h5>
-                                            <img src="{{ $product->getCollectionArrivedUrl() }}" class="img-fluid rounded">
+                                            <img src="{{ $product->collection_arrived_url }}" class="img-fluid rounded">
                                         </div>
                                     @endif
 
