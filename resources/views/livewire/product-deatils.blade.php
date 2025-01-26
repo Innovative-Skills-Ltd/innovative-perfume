@@ -19,14 +19,14 @@
                         <img class="w-full" src="{{ $product->thumbnail_url }}" />
                     </div>
                     <!-- Keep existing static image grid -->
-                    <div class="grid grid-cols-3 gap-5">
+                    {{-- <div class="grid grid-cols-3 gap-5">
                         <img class="hover:border-primary border transition-all duration-300" src="{{ $product->thumbnail_url }}"
                         title="{{ $product->title }}">
                         @foreach ($photos as $pto)
                             <img class="hover:border-primary border transition-all duration-300" src="{{ $pto }}"
                                 title="{{ $product->title }}">
                         @endforeach
-                    </div>
+                    </div> --}}
                 </div>
                 <form action="{{ route('create_cart', $product->slug) }}" method="GET">
                     @csrf
