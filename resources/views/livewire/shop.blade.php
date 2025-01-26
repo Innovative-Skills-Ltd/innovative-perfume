@@ -6,7 +6,7 @@
             <!-- Top Bar Start -->
             <section class="pb-12">
 
-                <div class="mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl ">
+                <div class="mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl ">
                     <div class="py-8 flex items-center gap-2 text-sm">
                         <a href="{{ route('home') }}">Home</a>
                         <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 1024 1024">
@@ -18,59 +18,61 @@
                     <h2 class="text-xl font-semibold mb-10 uppercase">Shop</h2>
                 </div>
 
-                <div
-                    class="mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl  py-4 bg-tertiary mb-10 flex items-center justify-between">
-                    <div class="flex flex-col md:flex-row gap-5 items-center">
-                        <div class="flex items-center gap-2 px-3 font-medium">
-                            <span class="text-[13px] text-secondary">Sort</span>
-                            <select class="bg-white" name="per_page" id="per_page">
-                                @foreach ([8, 12, 16, 20, 40, 100] as $value)
-                                    <option value="{{ $value }}"
-                                        {{ request('per_page') == $value ? 'selected' : '' }}>
-                                        {{ $value }} Products/Page
-                                    </option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <div class="flex items-center gap-2 px-3 font-medium">
-                            <span class="text-[13px] text-secondary">Sort by</span>
-                            <select class="bg-white" name="sort_by" id="sort_by">
-                                @foreach ([
+                <div class="mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
+                    <div
+                        class="  py-4 bg-tertiary mb-10 flex items-center justify-between">
+                        <div class="flex flex-col md:flex-row gap-5 md:items-center">
+                            <div class="flex flex-col md:flex-row md:items-center gap-2 px-3 font-medium">
+                                <span class="text-[13px] text-secondary">Sort</span>
+                                <select class="bg-white" name="per_page" id="per_page">
+                                    @foreach ([8, 12, 16, 20, 40, 100] as $value)
+                                        <option value="{{ $value }}"
+                                            {{ request('per_page') == $value ? 'selected' : '' }}>
+                                            {{ $value }} Products/Page
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="flex flex-col md:flex-row md:items-center gap-2 px-3 font-medium">
+                                <span class="text-[13px] text-secondary">Sort by</span>
+                                <select class="bg-white" name="sort_by" id="sort_by">
+                                    @foreach ([
         'price_asc' => 'Low to High',
         'price_desc' => 'High to Low',
         'popularity' => 'Sort By Popularity',
         'average_rating' => 'Sort By Average Rating',
         'newest' => 'Sort By Newness',
     ] as $value => $label)
-                                    <option value="{{ $value }}"
-                                        {{ request('sort_by') == $value ? 'selected' : '' }}>
-                                        {{ $label }}
-                                    </option>
-                                @endforeach
-                            </select>
+                                        <option value="{{ $value }}"
+                                            {{ request('sort_by') == $value ? 'selected' : '' }}>
+                                            {{ $label }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-2 pr-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 56 56"
+                                class="cursor-pointer" @click="isGridView = false"
+                                :fill="isGridView ? 'currentColor' : '#ab8e66'">
+                                <path fill-rule="evenodd"
+                                    d="M10 36a3 3 0 1 1 0 6a3 3 0 0 1 0-6m35.998 1c1.106 0 2.002.888 2.002 2c0 1.105-.89 2-2.002 2H18.002A1.996 1.996 0 0 1 16 39c0-1.105.89-2 2.002-2zM10 26a3 3 0 1 1 0 6a3 3 0 0 1 0-6m35.998 1c1.106 0 2.002.888 2.002 2c0 1.105-.89 2-2.002 2H18.002A1.996 1.996 0 0 1 16 29c0-1.105.89-2 2.002-2zM10 16a3 3 0 1 1 0 6a3 3 0 0 1 0-6m35.998 1c1.106 0 2.002.888 2.002 2c0 1.105-.89 2-2.002 2H18.002A1.996 1.996 0 0 1 16 19c0-1.105.89-2 2.002-2z" />
+                            </svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                class="cursor-pointer" @click="isGridView = true"
+                                :fill="isGridView ? '#ab8e66' : 'currentColor'">
+                                <path fill-rule="evenodd"
+                                    d="M16 16h4v4h-4zm-6 0h4v4h-4zm-6 0h4v4H4zm12-6h4v4h-4zm-6 0h4v4h-4zm-6 0h4v4H4zm12-6h4v4h-4zm-6 0h4v4h-4zM4 4h4v4H4z" />
+                            </svg>
                         </div>
                     </div>
-                    <div class="flex items-center gap-2 pr-2">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 56 56"
-                            class="cursor-pointer" @click="isGridView = false"
-                            :fill="isGridView ? 'currentColor' : '#ab8e66'">
-                            <path fill-rule="evenodd"
-                                d="M10 36a3 3 0 1 1 0 6a3 3 0 0 1 0-6m35.998 1c1.106 0 2.002.888 2.002 2c0 1.105-.89 2-2.002 2H18.002A1.996 1.996 0 0 1 16 39c0-1.105.89-2 2.002-2zM10 26a3 3 0 1 1 0 6a3 3 0 0 1 0-6m35.998 1c1.106 0 2.002.888 2.002 2c0 1.105-.89 2-2.002 2H18.002A1.996 1.996 0 0 1 16 29c0-1.105.89-2 2.002-2zM10 16a3 3 0 1 1 0 6a3 3 0 0 1 0-6m35.998 1c1.106 0 2.002.888 2.002 2c0 1.105-.89 2-2.002 2H18.002A1.996 1.996 0 0 1 16 19c0-1.105.89-2 2.002-2z" />
-                        </svg>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                            class="cursor-pointer" @click="isGridView = true"
-                            :fill="isGridView ? '#ab8e66' : 'currentColor'">
-                            <path fill-rule="evenodd"
-                                d="M16 16h4v4h-4zm-6 0h4v4h-4zm-6 0h4v4H4zm12-6h4v4h-4zm-6 0h4v4h-4zm-6 0h4v4H4zm12-6h4v4h-4zm-6 0h4v4h-4zM4 4h4v4H4z" />
-                        </svg>
-                    </div>
-                </div>
 
+                </div>
             </section>
             <!-- Top Bar End -->
             <!-- Products Start Columns -->
             <section :class="isGridView ? ' hidden' : 'block'">
-                <div class="mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl  pb-20">
+                <div class="mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl  pb-20">
                     <div class="grid grid-cols-1 gap-5">
                         @foreach ($products as $cproduct)
                             <div class="group cursor-pointer w-full">
@@ -144,7 +146,7 @@
                                     </div>
                                     <div class="col-span-12  md:col-span-2 border-l p-7 flex flex-col gap-3">
                                         <h3 class="font-bold text-black text-2xl">
-                                            @if($cproduct->sizes->where('is_show', true)->first())
+                                            @if ($cproduct->sizes->where('is_show', true)->first())
                                                 @php $defaultSize = $cproduct->sizes->where('is_show', true)->first(); @endphp
                                                 BDT {{ number_format($defaultSize->final_price, 2) }}
                                                 <span class="text-sm">({{ $defaultSize->size->size }})</span>
@@ -184,19 +186,20 @@
 
             <!-- Products Start Grid -->
             <section :class="isGridView ? ' block' : 'hidden'">
-                <div class="mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl  pb-20">
+                <div class="mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl  pb-20">
                     <div class="grid grid-cols-1 md:grid-cols-4 gap-5">
                         @foreach ($products as $gproduct)
                             <a href="{{ route('product.details', $gproduct->slug) }}">
                                 <div class="group cursor-pointer">
                                     <div class="border group-hover:border-[#ab8e66] transition-all duration-300">
                                         <div class="relative w-full">
-                                            <img src="{{ $gproduct->photo }}" class="w-full" />
+                                            <img src="{{ $gproduct->photo }}"
+                                                class="mx-auto object-contain h-[300px]" />
                                             <div class="top-0 left-0 right-0 bottom-0 m-auto absolute h-full">
-                                                <div class="h-full flex items-center justify-center">
+                                                <div class="h-[300px] flex items-center justify-center">
                                                     <div
                                                         class="bg-primary flex rounded-full group-hover:mt-0 transition-all duration-300 ease-in-out group-hover:opacity-100 opacity-0 mt-20">
-                                                        <div class="w-11 h-11 flex items-center justify-end">
+                                                        {{-- <div class="w-11 h-11 flex items-center justify-end">
                                                             <svg xmlns="http://www.w3.org/2000/svg" width="24"
                                                                 height="24" viewBox="0 0 24 24">
                                                                 <path fill="none" stroke="#fff"
@@ -213,8 +216,8 @@
                                                                     stroke-width="1.5"
                                                                     d="m21 21l-4.343-4.343m0 0A8 8 0 1 0 5.343 5.343a8 8 0 0 0 11.314 11.314" />
                                                             </svg>
-                                                        </div>
-                                                        <div class="w-11 h-11 flex items-center justify-start">
+                                                        </div> --}}
+                                                        <div class="w-11 h-11 flex items-center justify-center">
                                                             <svg xmlns="http://www.w3.org/2000/svg" width="24"
                                                                 height="24" viewBox="0 0 56 56">
                                                                 <path fill="#fff"
@@ -239,10 +242,12 @@
                                                 {!! $gproduct->echoStar() !!}
                                             </div>
                                             <h4 class="text-sm text-center pb-3">
-                                                @if($gproduct->sizes->where('is_show', true)->first())
+                                                @if ($gproduct->sizes->where('is_show', true)->first())
                                                     @php $defaultSize = $gproduct->sizes->where('is_show', true)->first(); @endphp
-                                                    <del class="">BDT {{ number_format($defaultSize->price, 2) }}</del>
-                                                    <span class="font-bold text-black">BDT {{ number_format($defaultSize->final_price, 2) }}</span>
+                                                    <del class="">BDT
+                                                        {{ number_format($defaultSize->price, 2) }}</del>
+                                                    <span class="font-bold text-black">BDT
+                                                        {{ number_format($defaultSize->final_price, 2) }}</span>
                                                     <span class="text-xs">({{ $defaultSize->size->size }})</span>
                                                 @endif
                                             </h4>

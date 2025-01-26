@@ -1,5 +1,5 @@
    <!-- Authentication Start -->
-   <section class="mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl  pb-20">
+   <section class="mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl  pb-20">
        <div class="py-8 flex items-center gap-2 text-sm">
            <a href="{{ route('home') }}">Home</a>
            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 1024 1024">

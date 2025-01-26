@@ -89,7 +89,7 @@
         </ul>
     </nav>
     <!-- ------------------container--section-------start--- -->
-    <div class="mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl">
+    <div class="mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
         <div class=>
             <h1 class='font-[jost] xl:text-[20px] font-[400] leading-[25.3px] text-[#353535]'>Shopping Cart/View Cart
             </h1>

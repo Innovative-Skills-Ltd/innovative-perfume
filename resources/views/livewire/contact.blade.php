@@ -1,6 +1,6 @@
     <!-- Contact Us Start -->
     <section class="pb-20">
-        <div class="mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl ">
+        <div class="mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl ">
             <div class="py-8 flex items-center gap-2 text-sm">
                 <a href="#">Home</a>
                 <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 1024 1024">
@@ -16,7 +16,7 @@
             class="w-full" height="450" style="border: 0" allowfullscreen="" loading="lazy"
             referrerpolicy="no-referrer-when-downgrade"></iframe>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl  -mt-52">
+        <div class="grid grid-cols-1 md:grid-cols-3 mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl  -mt-52">
             <div class="md:col-span-2 py-14 px-5 md:px-16 shadow-lg bg-white">
                 <h2 class="font-medium mb-7">SEND US A MESSAGE!</h2>
                 <form>

@@ -1,6 +1,6 @@
     <!-- shopping cart Us Start -->
     <section class="pb-20">
-        <div class="mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl ">
+        <div class="mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl ">
             <div class="py-8 flex items-center gap-2 text-sm">
                 <a href="#">Home</a>
                 <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 1024 1024">
@@ -11,15 +11,14 @@
             </div>
             <h2 class="text-xl font-semibold mb-10 uppercase">SHOPPING CART</h2>
         </div>
-        <div class="mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl ">
+        <div class="mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl ">
             <form action="{{ route('checkout') }}" method="POST">
                 @csrf
                 <div>
-                    <table class="border rounded-md w-full"
-                        x-data="{
-                            confirmDelete(el, cartId) {
-                                if (confirm('Are you sure you want to remove this item?')) {
-                                    fetch(`/cart/delete/${cartId}`, {
+                    <table class="border rounded-md w-full" x-data="{
+                        confirmDelete(el, cartId) {
+                            if (confirm('Are you sure you want to remove this item?')) {
+                                fetch(`/cart/delete/${cartId}`, {
                                         method: 'DELETE',
                                         headers: {
                                             'Content-Type': 'application/json',
@@ -39,11 +38,11 @@
                                             toast.error(data.message);
                                         }
                                     });
-                                }
                             }
-                        }">
+                        }
+                    }">
                         @php
-                            $total_price = $carts->sum(function($cart) {
+                            $total_price = $carts->sum(function ($cart) {
                                 $price = $cart->size ? $cart->size->final_price : $cart->product->final_price;
                                 return $price * $cart->quantity;
                             });
@@ -61,10 +60,10 @@
                                         {{ $cart->product->title }}
                                     </a>
                                     <span class="text-sm text-secondary">
-                                        @if($cart->color)
+                                        @if ($cart->color)
                                             {{ $cart->color->color->name }},
                                         @endif
-                                        @if($cart->size)
+                                        @if ($cart->size)
                                             {{ $cart->size->size->size }}
                                         @endif
                                     </span>
@@ -74,10 +73,10 @@
                                         {{ $cart->product->title }}
                                     </a>
                                     <span class="text-sm text-secondary">
-                                        @if($cart->color)
+                                        @if ($cart->color)
                                             {{ $cart->color->color->name }},
                                         @endif
-                                        @if($cart->size)
+                                        @if ($cart->size)
                                             {{ $cart->size->size->size }}
                                         @endif
                                     </span>
@@ -112,18 +111,19 @@
                                 <td class="p-7 ps-0">
                                     <span class="text-xl font-medium">
                                         @php
-                                            $price = $cart->size ? $cart->size->final_price : $cart->product->final_price;
+                                            $price = $cart->size
+                                                ? $cart->size->final_price
+                                                : $cart->product->final_price;
                                             $total = $price * $cart->quantity;
                                         @endphp
                                         ${{ number_format($total, 2) }}
                                     </span>
                                 </td>
                                 <td class="py-7">
-                                    <button type="button"
-                                            @click="confirmDelete($el, {{ $cart->id }})"
-                                            class="text-xl font-medium">
-                                        <svg xmlns="http://www.w3.org/2000/svg"
-                                            width="14" height="14" viewBox="0 0 24 24">
+                                    <button type="button" @click="confirmDelete($el, {{ $cart->id }})"
+                                        class="text-xl font-medium">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+                                            viewBox="0 0 24 24">
                                             <path fill="#333"
                                                 d="M7.616 20q-.691 0-1.153-.462T6 18.384V6H5V5h4v-.77h6V5h4v1h-1v12.385q0 .69-.462 1.153T16.384 20zm2.192-3h1V8h-1zm3.384 0h1V8h-1z" />
                                         </svg>
@@ -134,7 +134,7 @@
                     </table>
                     <div
                         class="flex flex-col md:flex-row items-center justify-between py-12 ps-7 pe-14 border border-t-0">
-                        <div class="flex flex-col md:flex-row items-center gap-1">
+                        {{-- <div class="flex flex-col md:flex-row items-center gap-1">
                             <label class="font-medium">Coupon Code:</label>
                             <div class="relative">
                                 <input class="py-2 px-5 border w-full rounded-full" type="text"
@@ -147,7 +147,8 @@
                                     </svg>
                                 </button>
                             </div>
-                        </div>
+                        </div> --}}
+                        <div></div>
                         <div>
                             <span class="font-medium">Total Price: $</span>
                             <span class="text-xl font-medium">{{ $total_price }}</span>
@@ -171,13 +172,13 @@
     </section>
     <!-- shopping cart End -->
 
-@push('scripts')
-<script>
-    // Make sure CSRF token is available for AJAX requests
-    $.ajaxSetup({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
-    });
-</script>
-@endpush
+    @push('scripts')
+        <script>
+            // Make sure CSRF token is available for AJAX requests
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+        </script>
+    @endpush

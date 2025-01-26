@@ -9,7 +9,7 @@
                     // dd($photo);
                 @endphp
                 <img src="{{ $photo[0] }}"
-                    class="img-fluid zoom h-[180px] object-mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl" style="max-width:80px"
+                    class="img-fluid zoom h-[180px] object-mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl" style="max-width:80px"
                     alt="{{ $product->photo }}">
             @else
                 <img src="{{ asset('backend/img/thumbnail-default.jpg') }}"

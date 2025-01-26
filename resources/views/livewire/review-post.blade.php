@@ -17,9 +17,9 @@
                 }
             }
         </style>
-        <div class="mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl">
+        <div class="mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
             <section id="slider" class="pt-5 mx-auto">
-                <div class="mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl">
+                <div class="mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
                     {{-- <h1 class="text-center"><b>Responsive Owl Carousel</b></h1> --}}
                     <div class="slider">
                         <div class="owl-carousel">

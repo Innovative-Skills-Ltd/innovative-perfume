@@ -1,5 +1,3 @@
-
-
 /** @type {import('tailwindcss').Config} */
 module.exports = {
     content: [
@@ -11,12 +9,19 @@ module.exports = {
     plugins: [require("tw-elements/dist/plugin.cjs")],
     darkMode: "class",
     theme: {
+        extend: {
+            colors: {
+                primary: "#ab8e66",
+                secondary: "#888",
+                hard: "#666",
+                tertiary: "#f3f3f3"
+            }
+        },
         fontFamily: {
             // alkalami: ['Alkalami', serif],
             // comme: ['Comme', sans-serif],
-            jost: ['jost','sans-serif'],
+            jost: ["jost", "sans-serif"]
             // lato: ['Lato', sans-serif],
         }
     }
 };
-

@@ -1,7 +1,7 @@
 <div>
     <!-- Product Start -->
     <section>
-        <div class="mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl ">
+        <div class="mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl ">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-16">
                 @if ($product->photo)
                     @php
@@ -33,16 +33,18 @@
                         <h1 class="mb-2 text-2xl font-medium">{{ $product->title }}</h1>
                         <div x-data="{
                             selectedSize: null,
-                            sizes: {{ json_encode($product->sizes->map(function($size) {
-                                return [
-                                    'id' => $size->id,
-                                    'size' => $size->size->size,
-                                    'price' => $size->price,
-                                    'discount' => $size->discount,
-                                    'final_price' => $size->final_price,
-                                    'is_show' => $size->is_show
-                                ];
-                            })) }},
+                            sizes: {{ json_encode(
+                                $product->sizes->map(function ($size) {
+                                    return [
+                                        'id' => $size->id,
+                                        'size' => $size->size->size,
+                                        'price' => $size->price,
+                                        'discount' => $size->discount,
+                                        'final_price' => $size->final_price,
+                                        'is_show' => $size->is_show,
+                                    ];
+                                }),
+                            ) }},
                             init() {
                                 this.selectedSize = this.sizes.find(s => s.is_show) || this.sizes[0];
                             }
@@ -63,9 +65,9 @@
                                 <template x-for="size in sizes" :key="size.id">
                                     <div class="mr-2 mb-4">
                                         <div @click="selectedSize = size"
-                                            :class="selectedSize?.id === size.id ? 'bg-primary text-white border' : 'border text-gray-700'"
-                                            class="p-2 px-4 text-xs cursor-pointer"
-                                            x-text="size.size">
+                                            :class="selectedSize?.id === size.id ? 'bg-primary text-white border' :
+                                                'border text-gray-700'"
+                                            class="p-2 px-4 text-xs cursor-pointer" x-text="size.size">
                                         </div>
                                     </div>
                                 </template>
@@ -78,13 +80,15 @@
                         <!-- Color Selector -->
                         <div x-data="{
                             selectedColor: null,
-                            colors: {{ json_encode($product->colors->map(function($productColor) {
-                                return [
-                                    'id' => $productColor->id,
-                                    'name' => $productColor->color->name,
-                                    'code' => $productColor->color->code
-                                ];
-                            })) }},
+                            colors: {{ json_encode(
+                                $product->colors->map(function ($productColor) {
+                                    return [
+                                        'id' => $productColor->id,
+                                        'name' => $productColor->color->name,
+                                        'code' => $productColor->color->code,
+                                    ];
+                                }),
+                            ) }},
                             init() {
                                 this.selectedColor = this.colors[0];
                             }
@@ -95,15 +99,13 @@
                             </div>
                             <div class="mt-4 mb-2 flex items-center flex-wrap">
                                 <template x-for="color in colors" :key="color.id">
-                                    <div @click="selectedColor = color"
-                                        :title="color.name"
+                                    <div @click="selectedColor = color" :title="color.name"
                                         :style="{ backgroundColor: color.code }"
                                         :class="selectedColor?.id === color.id ? 'ring-2 ring-primary' : ''"
                                         class="p-2 border mr-2 mb-4 cursor-pointer transition-all duration-300 hover:shadow-md">
                                         <!-- Color Name -->
-                                        <span x-text="color.name"
-                                              class="text-sm font-medium"
-                                              :class="isLightColor(color.code) ? 'text-gray-800' : 'text-white'">
+                                        <span x-text="color.name" class="text-sm font-medium"
+                                            :class="isLightColor(color.code) ? 'text-gray-800' : 'text-white'">
                                         </span>
                                     </div>
                                 </template>
@@ -192,7 +194,7 @@
 
     <!-- Product Description Start -->
     <section>
-        <div class="mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl  mt-20" x-data="{ activeTab: 'descriptions' }">
+        <div class="mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl  mt-20" x-data="{ activeTab: 'descriptions' }">
             <!-- Button Navigation -->
             <div class="mb-9 flex items-center justify-center gap-10">
                 <button :class="{ 'text-primary border-b-2 border-b-primary': activeTab === 'descriptions' }"
@@ -239,7 +241,7 @@
     <!-- Products Start -->
     @if ($related_products)
         <section>
-            <div class="mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl  pb-20">
+            <div class="mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl  pb-20">
                 <div class="pt-14 pb-10 flex flex-col items-center justify-center gap-3">
                     <h2 class="text-xl font-semibold text-center uppercase">
                         You may also like
@@ -255,12 +257,12 @@
                                         @php
                                             $photo = explode(',', $product->photo);
                                         @endphp
-                                        <img src="{{ $photo[0] }}" class="w-full" />
+                                        <img src="{{ $photo[0] }}" class=" mx-auto object-contain h-[300px]" />
                                         <div class="top-0 left-0 right-0 bottom-0 m-auto absolute h-full">
-                                            <div class="h-full flex items-center justify-center">
+                                            <div class="h-[300px] flex items-center justify-center">
                                                 <div
                                                     class="bg-primary flex rounded-full group-hover:mt-0 transition-all duration-300 ease-in-out group-hover:opacity-100 opacity-0 mt-20">
-                                                    <div class="w-11 h-11 flex items-center justify-end">
+                                                    {{-- <div class="w-11 h-11 flex items-center justify-end">
                                                         <svg xmlns="http://www.w3.org/2000/svg" width="24"
                                                             height="24" viewBox="0 0 24 24">
                                                             <path fill="none" stroke="#fff"
@@ -277,8 +279,8 @@
                                                                 stroke-width="1.5"
                                                                 d="m21 21l-4.343-4.343m0 0A8 8 0 1 0 5.343 5.343a8 8 0 0 0 11.314 11.314" />
                                                         </svg>
-                                                    </div>
-                                                    <div class="w-11 h-11 flex items-center justify-start">
+                                                    </div> --}}
+                                                    <div class="w-11 h-11 flex items-center justify-center">
                                                         <svg xmlns="http://www.w3.org/2000/svg" width="24"
                                                             height="24" viewBox="0 0 56 56">
                                                             <path fill="#fff"
