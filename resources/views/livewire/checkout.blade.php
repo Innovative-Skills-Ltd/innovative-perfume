@@ -107,7 +107,7 @@
                                                         @endif
                                                     </p>
                                                     <h4 class="font-semibold">
-                                                        ${{ $price }}
+                                                        BDT{{ $price }}
                                                         <span class="text-secondary">x{{ $cart->quantity }}</span>
                                                     </h4>
                                                 </div>
@@ -257,7 +257,7 @@
                                         @endforeach
                                     </div>
                                     <h3 class="font-medium">
-                                        Total Price: <span class="text-xl font-medium">${{ $total_amount }}</span>
+                                        Total Price: <span class="text-xl font-medium">BDT {{ $total_amount }}</span>
                                     </h3>
                                 </div>
                             </div>

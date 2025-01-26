@@ -19,8 +19,7 @@
                 </div>
 
                 <div class="mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
-                    <div
-                        class="  py-4 bg-tertiary mb-10 flex items-center justify-between">
+                    <div class="  py-4 bg-tertiary mb-10 flex items-center justify-between">
                         <div class="flex flex-col md:flex-row gap-5 md:items-center">
                             <div class="flex flex-col md:flex-row md:items-center gap-2 px-3 font-medium">
                                 <span class="text-[13px] text-secondary">Sort</span>
@@ -77,16 +76,17 @@
                         @foreach ($products as $cproduct)
                             <div class="group cursor-pointer w-full">
                                 <div
-                                    class="border group-hover:border-[#ab8e66] transition-all duration-300 grid grid-cols-12">
-                                    <div class="col-span-12  md:col-span-10 grid grid-cols-12 gap-5">
-                                        <div class="relative w-full col-span-3">
-                                            <img src="{{ $cproduct->photo }}" class="w-full" />
-                                            <div class="top-0 left-0 right-0 bottom-0 m-auto absolute h-full">
+                                    class="border group-hover:border-[#ab8e66] transition-all duration-300 grid grid-cols-1 md:grid-cols-12">
+                                    <div class="  md:col-span-10 grid grid-cols-12 gap-5">
+                                        <div class="relative w-full col-span-12 md:col-span-3">
+                                            <img src="{{ $cproduct->photo }}"
+                                                class="mx-auto object-contain h-[300px]" />
+                                            <div class="top-0 left-0 right-0 bottom-0 m-auto absolute h-[300px]">
                                                 <div class="h-full flex items-center justify-center">
                                                     <div
                                                         class="bg-primary flex rounded-full group-hover:mt-0 transition-all duration-300 ease-in-out group-hover:opacity-100 opacity-0 mt-20">
 
-                                                        <div class="w-11 h-11 flex items-center justify-end">
+                                                        {{-- <div class="w-11 h-11 flex items-center justify-end">
                                                             <svg xmlns="http://www.w3.org/2000/svg" width="24"
                                                                 height="24" viewBox="0 0 24 24">
                                                                 <path fill="none" stroke="#fff"
@@ -103,8 +103,8 @@
                                                                     stroke-width="1.5"
                                                                     d="m21 21l-4.343-4.343m0 0A8 8 0 1 0 5.343 5.343a8 8 0 0 0 11.314 11.314" />
                                                             </svg>
-                                                        </div>
-                                                        <div class="w-11 h-11 flex items-center justify-start">
+                                                        </div> --}}
+                                                        <div class="w-11 h-11 flex items-center justify-center">
                                                             <svg xmlns="http://www.w3.org/2000/svg" width="24"
                                                                 height="24" viewBox="0 0 56 56">
                                                                 <path fill="#fff"
@@ -121,12 +121,14 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-span-9 flex flex-col items-start">
+                                        <div
+                                            class="col-span-12 md:col-span-9 flex flex-col items-center md:items-start justify-center md:justify-start">
                                             <h3 class="text-primary text-lg font-medium text-center mt-5">
                                                 {{ $cproduct->title }}
                                             </h3>
                                             <div>
-                                                <div class="flex items-start justify-start w-full mb-5">
+                                                <div
+                                                    class="flex items-center md:items-start justify-center md:justify-start w-full mb-5">
                                                     {!! $cproduct->echoStar() !!}
                                                 </div>
                                                 <h3 class="text-sm">
@@ -144,7 +146,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-span-12  md:col-span-2 border-l p-7 flex flex-col gap-3">
+                                    <div class=" md:col-span-2 border-l p-7 flex flex-col items-center gap-3">
                                         <h3 class="font-bold text-black text-2xl">
                                             @if ($cproduct->sizes->where('is_show', true)->first())
                                                 @php $defaultSize = $cproduct->sizes->where('is_show', true)->first(); @endphp
