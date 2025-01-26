@@ -82,6 +82,9 @@ class Product extends Model
     public function defaultsize(){
         return $this->sizes->where('is_show', true)->first();
     }
+    public function isDiscount(){
+        return $this->defaultsize()?->discount > 0;
+    }
 
     public function photo(){
         return explode(',', $this->photo);

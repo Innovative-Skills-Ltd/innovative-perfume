@@ -243,7 +243,7 @@
                                             </div>
                                             <h4 class="text-sm text-center pb-3">
                                                 @if ($size = $gproduct->defaultsize())
-                                                    @if ($size?->discount)
+                                                    @if ($gproduct->isDiscount())
                                                         <del class="">BDT
                                                             {{ number_format($size->price, 2) }}</del>
                                                     @endif

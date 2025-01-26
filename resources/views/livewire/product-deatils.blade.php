@@ -305,8 +305,8 @@
                                             {!! $product->echoStar() !!}
                                         </div>
                                         <h4 class="text-sm text-center pb-3">
-                                            @if ($size = $product->defaultsize()?->discount)
-                                                <del class="">{{ $size->price }}</del>
+                                            @if ($product->isDiscount())
+                                                <del class="">{{ $product->defaultsize()?->price }}</del>
                                             @endif
 
                                             <span class="font-bold text-black">{{ $product->defaultsize()?->final_price }}</span>
