@@ -78,6 +78,11 @@ class Product extends Model
     public function size(){
         return $this->sizes->where('is_show', true)->first()?->size;
     }
+
+    public function defaultsize(){
+        return $this->sizes->where('is_show', true)->first();
+    }
+
     public function photo(){
         return explode(',', $this->photo);
     }
