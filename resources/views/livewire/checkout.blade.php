@@ -152,10 +152,10 @@
                                             class="payment-option flex items-center gpa-2 py-2 px-5 border bg-primary text-white rounded-full text-xs font-semibold uppercase">
                                             CREDIT CARD
                                         </label>
-                                        <label type="button" onclick="selectPaymentMethod('PAYPAL', this)"
+                                        {{-- <label type="button" onclick="selectPaymentMethod('PAYPAL', this)"
                                             class="payment-option flex items-center gpa-5 py-2 px-5 border rounded-full text-xs font-semibold uppercase">
                                             <span>PAYPAL</span>
-                                        </label>
+                                        </label> --}}
                                     </div>
                                     <script>
                                         function selectPaymentMethod(method, element) {
@@ -237,7 +237,7 @@
                                                 $photo = explode(',', $cart->product->photo);
                                             @endphp
                                             <div class="flex items-center gap-7 pb-7 border-b mb-7">
-                                                <img class="w-24 h-24" src="{{ $photo[0] }}" />
+                                                <img class="w-24 h-24" src="{{ $cart?->product?->thumbnail_url }}" />
                                                 <div>
                                                     <h4 class="py-1 font-medium">{{ $cart->product->title }}</h4>
                                                     <p class="text-sm py-1 text-secondary">

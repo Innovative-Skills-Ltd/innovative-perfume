@@ -153,7 +153,7 @@
             </div>
             </a>
             <!-- -----------------cart-5 (wishlist)------------------------ -->
-            <a href="{{route('wishlist')}}" wire:navigate>
+            {{-- <a href="{{route('wishlist')}}" wire:navigate>
             <div
                 class='bg-[#f2f2f2] w-[182px] h-[118px] max-sm:w-[150px] max-sm:h-[114px] rounded-[4px] text-center py-[26px]'>
                 <div class='items-center'>
@@ -183,7 +183,7 @@
                     <p class='text-[#380D37] text-[16px] font-[jost] font-[500] items-center'>Wishlist</p>
                 </div>
             </div>
-            </a>
+            </a> --}}
         </div>
     </div>
     <div class='h-[2px] bg-[#764A8733] my-[100px] max-sm:mt-[45px] max-sm:mb-[50px]'></div>

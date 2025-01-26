@@ -55,7 +55,7 @@
                             @endphp
                             <tr class="border-b">
                                 <td class="p-7">
-                                    <img class="w-24 h-24" src="{{ $photo[0] }}" />
+                                    <img class="w-24 h-24" src="{{ $cart->product->thumbnail_url }}" />
                                     <a href="{{ route('product.details', $cart->product->slug) }}" class="block">
                                         {{ $cart->product->title }}
                                     </a>
