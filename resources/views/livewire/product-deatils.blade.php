@@ -325,9 +325,7 @@
         </section>
     @endif
     <!-- Products End -->
-</div>
-
-<!-- Add this Alpine.js function to check color brightness -->
+    <!-- Add this Alpine.js function to check color brightness -->
 <script>
     function isLightColor(color) {
         const hex = color.replace('#', '');
@@ -338,3 +336,6 @@
         return brightness > 155;
     }
 </script>
+</div>
+
+
