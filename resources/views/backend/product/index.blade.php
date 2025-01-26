@@ -94,7 +94,7 @@
 
                                         @if ($product->product_thumbnail_image)
 
-                                            <img src="{{ $product->getThumbnailUrl() }}" class="img-fluid zoom" style="max-width:80px"
+                                            <img src="{{ $product->thumbnail_url }}" class="img-fluid zoom" style="max-width:80px"
                                                 alt="{{ $product->title }}">
                                         @else
                                             <img src="{{ asset('backend/img/thumbnail-default.jpg') }}" class="img-fluid"

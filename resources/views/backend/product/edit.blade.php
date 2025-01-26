@@ -277,7 +277,7 @@
                                 <input type="file" name="product_thumbnail_image" id="product_thumbnail_image"
                                     class="custom-file-input" accept="image/*" onchange="previewImage(this, 'thumbnail-preview')">
                             </div>
-                            <img id="thumbnail-preview" src="{{ $product->getThumbnailUrl() }}"
+                            <img id="thumbnail-preview" src="{{ $product->thumbnail_url }}"
                                  class="mt-2 img-fluid {{ $product->product_thumbnail_image ? '' : 'd-none' }}"
                                  style="max-height: 200px">
                             @if($product->product_thumbnail_image)
@@ -335,7 +335,7 @@
                                 <input type="file" name="banner_image" id="banner_image" class="custom-file-input"
                                     accept="image/*" onchange="previewImage(this, 'banner-preview')">
                             </div>
-                            <img id="banner-preview" src="{{ $product->getBannerUrl() }}"
+                            <img id="banner-preview" src="{{ $product->banner_url }}"
                                  class="mt-2 img-fluid {{ $product->banner_image ? '' : 'd-none' }}"
                                  style="max-height: 200px">
                             @if($product->banner_image)
@@ -361,7 +361,7 @@
                                 <input type="file" name="best_collection_image" id="best_collection_image"
                                     class="custom-file-input" accept="image/*" onchange="previewImage(this, 'collection-preview')">
                             </div>
-                            <img id="collection-preview" src="{{ $product->getBestCollectionUrl() }}"
+                            <img id="collection-preview" src="{{ $product->best_collection_url }}"
                                  class="mt-2 img-fluid {{ $product->best_collection_image ? '' : 'd-none' }}"
                                  style="max-height: 200px">
                             @if($product->best_collection_image)
@@ -387,7 +387,7 @@
                                 <input type="file" name="collection_arrived_image" id="collection_arrived_image"
                                     class="custom-file-input" accept="image/*" onchange="previewImage(this, 'arrival-preview')">
                             </div>
-                            <img id="arrival-preview" src="{{ $product->getCollectionArrivedUrl() }}"
+                            <img id="arrival-preview" src="{{ $product->collection_arrived_url }}"
                                  class="mt-2 img-fluid {{ $product->collection_arrived_image ? '' : 'd-none' }}"
                                  style="max-height: 200px">
                             @if($product->collection_arrived_image)
@@ -413,7 +413,7 @@
                                 <input type="file" name="instagram_image" id="instagram_image"
                                     class="custom-file-input" accept="image/*" onchange="previewImage(this, 'instagram-preview')">
                             </div>
-                            <img id="instagram-preview" src="{{ $product->getInstagramUrl() }}"
+                            <img id="instagram-preview" src="{{ $product->instagram_url }}"
                                  class="mt-2 img-fluid {{ $product->instagram_image ? '' : 'd-none' }}"
                                  style="max-height: 200px">
                             @if($product->instagram_image)
