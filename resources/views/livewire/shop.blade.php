@@ -242,13 +242,14 @@
                                                 {!! $gproduct->echoStar() !!}
                                             </div>
                                             <h4 class="text-sm text-center pb-3">
-                                                @if ($gproduct->sizes->where('is_show', true)->first())
-                                                    @php $defaultSize = $gproduct->sizes->where('is_show', true)->first(); @endphp
-                                                    <del class="">BDT
-                                                        {{ number_format($defaultSize->price, 2) }}</del>
+                                                @if ($size = $gproduct->defaultsize())
+                                                    @if ($size?->discount)
+                                                        <del class="">BDT
+                                                            {{ number_format($size->price, 2) }}</del>
+                                                    @endif
                                                     <span class="font-bold text-black">BDT
-                                                        {{ number_format($defaultSize->final_price, 2) }}</span>
-                                                    <span class="text-xs">({{ $defaultSize->size->size }})</span>
+                                                        {{ number_format($size->final_price, 2) }}</span>
+                                                    <span class="text-xs">({{ $size->size->size }})</span>
                                                 @endif
                                             </h4>
                                         </div>
