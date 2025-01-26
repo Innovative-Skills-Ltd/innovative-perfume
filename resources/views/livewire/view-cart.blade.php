@@ -116,7 +116,7 @@
                                                 : $cart->product->final_price;
                                             $total = $price * $cart->quantity;
                                         @endphp
-                                        ${{ number_format($total, 2) }}
+                                        BDT{{ number_format($total, 2) }}
                                     </span>
                                 </td>
                                 <td class="py-7">
