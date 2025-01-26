@@ -150,8 +150,8 @@
                         </div> --}}
                         <div></div>
                         <div>
-                            <span class="font-medium">Total Price: $</span>
-                            <span class="text-xl font-medium">{{ $total_price }}</span>
+                            <span class="font-medium">Total Price: </span>
+                            <span class="text-xl font-medium">BDT {{ $total_price }}</span>
                         </div>
                     </div>
                     <div class="mt-7 flex items-center justify-end gap-5">

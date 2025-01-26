@@ -1057,14 +1057,6 @@ input[type="range"]:active::-webkit-slider-thumb{
   grid-column: span 2 / span 2;
 }
 
-.col-span-3{
-  grid-column: span 3 / span 3;
-}
-
-.col-span-9{
-  grid-column: span 9 / span 9;
-}
-
 .row-span-2{
   grid-row: span 2 / span 2;
 }
@@ -1820,6 +1812,10 @@ input[type="range"]:active::-webkit-slider-thumb{
 
 .h-\[51px\]{
   height: 51px;
+}
+
+.h-\[533px\]{
+  height: 533px;
 }
 
 .h-\[56px\]{
@@ -2726,10 +2722,6 @@ input[type="range"]:active::-webkit-slider-thumb{
 
 .items-center{
   align-items: center;
-}
-
-.justify-start{
-  justify-content: flex-start;
 }
 
 .justify-end{
@@ -7426,12 +7418,20 @@ h6 {
     grid-column: span 2 / span 2;
   }
 
+  .md\:col-span-3{
+    grid-column: span 3 / span 3;
+  }
+
   .md\:col-span-4{
     grid-column: span 4 / span 4;
   }
 
   .md\:col-span-8{
     grid-column: span 8 / span 8;
+  }
+
+  .md\:col-span-9{
+    grid-column: span 9 / span 9;
   }
 
   .md\:my-0{
@@ -7461,6 +7461,10 @@ h6 {
 
   .md\:h-\[300px\]{
     height: 300px;
+  }
+
+  .md\:grid-cols-12{
+    grid-template-columns: repeat(12, minmax(0, 1fr));
   }
 
   .md\:grid-cols-2{
@@ -7493,6 +7497,10 @@ h6 {
 
   .md\:justify-start{
     justify-content: flex-start;
+  }
+
+  .md\:gap-10{
+    gap: 2.5rem;
   }
 
   .md\:p-0{
