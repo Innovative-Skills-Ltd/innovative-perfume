@@ -57,7 +57,7 @@ class Product extends Model
         'average_rating' => 'integer'
     ];
 
-    protected $appends = ['photo_formatted'];
+    protected $appends = ['photo_formatted','banner_url','thumbnail_url','best_collection_url','collection_arrived_url','instagram_url'];
 
     public function getPhotoFormattedAttribute()
     {
@@ -285,15 +285,26 @@ class Product extends Model
     public function scopeBestSellers($query)
     {
         return $query->where('status', 'active')
-                    ->where('is_showable_to_user', 1)
-                    ->orderBy('views', 'desc');  // Assuming 'views' indicates popularity
+                    ->orderBy('views', 'desc');
+    }
+
+    public function scopeInstagramProducts($query)
+    {
+        return $query->where('status', 'active')
+                    ->whereNotNull('instagram_image')
+                    ->orderBy('serial', 'desc');
+    }
+
+    public function scopeCollectionArrival($query)
+    {
+        return $query->where('status', 'active')
+                    ->whereNotNull('collection_arrived_image');
     }
 
     public function scopeTopRated($query)
     {
         return $query->where('status', 'active')
-                    ->where('is_showable_to_user', 1)
-                    ->orderBy('average_rating', 'asc');
+                    ->orderBy('average_rating', 'desc');
     }
 
     public function colors()
@@ -302,6 +313,11 @@ class Product extends Model
     }
 
     // Collection scopes
+    public function scopeBannerProducts($query)
+    {
+        return $query->whereNotNull('banner_image')
+                    ->where('status', 'active');
+    }
     public function scopeBestCollections($query)
     {
         return $query->whereNotNull('best_collection_image')
@@ -329,27 +345,27 @@ class Product extends Model
         return null;
     }
 
-    public function getThumbnailUrl()
+    public function getThumbnailUrlAttribute()
     {
         return $this->getImageUrl('product_thumbnail_image') ?? asset('backend/img/thumbnail-default.jpg');
     }
 
-    public function getBannerUrl()
+    public function getBannerUrlAttribute()
     {
         return $this->getImageUrl('banner_image') ?? asset('backend/img/banner-default.jpg');
     }
 
-    public function getBestCollectionUrl()
+    public function getBestCollectionUrlAttribute()
     {
         return $this->getImageUrl('best_collection_image') ?? asset('backend/img/banner-default.jpg');
     }
 
-    public function getCollectionArrivedUrl()
+    public function getCollectionArrivedUrlAttribute()
     {
         return $this->getImageUrl('collection_arrived_image') ?? asset('backend/img/banner-default.jpg');
     }
 
-    public function getInstagramUrl()
+    public function getInstagramUrlAttribute()
     {
         return $this->getImageUrl('instagram_image') ?? asset('backend/img/banner-default.jpg');
     }

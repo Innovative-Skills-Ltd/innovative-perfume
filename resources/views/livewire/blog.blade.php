@@ -119,7 +119,7 @@
                             varius nunc dictum in. Praesent pulvinar sit amet nulla nec
                             elementum.
                         </p>
-                        <div class="mb-4">
+                        {{-- <div class="mb-4">
                             <button class="my-1 mr-2 px-3 text-sm font-semibold text-secondary">
                                 Tags:
                             </button>
@@ -138,9 +138,9 @@
                             <button class="border my-1 mr-2 px-3 text-sm font-semibold text-secondary">
                                 Accessories
                             </button>
-                        </div>
+                        </div> --}}
                     </div>
-                    <div class="pt-5 pb-3 mb-12 flex items-center justify-between border-t border-b">
+                    {{-- <div class="pt-5 pb-3 mb-12 flex items-center justify-between border-t border-b">
                         <div class="flex items-center gap-1">
                             <img class="w-8 h-8 rounded-full"
                                 src="https://dreamingtheme.kiendaotac.com/html/stelina/assets/images/avt-blog1.png" />
@@ -304,9 +304,9 @@
                                 </h3>
                             </div>
                         </div>
-                    </div>
+                    </div> --}}
                 </div>
-                <div class="flex items-center justify-center gap-2 mt-10">
+                {{-- <div class="flex items-center justify-center gap-2 mt-10">
                     <div class="w-10 h-10 rounded-full border flex items-center justify-center font-medium">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24">
                             <path fill="none" stroke="currentColor" stroke-linecap="round"
@@ -329,10 +329,10 @@
                                 d="m13.292 12l-4.6-4.6l.708-.708L14.708 12L9.4 17.308l-.708-.708z" />
                         </svg>
                     </div>
-                </div>
+                </div> --}}
             </div>
             <div class="col-span-12 md:col-span-2 pl-4">
-                <div class="mb-12">
+                {{-- <div class="mb-12">
                     <div class="flex items-center pb-6 gap-2">
                         <span class="inline-block bg-primary w-6 h-[2px]"></span>
                         <h3 class="text-sm font-semibold uppercase">Follow us</h3>
@@ -352,14 +352,20 @@
                                 d="M9.294 6.928L14.357 1h-1.2L8.762 6.147L5.25 1H1.2l5.31 7.784L1.2 15h1.2l4.642-5.436L10.751 15h4.05zM7.651 8.852l-.538-.775L2.832 1.91h1.843l3.454 4.977l.538.775l4.491 6.47h-1.843z" />
                         </svg>
                     </div>
-                </div>
+                </div> --}}
                 <div class="mb-12">
                     <div class="flex items-center pb-6 gap-2">
                         <span class="inline-block bg-primary w-6 h-[2px]"></span>
                         <h3 class="text-sm font-semibold uppercase">CATEGORIES</h3>
                     </div>
                     <div class="flex flex-col gap-1">
-                        <div class="flex items-center gap-2">
+                        @foreach ($categories as $category)
+                            <div class="flex items-center gap-2">
+                                <input id="new-arrivals" type="checkbox" />
+                                <label for="new-arrivals" class="text-secondary">{{$category->title}}</label>
+                            </div>
+                        @endforeach
+                        {{-- <div class="flex items-center gap-2">
                             <input id="new-arrivals" type="checkbox" />
                             <label for="new-arrivals" class="text-secondary">New Arrivals</label>
                         </div>
@@ -370,11 +376,7 @@
                         <div class="flex items-center gap-2">
                             <input id="new-arrivals" type="checkbox" />
                             <label for="new-arrivals" class="text-secondary">New Arrivals</label>
-                        </div>
-                        <div class="flex items-center gap-2">
-                            <input id="new-arrivals" type="checkbox" />
-                            <label for="new-arrivals" class="text-secondary">New Arrivals</label>
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
                 <div class="mb-12">
@@ -423,7 +425,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="mb-12">
+                {{-- <div class="mb-12">
                     <div class="flex items-center pb-6 gap-2">
                         <span class="inline-block bg-primary w-6 h-[2px]"></span>
                         <h3 class="text-sm font-semibold uppercase">Popular Tags</h3>
@@ -448,8 +450,8 @@
                             Office
                         </button>
                     </div>
-                </div>
-                <div class="border py-8 px-5 relative">
+                </div> --}}
+                {{-- <div class="border py-8 px-5 relative">
                     <svg xmlns="http://www.w3.org/2000/svg"
                         class="absolute opacity-5 left-0 top-0 right-0 mx-auto rotate-45" width="70%"
                         height="70%" viewBox="0 0 16 16">
@@ -468,7 +470,7 @@
                         class="py-2 px-5 w-full text-white bg-primary uppercase font-bold text-xs rounded-full mb-2">
                         Subscribe
                     </button>
-                </div>
+                </div> --}}
             </div>
         </div>
     </div>

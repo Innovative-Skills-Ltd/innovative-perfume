@@ -20,6 +20,10 @@
             height: 100%;
         }
 
+        #bestseller {
+            scroll-margin-top: 130px;
+        }
+
         .swiper-pagination-bullet-active {
             background: none !important;
             border: 1px solid #ab8e66 !important;
@@ -62,16 +66,16 @@
                     <div class="swiper hero-swiper">
                         <div class="swiper-wrapper">
 
-                            @foreach ($hero_products as $hero_product)
+                            @foreach ($banner_products as $hero_product)
                                 @php
-                                    $product_size = $hero_product->sizes->where('is_show', true)->first();
+                                    $product_size = $hero_product->defaultsize();
                                     $max_discount = $hero_product->sizes->max('discount');
                                     $max_discount_percentage = round(($max_discount / $product_size->price) * 100);
                                 @endphp
 
                                 <div style="width: 100%; height: 100%"
                                     class="swiper-slide bg-no-repeat object-cover bg- w-full p-5 md:pl-12 md:pt-44 md:pb-48 md:pr-12 flex flex-col gap-16 relative">
-                                    <img src="{{ $hero_product->photo }}"
+                                    <img src="{{ $hero_product->banner_url }}"
                                         class="absolute top-0 left-0 bottom-0 -z-10 right-0 w-full h-full" />
                                     <div>
                                         <h3
@@ -100,15 +104,15 @@
                     </div>
                 </div>
 
-                <a href="{{ route('product.details', $first_product->slug) }}">
+                <a href="{{ route('shop') }}">
                     <div style="width: 100%; height: 298px" class="bg-no-repeat py-14 pl-7 pr-40 relative">
                         <img class="absolute top-0 bottom-0 left-0 right-0 w-full h-full -z-10"
-                            src="{{ $photo[0] }}" />
+                            src="{{ asset('images/temporary/banner-home-5.jpg') }}" />
                         <h3 x-bind:class="active ? 'top-0 opacity-100' : 'top-12 opacity-0'"
                             class="font-semibold uppercase mb-3 text-primary relative transition-all duration-500">
                             Pick Your Items
                         </h3>
-                        <p class="text-secondary mb-4">{{ $first_product->title }}</p>
+                        <p class="text-secondary mb-4">Adipiscing elit curabitur senectus sem</p>
 
                         <button class="text-sm font-bold pb-2 border-b-2 uppercase border-black">
                             Shop Now
@@ -116,16 +120,17 @@
                     </div>
                 </a>
 
-                <a href="{{ route('product.details', $first_product->slug) }}">
+                <a href="#bestseller">
                     <div style="width: 100%; height: 298px" class="bg-no-repeat py-14 pl-7 pr-40 relative">
                         <img class="absolute top-0 bottom-0 left-0 right-0 w-full h-full -z-10"
-                            src="{{ $photo[0] }}" />
-                        <h3 class="text-2xl mb-2 font-bold">Pick Your Items</h3>
-                        <p class="text-secondary mb-4">{{ $first_product->title }}</p>
+                            src="{{ asset('images/temporary/banner-home-6.jpg') }}" />
+                        <h3 class="text-2xl mb-2 font-bold">Best Of
+                            Products</h3>
+                        <p class="text-secondary mb-4">Cras pulvinar loresum dolor conse</p>
 
-                        <button class="text-sm font-bold pb-2 border-b-2 uppercase border-black">
+                        {{-- <button class="text-sm font-bold pb-2 border-b-2 uppercase border-black">
                             Shop Now
-                        </button>
+                        </button> --}}
                     </div>
                 </a>
             </div>
@@ -142,12 +147,12 @@
             </div>
             <div class="swiper deals-of-the-day-swiper pb-20">
                 <div class="swiper-wrapper pb-5">
-                    @foreach ($new_arrival as $na)
+                    @foreach ($deal_of_the_day as $na)
                         <a class="swiper-slide" href="{{ route('product.details', $na->slug) }}">
                             <div class="group cursor-pointer">
                                 <div class="border group-hover:border-[#ab8e66] transition-all duration-300">
                                     <div class="relative w-full">
-                                        <img src="{{ asset($na->photo) }}" title="{{ $na->title }}"
+                                        <img src="{{ asset($na->thumbnail_url) }}" title="{{ $na->title }}"
                                             class=" object-contain mx-auto h-[300px]" />
                                         <div class="top-0 left-0 right-0 bottom-0 m-auto absolute h-full">
                                             <div class="h-[300px] flex items-center justify-center">
@@ -242,42 +247,27 @@
     <!-- Best Collection Start -->
     <section class="my-10">
         <div class="mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl grid-cols-1 grid md:grid-cols-2 gap-5">
-            <a href="{{ route('product.details', $first_product->slug) }}">
-                <div style="width: 100%"
-                    class="bg-no-repeat p-5 md:h-[300px] md:py-14 md:pl-10 bg-cover md:pr-[300px] relative">
-                    <img class="absolute top-0 bottom-0 left-0 right-0 -z-10 w-full h-full"
-                        src="{{ $photo[0] }}" />
-                    <h3 class="text-sm font-semibold mb-1 text-primary">
-                        TOP STAFF PICK
-                    </h3>
-                    <h2 class="mb-3 text-2xl font-medium">Best Collection</h2>
-                    <p class="text-secondary mb-7">
-                        {{ $first_product->title }}
-                    </p>
+            @foreach ($best_collection as $best_product)
+                <a href="{{ route('product.details', $best_product->slug) }}">
+                    <div style="width: 100%"
+                        class="bg-no-repeat p-5 md:h-[300px] md:py-14 md:pl-10 bg-cover md:pr-[300px] relative">
+                        <img class="absolute top-0 bottom-0 left-0 right-0 -z-10 w-full h-full"
+                            src="{{ $best_product->best_collection_url }}" />
+                        <h3 class="text-sm font-semibold mb-1 text-primary">
+                            TOP STAFF PICK
+                        </h3>
+                        <h2 class="mb-3 text-2xl font-medium">Best Collection</h2>
+                        <p class="text-secondary mb-7">
+                            {{ $best_product->title }}
+                        </p>
 
-                    <button class="text-sm font-bold pb-2 border-b-2 uppercase border-black">
-                        Shop Now
-                    </button>
-                </div>
-            </a>
-            <a href="{{ route('product.details', $first_product->slug) }}">
-                <div style="width: 100%; height: 300px"
-                    class="bg-no-repeat p-5 md:py-14 md:pl-10 bg-cover md:pr-[300px] relative">
-                    <img class="absolute top-0 bottom-0 left-0 right-0 -z-10 w-full h-full"
-                        src="{{ $photo[0] }}" />
-                    <h3 class="text-sm font-semibold mb-1 text-primary">
-                        TOP STAFF PICK
-                    </h3>
-                    <h2 class="mb-3 text-2xl font-medium">Best Collection</h2>
-                    <p class="text-secondary mb-7">
-                        {{ $first_product->title }}
-                    </p>
+                        <button class="text-sm font-bold pb-2 border-b-2 uppercase border-black">
+                            Shop Now
+                        </button>
+                    </div>
+                </a>
+            @endforeach
 
-                    <button class="text-sm font-bold pb-2 border-b-2 uppercase border-black">
-                        Shop Now
-                    </button>
-                </div>
-            </a>
         </div>
     </section>
     <!-- Best Collection End -->
@@ -286,17 +276,17 @@
     <section class="mt-5 mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
         <div style="width: 100%"
             class="  flex flex-col items-center justify-center py-12 bg-no-repeat bg-cover relative">
-            <img class="absolute top-0 right-0 bottom-0 left-0 w-full h-full -z-10" src="{{ $photo[0] }}" />
+            <img class="absolute top-0 right-0 bottom-0 left-0 w-full h-full -z-10" src="{{ $collection_arrived->collection_arrived_url }}" />
             <h2 class="font-medium text-4xl mb-2">Collection Arrived</h2>
             <p class="mb-4 text-hard text-center">
-                {{ $first_product->title }}
+                {{ $collection_arrived->title }}
             </p>
             <p class="mb-5 text-hard">
                 Price from:
                 <span class="text-primary text-3xl font-semibold">BDT
-                    {{ number_format($first_product->sizes->min('final_price'), 2) }}</span>
+                    {{ number_format($collection_arrived->sizes->min('final_price'), 2) }}</span>
             </p>
-            <a href="{{ route('product.details', $first_product->slug) }}"
+            <a href="{{ route('product.details', $collection_arrived->slug) }}"
                 class="text-sm font-bold pb-2 border-b-2 uppercase border-black">
                 Shop Now
             </a>
@@ -305,7 +295,7 @@
     <!-- Collection Arrival End  -->
 
     <!-- Products Start -->
-    <section class="my-20" x-data="{ selectedCategory: 'new_arrivals' }">
+    <section class="my-20" x-data="{ selectedCategory: 'bestseller' }">
         <div class="mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
             <!-- Category Buttons -->
             <div class="flex flex-wrap gap-5 items-center justify-center mb-14">
@@ -333,23 +323,30 @@
             </div>
 
             <!-- Product Grid -->
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-5">
+            <div id="bestseller">
+
                 <template x-if="selectedCategory === 'new_arrivals'">
-                    @foreach ($new_arrival as $product)
-                        @include('components.product-card', ['product' => $product])
-                    @endforeach
+                    <div class="grid grid-cols-1 md:grid-cols-4 gap-5">
+                        @foreach ($new_arrivals as $product)
+                            <x-product-card :product="$product" />
+                        @endforeach
+                    </div>
                 </template>
 
                 <template x-if="selectedCategory === 'bestseller'">
-                    @foreach ($bestsellers as $product)
-                        @include('components.product-card', ['product' => $product])
-                    @endforeach
+                    <div class="grid grid-cols-1 md:grid-cols-4 gap-5">
+                        @foreach ($bestsellers as $product)
+                            <x-product-card :product="$product" />
+                        @endforeach
+                    </div>
                 </template>
 
                 <template x-if="selectedCategory === 'top_rated'">
-                    @foreach ($top_rated as $product)
-                        @include('components.product-card', ['product' => $product])
-                    @endforeach
+                    <div class="grid grid-cols-1 md:grid-cols-4 gap-5">
+                        @foreach ($top_rated as $product)
+                            <x-product-card :product="$product" />
+                        @endforeach
+                    </div>
                 </template>
             </div>
         </div>
@@ -422,10 +419,10 @@
             </div>
             <div class="swiper news-swiper pb-20">
                 <div class="swiper-wrapper pb-5">
-                    <a href="{{ route('product.details', $first_product->slug) }}" class="swiper-slide">
+                    <a href="{{ route('blogs') }}" class="swiper-slide">
                         <div>
                             <div class="relative group">
-                                <img src="{{ $photo[0] }}" class="object-cover h-96" />
+                                <img src="{{ asset('images/temporary/slider-blog-thumb-1.jpg') }}" class="object-cover h-96" />
                                 <div
                                     class="bg-black top-0 right-0 left-0 absolute w-full h-96 group-hover:opacity-75 opacity-0 transition-all duration-150">
                                 </div>
@@ -446,10 +443,10 @@
                             </button>
                         </div>
                     </a>
-                    <a href="{{ route('product.details', $first_product->slug) }}" class="swiper-slide">
+                    <a href="{{ route('blogs') }}" class="swiper-slide">
                         <div>
                             <div class="relative group">
-                                <img src="{{ $photo[0] }}" class="object-cover h-96" />
+                                <img src="{{ asset('images/temporary/slider-blog-thumb-2.jpg') }}" class="object-cover h-96" />
                                 <div
                                     class="bg-black top-0 right-0 left-0 absolute w-full h-96 group-hover:opacity-75 opacity-0 transition-all duration-150">
                                 </div>
@@ -470,58 +467,10 @@
                             </button>
                         </div>
                     </a>
-                    <a href="{{ route('product.details', $first_product->slug) }}" class="swiper-slide">
+                    <a href="{{ route('blogs') }}" class="swiper-slide">
                         <div>
                             <div class="relative group">
-                                <img src="{{ $photo[0] }}" class="object-cover h-96" />
-                                <div
-                                    class="bg-black top-0 right-0 left-0 absolute w-full h-96 group-hover:opacity-75 opacity-0 transition-all duration-150">
-                                </div>
-                            </div>
-                            <p class="text-hard mt-2 mb-1 text-xs font-medium">
-                                August 17,9:14 AM
-                            </p>
-                            <h3 class="mb-4 text-xl font-medium text-black">
-                                We bring you the best
-                            </h3>
-                            <p class="text-hard mb-2">
-                                Lorem ipsum dolor, sit amet consectetur adipisicing elit. A
-                                fugiat reprehenderit odio consectetur sequi hic accusamus
-                                explicabo ex repudiandae perspiciatis!
-                            </p>
-                            <button class="text-sm font-bold pb-2 border-b-2 uppercase border-black">
-                                Shop Now
-                            </button>
-                        </div>
-                    </a>
-                    <a href="{{ route('product.details', $first_product->slug) }}" class="swiper-slide">
-                        <div>
-                            <div class="relative group">
-                                <img src="{{ $photo[0] }}" class="object-cover h-96" />
-                                <div
-                                    class="bg-black top-0 right-0 left-0 absolute w-full h-96 group-hover:opacity-75 opacity-0 transition-all duration-150">
-                                </div>
-                            </div>
-                            <p class="text-hard mt-2 mb-1 text-xs font-medium">
-                                August 17,9:14 AM
-                            </p>
-                            <h3 class="mb-4 text-xl font-medium text-black">
-                                We bring you the best
-                            </h3>
-                            <p class="text-hard mb-2">
-                                Lorem ipsum dolor, sit amet consectetur adipisicing elit. A
-                                fugiat reprehenderit odio consectetur sequi hic accusamus
-                                explicabo ex repudiandae perspiciatis!
-                            </p>
-                            <button class="text-sm font-bold pb-2 border-b-2 uppercase border-black">
-                                Shop Now
-                            </button>
-                        </div>
-                    </a>
-                    <a href="{{ route('product.details', $first_product?->slug) }}" class="swiper-slide">
-                        <div>
-                            <div class="relative group">
-                                <img src="{{ $photo[0] }}" class="object-cover h-96" />
+                                <img src="{{ asset('images/temporary/slider-blog-thumb-4.jpg') }}" class="object-cover h-96" />
                                 <div
                                     class="bg-black top-0 right-0 left-0 absolute w-full h-96 group-hover:opacity-75 opacity-0 transition-all duration-150">
                                 </div>
@@ -569,158 +518,28 @@
         </div>
         <div class="md:flex-nowrap md:flex-row flex flex-col swiper instagram-swiper">
             <div class="swiper-wrapper">
-                <a href="https://instagram.com" class="swiper-slide" target="_blank">
-                    <div class="group relative cursor-pointer w-full">
-                        <img src="https://dreamingtheme.kiendaotac.com/html/stelina/assets/images/banner-home-6.jpg"
-                            class="w-full h-72 object-cover" />
+                @foreach ($instagram_products as $instagram_product)
+                    <a href="{{$instagram_product->instagram_link}}" class="swiper-slide" target="_blank">
+                        <div class="group relative cursor-pointer w-full">
+                            <img src="{{$instagram_product->instagram_url}}"
+                                class="w-full h-72 object-cover" />
 
-                        <div
-                            class="group-hover:h-72 group-hover:w-full h-0 w-0 absolute m-auto top-0 left-0 right-0 bottom-0 cursor-pointer transition-all duration-300 ease-out bg-black group opacity-0 group-hover:opacity-30">
+                            <div
+                                class="group-hover:h-72 group-hover:w-full h-0 w-0 absolute m-auto top-0 left-0 right-0 bottom-0 cursor-pointer transition-all duration-300 ease-out bg-black group opacity-0 group-hover:opacity-30">
+                            </div>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24"
+                                class="absolute group-hover:opacity-100 opacity-0 transition-all duration-300 top-0 right-0 bottom-0 left-0 m-auto">
+                                <g fill="none" stroke="#fff" stroke-width="1.5">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M12 16a4 4 0 1 0 0-8a4 4 0 0 0 0 8" />
+                                    <path d="M3 16V8a5 5 0 0 1 5-5h8a5 5 0 0 1 5 5v8a5 5 0 0 1-5 5H8a5 5 0 0 1-5-5Z" />
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="m17.5 6.51l.01-.011" />
+                                </g>
+                            </svg>
                         </div>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24"
-                            class="absolute group-hover:opacity-100 opacity-0 transition-all duration-300 top-0 right-0 bottom-0 left-0 m-auto">
-                            <g fill="none" stroke="#fff" stroke-width="1.5">
-                                <path stroke-linecap="round" stroke-linejoin="round"
-                                    d="M12 16a4 4 0 1 0 0-8a4 4 0 0 0 0 8" />
-                                <path d="M3 16V8a5 5 0 0 1 5-5h8a5 5 0 0 1 5 5v8a5 5 0 0 1-5 5H8a5 5 0 0 1-5-5Z" />
-                                <path stroke-linecap="round" stroke-linejoin="round" d="m17.5 6.51l.01-.011" />
-                            </g>
-                        </svg>
-                    </div>
-                </a>
-                <a href="https://instagram.com" class="swiper-slide" target="_blank">
-                    <div class="group relative cursor-pointer w-full">
-                        <img src="https://dreamingtheme.kiendaotac.com/html/stelina/assets/images/banner-home-6.jpg"
-                            class="w-full h-72 object-cover" />
+                    </a>
+                @endforeach
 
-                        <div
-                            class="group-hover:h-72 group-hover:w-full h-0 w-0 absolute m-auto top-0 left-0 right-0 bottom-0 cursor-pointer transition-all duration-300 ease-out bg-black group opacity-0 group-hover:opacity-30">
-                        </div>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24"
-                            class="absolute group-hover:opacity-100 opacity-0 transition-all duration-300 top-0 right-0 bottom-0 left-0 m-auto">
-                            <g fill="none" stroke="#fff" stroke-width="1.5">
-                                <path stroke-linecap="round" stroke-linejoin="round"
-                                    d="M12 16a4 4 0 1 0 0-8a4 4 0 0 0 0 8" />
-                                <path d="M3 16V8a5 5 0 0 1 5-5h8a5 5 0 0 1 5 5v8a5 5 0 0 1-5 5H8a5 5 0 0 1-5-5Z" />
-                                <path stroke-linecap="round" stroke-linejoin="round" d="m17.5 6.51l.01-.011" />
-                            </g>
-                        </svg>
-                    </div>
-                </a>
-                <a href="https://instagram.com" class="swiper-slide" target="_blank">
-                    <div class="group relative cursor-pointer w-full">
-                        <img src="https://dreamingtheme.kiendaotac.com/html/stelina/assets/images/banner-home-6.jpg"
-                            class="w-full h-72 object-cover" />
-
-                        <div
-                            class="group-hover:h-72 group-hover:w-full h-0 w-0 absolute m-auto top-0 left-0 right-0 bottom-0 cursor-pointer transition-all duration-300 ease-out bg-black group opacity-0 group-hover:opacity-30">
-                        </div>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24"
-                            class="absolute group-hover:opacity-100 opacity-0 transition-all duration-300 top-0 right-0 bottom-0 left-0 m-auto">
-                            <g fill="none" stroke="#fff" stroke-width="1.5">
-                                <path stroke-linecap="round" stroke-linejoin="round"
-                                    d="M12 16a4 4 0 1 0 0-8a4 4 0 0 0 0 8" />
-                                <path d="M3 16V8a5 5 0 0 1 5-5h8a5 5 0 0 1 5 5v8a5 5 0 0 1-5 5H8a5 5 0 0 1-5-5Z" />
-                                <path stroke-linecap="round" stroke-linejoin="round" d="m17.5 6.51l.01-.011" />
-                            </g>
-                        </svg>
-                    </div>
-                </a>
-                <a href="https://instagram.com" class="swiper-slide" target="_blank">
-                    <div class="group relative cursor-pointer w-full">
-                        <img src="https://dreamingtheme.kiendaotac.com/html/stelina/assets/images/banner-home-6.jpg"
-                            class="w-full h-72 object-cover" />
-
-                        <div
-                            class="group-hover:h-72 group-hover:w-full h-0 w-0 absolute m-auto top-0 left-0 right-0 bottom-0 cursor-pointer transition-all duration-300 ease-out bg-black group opacity-0 group-hover:opacity-30">
-                        </div>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24"
-                            class="absolute group-hover:opacity-100 opacity-0 transition-all duration-300 top-0 right-0 bottom-0 left-0 m-auto">
-                            <g fill="none" stroke="#fff" stroke-width="1.5">
-                                <path stroke-linecap="round" stroke-linejoin="round"
-                                    d="M12 16a4 4 0 1 0 0-8a4 4 0 0 0 0 8" />
-                                <path d="M3 16V8a5 5 0 0 1 5-5h8a5 5 0 0 1 5 5v8a5 5 0 0 1-5 5H8a5 5 0 0 1-5-5Z" />
-                                <path stroke-linecap="round" stroke-linejoin="round" d="m17.5 6.51l.01-.011" />
-                            </g>
-                        </svg>
-                    </div>
-                </a>
-                <a href="https://instagram.com" class="swiper-slide" target="_blank">
-                    <div class="group relative cursor-pointer w-full">
-                        <img src="https://dreamingtheme.kiendaotac.com/html/stelina/assets/images/banner-home-6.jpg"
-                            class="w-full h-72 object-cover" />
-
-                        <div
-                            class="group-hover:h-72 group-hover:w-full h-0 w-0 absolute m-auto top-0 left-0 right-0 bottom-0 cursor-pointer transition-all duration-300 ease-out bg-black group opacity-0 group-hover:opacity-30">
-                        </div>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24"
-                            class="absolute group-hover:opacity-100 opacity-0 transition-all duration-300 top-0 right-0 bottom-0 left-0 m-auto">
-                            <g fill="none" stroke="#fff" stroke-width="1.5">
-                                <path stroke-linecap="round" stroke-linejoin="round"
-                                    d="M12 16a4 4 0 1 0 0-8a4 4 0 0 0 0 8" />
-                                <path d="M3 16V8a5 5 0 0 1 5-5h8a5 5 0 0 1 5 5v8a5 5 0 0 1-5 5H8a5 5 0 0 1-5-5Z" />
-                                <path stroke-linecap="round" stroke-linejoin="round" d="m17.5 6.51l.01-.011" />
-                            </g>
-                        </svg>
-                    </div>
-                </a>
-                <a href="https://instagram.com" class="swiper-slide" target="_blank">
-                    <div class="group relative cursor-pointer w-full">
-                        <img src="https://dreamingtheme.kiendaotac.com/html/stelina/assets/images/banner-home-6.jpg"
-                            class="w-full h-72 object-cover" />
-
-                        <div
-                            class="group-hover:h-72 group-hover:w-full h-0 w-0 absolute m-auto top-0 left-0 right-0 bottom-0 cursor-pointer transition-all duration-300 ease-out bg-black group opacity-0 group-hover:opacity-30">
-                        </div>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24"
-                            class="absolute group-hover:opacity-100 opacity-0 transition-all duration-300 top-0 right-0 bottom-0 left-0 m-auto">
-                            <g fill="none" stroke="#fff" stroke-width="1.5">
-                                <path stroke-linecap="round" stroke-linejoin="round"
-                                    d="M12 16a4 4 0 1 0 0-8a4 4 0 0 0 0 8" />
-                                <path d="M3 16V8a5 5 0 0 1 5-5h8a5 5 0 0 1 5 5v8a5 5 0 0 1-5 5H8a5 5 0 0 1-5-5Z" />
-                                <path stroke-linecap="round" stroke-linejoin="round" d="m17.5 6.51l.01-.011" />
-                            </g>
-                        </svg>
-                    </div>
-                </a>
-                <a href="https://instagram.com" class="swiper-slide" target="_blank">
-                    <div class="group relative cursor-pointer w-full">
-                        <img src="https://dreamingtheme.kiendaotac.com/html/stelina/assets/images/banner-home-6.jpg"
-                            class="w-full h-72 object-cover" />
-
-                        <div
-                            class="group-hover:h-72 group-hover:w-full h-0 w-0 absolute m-auto top-0 left-0 right-0 bottom-0 cursor-pointer transition-all duration-300 ease-out bg-black group opacity-0 group-hover:opacity-30">
-                        </div>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24"
-                            class="absolute group-hover:opacity-100 opacity-0 transition-all duration-300 top-0 right-0 bottom-0 left-0 m-auto">
-                            <g fill="none" stroke="#fff" stroke-width="1.5">
-                                <path stroke-linecap="round" stroke-linejoin="round"
-                                    d="M12 16a4 4 0 1 0 0-8a4 4 0 0 0 0 8" />
-                                <path d="M3 16V8a5 5 0 0 1 5-5h8a5 5 0 0 1 5 5v8a5 5 0 0 1-5 5H8a5 5 0 0 1-5-5Z" />
-                                <path stroke-linecap="round" stroke-linejoin="round" d="m17.5 6.51l.01-.011" />
-                            </g>
-                        </svg>
-                    </div>
-                </a>
-                <a href="https://instagram.com" class="swiper-slide" target="_blank">
-                    <div class="group relative cursor-pointer w-full">
-                        <img src="https://dreamingtheme.kiendaotac.com/html/stelina/assets/images/banner-home-6.jpg"
-                            class="w-full h-72 object-cover" />
-
-                        <div
-                            class="group-hover:h-72 group-hover:w-full h-0 w-0 absolute m-auto top-0 left-0 right-0 bottom-0 cursor-pointer transition-all duration-300 ease-out bg-black group opacity-0 group-hover:opacity-30">
-                        </div>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24"
-                            class="absolute group-hover:opacity-100 opacity-0 transition-all duration-300 top-0 right-0 bottom-0 left-0 m-auto">
-                            <g fill="none" stroke="#fff" stroke-width="1.5">
-                                <path stroke-linecap="round" stroke-linejoin="round"
-                                    d="M12 16a4 4 0 1 0 0-8a4 4 0 0 0 0 8" />
-                                <path d="M3 16V8a5 5 0 0 1 5-5h8a5 5 0 0 1 5 5v8a5 5 0 0 1-5 5H8a5 5 0 0 1-5-5Z" />
-                                <path stroke-linecap="round" stroke-linejoin="round" d="m17.5 6.51l.01-.011" />
-                            </g>
-                        </svg>
-                    </div>
-                </a>
             </div>
         </div>
     </section>

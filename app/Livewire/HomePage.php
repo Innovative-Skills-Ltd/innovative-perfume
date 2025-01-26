@@ -76,6 +76,40 @@ class HomePage extends Component
     {
         $os = OtherSetting::first();
 
+        //banner products
+        $n['banner_products'] = Product::bannerProducts()->get();
+
+        //deal of the day
+        $n['deal_of_the_day'] = Product::where('status','active')
+                                        ->where('is_featured',true)
+                                        ->get();
+
+        //best collection
+        $n['best_collection'] = Product::bestCollections()->latest()->get()->take(2);
+
+        //collection arrived
+        $n['collection_arrived'] = Product::collectionArrival()->latest()->first();
+
+        //new arrivals
+        $n['new_arrivals'] = Product::where('status','active')
+                                    ->orderBy('serial','desc')
+                                    ->get()
+                                    ->take(10);
+
+        //top rated
+        $n['top_rated'] = Product::topRated()->latest()->get()->take(10);
+
+        //best sellers
+        $n['bestsellers'] = Product::bestSellers()->latest()->get()->take(10);
+
+
+        // instagram products
+        $n['instagram_products'] = Product::instagramProducts()->latest()->get()->take(10);
+
+        
+
+
+        //========== old code ============
         // Get featured products with their default sizes for hero section
         $n['hero_products'] = Product::with(['sizes', 'sizes.size'])
         ->whereHas('sizes', function($q) {
@@ -109,7 +143,7 @@ class HomePage extends Component
                             ->orderBy('serial','desc')
                             ->get();
         // $n['menus'] = Category::with('child_cat')->where('status', 'active')->where('is_parent', 1)->orderBy('title', 'ASC')->get();
-        $n['home_banner'] = Banner::where('status', 'active')->where('slug', 'home-page')->first();
+
 
         // Best Sellers
         $n['bestsellers'] = Product::bestSellers()
