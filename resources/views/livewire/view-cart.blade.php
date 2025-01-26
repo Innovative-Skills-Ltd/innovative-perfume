@@ -116,7 +116,7 @@
                                                 : $cart->product->final_price;
                                             $total = $price * $cart->quantity;
                                         @endphp
-                                        ${{ number_format($total, 2) }}
+                                        BDT{{ number_format($total, 2) }}
                                     </span>
                                 </td>
                                 <td class="py-7">
@@ -150,8 +150,8 @@
                         </div> --}}
                         <div></div>
                         <div>
-                            <span class="font-medium">Total Price: $</span>
-                            <span class="text-xl font-medium">{{ $total_price }}</span>
+                            <span class="font-medium">Total Price: </span>
+                            <span class="text-xl font-medium">BDT {{ $total_price }}</span>
                         </div>
                     </div>
                     <div class="mt-7 flex items-center justify-end gap-5">

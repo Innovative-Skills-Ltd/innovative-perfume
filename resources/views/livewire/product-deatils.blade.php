@@ -16,7 +16,7 @@
                 <div>
                     <div class="mb-5">
                         <!-- Dynamic photo from product -->
-                        <img class="w-full" src="{{ $product->thumbnail_url }}" />
+                        <img class="w-full" src="{{ $photo }}" />
                     </div>
                     <!-- Keep existing static image grid -->
                     <div class="grid grid-cols-3 gap-5">
@@ -24,7 +24,7 @@
                         title="{{ $product->title }}">
                         @foreach ($photos as $pto)
                             <img class="hover:border-primary border transition-all duration-300" src="{{ $pto }}"
-                                title="{{ $product->title }}">  
+                                title="{{ $product->title }}">
                         @endforeach
                     </div>
                 </div>
@@ -141,13 +141,11 @@
                                             Size Chart</span>
 
                                         <!-- Modal -->
-                                        <div x-show="open"
+                                        <div style="display: none" x-show="open"
                                             class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50"
                                             @click.away="open = false" x-transition>
                                             <div class="bg-white p-4 rounded-lg shadow-lg max-w-md">
                                                 <!-- Close Button -->
-
-                                                <!-- Image -->
                                                 <div class="relative">
                                                     <button
                                                         class="absolute top-0 right-0 bg-black rounded-full text-white text-xs"
@@ -166,6 +164,7 @@
                                         </div>
                                     </div>
                                 </div>
+
                             </div>
                             <div x-data="{ quantity: 1 }" class="flex items-center gap-5">
                                 <div class="p-2 px-4 gap-5 flex items-center rounded-full border">
@@ -198,7 +197,7 @@
     <section>
         <div class="mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl  mt-20" x-data="{ activeTab: 'descriptions' }">
             <!-- Button Navigation -->
-            <div class="mb-9 flex items-center justify-center gap-10">
+            <div class="mb-9 flex-wrap flex items-center justify-center gap-5 md:gap-10">
                 <button :class="{ 'text-primary border-b-2 border-b-primary': activeTab === 'descriptions' }"
                     @click="activeTab = 'descriptions'" class="font-semibold uppercase">
                     DESCRIPTIONS
@@ -311,7 +310,8 @@
                                                 <del class="">{{ $product->defaultsize()?->price }}</del>
                                             @endif
 
-                                            <span class="font-bold text-black">{{ $product->defaultsize()?->final_price }}</span>
+                                            <span
+                                                class="font-bold text-black">{{ $product->defaultsize()?->final_price }}</span>
 
                                         </h4>
                                     </div>
