@@ -258,7 +258,7 @@
                                         @php
                                             $photo = explode(',', $product->photo);
                                         @endphp
-                                        <img src="{{ $photo[0] }}" class=" mx-auto object-contain h-[300px]" />
+                                        <img src="{{ $product->thumbnail_url }}" class=" mx-auto object-contain h-[300px]" />
                                         <div class="top-0 left-0 right-0 bottom-0 m-auto absolute h-full">
                                             <div class="h-[300px] flex items-center justify-center">
                                                 <div
