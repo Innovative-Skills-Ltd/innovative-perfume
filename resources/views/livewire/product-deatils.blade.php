@@ -16,7 +16,7 @@
                 <div>
                     <div class="mb-5">
                         <!-- Dynamic photo from product -->
-                        <img class="w-full" src="{{ $photo }}" />
+                        <img class="w-full" src="{{ $product->thumbnail_url }}" />
                     </div>
                     <!-- Keep existing static image grid -->
                     <div class="grid grid-cols-3 gap-5">
