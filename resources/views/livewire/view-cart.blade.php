@@ -15,32 +15,7 @@
             <form action="{{ route('checkout') }}" method="POST">
                 @csrf
                 <div>
-                    <table class="border rounded-md w-full" x-data="{
-                        confirmDelete(el, cartId) {
-                            if (confirm('Are you sure you want to remove this item?')) {
-                                fetch(`/cart/delete/${cartId}`, {
-                                        method: 'DELETE',
-                                        headers: {
-                                            'Content-Type': 'application/json',
-                                            'Accept': 'application/json',
-                                            'X-Requested-With': 'XMLHttpRequest',
-                                            'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                                        }
-                                    })
-                                    .then(response => response.json())
-                                    .then(data => {
-                                        console.log(data);
-                                        if (data.status) {
-                                            el.closest('tr').remove();
-                                            window.location.reload();
-                                            toast.success(data.message);
-                                        } else {
-                                            toast.error(data.message);
-                                        }
-                                    });
-                            }
-                        }
-                    }">
+                    <table class="border rounded-md w-full" x-data="{}">
                         @php
                             $total_price = $carts->sum(function ($cart) {
                                 $price = $cart->size ? $cart->size->final_price : $cart->product->final_price;

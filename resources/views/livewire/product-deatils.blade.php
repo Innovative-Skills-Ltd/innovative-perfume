@@ -149,7 +149,7 @@
                                             <div class="bg-white p-4 rounded-lg shadow-lg max-w-md">
                                                 <!-- Close Button -->
                                                 <div class="relative">
-                                                    <button
+                                                    <button type="button"
                                                         class="absolute top-0 right-0 bg-black rounded-full text-white text-xs"
                                                         @click="open = false">
                                                         <svg xmlns="http://www.w3.org/2000/svg" width="24"
