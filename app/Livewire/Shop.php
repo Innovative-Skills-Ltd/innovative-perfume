@@ -27,6 +27,9 @@ class Shop extends Component
         $this->prds = Product::where('status', 'active')
                         ->where('is_showable_to_user',1)
                         ->get();
+
+        // url set to cache for login
+        session(['login_previous_url' => request()->url()]);
     }
     public function render()
     {

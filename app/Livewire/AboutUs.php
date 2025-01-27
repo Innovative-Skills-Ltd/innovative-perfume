@@ -11,6 +11,9 @@ class AboutUs extends Component
 {
     public function render()
     {
+        // url set to cache for login
+        session(['login_previous_url' => request()->url()]);
+
         return view('livewire.about-us');
     }
 }

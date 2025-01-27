@@ -1,7 +1,7 @@
 <div>
     <!-- Product Start -->
     <section>
-        <div class="mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl ">
+        <div class="mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl mt-3">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-16">
                 @if ($product->photo)
                     @php
@@ -149,7 +149,7 @@
                                             <div class="bg-white p-4 rounded-lg shadow-lg max-w-md">
                                                 <!-- Close Button -->
                                                 <div class="relative">
-                                                    <button
+                                                    <button type="button"
                                                         class="absolute top-0 right-0 bg-black rounded-full text-white text-xs"
                                                         @click="open = false">
                                                         <svg xmlns="http://www.w3.org/2000/svg" width="24"

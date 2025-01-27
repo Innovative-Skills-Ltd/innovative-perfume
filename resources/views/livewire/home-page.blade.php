@@ -92,7 +92,7 @@
                                         </p>
                                     </div>
                                     <div>
-                                        <a
+                                        <a href="{{ route('product.details', $hero_product->slug) }}"
                                             class="text-sm font-bold pb-2 border-b-2 uppercase border-black animate__fadeInUpBig  animate__animated">
                                             Shop Now
                                         </a>

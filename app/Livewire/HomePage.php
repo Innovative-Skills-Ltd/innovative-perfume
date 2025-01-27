@@ -45,6 +45,9 @@ class HomePage extends Component
             $this->email = $user->email;
             $this->user_id = $user->id;
         }
+
+        // url set to cache for login
+        session(['login_previous_url' => request()->url()]);
     }
 
     public function post()
@@ -106,7 +109,7 @@ class HomePage extends Component
         // instagram products
         $n['instagram_products'] = Product::instagramProducts()->latest()->get()->take(10);
 
-        
+
 
 
         //========== old code ============

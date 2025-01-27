@@ -356,16 +356,19 @@ class FrontendController extends Controller
         return view('frontend.pages.login');
     }
     public function loginSubmit(Request $request){
+        $previous_url = session('login_previous_url');
+        // dd($previous_url);
         $data= $request->all();
         $user = User::where('email', $data['email'])->first();
 
-        if(Auth::attempt(['email' => $data['email'], 'password' => $data['password'],'status'=>'active'])){
+        if(Auth::attempt(['email' => $data['email'], 'password' => $data['password'], 'status'=>'active'])){
             Auth::login($user);
             request()->session()->flash('success','Successfully login');
-            return redirect()->route('home');
+
+            return redirect($previous_url);
         }
         else{
-            request()->session()->flash('error','Invalid email and password pleas try again!');
+            request()->session()->flash('error','Invalid email and password please try again!');
             return redirect()->back();
         }
     }
@@ -391,7 +394,7 @@ class FrontendController extends Controller
     }
     public function registerSubmit(Request $request){
         // return $request->all();
-
+        $previous_url = session('login_previous_url');
         try {
             $this->validate($request, [
                 'name' => 'string|required|min:2',
@@ -410,7 +413,7 @@ class FrontendController extends Controller
 
             $login = Auth::login($user);
 
-            return redirect()->route('home');
+            return redirect($previous_url);
         }
         $check=$this->create($data);
 
@@ -419,7 +422,7 @@ class FrontendController extends Controller
 
             request()->session()->flash('success','Successfully registered');
 
-            return redirect()->route('home')->with('success','Successfully registered');
+            return redirect($previous_url)->with('success','Successfully registered');
         }
         else{
 
@@ -460,7 +463,7 @@ class FrontendController extends Controller
 
     public function deleteCart(Cart $cart)
     {
-        
+
         try {
             $cart->delete();
             return response()->json([
