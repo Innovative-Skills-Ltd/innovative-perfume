@@ -34,7 +34,31 @@
                     },
                     getTotalPrice() {
                         return this.items.reduce((sum, item) => sum + ((item.price + item.colorPrice) * item.quantity), 0).toFixed(2);
-                    }
+                    },
+                    confirmDelete(el, cartId) {
+                            if (confirm('Are you sure you want to remove this item?')) {
+                                fetch(`/cart/delete/${cartId}`, {
+                                        method: 'DELETE',
+                                        headers: {
+                                            'Content-Type': 'application/json',
+                                            'Accept': 'application/json',
+                                            'X-Requested-With': 'XMLHttpRequest',
+                                            'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                                        }
+                                    })
+                                    .then(response => response.json())
+                                    .then(data => {
+                                        console.log(data);
+                                        if (data.status) {
+                                            el.closest('tr').remove();
+                                            window.location.reload();
+                                            toast.success(data.message);
+                                        } else {
+                                            toast.error(data.message);
+                                        }
+                                    });
+                            }
+                        }
                 }">
                     <div>
                         <table class="border rounded-md w-full">
