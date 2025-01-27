@@ -20,6 +20,9 @@ class ViewCart extends Component
     public function mount($slug = null){
         $this->slug = $slug;
 
+        // url set to cache for login
+        session(['login_previous_url' => request()->url()]);
+
         //User checking
         $this->user = auth()->user();
         if(!$this->user){

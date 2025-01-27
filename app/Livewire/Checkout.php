@@ -64,7 +64,7 @@ class Checkout extends Component
     public $err_msg;
     public $payment_possess;
 
-
+    public $post_code;
     public function orderSubmit()
     {
         $this->validate();
@@ -190,6 +190,7 @@ class Checkout extends Component
             $this->phone = $user->phone;
             $this->address = $address?->address;
             $this->city = $address?->city;
+            $this->post_code = $address?->post_code;
             $this->divission_id = $user?->divission_id;
         } else {
             $n['carts'] = Cart::with(['product'])->where('ip', request()->ip())->where('order_id', null)->latest()->get();

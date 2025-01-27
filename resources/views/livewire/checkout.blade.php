@@ -12,7 +12,7 @@
                 <span>Checkout</span>
             </div>
             <h2 class="text-xl font-semibold mb-10 uppercase">Checkout</h2>
-            <form action="{{ route('user.order.store') }}" method="POST">
+            <form action="{{ route('checkout.order') }}" method="POST">
                 @csrf
                 <div x-data="{
                     step: 'shipping',
@@ -29,7 +29,8 @@
                                     <div class="mb-6">
                                         <span class="inline-block h-[2px] w-5 bg-primary"></span>
                                     </div>
-                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mb-5">
+
+                                    {{-- <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mb-5">
                                         <div>
                                             <label class="text-sm mb-1">First name</label>
                                             <input name="name" type="text" value="{{ $name }}"
@@ -40,8 +41,9 @@
                                             <input name="l_name" type="text" value="{{ $l_name }}"
                                                 class="py-2 px-5 rounded-full w-full border" />
                                         </div>
-                                    </div>
-                                    <div class="grid grid-cols-1 md:grid-cols-3 gap-5 mb-5">
+                                    </div> --}}
+
+                                    {{-- <div class="grid grid-cols-1 md:grid-cols-3 gap-5 mb-5">
                                         <div>
                                             <label class="text-sm mb-1">Country</label>
                                             <select name="country" class="py-2 px-5 rounded-md w-full border">
@@ -63,18 +65,40 @@
                                                 <option>GopalGonj</option>
                                             </select>
                                         </div>
-                                    </div>
+                                    </div> --}}
+
                                     <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mb-5">
-                                        <div>
-                                            <label class="text-sm mb-1">Zip Code</label>
-                                            <input name="zip_code" type="text"
-                                                class="py-2 px-5 rounded-full w-full border" />
-                                        </div>
+
+                                        {{-- Address --}}
                                         <div>
                                             <label class="text-sm mb-1">Address</label>
-                                            <input name="address" accept=""type="text"
+                                            <input name="address" type="text" wire:model='address'
                                                 class="py-2 px-5 rounded-full w-full border" />
+                                            @error('address')
+                                                <span class="text-red-500">{{ $message }}</span>
+                                            @enderror
                                         </div>
+
+                                        {{-- City --}}
+                                        <div>
+                                            <label class="text-sm mb-1">City</label>
+                                            <input name="city" wire:model='city' type="text"
+                                                class="py-2 px-5 rounded-full w-full border" />
+                                            @error('city')
+                                                <span class="text-red-500">{{ $message }}</span>
+                                            @enderror
+                                        </div>
+
+                                        {{-- Zip Code --}}
+                                        <div>
+                                            <label class="text-sm mb-1">Zip Code</label>
+                                            <input name="post_code" wire:model='post_code' type="number"
+                                                class="py-2 px-5 rounded-full w-full border" />
+                                            @error('post_code')
+                                                <span class="text-red-500">{{ $message }}</span>
+                                            @enderror
+                                        </div>
+
                                     </div>
                                 </div>
                                 <div>
@@ -95,20 +119,20 @@
                                                 $total_amount += $price * $cart->quantity;
                                             @endphp
                                             <div class="flex items-center gap-7 pb-7 border-b mb-7">
-                                                <img class="w-24 h-24" src="{{ $photo[0] }}" />
+                                                <img class="w-24 h-24" src="{{ $cart?->product?->thumbnail_url }}" />
                                                 <div>
-                                                    <h4 class="py-1 font-medium">{{ $cart->product->title }}</h4>
+                                                    <h4 class="py-1 font-medium">{{ $cart?->product?->title }}</h4>
                                                     <p class="text-sm py-1 text-secondary">
-                                                        @if ($cart->color)
-                                                            {{ $cart->color->color->name }},
+                                                        @if ($cart?->color)
+                                                            {{ $cart?->color?->color?->name }},
                                                         @endif
-                                                        @if ($cart->size)
-                                                            {{ $cart->size->size->size }}
+                                                        @if ($cart?->size)
+                                                            {{ $cart?->size?->size?->size }}
                                                         @endif
                                                     </p>
                                                     <h4 class="font-semibold">
-                                                        BDT{{ $price }}
-                                                        <span class="text-secondary">x{{ $cart->quantity }}</span>
+                                                        BDT {{ $price }}
+                                                        <span class="text-secondary">x{{ $cart?->quantity }}</span>
                                                     </h4>
                                                 </div>
                                             </div>
@@ -116,7 +140,7 @@
 
                                     </div>
                                     <h3 class="font-medium">
-                                        Total Price: <span class="text-xl font-medium">${{ $total_amount }}</span>
+                                        Total Price: <span class="text-xl font-medium">BDT {{ $total_amount }}</span>
                                     </h3>
                                 </div>
                             </div>
@@ -233,24 +257,22 @@
                                     </div>
                                     <div>
                                         @foreach ($carts as $cart)
-                                            @php
-                                                $photo = explode(',', $cart->product->photo);
-                                            @endphp
+
                                             <div class="flex items-center gap-7 pb-7 border-b mb-7">
                                                 <img class="w-24 h-24" src="{{ $cart?->product?->thumbnail_url }}" />
                                                 <div>
-                                                    <h4 class="py-1 font-medium">{{ $cart->product->title }}</h4>
+                                                    <h4 class="py-1 font-medium">{{ $cart?->product?->title }}</h4>
                                                     <p class="text-sm py-1 text-secondary">
-                                                        @if ($cart->color)
-                                                            {{ $cart->color->color->name }},
+                                                        @if ($cart?->color)
+                                                            {{ $cart?->color?->color?->name }},
                                                         @endif
-                                                        @if ($cart->size)
-                                                            {{ $cart->size->size->size }}
+                                                        @if ($cart?->size)
+                                                            {{ $cart?->size?->size?->size }}
                                                         @endif
                                                     </p>
                                                     <h4 class="font-semibold">
-                                                        ${{ $cart->size ? $cart->size->final_price : $cart->product->final_price }}
-                                                        <span class="text-secondary">x{{ $cart->quantity }}</span>
+                                                        BDT {{ $cart?->size ? $cart?->size?->final_price : $cart?->product?->final_price }}
+                                                        <span class="text-secondary">x{{ $cart?->quantity }}</span>
                                                     </h4>
                                                 </div>
                                             </div>

@@ -68,11 +68,13 @@ class CheckoutStore extends Component
 
     public $product;
 
+    public $zip_code;
+
     public function mount()
     {
         $user = auth()->user();
         $request = request();
-        // dd($request->product);
+
         if(!$request->product){
             session()->flash('error', "Cart is empty");
            return $this->redirect(route('vcart'), navigate: false);
@@ -189,6 +191,7 @@ class CheckoutStore extends Component
             $this->phone = $user->phone;
             $this->address = $address?->address;
             $this->city = $address?->city;
+            $this->zip_code = $address?->zip_code;
             $this->divission_id = $user?->divission_id;
         }
         $n['divissions'] = Divission::get();

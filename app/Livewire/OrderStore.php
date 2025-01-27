@@ -6,6 +6,7 @@ use App\Http\Helper;
 use App\Mail\OrderMail;
 use App\Mail\OrderMailToAdmin;
 use App\Models\Cart;
+use App\Models\Coupon;
 use App\Models\Divission;
 use App\Models\Order;
 use App\Models\Product;
@@ -15,6 +16,7 @@ use App\Notifications\StatusNotification;
 use App\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Session;
 use Livewire\Attributes\Rule;
 use Livewire\Component;
 use Livewire\Attributes\Title;
@@ -27,39 +29,42 @@ class OrderStore extends Component
 {
     public $pslug;
 
-    #[Rule("required", message: "Please, write your first name")]
-    #[Rule("string", message: "Please, enter a valid name")]
-    public $name;
+    // #[Rule("required", message: "Please, write your first name")]
+    // #[Rule("string", message: "Please, enter a valid name")]
+    // public $name;
 
-    #[Rule("required", message: "Please, write your last name")]
-    #[Rule("string", message: "Please, enter a valid name")]
-    public $l_name;
+    // #[Rule("required", message: "Please, write your last name")]
+    // #[Rule("string", message: "Please, enter a valid name")]
+    // public $l_name;
 
     #[Rule("required", message: "Please, write your address")]
     #[Rule("string", message: "Please, enter a valid address")]
     public $address;
 
-    #[Rule("required", message: "Please, enter your phone number")]
-    #[Rule("numeric", message: "Please, enter a valid phone number")]
-    public $phone;
+    // #[Rule("required", message: "Please, enter your phone number")]
+    // #[Rule("numeric", message: "Please, enter a valid phone number")]
+    // public $phone;
 
-    #[Rule("required", message: "Please, enter an email")]
-    #[Rule("email", message: "Please,Enter a valid email")]
-    // #[Rule("unique:users,email", message: "You have an account. Please, login.")]
-    public $email;
+    // #[Rule("required", message: "Please, enter an email")]
+    // #[Rule("email", message: "Please,Enter a valid email")]
+    // // #[Rule("unique:users,email", message: "You have an account. Please, login.")]
+    // public $email;
 
     #[Rule("required", message: "Please, write your city")]
     #[Rule("string", message: "Please, enter a valid city")]
     public $city;
 
-    #[Rule("required", message: "Please, enter a zone")]
-    #[Rule("exists:divissions,id", message: "Please, Select a valid zone")]
-    public $divission_id;
+    // #[Rule("required", message: "Please, enter a zone")]
+    // #[Rule("exists:divissions,id", message: "Please, Select a valid zone")]
+    // public $divission_id;
 
-    #[Rule("nullable")]
-    #[Rule("string", message: "Please, enter a valid comment")]
-    public $comment;
+    // #[Rule("nullable")]
+    // #[Rule("string", message: "Please, enter a valid comment")]
+    // public $comment;
 
+
+    #[Rule("required", message: "Please, enter a post code")]
+    public $post_code;
     public $payment_method = 'cod';
     public $shipping_id = 1;
 
@@ -68,6 +73,8 @@ class OrderStore extends Component
 
     public $product;
 
+
+
     public function mount()
     {
         $user = auth()->user();
@@ -75,23 +82,26 @@ class OrderStore extends Component
         if(!$user){
             $this->redirect(route('login'), navigate: false);
         }
+        $data = request()->validate([
+            'address' => 'required|string',
+            'city' => 'required|string',
+            'post_code' => 'required',
+            // 'payment_method' => 'required|in:cod',
+        ]);
 
         $user = User::find($user->id);
         $request = request();
+
         $address =  UserAddress::where('user_id', $user->id)->where('is_default', true)->first();
-        $user->name = $request->name;
-        $user->l_name = $request->l_name;
-        $user->phone = $request->phone;
         $user->address = $request->address;
         $user->city = $request->city;
-
+        $user->post_code = $request->post_code;
         $user->save();
 
         if (!$address) {
             UserAddress::create([
                 'address' => $request->address,
                 'city' => $request->city,
-                'divission_id' => $request->divission_id,
                 'user_id' => $user->id,
                 'is_default' => true,
             ]);
@@ -220,18 +230,28 @@ class OrderStore extends Component
 
     public function render()
     {
+        if ($coupon_id = Session::get('coupon_id')) {
+            $n['coupon'] = Coupon::find($coupon_id);
+        } else {
+            $n['coupon'] = new Coupon();
+        }
         if ($user = Auth()->user()) {
-            $address = UserAddress::where('user_id', $user->id)->where('is_default', true)->first();
+            $n['carts'] = Cart::with(['product'])->where('user_id', $user->id)->where('order_id', null)->latest()->get();
+            $address = UserAddress::where('user_id',$user->id)->where('is_default',true)->first();
             $this->name = $user->name;
             $this->l_name = $user->l_name;
             $this->email = $user->email;
             $this->phone = $user->phone;
             $this->address = $address?->address;
             $this->city = $address?->city;
+            $this->post_code = $address?->post_code;
             $this->divission_id = $user?->divission_id;
+        } else {
+            $n['carts'] = Cart::with(['product'])->where('ip', request()->ip())->where('order_id', null)->latest()->get();
         }
+
         $n['divissions'] = Divission::get();
         $n['shippings'] = Shipping::where('status', 'active')->get();
-        return view('livewire.single-checkout', $n);
+        return view('livewire.checkout', $n);
     }
 }

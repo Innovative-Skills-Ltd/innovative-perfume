@@ -29,6 +29,10 @@ class SearchingProduct extends Component
 
     public function mount()
     {
+        // url set to cache for login
+        session(['login_previous_url' => request()->url()]);
+
+
         $this->stext = request()->search_text;
         if(request()->cat_id != 'Accessories'){
             $this->cat = request()->cat_id;

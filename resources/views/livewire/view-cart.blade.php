@@ -12,7 +12,7 @@
             <h2 class="text-xl font-semibold mb-10 uppercase">SHOPPING CART</h2>
         </div>
         <div class="mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl ">
-            <form action="{{ route('checkout') }}" method="POST">
+            <form action="{{ route('checkout.store') }}" method="POST">
                 @csrf
                 <div x-data="{
                     items: [
