@@ -103,6 +103,7 @@ class OrderStore extends Component
                 'address' => $request->address,
                 'city' => $request->city,
                 'user_id' => $user->id,
+                'post_code' => $request->post_code,
                 'is_default' => true,
             ]);
         }
