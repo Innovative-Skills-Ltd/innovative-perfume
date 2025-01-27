@@ -1,5 +1,5 @@
 <div class="px-[100px] max-2xl:px-[70px] max-xl:px-[60px] max-lg:px-[38px] max-md:px-[35px] max-sm:px-[15px] max-sm:mt-[70px] max-xl:mt-[100px]">
-    <div class='flex justify-between'>
+    {{-- <div class='flex justify-between'>
         <div>
             <h1 class='font-[jost] text-[16px] font-[400] leading-[25.3px] text-[#353535]'><a href="{{route('home')}}">Home</a> / Account</h1>
         </div>
@@ -11,7 +11,7 @@
                     Out</button>
             </form>
         </div>
-    </div>
+    </div> --}}
     <div class='h-[2px] bg-[#764A8733]'></div>
     <div class="w-[800px] max-lg:w-[750px] max-md:w-[550px] max-sm:w-[340px] mx-auto">
         <div class="flex">

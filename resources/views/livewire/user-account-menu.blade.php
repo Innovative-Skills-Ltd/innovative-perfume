@@ -1,15 +1,16 @@
     <div>
         {{-- location bar  --}}
-         <div class='flex justify-between'>
-        <h1 class='font-[jost] xl:text-[20px] font-[400] leading-[25.3px] text-[#353535]'><a href="{{route('home')}}">Home</a> / <a href="{{route('account')}}">Account</a></h1>
-                                                                                                                                                                                {{-- / {{Str::title(request()->route()->uri)}} --}}
-        <div class='flex gap-[5px] items-center'><img src="/storage/product/vector-1.svg" alt="Product"
-                class='w-[16px] h-[14px]'>   <form action="{{ route('logout') }}" method="POST">
-                @csrf
-                <button class='text-[16px] text-[#380D37] font-[jost] font-[400] leading-[23.12px]'>Log
-                    Out</button>
-            </form></div>
-    </div>
+
+        {{-- <div class='flex justify-between'>
+            <h1 class='font-[jost] xl:text-[20px] font-[400] leading-[25.3px] text-[#353535]'><a href="{{route('home')}}">Home</a> / <a href="{{route('account')}}">Account</a></h1>                                                                                                                                                               / {{Str::title(request()->route()->uri)}} --}}
+            {{-- <div class='flex gap-[5px] items-center'><img src="/storage/product/vector-1.svg" alt="Product" class='w-[16px] h-[14px]'>
+                <form action="{{ route('logout') }}" method="POST">
+                    @csrf
+                    <button class='text-[16px] text-[#380D37] font-[jost] font-[400] leading-[23.12px]'>Log Out</button>
+                </form>
+            </div>
+        </div> --}}
+
         {{-- horizontal line  --}}
          <div class='h-[2px] bg-[#764A8733]'></div>
 
