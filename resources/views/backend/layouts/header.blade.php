@@ -52,7 +52,7 @@
             </a>
         </li>
 
-        <!-- Nav Item - Alerts -->
+        {{-- <!-- Nav Item - Alerts -->
         <li class="mx-1 nav-item dropdown no-arrow">
             @include('backend.notification.show')
         </li>
@@ -60,7 +60,7 @@
         <!-- Nav Item - Messages -->
         <li class="mx-1 nav-item dropdown no-arrow" id="messageT" data-url="{{ route('messages.five') }}">
             @include('backend.message.message')
-        </li>
+        </li> --}}
 
         <div class="topbar-divider d-none d-sm-block"></div>
 

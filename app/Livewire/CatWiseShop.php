@@ -30,6 +30,9 @@ class CatWiseShop extends Component
     // }
     public function render()
     {
+        // url set to cache for login
+        session(['login_previous_url' => request()->url()]);
+
         $per_page = request()->per_page ?? 20;
         $sort_by = request()->sort_by ?? 'newest';
 
@@ -68,15 +71,7 @@ class CatWiseShop extends Component
         // Get filter options
         $n['products'] = $query->paginate($per_page);
         $n['brands'] = Brand::get();
-        $n['p_models'] = ProcessorModel::get();
-        $n['p_generations'] = ProcessorGeneration::get();
         $n['d_sizes'] = DisplaySize::get();
-        $n['d_types'] = DisplayType::get();
-        $n['rams'] = Ram::get();
-        $n['ssds'] = ssd::get();
-        $n['hdds'] = hdd::get();
-        $n['graphics'] = Graphic::get();
-        $n['s_features'] = SpecialFeature::get();
 
         return view('livewire.shop', $n);
     }

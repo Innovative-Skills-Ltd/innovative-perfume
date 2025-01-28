@@ -377,13 +377,16 @@ Route::get('/shop/student-laptop', StudentLaptop::class)->name('shop.student_lap
 Route::get('/category-wise/{cat?}/{subcat?}', CatWiseShop::class)->name('cate_wise.shop');
 Route::get('/search/{stext?}/{cat?}', SearchingProduct::class)->name('searching_product');
 Route::get('/category-searching-product/{cat?}', SearchingProduct::class)->name('cat.search.product');
+
 Route::get('/product-details/{slug}', ProductDeatils::class)->name('product.details');
-Route::get('/checkout', Checkout::class)->name('checkout');
-Route::post('/checkout', CheckoutStore::class)->name('checkout.store');
-Route::post('/order/store', OrderStore::class)->name('user.order.store');
-Route::get('/view-cart', ViewCart::class)->name('vcart');
 Route::get('/create-cart/{slug}', CreateCart::class)->name('create_cart');
+Route::get('/view-cart', ViewCart::class)->name('vcart');
+
+Route::post('/checkout/store', CheckoutStore::class)->name('checkout.store'); // add to cart to checkout bypass
+Route::get('/checkout', Checkout::class)->name('checkout'); //checkout page
+Route::post('/checkout', [FrontendController::class, 'CheckoutOrder'])->name('checkout.order'); //checkout complete
 Route::get('/thank-you/{order_number}', ThankYou::class)->name('thank_you');
+
 Route::get('/blogs', Blog::class)->name('blogs');
 Route::get('/contact', Contact::class)->name('contact');
 Route::get('/user/register', Signup::class)->name('user.register');

@@ -36,12 +36,12 @@
                                 <span class="text-[13px] text-secondary">Sort by</span>
                                 <select class="bg-white" name="sort_by" id="sort_by">
                                     @foreach ([
-        'price_asc' => 'Low to High',
-        'price_desc' => 'High to Low',
-        'popularity' => 'Sort By Popularity',
-        'average_rating' => 'Sort By Average Rating',
-        'newest' => 'Sort By Newness',
-    ] as $value => $label)
+                                                'price_asc' => 'Low to High',
+                                                'price_desc' => 'High to Low',
+                                                'popularity' => 'Sort By Popularity',
+                                                'average_rating' => 'Sort By Average Rating',
+                                                'newest' => 'Sort By Newness',
+                                            ] as $value => $label)
                                         <option value="{{ $value }}"
                                             {{ request('sort_by') == $value ? 'selected' : '' }}>
                                             {{ $label }}
@@ -79,7 +79,7 @@
                                     class="border group-hover:border-[#ab8e66] transition-all duration-300 grid grid-cols-1 md:grid-cols-12">
                                     <div class="  md:col-span-10 grid grid-cols-12 gap-5">
                                         <div class="relative w-full col-span-12 md:col-span-3">
-                                            <img src="{{ $cproduct->photo }}"
+                                            <img src="{{ $cproduct->thumbnail_url }}"
                                                 class="mx-auto object-contain h-[300px]" />
                                             <div class="top-0 left-0 right-0 bottom-0 m-auto absolute h-[300px]">
                                                 <div class="h-full flex items-center justify-center">
@@ -137,11 +137,19 @@
                                                 </h3>
                                                 <h3 class="text-sm">
                                                     Color:
-                                                    <span class="text-secondary">Black White Brown</span>
+                                                    <span class="text-secondary">
+                                                        @foreach ($cproduct->colors as $color)
+                                                            <span>{{ $color?->color?->name }} </span>
+                                                        @endforeach
+                                                    </span>
                                                 </h3>
                                                 <h3 class="text-sm">
                                                     Pots Size:
-                                                    <span class="text-secondary">2ml, 3ml, 4ml, 6ml</span>
+                                                    <span class="text-secondary">
+                                                        @foreach ($cproduct->sizes as $size)
+                                                            <span>{{ $size?->size?->size }} </span>
+                                                        @endforeach
+                                                    </span>
                                                 </h3>
                                             </div>
                                         </div>
@@ -151,7 +159,7 @@
                                             @if ($cproduct->sizes->where('is_show', true)->first())
                                                 @php $defaultSize = $cproduct->sizes->where('is_show', true)->first(); @endphp
                                                 BDT {{ number_format($defaultSize->final_price, 2) }}
-                                                <span class="text-sm">({{ $defaultSize->size->size }})</span>
+                                                <span class="text-sm">({{ $defaultSize?->size?->size }})</span>
                                             @endif
                                         </h3>
                                         <h4 class="flex items-center gap-1 text-sm">
@@ -170,8 +178,8 @@
                                             </svg>
                                             <span>Free Delivery</span>
                                         </h4>
-                                        <a href="{{ route('checkout') }}">
-                                            <button
+                                        <a href="{{ route('create_cart', $cproduct->slug) }}/?color_id={{ $cproduct->colors->first()->id }}&size_id={{ $cproduct->sizes->first()->id }}&quant=1">
+                                            <button type="button"
                                                 class="p-2 px-4 text-xs rounded-full bg-primary text-white font-bold">
                                                 ADD TO CART
                                             </button>
@@ -195,7 +203,7 @@
                                 <div class="group cursor-pointer">
                                     <div class="border group-hover:border-[#ab8e66] transition-all duration-300">
                                         <div class="relative w-full">
-                                            <img src="{{ $gproduct->photo }}"
+                                            <img src="{{ $gproduct->thumbnail_url }}"
                                                 class="mx-auto object-contain h-[300px]" />
                                             <div class="top-0 left-0 right-0 bottom-0 m-auto absolute h-full">
                                                 <div class="h-[300px] flex items-center justify-center">

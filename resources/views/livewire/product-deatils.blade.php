@@ -1,7 +1,7 @@
 <div>
     <!-- Product Start -->
     <section>
-        <div class="mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl ">
+        <div class="mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl mt-3">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-16">
                 @if ($product->photo)
                     @php
@@ -13,19 +13,23 @@
                         $photo = '/backend/img/thumbnail-default.jpg';
                     @endphp
                 @endif
+
                 <div>
                     <div class="mb-5">
                         <!-- Dynamic photo from product -->
-                        <img class="mx-auto object-contain h-[533px]" src="{{ $photo }}" />
+                        <img class="w-full" src="{{ $product->thumbnail_url }}" />
                     </div>
                     <!-- Keep existing static image grid -->
-                    <div class="grid grid-cols-3 gap-5">
+                    {{-- <div class="grid grid-cols-3 gap-5">
+                        <img class="hover:border-primary border transition-all duration-300" src="{{ $product->thumbnail_url }}"
+                        title="{{ $product->title }}">
                         @foreach ($photos as $pto)
                             <img class="hover:border-primary border transition-all duration-300" src="{{ $pto }}"
                                 title="{{ $product->title }}">
                         @endforeach
-                    </div>
+                    </div> --}}
                 </div>
+
                 <form action="{{ route('create_cart', $product->slug) }}" method="GET">
                     @csrf
                     <div>
@@ -145,7 +149,7 @@
                                             <div class="bg-white p-4 rounded-lg shadow-lg max-w-md">
                                                 <!-- Close Button -->
                                                 <div class="relative">
-                                                    <button
+                                                    <button type="button"
                                                         class="absolute top-0 right-0 bg-black rounded-full text-white text-xs"
                                                         @click="open = false">
                                                         <svg xmlns="http://www.w3.org/2000/svg" width="24"
@@ -256,7 +260,7 @@
                                         @php
                                             $photo = explode(',', $product->photo);
                                         @endphp
-                                        <img src="{{ $photo[0] }}" class=" mx-auto object-contain h-[300px]" />
+                                        <img src="{{ $product->thumbnail_url }}" class=" mx-auto object-contain h-[300px]" />
                                         <div class="top-0 left-0 right-0 bottom-0 m-auto absolute h-full">
                                             <div class="h-[300px] flex items-center justify-center">
                                                 <div
