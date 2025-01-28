@@ -126,7 +126,7 @@
                                             <div class="flex items-center">
                                                 <!-- Inside Dhaka -->
                                                 <input type="radio" id="insideDhaka" name="delivery_charge"
-                                                    value="inside_dhaka" class="mr-2" />
+                                                    value="inside_dhaka" class="mr-2" checked />
                                                 <label for="insideDhaka" class="mr-4">Inside Dhaka (70)</label>
 
                                                 <!-- Outside Dhaka -->
@@ -177,8 +177,10 @@
 
                                         </div>
                                         <h3 class="font-medium">
-                                            Total Price: <span class="text-xl font-medium">BDT
-                                                {{ $total_amount }}</span>
+                                            Total Price: <span class="text-xl font-medium">
+                                                BDT<span id="totalPrice">{{ $total_amount }}</span>
+                                            </span>
+
                                         </h3>
                                     </div>
                                 </div>
@@ -379,3 +381,37 @@
     <!-- cHECKOUT End -->
 
 </div>
+
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        const baseTotal = Number('{{ $total_amount }}');
+
+        // Define your shipping rates
+        const shippingRates = {
+            inside_dhaka: 70,
+            outside_dhaka: 130
+        };
+
+        // Grab the radio buttons and the totalPrice span
+        const deliveryRadios = document.querySelectorAll('input[name="delivery_charge"]');
+        const totalPriceEl = document.getElementById('totalPrice');
+
+        // Whenever a user changes the radio selection, update the total
+        deliveryRadios.forEach((radio) => {
+            radio.addEventListener('change', function() {
+                const selectedShipping = this.value; // 'inside_dhaka' or 'outside_dhaka'
+                const shippingCost = shippingRates[selectedShipping] ||
+                0; // default 0 if not found
+                const newTotal = baseTotal + shippingCost;
+
+                // Update the text inside #totalPrice
+                totalPriceEl.textContent = newTotal;
+            });
+        });
+        // If "Inside Dhaka" is checked by default:
+        const defaultRate = shippingRates['inside_dhaka'];
+        totalPriceEl.textContent = baseTotal + defaultRate;
+    });
+
+    // Convert the server-rendered total_amount into a JavaScript Number
+</script>
