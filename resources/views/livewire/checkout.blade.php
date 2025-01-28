@@ -1,7 +1,7 @@
 <div>
     <!-- CHECKOUT Start -->
     <section class="pb-20">
-        <div class="mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
+        <div class="mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl ">
             <div class="py-8 flex items-center gap-2 text-sm">
                 <a href="#">Home</a>
                 <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 1024 1024">
@@ -20,7 +20,7 @@
                     orderConfirmed: false
                 }">
                     <!-- Shipping Start -->
-                    <div x-show="step === 'shipping'" class="mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
+                    <div x-show="step === 'shipping'" class="mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl ">
                         <div class="border rounded px-5 md:ps-7 py-10 mb-6">
                             <div class="grid grid-cols-1 md:grid-cols-3 gap-20">
                                 <div class="md:col-span-2">
@@ -28,7 +28,6 @@
                                     <div class="mb-6">
                                         <span class="inline-block h-[2px] w-5 bg-primary"></span>
                                     </div>
-
                                     @if (session('errors'))
                                         @foreach (session('errors')->all() as $error)
                                             <div class="text-red-500 mb-1">
@@ -117,9 +116,16 @@
                                             <img src="{{ asset('images/default/bkash-nagad.jpg') }}" alt="bKash" class="h-12">
                                         </div>
                                     </label>
-                                    <div x-show="payment.method === 'mobile_banking'" class="mt-4">
-                                        <label class="text-sm mb-1 block">Enter Transaction ID <span class="text-red-500">*</span></label>
-                                        <input type="text" name="mobile_transaction_id" class="py-2 px-5 rounded-md w-full border" placeholder="Enter your transaction ID">
+                                    <div x-show="payment.method === 'mobile_banking'" class="mt-4 space-y-4">
+                                        <p class="font-medium">Pay via Send Money</p>
+                                        <p>bKash/Nagad/Rocket: 01705644008</p>
+                                        <div>
+                                            <p class="font-medium mb-2">Payment Amount: BDT {{ $total_amount }}</p>
+                                            <div>
+                                                <label class="text-sm mb-1 block">Enter Transaction ID <span class="text-red-500">*</span></label>
+                                                <input type="text" name="mobile_transaction_id" class="py-2 px-5 rounded-md w-full border" placeholder="Enter your transaction ID">
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
 
@@ -129,15 +135,31 @@
                                         <input type="radio" name="payment_type" value="bank_transfer" x-model="payment.method" class="w-4 h-4">
                                         <img src="{{ asset('images/default/dutch-bangla.png') }}" alt="Dutch-Bangla Bank" class="h-12">
                                     </label>
-                                    <div x-show="payment.method === 'bank_transfer'" class="mt-4">
-                                        <label class="text-sm mb-1 block">Enter Transaction ID <span class="text-red-500">*</span></label>
-                                        <input type="text" name="bank_transaction_id" class="py-2 px-5 rounded-md w-full border" placeholder="Enter your transaction ID">
+                                    <div x-show="payment.method === 'bank_transfer'" class="mt-4 space-y-4">
+                                        <div class="space-y-2">
+                                            <p><span class="font-medium">Account Number:</span> 292.158.0002557</p>
+                                            <p><span class="font-medium">Account Name:</span> Salman Md Sultan</p>
+                                            <p><span class="font-medium">Bank Name:</span> Dutch Bangla bank limited</p>
+                                            <p><span class="font-medium">Branch:</span> khilgaon</p>
+                                            <p><span class="font-medium">Routing No:</span> 090273676</p>
+                                        </div>
+                                        <div>
+                                            <p class="font-medium mb-2">Payment Amount: BDT {{ $total_amount }}</p>
+                                            <div>
+                                                <label class="text-sm mb-1 block">Enter Transaction ID <span class="text-red-500">*</span></label>
+                                                <input type="text" name="bank_transaction_id" class="py-2 px-5 rounded-md w-full border" placeholder="Enter your transaction ID">
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="flex items-end justify-end mb-12 gap-5">
                             <button @click="step = 'shipping'" type="button" class="flex items-center gap-2 py-2 px-5 border rounded-full text-xs font-semibold uppercase">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24">
+                                    <path fill="currentColor"
+                                        d="M11.884 6.116a1.25 1.25 0 0 0-1.768 0l-5 5a1.25 1.25 0 0 0 0 1.768l5 5a1.25 1.25 0 0 0 1.768-1.768L9.018 13.25H18a1.25 1.25 0 1 0 0-2.5H9.018l2.866-2.866a1.25 1.25 0 0 0 0-1.768" />
+                                </svg>
                                 <span>BACK TO SHIPPING</span>
                             </button>
                             <button type="submit" class="flex items-center gap-2 py-2 px-5 border bg-primary text-white rounded-full text-xs font-semibold uppercase">
@@ -145,37 +167,71 @@
                             </button>
                         </div>
                     </div>
-                    <!-- Payment End -->
+                    <!-- Pay End -->
+
+                    <!-- Confirmation Start -->
+                    <div x-show="step === 'confirmation'" class="mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl ">
+                        <div class="border rounded px-5 md:ps-7 py-10 mb-6 flex flex-col items-center justify-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="92" height="92" class="mb-6"
+                                viewBox="0 0 1200 1200">
+                                <path fill="#000"
+                                    d="M600 0C268.63 0 0 268.63 0 600s268.63 600 600 600s600-268.63 600-600S931.369 0 600 0m0 130.371c259.369 0 469.556 210.325 469.556 469.629S859.369 1069.556 600 1069.556c-259.37 0-469.556-210.251-469.556-469.556C130.445 340.696 340.63 130.371 600 130.371m229.907 184.717L482.153 662.915L369.36 550.122L258.691 660.718l112.793 112.793l111.401 111.401l110.597-110.669l347.826-347.754z" />
+                            </svg>
+                            <h3 class="text-center text-xl font-medium mb-2">
+                                Congratulation! Your order has been processed.
+                            </h3>
+                            <p class="text-center text-sm mb-10 text-secondary">
+                                Aenean dui mi, tempus non volutpat eget, molestie a orci. Nullam
+                                eget sem et eros laoreet rutrum. Quisque sem ante, feugiat quis
+                                lorem in.
+                            </p>
+                            <div>
+                                <a href="shop.html"><button
+                                        class="flex items-center gpa-2 py-2 px-5 border bg-primary text-white rounded-full text-xs font-semibold uppercase">
+                                        <span>RETURN TO STORE</span>
+                                    </button></a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Confirmation End -->
                 </div>
             </form>
         </div>
     </section>
-    <!-- CHECKOUT End -->
+
+    <!-- cHECKOUT End -->
+
 </div>
 
 <script>
     window.addEventListener('DOMContentLoaded', () => {
         const baseTotal = Number('{{ $total_amount }}');
 
+        // Define your shipping rates
         const shippingRates = {
             inside_dhaka: 70,
             outside_dhaka: 130
         };
 
+        // Grab the radio buttons and the totalPrice span
         const deliveryRadios = document.querySelectorAll('input[name="delivery_charge"]');
         const totalPriceEl = document.getElementById('totalPrice');
 
+        // Whenever a user changes the radio selection, update the total
         deliveryRadios.forEach((radio) => {
             radio.addEventListener('change', function() {
-                const selectedShipping = this.value;
-                const shippingCost = shippingRates[selectedShipping] || 0;
+                const selectedShipping = this.value; // 'inside_dhaka' or 'outside_dhaka'
+                const shippingCost = shippingRates[selectedShipping] || 0; // default 0 if not found
                 const newTotal = baseTotal + shippingCost;
 
+                // Update the text inside #totalPrice
                 totalPriceEl.textContent = newTotal;
             });
         });
-
+        // If "Inside Dhaka" is checked by default:
         const defaultRate = shippingRates['inside_dhaka'];
         totalPriceEl.textContent = baseTotal + defaultRate;
     });
+
+    // Convert the server-rendered total_amount into a JavaScript Number
 </script>
