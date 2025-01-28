@@ -9,6 +9,8 @@ use App\Models\PostCategory;
 use App\Models\Post;
 use App\Models\Cart;
 use App\Models\Brand;
+use App\Models\Order;
+use App\Models\UserAddress;
 use App\User;
 use Auth;
 use Session;
@@ -476,6 +478,80 @@ class FrontendController extends Controller
                 'message' => 'Error removing item'
             ]);
         }
+    }
+
+    public function CheckoutOrder(Request $request)
+    {
+        $user = auth()->user();
+
+        if(!$user){
+            $this->redirect(route('login'), navigate: false);
+        }
+        // dd(request()->all());
+        $data = request()->validate([
+            'address' => 'required|string',
+            'city' => 'required|string',
+            'post_code' => 'required',
+            'mobile_transaction_id' => 'nullable|string|required_if:payment_type,mobile_banking',
+            'bank_transaction_id' => 'nullable|string|required_if:payment_type,bank_transfer',
+            // 'payment_method' => 'required|in:cod',
+        ],[
+            'mobile_transaction_id.required_without' => 'The transaction id field is required when payment method is mobile banking.',
+            'bank_transaction_id.required_without' => 'The transaction id field is required when payment method is bank transfer.',
+        ]);
+
+        $user = User::find($user->id);
+
+        $address =  UserAddress::where('user_id', $user->id)->where('is_default', true)->first();
+        $user->address = $request->address;
+        $user->city = $request->city;
+        $user->post_code = $request->post_code;
+        $user->save();
+
+        if (!$address) {
+            UserAddress::create([
+                'address' => $request->address,
+                'city' => $request->city,
+                'user_id' => $user->id,
+                'post_code' => $request->post_code,
+                'is_default' => true,
+            ]);
+        }
+
+        $carts = Cart::with(['product'])->where('user_id', $user->id)->where('order_id', null)->latest()->get();
+        if($carts->count()<1){
+            session()->flash('error', "Cart is empty");
+            return redirect()->route('vcart');
+        }
+        $order = Order::create([
+            'user_id' => $user->id,
+            'order_number' => 'ORD-' . strtoupper(Str::random(10)),
+            'status' => 'New',
+            'installment_count' => 1,
+            'quantity' => $carts->count(),
+            'transaction_id' => request()->mobile_transaction_id ?: request()->bank_transaction_id,
+            'payment_method' => request()->payment_type,
+            'status' => "Pending",
+            'payment_status' => 'Unpaid',
+        ]);
+        if(!$order){
+            session()->flash('error', "Order not completed");
+            return redirect()->back();
+        }
+        $total_amount = 0;
+        $total_product = 0;
+        foreach($carts as $cart){
+            $cart->order_id = $order->id;
+            $cart->save();
+            $total_amount += $cart->amount;
+            ++$total_product;
+        }
+        $order->update([
+            'amount' => $total_amount,
+            'quantity' => $total_product,
+        ]);
+
+        return redirect()->route('thank_you',[$order->order_number]);
     }
 
 }

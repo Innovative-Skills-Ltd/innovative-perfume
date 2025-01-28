@@ -40,7 +40,7 @@
             <tbody class="border-b-[1px] border-[#380D37]">
                 {{-- @dd($orders) --}}
                 @foreach ($orders as $order)
-                    @if ($order->installment_count > 1)
+                    {{-- @if ($order->installment_count > 1)
                         <tr>
                             <td
                                 class="p-3 tracking-wide text-left text-[14px] whitespace-nowrap text-[#000000] font-[jost] font-[500]">
@@ -54,22 +54,18 @@
                             </td>
                             <td
                                 class="p-3 tracking-wide text-left text-[14px] whitespace-nowrap text-[#000000] font-[jost] font-[500]">
-                                {{ number_format($order->amount) }}৳</td>
+                                {{ number_format($order?->cart_info?->first()?->product->final_price) }}৳</td>
                             <td
                                 class="p-3 tracking-wide text-left text-[14px] whitespace-nowrap text-[#000000] font-[jost] font-[500]">
-                                {{ number_format($order->payable) }}৳</td>
+                                {{ number_format($order->payable) * $order->quantity }}৳</td>
                             <td
                                 class="p-3 tracking-wide text-left text-[14px] whitespace-nowrap text-[#000000] font-[jost] font-[500]">
                                 {{ $order->status }}</td>
                             <td
                                 class="p-3 tracking-wide text-left text-[14px] whitespace-nowrap text-[#000000] font-[jost] font-[500]">
-                                {{-- <a href=""> --}}
-                                {{ $order->payment_status }}
-                                ({{ count($order->installment_order) }}/{{ $order->installment_count }}) <br> <span
-                                    class="text-blue-200">Installment</span></td>
-                            {{-- </a> --}}
+
                         </tr>
-                    @else
+                    @else --}}
                         @foreach ($order->cart_info as $cart)
                             <tr>
                                 <td
@@ -84,10 +80,10 @@
                                 </td>
                                 <td
                                     class="p-3 tracking-wide text-left text-[14px] whitespace-nowrap text-[#000000] font-[jost] font-[500]">
-                                    {{ number_format($cart->price) }}৳</td>
+                                    {{ number_format($cart->price - $cart->discount) }}৳</td>
                                 <td
                                     class="p-3 tracking-wide text-left text-[14px] whitespace-nowrap text-[#000000] font-[jost] font-[500]">
-                                    {{ number_format($cart->amount) }}৳</td>
+                                    {{ number_format(($cart->price - $cart->discount) * $cart->quantity) }}৳</td>
                                 <td
                                     class="p-3 tracking-wide text-left text-[14px] whitespace-nowrap text-[#000000] font-[jost] font-[500]">
                                     @if ($order->status == 'Delivered')
@@ -106,7 +102,7 @@
                                 </td>
                             </tr>
                         @endforeach
-                    @endif
+                    {{-- @endif --}}
                 @endforeach
             </tbody>
         </table>

@@ -384,7 +384,7 @@ Route::get('/view-cart', ViewCart::class)->name('vcart');
 
 Route::post('/checkout/store', CheckoutStore::class)->name('checkout.store'); // add to cart to checkout bypass
 Route::get('/checkout', Checkout::class)->name('checkout'); //checkout page
-Route::post('/checkout', OrderStore::class)->name('checkout.order'); //checkout complete
+Route::post('/checkout', [FrontendController::class, 'CheckoutOrder'])->name('checkout.order'); //checkout complete
 Route::get('/thank-you/{order_number}', ThankYou::class)->name('thank_you');
 
 Route::get('/blogs', Blog::class)->name('blogs');

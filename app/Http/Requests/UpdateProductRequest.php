@@ -59,7 +59,7 @@ class UpdateProductRequest extends FormRequest
                 // 'dimensions:min_width=1920,min_height=500'
             ],
             'product_thumbnail_image' => [
-                'required',
+                'nullable',
                 'image',
                 'mimes:jpeg,jpg,png,gif,webp,svg,bmp,tiff,avif',
                 'max:2048',

@@ -82,11 +82,17 @@ class OrderStore extends Component
         if(!$user){
             $this->redirect(route('login'), navigate: false);
         }
+        // dd(request()->all());
         $data = request()->validate([
             'address' => 'required|string',
             'city' => 'required|string',
             'post_code' => 'required',
+            'mobile_transaction_id' => 'nullable|string|required_if:payment_type,mobile_banking',
+            'bank_transaction_id' => 'nullable|string|required_if:payment_type,bank_transfer',
             // 'payment_method' => 'required|in:cod',
+        ],[
+            'mobile_transaction_id.required_without' => 'The transaction id field is required when payment method is mobile banking.',
+            'bank_transaction_id.required_without' => 'The transaction id field is required when payment method is bank transfer.',
         ]);
 
         $user = User::find($user->id);
@@ -119,6 +125,8 @@ class OrderStore extends Component
             'status' => 'New',
             'installment_count' => 1,
             'quantity' => $carts->count(),
+            'transaction_id' => request()->mobile_transaction_id ?: request()->bank_transaction_id,
+            'payment_method' => request()->payment_type,
             'status' => "Pending",
             'payment_status' => 'Unpaid',
         ]);
