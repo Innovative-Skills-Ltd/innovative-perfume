@@ -79,6 +79,7 @@ class CheckoutStore extends Component
             session()->flash('error', "Cart is empty");
            return $this->redirect(route('vcart'), navigate: false);
         }
+        
         foreach($request->product as $product){
             $stock_product = Product::where('slug', $product['slug'])->where('is_showable_to_user',1)->first();
             if ($stock_product->stock < $product['quantity']) {
