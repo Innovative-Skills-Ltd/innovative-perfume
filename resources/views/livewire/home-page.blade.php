@@ -88,8 +88,7 @@
                                         </p>
                                     </div>
                                     <div>
-                                        <a
-                                            class="text-sm font-bold pb-2 border-b-2 uppercase border-black animate__fadeInUpBig  animate__animated">
+                                        <a class="shop-btn">
                                             Shop Now
                                         </a>
                                     </div>
@@ -105,12 +104,12 @@
                         <img class="absolute top-0 bottom-0 left-0 right-0 w-full h-full -z-10"
                             src="{{ $photo[0] }}" />
                         <h3 x-bind:class="active ? 'top-0 opacity-100' : 'top-12 opacity-0'"
-                            class="font-semibold uppercase mb-3 text-primary relative transition-all duration-500">
+                            class="font-medium mb-3 text-2xl relative transition-all duration-500">
                             Pick Your Items
                         </h3>
                         <p class="text-secondary mb-4">{{ $first_product->title }}</p>
 
-                        <button class="text-sm font-bold pb-2 border-b-2 uppercase border-black">
+                        <button class="shop-btn">
                             Shop Now
                         </button>
                     </div>
@@ -120,10 +119,10 @@
                     <div style="width: 100%; height: 298px" class="bg-no-repeat py-14 pl-7 pr-40 relative">
                         <img class="absolute top-0 bottom-0 left-0 right-0 w-full h-full -z-10"
                             src="{{ $photo[0] }}" />
-                        <h3 class="text-2xl mb-2 font-bold">Pick Your Items</h3>
+                        <h3 class="font-medium mb-3 text-2xl relative transition-all duration-500">Pick Your Items</h3>
                         <p class="text-secondary mb-4">{{ $first_product->title }}</p>
 
-                        <button class="text-sm font-bold pb-2 border-b-2 uppercase border-black">
+                        <button class="shop-btn">
                             Shop Now
                         </button>
                     </div>
@@ -255,7 +254,7 @@
                         {{ $first_product->title }}
                     </p>
 
-                    <button class="text-sm font-bold pb-2 border-b-2 uppercase border-black">
+                    <button class="shop-btn">
                         Shop Now
                     </button>
                 </div>
@@ -273,7 +272,7 @@
                         {{ $first_product->title }}
                     </p>
 
-                    <button class="text-sm font-bold pb-2 border-b-2 uppercase border-black">
+                    <button class="shop-btn">
                         Shop Now
                     </button>
                 </div>
@@ -296,8 +295,7 @@
                 <span class="text-primary text-3xl font-semibold">BDT
                     {{ number_format($first_product->sizes->min('final_price'), 2) }}</span>
             </p>
-            <a href="{{ route('product.details', $first_product->slug) }}"
-                class="text-sm font-bold pb-2 border-b-2 uppercase border-black">
+            <a href="{{ route('product.details', $first_product->slug) }}" class="shop-btn">
                 Shop Now
             </a>
         </div>
@@ -310,22 +308,25 @@
             <!-- Category Buttons -->
             <div class="flex flex-wrap gap-5 items-center justify-center mb-14">
                 <div class="mx-5">
-                    <button class="font-medium text-lg rounded-full py-2 px-6"
-                        :class="selectedCategory === 'bestseller' ? 'bg-primary text-white' : 'bg-black text-white'"
+                    <button class="font-medium text-lg rounded-full py-2 px-6 transtion-all duration-300"
+                        :class="selectedCategory === 'bestseller' ? 'bg-primary text-white hover:bg-black' :
+                            'hover:bg-primary bg-black text-white'"
                         @click="selectedCategory = 'bestseller'">
                         Bestseller
                     </button>
                 </div>
                 <div class="mx-5">
-                    <button class="font-medium text-lg rounded-full py-2 px-6"
-                        :class="selectedCategory === 'new_arrivals' ? 'bg-primary text-white' : 'bg-black text-white'"
+                    <button class="font-medium text-lg rounded-full py-2 px-6 transtion-all duration-300"
+                        :class="selectedCategory === 'new_arrivals' ? 'bg-primary text-white hover:bg-black' :
+                            'hover:bg-primary bg-black text-white'"
                         @click="selectedCategory = 'new_arrivals'">
                         New Arrivals
                     </button>
                 </div>
                 <div class="mx-5">
-                    <button class="font-medium text-lg rounded-full py-2 px-6"
-                        :class="selectedCategory === 'top_rated' ? 'bg-primary text-white' : 'bg-black text-white'"
+                    <button class="font-medium text-lg rounded-full py-2 px-6 transtion-all duration-300"
+                        :class="selectedCategory === 'top_rated' ? 'bg-primary text-white hover:bg-black' :
+                            'hover:bg-primary bg-black text-white'"
                         @click="selectedCategory = 'top_rated'">
                         Top Rated
                     </button>
@@ -441,7 +442,7 @@
                                 fugiat reprehenderit odio consectetur sequi hic accusamus
                                 explicabo ex repudiandae perspiciatis!
                             </p>
-                            <button class="text-sm font-bold pb-2 border-b-2 uppercase border-black">
+                            <button class="shop-btn">
                                 Shop Now
                             </button>
                         </div>
@@ -465,7 +466,7 @@
                                 fugiat reprehenderit odio consectetur sequi hic accusamus
                                 explicabo ex repudiandae perspiciatis!
                             </p>
-                            <button class="text-sm font-bold pb-2 border-b-2 uppercase border-black">
+                            <button class="shop-btn">
                                 Shop Now
                             </button>
                         </div>
@@ -489,7 +490,7 @@
                                 fugiat reprehenderit odio consectetur sequi hic accusamus
                                 explicabo ex repudiandae perspiciatis!
                             </p>
-                            <button class="text-sm font-bold pb-2 border-b-2 uppercase border-black">
+                            <button class="shop-btn">
                                 Shop Now
                             </button>
                         </div>
@@ -513,7 +514,7 @@
                                 fugiat reprehenderit odio consectetur sequi hic accusamus
                                 explicabo ex repudiandae perspiciatis!
                             </p>
-                            <button class="text-sm font-bold pb-2 border-b-2 uppercase border-black">
+                            <button class="shop-btn">
                                 Shop Now
                             </button>
                         </div>
@@ -537,7 +538,7 @@
                                 fugiat reprehenderit odio consectetur sequi hic accusamus
                                 explicabo ex repudiandae perspiciatis!
                             </p>
-                            <button class="text-sm font-bold pb-2 border-b-2 uppercase border-black">
+                            <button class="shop-btn">
                                 Shop Now
                             </button>
                         </div>

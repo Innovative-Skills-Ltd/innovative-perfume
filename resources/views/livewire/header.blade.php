@@ -12,21 +12,21 @@
                 @if (auth()->user())
                     <a href="{{ route('user.logout') }}">
                         <button
-                            class="cursor-pointer hover:italic hover:underline transition-all duration-300 ease-in-out">
+                            class="cursor-pointer hover:underline transition-all duration-300 ease-in-out">
                             Logout
                         </button>
                     </a>
                 @else
                     <a href="{{ route('user.login') }}">
                         <button
-                            class="cursor-pointer hover:italic hover:underline transition-all duration-300 ease-in-out">
+                            class="cursor-pointer hover:underline transition-all duration-300 ease-in-out">
                             Login
                         </button>
                     </a>
                     <span>or</span>
                     <a href="{{ route('user.login') }}">
                         <button
-                            class="cursor-pointer hover:italic hover:underline transition-all duration-300 ease-in-out">
+                            class="cursor-pointer hover:underline transition-all duration-300 ease-in-out">
                             Register
                         </button>
                     </a>
