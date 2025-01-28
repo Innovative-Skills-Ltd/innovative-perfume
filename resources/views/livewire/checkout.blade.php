@@ -12,7 +12,7 @@
                 <span>Checkout</span>
             </div>
             <h2 class="text-xl font-semibold mb-10 uppercase">Checkout</h2>
-            <form action="{{ route('user.order.store') }}" method="POST">
+            <form action="{{ route('checkout.order') }}" method="POST">
                 @csrf
                 <div x-data="{
                     step: 'shipping',
@@ -29,7 +29,23 @@
                                     <div class="mb-6">
                                         <span class="inline-block h-[2px] w-5 bg-primary"></span>
                                     </div>
-                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mb-5">
+                                    {{-- All old Data dd --}}
+                                    @php
+                                        $errorsn = session()->get('errors')?->all() ?: [];
+                                        // dd($errorsn, session()->get('errors'), session()->get('errors')?->city);
+                                    @endphp
+                                    {{-- Validation error showing    --}}
+                                    {{-- @if(session()->get('errors')) --}}
+                                    @if(count($errorsn) > 0)
+                                        @foreach($errorsn as $error)
+                                            <div class="text-red-500 mb-1">
+                                                {{ $error }}
+                                            </div>
+                                        @endforeach
+                                        <p class="mb-5"></p>
+                                    @endif
+                                    {{-- @endif --}}
+                                    {{-- <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mb-5">
                                         <div>
                                             <label class="text-sm mb-1">First name</label>
                                             <input name="name" type="text" value="{{ $name }}"
@@ -40,8 +56,9 @@
                                             <input name="l_name" type="text" value="{{ $l_name }}"
                                                 class="py-2 px-5 rounded-full w-full border" />
                                         </div>
-                                    </div>
-                                    <div class="grid grid-cols-1 md:grid-cols-3 gap-5 mb-5">
+                                    </div> --}}
+
+                                    {{-- <div class="grid grid-cols-1 md:grid-cols-3 gap-5 mb-5">
                                         <div>
                                             <label class="text-sm mb-1">Country</label>
                                             <select name="country" class="py-2 px-5 rounded-md w-full border">
@@ -63,18 +80,40 @@
                                                 <option>GopalGonj</option>
                                             </select>
                                         </div>
-                                    </div>
+                                    </div> --}}
+
                                     <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mb-5">
+
+                                        {{-- Address --}}
                                         <div>
-                                            <label class="text-sm mb-1">Zip Code</label>
-                                            <input name="zip_code" type="text"
+                                            <label class="text-sm mb-1">Address <span class="text-red-500">*</span></label>
+                                            <input name="address" type="text" value='{{old('address',$address)}}'
                                                 class="py-2 px-5 rounded-full w-full border" />
+                                            @isset($errorsn['address'])
+                                                <span class="text-red-500">{{ $errorsn['address'] }}</span>
+                                            @endisset
                                         </div>
+
+                                        {{-- City --}}
                                         <div>
-                                            <label class="text-sm mb-1">Address</label>
-                                            <input name="address" accept=""type="text"
+                                            <label class="text-sm mb-1">City <span class="text-red-500">*</span></label>
+                                            <input name="city" type="text" value='{{old('city',$city)}}'
                                                 class="py-2 px-5 rounded-full w-full border" />
+                                            @isset($errorsn['city'])
+                                                <span class="text-red-500">{{ $errorsn['city'] }}</span>
+                                            @endisset
                                         </div>
+
+                                        {{-- Zip Code --}}
+                                        <div>
+                                            <label class="text-sm mb-1">Zip Code <span class="text-red-500">*</span></label>
+                                            <input name="post_code" type="number" value='{{old('post_code',$post_code)}}'
+                                                class="py-2 px-5 rounded-full w-full border" />
+                                            @isset($errorsn['post_code'])
+                                                <span class="text-red-500">{{ $errorsn['post_code'] }}</span>
+                                            @endisset
+                                        </div>
+
                                     </div>
                                 </div>
                                 <div>
@@ -95,20 +134,20 @@
                                                 $total_amount += $price * $cart->quantity;
                                             @endphp
                                             <div class="flex items-center gap-7 pb-7 border-b mb-7">
-                                                <img class="w-24 h-24" src="{{ $photo[0] }}" />
+                                                <img class="w-24 h-24" src="{{ $cart?->product?->thumbnail_url }}" />
                                                 <div>
-                                                    <h4 class="py-1 font-medium">{{ $cart->product->title }}</h4>
+                                                    <h4 class="py-1 font-medium">{{ $cart?->product?->title }}</h4>
                                                     <p class="text-sm py-1 text-secondary">
-                                                        @if ($cart->color)
-                                                            {{ $cart->color->color->name }},
+                                                        @if ($cart?->color)
+                                                            {{ $cart?->color?->color?->name }},
                                                         @endif
-                                                        @if ($cart->size)
-                                                            {{ $cart->size->size->size }}
+                                                        @if ($cart?->size)
+                                                            {{ $cart?->size?->size?->size }}
                                                         @endif
                                                     </p>
                                                     <h4 class="font-semibold">
-                                                        BDT{{ $price }}
-                                                        <span class="text-secondary">x{{ $cart->quantity }}</span>
+                                                        BDT {{ $price }}
+                                                        <span class="text-secondary">x{{ $cart?->quantity }}</span>
                                                     </h4>
                                                 </div>
                                             </div>
@@ -116,7 +155,7 @@
 
                                     </div>
                                     <h3 class="font-medium">
-                                        Total Price: <span class="text-xl font-medium">${{ $total_amount }}</span>
+                                        Total Price: <span class="text-xl font-medium">BDT {{ $total_amount }}</span>
                                     </h3>
                                 </div>
                             </div>
@@ -145,86 +184,70 @@
                                     <div class="mb-6">
                                         <span class="inline-block h-[2px] w-5 bg-primary"></span>
                                     </div>
-                                    <div class="flex items-end mb-5 gap-5">
-                                        <input type="hidden" id="paymentMethod" name="payment_method"
-                                            value="CREDIT CARD" />
-                                        <label type="button" onclick="selectPaymentMethod('CREDIT CARD', this)"
-                                            class="payment-option flex items-center gpa-2 py-2 px-5 border bg-primary text-white rounded-full text-xs font-semibold uppercase">
-                                            CREDIT CARD
-                                        </label>
-                                        <label type="button" onclick="selectPaymentMethod('PAYPAL', this)"
-                                            class="payment-option flex items-center gpa-5 py-2 px-5 border rounded-full text-xs font-semibold uppercase">
-                                            <span>PAYPAL</span>
-                                        </label>
-                                    </div>
-                                    <script>
-                                        function selectPaymentMethod(method, element) {
-                                            // Update hidden input value
-                                            document.getElementById('paymentMethod').value = method;
 
-                                            // Remove active class from all options
-                                            // document.querySelectorAll('.payment-option').forEach(option => {
-                                            //     option.classList.remove('bg-primary', 'text-white');
-                                            // });
+                                    <!-- Payment Options -->
+                                    <div class="space-y-6">
+                                        <input type="hidden" id="paymentMethod" name="payment_method" x-model="payment.method" />
 
-                                            // Add active class to selected option
-                                            // element.classList.add('bg-primary', 'text-white');
-                                        }
-                                    </script>
-                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mb-5">
-                                        <div>
-                                            <label class="text-sm mb-1">Card number</label>
-                                            <input name="card_number" type="text"
-                                                class="py-2 px-5 rounded-full w-full border" />
+                                        <!-- Mobile Banking Option -->
+                                            <div class="border rounded-lg pl-6 py-4 pr-4" x-init="@if(old('payment_type') == 'bank_transfer') payment.type = 'bank_transfer' @else payment.type = 'mobile_banking' @endif">
+                                                <label class="flex items-center gap-4 mb-6 cursor-pointer">
+                                                <input type="radio" name="payment_type" value="mobile_banking"
+                                                       x-model="payment.type" class="w-4 h-4">
+                                                <div class="flex gap-4">
+                                                    <img src="{{asset('images/default/bkash-nagad.jpg')}}" alt="bKash" class="h-12">
+                                                </div>
+                                            </label>
+
+                                            <div x-show="payment.type === 'mobile_banking'" x-show="" class="space-y-4">
+                                                <p class="font-medium">Pay via Send Money</p>
+                                                <p>bKash/Nagad/Rocket: 01705644008</p>
+                                                <div>
+                                                    <p class="font-medium mb-2">Payment Amount: ৳ {{ $total_amount }}</p>
+                                                    <div>
+                                                        <label class="text-sm mb-1 block">Enter Transaction ID <span class="text-red-500">*</span></label>
+                                                        <input type="text" name="mobile_transaction_id" value="{{old('mobile_transaction_id')}}"
+                                                               class="py-2 px-5 rounded-md w-full border"
+                                                               placeholder="Enter your transaction ID">
+                                                        @isset($errorsn['mobile_transaction_id'])
+                                                            <p class="text-red-500" x-show="payment.type === 'mobile_banking'">{{ $errorsn['mobile_transaction_id'] }}</p>
+                                                        @endisset
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Bank Transfer Option -->
+                                        <div class="border rounded-lg pl-6 py-4 pr-4">
+                                            <label class="flex items-center gap-4 mb-6 cursor-pointer">
+                                                <input type="radio" name="payment_type" value="bank_transfer"
+                                                       x-model="payment.type" class="w-4 h-4">
+                                                <img src="{{asset('images/default/dutch-bangla.png')}}" alt="Dutch-Bangla Bank" class="h-12">
+                                            </label>
+
+                                            <div x-show="payment.type === 'bank_transfer'" class="space-y-4">
+                                                <div class="space-y-2">
+                                                    <p><span class="font-medium">Account Number:</span> 292.158.0002557</p>
+                                                    <p><span class="font-medium">Account Name:</span> Salman Md Sultan</p>
+                                                    <p><span class="font-medium">Bank Name:</span> Dutch Bangla bank limited</p>
+                                                    <p><span class="font-medium">Branch:</span> khilgaon</p>
+                                                    <p><span class="font-medium">Routing No:</span> 090273676</p>
+                                                </div>
+                                                <div>
+                                                    <p class="font-medium mb-2">Payment Amount: ৳ {{ $total_amount }}</p>
+                                                    <div>
+                                                        <label class="text-sm mb-1 block">Enter Transaction ID <span class="text-red-500">*</span></label>
+                                                        <input type="text" name="bank_transaction_id" value="{{old('bank_transaction_id')}}"
+                                                               class="py-2 px-5 rounded-md w-full border"
+                                                               placeholder="Enter your transaction ID">
+                                                        @isset($errorsn['bank_transaction_id'])
+                                                            <p class="text-red-500" x-show="payment.type === 'bank_transfer'">{{ $errorsn['bank_transaction_id'] }}</p>
+                                                        @endisset
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="grid grid-cols-1 md:grid-cols-3 gap-5 mb-5">
-                                        <!-- Month Dropdown -->
-                                        <div>
-                                            <label for="month" class="text-sm mb-1 block">Month</label>
-                                            <select id="month" name="month"
-                                                class="py-2 px-5 rounded-md w-full border">
-                                                <option value="" disabled selected>Select Month</option>
-                                                <option value="01">January</option>
-                                                <option value="02">February</option>
-                                                <option value="03">March</option>
-                                                <option value="04">April</option>
-                                                <option value="05">May</option>
-                                                <option value="06">June</option>
-                                                <option value="07">July</option>
-                                                <option value="08">August</option>
-                                                <option value="09">September</option>
-                                                <option value="10">October</option>
-                                                <option value="11">November</option>
-                                                <option value="12">December</option>
-                                            </select>
-                                        </div>
-
-                                        <!-- Year Dropdown -->
-                                        <div>
-                                            <label for="year" class="text-sm mb-1 block">Year</label>
-                                            <select id="year" name="year"
-                                                class="py-2 px-5 rounded-md w-full border">
-                                                <option value="" disabled selected>Select Year</option>
-                                                @php
-                                                    $currentYear = date('Y');
-                                                    $endYear = $currentYear + 10; // Show years up to 10 years in the future
-                                                @endphp
-                                                @for ($year = $currentYear; $year <= $endYear; $year++)
-                                                    <option value="{{ $year }}">{{ $year }}</option>
-                                                @endfor
-                                            </select>
-                                        </div>
-
-                                        <!-- CVV Field -->
-                                        <div>
-                                            <label for="cvv" class="text-sm mb-1 block">CVV</label>
-                                            <input id="cvv" name="cvv" type="text"
-                                                class="py-2 px-5 rounded-md w-full border" placeholder="Enter CVV"
-                                                maxlength="3" />
-                                        </div>
-                                    </div>
-
                                 </div>
                                 <div>
                                     <h3 class="pb-1 text-lg font-medium">Your Order</h3>
@@ -233,24 +256,22 @@
                                     </div>
                                     <div>
                                         @foreach ($carts as $cart)
-                                            @php
-                                                $photo = explode(',', $cart->product->photo);
-                                            @endphp
+
                                             <div class="flex items-center gap-7 pb-7 border-b mb-7">
-                                                <img class="w-24 h-24" src="{{ $photo[0] }}" />
+                                                <img class="w-24 h-24" src="{{ $cart?->product?->thumbnail_url }}" />
                                                 <div>
-                                                    <h4 class="py-1 font-medium">{{ $cart->product->title }}</h4>
+                                                    <h4 class="py-1 font-medium">{{ $cart?->product?->title }}</h4>
                                                     <p class="text-sm py-1 text-secondary">
-                                                        @if ($cart->color)
-                                                            {{ $cart->color->color->name }},
+                                                        @if ($cart?->color)
+                                                            {{ $cart?->color?->color?->name }},
                                                         @endif
-                                                        @if ($cart->size)
-                                                            {{ $cart->size->size->size }}
+                                                        @if ($cart?->size)
+                                                            {{ $cart?->size?->size?->size }}
                                                         @endif
                                                     </p>
                                                     <h4 class="font-semibold">
-                                                        ${{ $cart->size ? $cart->size->final_price : $cart->product->final_price }}
-                                                        <span class="text-secondary">x{{ $cart->quantity }}</span>
+                                                        BDT {{ $cart?->size ? $cart?->size?->final_price : $cart?->product?->final_price }}
+                                                        <span class="text-secondary">x{{ $cart?->quantity }}</span>
                                                     </h4>
                                                 </div>
                                             </div>
@@ -264,16 +285,14 @@
                         </div>
                         <div class="flex items-end justify-end mb-12 gap-5">
                             <button @click="step = 'shipping'" type="button"
-                                class="flex items-center gpa-5 py-2 px-5 border rounded-full text-xs font-semibold uppercase">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12"
-                                    viewBox="0 0 24 24">
-                                    <path fill="currentColor"
-                                        d="M11.884 6.116a1.25 1.25 0 0 0-1.768 0l-5 5a1.25 1.25 0 0 0 0 1.768l5 5a1.25 1.25 0 0 0 1.768-1.768L9.018 13.25H18a1.25 1.25 0 1 0 0-2.5H9.018l2.866-2.866a1.25 1.25 0 0 0 0-1.768" />
+                                class="flex items-center gap-2 py-2 px-5 border rounded-full text-xs font-semibold uppercase">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24">
+                                    <path fill="currentColor" d="M11.884 6.116a1.25 1.25 0 0 0-1.768 0l-5 5a1.25 1.25 0 0 0 0 1.768l5 5a1.25 1.25 0 0 0 1.768-1.768L9.018 13.25H18a1.25 1.25 0 1 0 0-2.5H9.018l2.866-2.866a1.25 1.25 0 0 0 0-1.768" />
                                 </svg>
                                 <span>BACK TO SHIPPING</span>
                             </button>
                             <button type="submit"
-                                class="flex items-center gpa-2 py-2 px-5 border bg-primary text-white rounded-full text-xs font-semibold uppercase">
+                                class="flex items-center gap-2 py-2 px-5 border bg-primary text-white rounded-full text-xs font-semibold uppercase">
                                 <span>PAY NOW</span>
                             </button>
                         </div>

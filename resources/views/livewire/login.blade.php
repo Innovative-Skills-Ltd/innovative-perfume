@@ -106,7 +106,7 @@
 
                <h3 class="px-10 py-6 border rounded-t-lg">Register now</h3>
                <div class="px-10 py-6 border border-t-0 rounded-b-lg">
-                   <p class="text-secondary mb-5">Login with social account</p>
+                   {{-- <p class="text-secondary mb-5">Login with social account</p> --}}
                    <form action="{{ route('register.submit') }}" method="POST">
                        @csrf
                        <div>

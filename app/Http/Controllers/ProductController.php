@@ -70,6 +70,24 @@ class ProductController extends Controller
         return view('backend.product.create', $n);
     }
 
+    private function handleImage($request, $fieldName, $folder = 'products')
+    {
+        if ($request->hasFile($fieldName)) {
+            $image = $request->file($fieldName);
+            $name = Str::slug($request->title) . '-' . $fieldName . '-' . time();
+            $path = Storage::putFileAs($folder, $image, $name . '.' . $image->extension());
+            return $path;
+        }
+        return null;
+    }
+
+    private function deleteImage($path)
+    {
+        if ($path && Storage::exists($path)) {
+            Storage::delete($path);
+        }
+    }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -78,33 +96,18 @@ class ProductController extends Controller
      */
     public function store(StoreProductRequest $request)
     {
-        $this->ccan('Create Product');
 
+        $this->ccan('Create Product');
+        // dd($request->all());
         DB::beginTransaction();
         try {
-            // Create product with existing logic
-            $data = $request->except('sizes');
+            $data = $request->validated();
 
-            $special_feature = '';
-            if ($request->special_feature) {
-                foreach ($request->special_feature as $sp) {
-                    $special_feature = $special_feature . ', ' . $sp;
-                }
-            }
-
-            $data['special_feature'] = $special_feature;
-            $slug = Str::slug($request->title);
-            $count = Product::where('slug', $slug)->count();
-
-            if ($count > 0) {
-                $slug = $slug . '-' . date('ymdis') . '-' . rand(0, 999);
-            }
-
-            $data['slug'] = $slug;
+            $data['slug'] = Str::slug($data['title']);
             $data['is_featured'] = $request->input('is_featured', 0);
 
-            //brand firstOrCreate
-            if ($request->brand_name) {
+             //brand firstOrCreate
+             if ($request->brand_name) {
                 $slug = Str::slug($request->brand_name);
                 $brand_first = Brand::firstOrCreate([
                     'title' => $request->brand_name,
@@ -124,18 +127,22 @@ class ProductController extends Controller
                 ]);
                 $data['child_cat_id'] = $child_cat_first->id;
             }
+            $data['is_showable_to_user'] = 1;
 
+            // Handle all image uploads
+            $imageFields = [
+                'banner_image',
+                'product_thumbnail_image',
+                'best_collection_image',
+                'collection_arrived_image',
+                'instagram_image'
+            ];
 
-
-
-            //display_size firstOrCreate
-            if ($request->display_size_name) {
-                $display_size_first = DisplaySize::firstOrCreate([
-                    'size' => $request->display_size_name
-                ]);
-                $data['display_size_id'] = $display_size_first->id;
+            foreach ($imageFields as $field) {
+                if ($path = $this->handleImage($request, $field)) {
+                    $data[$field] = $path;
+                }
             }
-
 
             // Photo Processing
             if ($images = $request->file('photo')) {
@@ -152,7 +159,8 @@ class ProductController extends Controller
                     $data['photo'] = $data['photo'] . $image_url . ($loop >= $photo_count ? '' : ',');
                 }
             }
-            $data['is_showable_to_user'] = 1;
+            // dd($data);
+            // Create product
             $product = Product::create($data);
 
             // Handle product sizes
@@ -236,32 +244,105 @@ class ProductController extends Controller
 
         DB::beginTransaction();
         try {
-            $data = $request->except('sizes');
-            // dd($data);
-            // Update product basic info
+            $data = $request->validated();
+            $data['slug'] = Str::slug($data['title']);
             $data['is_featured'] = $request->input('is_featured', 0);
 
+            // Handle image updates
+            $imageFields = [
+                'banner_image',
+                'product_thumbnail_image',
+                'best_collection_image',
+                'collection_arrived_image',
+                'instagram_image'
+            ];
+
+            foreach ($imageFields as $field) {
+                // Check if image should be removed
+                if ($request->has("remove_{$field}")) {
+                    $this->deleteImage($product->$field);
+                    $data[$field] = null;
+                }
+                // Check if new image is uploaded
+                elseif ($path = $this->handleImage($request, $field)) {
+                    // Delete old image if exists
+                    $this->deleteImage($product->$field);
+                    $data[$field] = $path;
+                } else {
+                    // Keep existing image
+                    unset($data[$field]);
+                }
+            }
+            // dd($request->remaining_photos);
+            // Handle removed photos
+            if ($request->has('remaining_photos')) {
+                $remainingPhotos = $request->remaining_photos;
+                // Update photo field with remaining photos
+                $data['photo'] = implode(',', $remainingPhotos);
+
+                //delete old photos
+                $oldPhotos = explode(',', $product->photo);
+
+                $deleted_photos = [];
+                foreach($oldPhotos as $oldPhoto) {
+
+                    if(!in_array($oldPhoto, $remainingPhotos)) {
+                        $path = 'laptops/' . basename($oldPhoto);
+                        if(Storage::exists($path)) {
+                            Storage::delete($path);
+                            $deleted_photos[] = $oldPhoto;
+                        }
+                    }
+                }
+            }else{
+                $data['photo'] = '';
+            }
+
+            // Handle new photos
+            if ($images = $request->file('photo')) {
+                $name = Str::of($request->title)->before(' ');
+
+                foreach ($images as $photo) {
+                    $rand = rand(1, 999999);
+                    $named = $name . $rand . '.' . $photo->extension();
+                    $path = Storage::putFileAs('laptops', $photo, $named);
+                    $image_url = asset('/storage/' . $path);
+                    $currentPhotos[] = $image_url;
+                }
+                $new_photo = implode(',', $currentPhotos);
+                $data['photo'] = $data['photo'] ? ($data['photo'] . ',' . $new_photo ) : $new_photo;    
+                // dd($data['photo'],$new_photo);
+
+            }
+
+            // Update product basic info
             $product->update($data);
 
-            // Handle product sizes - First delete existing sizes
-            $product->sizes()->delete();
+            // Update Sizes
+            if ($request->sizes) {
+                // Delete old sizes
+                $product->sizes()->delete();
 
-            // Create new sizes
-            foreach ($request->sizes as $size) {
-                if (!empty($size['display_size_id'])) {
-                    $product->sizes()->create([
-                        'display_size_id' => $size['display_size_id'],
-                        'price' => $size['price'],
-                        'discount' => $size['discount'] ?? 0,
-                        'final_price' => $size['final_price'],
-                        'is_show' => isset($size['is_show']) ? true : false,
-                    ]);
+                // Create new sizes
+                foreach ($request->sizes as $size) {
+                    if (!empty($size['display_size_id'])) {
+                        $product->sizes()->create([
+                            'display_size_id' => $size['display_size_id'],
+                            'price' => $size['price'],
+                            'discount' => $size['discount'] ?? 0,
+                            'final_price' => $size['final_price'],
+                            'is_show' => isset($size['is_show']) ? true : false,
+                        ]);
+                    }
                 }
             }
 
-            // Update product colors
-            $product->colors()->delete(); // Remove existing colors
-            if($request->colors) {
+            // Update Colors
+            if ($request->colors) {
+                // Delete old colors
+                $product->colors()->delete();
+
+                // Create new colors
                 foreach($request->colors as $color_id) {
                     $product->colors()->create([
                         'color_id' => $color_id
@@ -288,13 +369,20 @@ class ProductController extends Controller
         $this->ccan('Delete Product');
         $product = Product::findOrFail($id);
 
-        //delete the images
-        $deleteable_img = Arr::map($product->img(), function ($value, $key) {
-            return Str::after($value, 'storage/');
-        });
-        // dd(Product::where('slug',$product->slug)->get());
-        Storage::delete($deleteable_img);
+        // Delete all associated images
+        $imageFields = [
+            'banner_image',
+            'product_thumbnail_image',
+            'best_collection_image',
+            'collection_arrived_image',
+            'instagram_image'
+        ];
 
+        foreach ($imageFields as $field) {
+            $this->deleteImage($product->$field);
+        }
+
+        // Delete the product
         $status =  Product::where('slug', $product->slug)->delete();
 
         if ($status) {
@@ -305,3 +393,4 @@ class ProductController extends Controller
         return redirect()->route('product.index');
     }
 }
+

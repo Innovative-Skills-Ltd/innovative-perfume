@@ -6,15 +6,20 @@
     <div class="card">
         <h5 class="card-header">Edit Product</h5>
         <div class="card-body">
-            @if($errors->any())
-                @foreach($errors->all() as $error)
-                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                        {{ $error }}
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                @endforeach
+            @if ($errors->any())
+                <div class="bg-danger text-white p-2 rounded-2">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+
+            @if (session('error'))
+                <div class="bg-danger text-white p-2 rounded-2">
+                    {{ session('error') }}
+                </div>
             @endif
             <form method="post" action="{{ route('product.update', [$product->id]) }}" enctype="multipart/form-data">
                 {{ csrf_field() }}
@@ -157,6 +162,17 @@
                 </div>
 
 
+                {{-- serial  --}}
+                <div class="form-group">
+                    <label for="serial" class="col-form-label">Serial</label>
+                    <input id="serial" type="number" name="serial"
+                        placeholder="Exp:- 145" value="{{ old('serial',$product->serial) }}"
+                        class="form-control">
+                    @error('serial')
+                        <span class="text-danger">{{ $message }}</span>
+                    @enderror
+                </div>
+
                 {{-- Warranty Attributes --}}
                 {{-- <div class="mt-4">
                     <h4>Warranty Attributes</h4>
@@ -247,45 +263,173 @@
 
 
                 {{-- Manual upload Photo  --}}
-                <label for="photo" class="col-form-label">Photo<span class="text-danger">*</span> </label>
-                <div class="input-group is-invalid">
-                    <div class="custom-file">
-                        <label class="custom-file-label" for="photo">Choose file...</label>
-                        <input name="photo[]" type="file" class="custom-file-input" id="photo" multiple>
+                <div class="row">
+                    <div class="col-md-12">
+                        <h4 class="mt-4 mb-3">Product Images</h4>
+                    </div>
+
+                    {{-- Thumbnail Image --}}
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="product_thumbnail_image">Product Thumbnail <span class="text-danger">*</span> <small class="text-muted">(400x400)</small></label>
+                            <div class="input-group is-invalid">
+                                <label class="custom-file-label" for="product_thumbnail_image">Choose file...</label>
+                                <input type="file" name="product_thumbnail_image" id="product_thumbnail_image"
+                                    class="custom-file-input" accept="image/*" onchange="previewImage(this, 'thumbnail-preview')">
+                            </div>
+                            <img id="thumbnail-preview" src="{{ $product->thumbnail_url }}"
+                                 class="mt-2 img-fluid {{ $product->product_thumbnail_image ? '' : 'd-none' }}"
+                                 style="max-height: 200px">
+                            @if($product->product_thumbnail_image)
+                                <div class="mt-2">
+                                    <label class="d-flex align-items-center">
+                                        <input type="checkbox" name="remove_product_thumbnail_image" value="1">
+                                        <span class="ml-2">Remove thumbnail image</span>
+                                    </label>
+                                </div>
+                            @endif
+                            @error('product_thumbnail_image')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
+                    </div>
+
+                    {{-- Product Details Images --}}
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="photo" class="col-form-label">Photo<span class="text-danger">*</span></label>
+                            <div class="input-group is-invalid">
+                                <div class="custom-file">
+                                    <label class="custom-file-label" for="photo">Choose file...</label>
+                                    <input name="photo[]" type="file" class="custom-file-input" id="photo" multiple>
+                                </div>
+                            </div>
+                            <div id="photo_show" class="d-flex mt-2">
+                                {{-- @dd(count($product->photo_formatted),$product->photo) --}}
+                                @if($product->photo)
+                                    @foreach($product->photo_formatted as $photo)
+                                        <div class="position-relative mr-2">
+                                            <img src="{{ $photo }}" class="img-thumbnail" style="max-height: 100px">
+                                            <input type="hidden" name="remaining_photos[]" value="{{ $photo }}">
+                                            <button type="button" class="btn btn-danger btn-sm position-absolute"
+                                                    style="top: 0; right: 0;" onclick="removePhoto(this)">×</button>
+                                        </div>
+                                    @endforeach
+                                @endif
+                            </div>
+                            <div id="new_photo_show" class="d-flex mt-2">
+
+                            </div>
+                            @error('photo')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
+                    </div>
+
+                    {{-- Banner Image --}}
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="banner_image">Banner Image <small class="text-muted">(1920x500)</small></label>
+                            <div class="input-group is-invalid">
+                                <label class="custom-file-label" for="banner_image">Choose file...</label>
+                                <input type="file" name="banner_image" id="banner_image" class="custom-file-input"
+                                    accept="image/*" onchange="previewImage(this, 'banner-preview')">
+                            </div>
+                            <img id="banner-preview" src="{{ $product->banner_url }}"
+                                 class="mt-2 img-fluid {{ $product->banner_image ? '' : 'd-none' }}"
+                                 style="max-height: 200px">
+                            @if($product->banner_image)
+                                <div class="mt-2">
+                                    <label class="d-flex align-items-center">
+                                        <input type="checkbox" name="remove_banner_image" value="1">
+                                        <span class="ml-2">Remove banner image</span>
+                                    </label>
+                                </div>
+                            @endif
+                            @error('banner_image')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
+                    </div>
+
+                    {{-- Best Collection Image --}}
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="best_collection_image">Best Collection Image <small class="text-muted">(800x600)</small></label>
+                            <div class="input-group is-invalid">
+                                <label class="custom-file-label" for="best_collection_image">Choose file...</label>
+                                <input type="file" name="best_collection_image" id="best_collection_image"
+                                    class="custom-file-input" accept="image/*" onchange="previewImage(this, 'collection-preview')">
+                            </div>
+                            <img id="collection-preview" src="{{ $product->best_collection_url }}"
+                                 class="mt-2 img-fluid {{ $product->best_collection_image ? '' : 'd-none' }}"
+                                 style="max-height: 200px">
+                            @if($product->best_collection_image)
+                                <div class="mt-2">
+                                    <label class="d-flex align-items-center">
+                                        <input type="checkbox" name="remove_best_collection_image" value="1">
+                                        <span class="ml-2">Remove collection image</span>
+                                    </label>
+                                </div>
+                            @endif
+                            @error('best_collection_image')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
+                    </div>
+
+                    {{-- Collection Arrived Image --}}
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="collection_arrived_image">Collection Arrived Image <small class="text-muted">(800x600)</small></label>
+                            <div class="input-group is-invalid">
+                                <label class="custom-file-label" for="collection_arrived_image">Choose file...</label>
+                                <input type="file" name="collection_arrived_image" id="collection_arrived_image"
+                                    class="custom-file-input" accept="image/*" onchange="previewImage(this, 'arrival-preview')">
+                            </div>
+                            <img id="arrival-preview" src="{{ $product->collection_arrived_url }}"
+                                 class="mt-2 img-fluid {{ $product->collection_arrived_image ? '' : 'd-none' }}"
+                                 style="max-height: 200px">
+                            @if($product->collection_arrived_image)
+                                <div class="mt-2">
+                                    <label class="d-flex align-items-center">
+                                        <input type="checkbox" name="remove_collection_arrived_image" value="1">
+                                        <span class="ml-2">Remove arrival image</span>
+                                    </label>
+                                </div>
+                            @endif
+                            @error('collection_arrived_image')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
+                    </div>
+
+                    {{-- Instagram Image --}}
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="instagram_image">Instagram Image <small class="text-muted">(800x800)</small></label>
+                            <div class="input-group is-invalid">
+                                <label class="custom-file-label" for="instagram_image">Choose file...</label>
+                                <input type="file" name="instagram_image" id="instagram_image"
+                                    class="custom-file-input" accept="image/*" onchange="previewImage(this, 'instagram-preview')">
+                            </div>
+                            <img id="instagram-preview" src="{{ $product->instagram_url }}"
+                                 class="mt-2 img-fluid {{ $product->instagram_image ? '' : 'd-none' }}"
+                                 style="max-height: 200px">
+                            @if($product->instagram_image)
+                                <div class="mt-2">
+                                    <label class="d-flex align-items-center">
+                                        <input type="checkbox" name="remove_instagram_image" value="1">
+                                        <span class="ml-2">Remove Instagram image</span>
+                                    </label>
+                                </div>
+                            @endif
+                            @error('instagram_image')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
                     </div>
                 </div>
-                <div id="photo_show" class="d-flex">
-                    @foreach ($product->img() as $phto)
-                        <img src="{{ $phto }}" alt="{{ $product->title }}"
-                            class="img-thumbnail rounded h-150px">
-                    @endforeach
-                </div>
-                @error('photo')
-                    <span class="text-danger">{{ $message }}</span>
-                @enderror
-
-                   {{-- serial  --}}
-                   <div class="form-group">
-                    <label for="serial" class="col-form-label">Serial</label>
-                    <input id="serial" type="number" name="serial"
-                        placeholder="Exp:- 145" value="{{ old('serial') ? old('serial') : $product->serial }}"
-                        class="form-control">
-                    @error('serial')
-                        <span class="text-danger">{{ $message }}</span>
-                    @enderror
-                </div>
-
-                <div class="form-group">
-                    <label for="status" class="col-form-label">Status </label>
-                    <select name="status" class="form-control">
-                        <option value="active" @selected($product->status == 'active')>Active</option>
-                        <option value="inactive" @selected($product->status == 'inactive')>Inactive</option>
-                    </select>
-                    @error('status')
-                        <span class="text-danger">{{ $message }}</span>
-                    @enderror
-                </div>
-
 
                 <div class="form-group">
                     <label class="col-form-label">Product Sizes</label>
@@ -420,6 +564,18 @@
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
                     </div>
+                </div>
+
+                {{-- status  --}}
+                <div class="form-group">
+                    <label for="status" class="col-form-label">Status</label>
+                    <select name="status" class="form-control">
+                        <option value="active">Active</option>
+                        <option value="inactive">Inactive</option>
+                    </select>
+                    @error('status')
+                        <span class="text-danger">{{ $message }}</span>
+                    @enderror
                 </div>
 
                 <div class="mb-3 form-group">
@@ -602,7 +758,7 @@
                 }
 
                 function photoShow() {
-                    $('#photo_show').html(images_div);
+                    $('#new_photo_show').html(images_div);
                 }
             });
 
@@ -664,5 +820,33 @@
                 }
             });
         });
+
+        function removePhoto(button) {
+            const photoDiv = $(button).closest('.position-relative');
+            const photoUrl = photoDiv.find('input[name="remaining_photos[]"]').val();
+
+            // Add to removed_photos array
+            const input = document.createElement('input');
+            input.type = 'hidden';
+            input.name = 'removed_photos[]';
+            input.value = photoUrl;
+            document.querySelector('form').appendChild(input);
+            console.log(input);
+            photoDiv.remove();
+        }
+
+        function previewImage(input, previewId) {
+            const preview = document.getElementById(previewId);
+            const file = input.files[0];
+
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    preview.src = e.target.result;
+                    preview.classList.remove('d-none');
+                }
+                reader.readAsDataURL(file);
+            }
+        }
     </script>
 @endpush

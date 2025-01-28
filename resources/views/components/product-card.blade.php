@@ -1,14 +1,12 @@
-<a class="group cursor-pointer" href="{{ route('product.details', $product->slug) }}">
+<a class="group cursor-pointer" href="{{ route('product.details', $product->slug) }}" id="product-card{{$product->id}}">
     <div class="border group-hover:border-[#ab8e66] transition-all duration-300">
         <div class="relative w-full">
-            @if ($product->photo)
-                @php
-                    $photo = explode(',', $product->photo);
-                @endphp
-                <img src="{{ $photo[0] }}" class=" mx-auto object-contain h-[300px]" alt="{{ $product->photo }}">
+            @if ($product->product_thumbnail_image)
+
+                <img src="{{ $product->thumbnail_url }}" class=" mx-auto object-contain h-[300px]" alt="{{ $product->title }}">
             @else
                 <img src="{{ asset('backend/img/thumbnail-default.jpg') }}" class=" mx-auto object-contain h-[300px]"
-                    alt="avatar.png">
+                    alt="{{ $product->title }}">
             @endif
 
             @if ($product->stock < 1)

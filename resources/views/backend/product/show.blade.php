@@ -615,6 +615,59 @@
                         @endforeach
                     </div>
                 </section>
+
+                <div class="row mt-4">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4>Product Images</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    @if($product->product_thumbnail_image)
+                                        <div class="col-md-6 mb-4">
+                                            <h5>Thumbnail Image</h5>
+                                            <img src="{{ $product->thumbnail_url }}" class="img-fluid rounded">
+                                        </div>
+                                    @endif
+
+                                    @if($product->banner_image)
+                                        <div class="col-md-6 mb-4">
+                                            <h5>Banner Image</h5>
+                                            {{-- @dd($product->getBannerUrl()) --}}
+                                            <img src="{{ $product->banner_url }}" class="img-fluid rounded">
+                                        </div>
+                                    @endif
+
+
+
+                                    @if($product->instagram_image)
+                                        <div class="col-md-6 mb-4">
+                                            <h5>Instagram Image</h5>
+                                            <img src="{{ $product->instagram_url }}" class="img-fluid rounded">
+                                        </div>
+                                    @endif
+
+                                    @if($product->best_collection_image)
+                                        <div class="col-md-6 mb-4">
+                                            <h5>Best Collection Image</h5>
+                                            <img src="{{ $product->best_collection_url }}" class="img-fluid rounded">
+                                        </div>
+                                    @endif
+
+                                    @if($product->collection_arrived_image)
+                                        <div class="col-md-6 mb-4">
+                                            <h5>Collection Arrived Image</h5>
+                                            <img src="{{ $product->collection_arrived_url }}" class="img-fluid rounded">
+                                        </div>
+                                    @endif
+
+                                    {{-- Add similar blocks for other image types --}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             @endif
 
         </div>

@@ -28,7 +28,7 @@ class CreateOrdersTable extends Migration
             $table->integer('installment_count')->default(1);
             $table->unsignedBigInteger('inventory_cost')->default(0);
             $table->integer('quantity')->nullable();
-            $table->enum('payment_method',['cod','online'])->default('cod');
+            $table->string('payment_method',)->nullable();
             $table->enum('payment_status',['paid','unpaid'])->default('unpaid');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('SET NULL');
             $table->foreign('shipping_id')->references('id')->on('shippings')->onDelete('SET NULL');

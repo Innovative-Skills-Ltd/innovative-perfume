@@ -52,10 +52,14 @@ class ProductDeatils extends Component
 
     public function mount()
     {
+        
        $product = Product::with('cat_info', 'sub_cat_info', 'brand','sizes','sizes.size')
                 ->where('slug', $this->slug)
                 ->where('is_showable_to_user',1)
                 ->first();
+
+        // url set to cache for login
+        session(['login_previous_url' => request()->url()]);
 
        //increase views
          $product->update([
