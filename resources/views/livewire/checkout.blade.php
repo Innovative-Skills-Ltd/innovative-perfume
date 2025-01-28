@@ -34,7 +34,7 @@
                                     {{-- Validation error showing    --}}
                                     {{-- @if(session()->get('errors')) --}}
 
-                                        @foreach(session()->get('errors')?->all() as $error)
+                                        @foreach(session()->get('errors')?->all() ?: [] as $error)
                                             <div class="text-red-500">
                                                 {{ $error }}
                                             </div>
