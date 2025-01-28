@@ -30,15 +30,20 @@
                                         <span class="inline-block h-[2px] w-5 bg-primary"></span>
                                     </div>
                                     {{-- All old Data dd --}}
-
+                                    @php
+                                        $errorsn = session()->get('errors')?->all() ?: [];
+                                        // dd($errorsn, session()->get('errors'), session()->get('errors')?->city);
+                                    @endphp
                                     {{-- Validation error showing    --}}
                                     {{-- @if(session()->get('errors')) --}}
-
-                                        @foreach(session()->get('errors')?->all() as $error)
-                                            <div class="text-red-500">
+                                    @if(count($errorsn) > 0)
+                                        @foreach($errorsn as $error)
+                                            <div class="text-red-500 mb-1">
                                                 {{ $error }}
                                             </div>
                                         @endforeach
+                                        <p class="mb-5"></p>
+                                    @endif
                                     {{-- @endif --}}
                                     {{-- <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mb-5">
                                         <div>
@@ -84,9 +89,9 @@
                                             <label class="text-sm mb-1">Address <span class="text-red-500">*</span></label>
                                             <input name="address" type="text" value='{{old('address',$address)}}'
                                                 class="py-2 px-5 rounded-full w-full border" />
-                                            @error('address')
-                                                <span class="text-red-500">{{ $message }}</span>
-                                            @enderror
+                                            @isset($errorsn['address'])
+                                                <span class="text-red-500">{{ $errorsn['address'] }}</span>
+                                            @endisset
                                         </div>
 
                                         {{-- City --}}
@@ -94,9 +99,9 @@
                                             <label class="text-sm mb-1">City <span class="text-red-500">*</span></label>
                                             <input name="city" type="text" value='{{old('city',$city)}}'
                                                 class="py-2 px-5 rounded-full w-full border" />
-                                            @error('city')
-                                                <span class="text-red-500">{{ $message }}</span>
-                                            @enderror
+                                            @isset($errorsn['city'])
+                                                <span class="text-red-500">{{ $errorsn['city'] }}</span>
+                                            @endisset
                                         </div>
 
                                         {{-- Zip Code --}}
@@ -104,9 +109,9 @@
                                             <label class="text-sm mb-1">Zip Code <span class="text-red-500">*</span></label>
                                             <input name="post_code" type="number" value='{{old('post_code',$post_code)}}'
                                                 class="py-2 px-5 rounded-full w-full border" />
-                                            @error('post_code')
-                                                <span class="text-red-500">{{ $message }}</span>
-                                            @enderror
+                                            @isset($errorsn['post_code'])
+                                                <span class="text-red-500">{{ $errorsn['post_code'] }}</span>
+                                            @endisset
                                         </div>
 
                                     </div>
@@ -204,9 +209,9 @@
                                                         <input type="text" name="mobile_transaction_id" value="{{old('mobile_transaction_id')}}"
                                                                class="py-2 px-5 rounded-md w-full border"
                                                                placeholder="Enter your transaction ID">
-                                                        @error('mobile_transaction_id')
-                                                            <p class="text-red-500" x-show="payment.type === 'mobile_banking'">{{ $message }}</p>
-                                                        @enderror
+                                                        @isset($errorsn['mobile_transaction_id'])
+                                                            <p class="text-red-500" x-show="payment.type === 'mobile_banking'">{{ $errorsn['mobile_transaction_id'] }}</p>
+                                                        @endisset
                                                     </div>
                                                 </div>
                                             </div>
@@ -235,9 +240,9 @@
                                                         <input type="text" name="bank_transaction_id" value="{{old('bank_transaction_id')}}"
                                                                class="py-2 px-5 rounded-md w-full border"
                                                                placeholder="Enter your transaction ID">
-                                                        @error('bank_transaction_id')
-                                                            <p class="text-red-500" x-show="payment.type === 'bank_transfer'">{{ $message }}</p>
-                                                        @enderror
+                                                        @isset($errorsn['bank_transaction_id'])
+                                                            <p class="text-red-500" x-show="payment.type === 'bank_transfer'">{{ $errorsn['bank_transaction_id'] }}</p>
+                                                        @endisset
                                                     </div>
                                                 </div>
                                             </div>
