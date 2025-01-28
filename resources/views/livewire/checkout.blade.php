@@ -15,7 +15,7 @@
             <form action="{{ route('checkout.order') }}" method="POST">
                 @csrf
                 <div x-data="{
-                    step: 'payment',
+                    step: 'shipping',
                     shipping: { firstName: '', lastName: '', country: '', state: '', city: '', zipCode: '', address: '' },
                     payment: { method: 'CREDIT CARD', cardNumber: '', month: '', year: '', cvv: '' },
                     orderConfirmed: false
@@ -72,7 +72,7 @@
                                         {{-- Address --}}
                                         <div>
                                             <label class="text-sm mb-1">Address</label>
-                                            <input name="address" type="text" wire:model='address'
+                                            <input name="address" type="text" value='{{old('address',$address)}}'
                                                 class="py-2 px-5 rounded-full w-full border" />
                                             @error('address')
                                                 <span class="text-red-500">{{ $message }}</span>
@@ -82,7 +82,7 @@
                                         {{-- City --}}
                                         <div>
                                             <label class="text-sm mb-1">City</label>
-                                            <input name="city" wire:model='city' type="text"
+                                            <input name="city" type="text" value='{{old('city',$city)}}'
                                                 class="py-2 px-5 rounded-full w-full border" />
                                             @error('city')
                                                 <span class="text-red-500">{{ $message }}</span>
@@ -92,7 +92,7 @@
                                         {{-- Zip Code --}}
                                         <div>
                                             <label class="text-sm mb-1">Zip Code</label>
-                                            <input name="post_code" wire:model='post_code' type="number"
+                                            <input name="post_code" type="number" value='{{old('post_code',$post_code)}}'
                                                 class="py-2 px-5 rounded-full w-full border" />
                                             @error('post_code')
                                                 <span class="text-red-500">{{ $message }}</span>

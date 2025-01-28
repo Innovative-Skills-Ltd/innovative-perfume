@@ -55,8 +55,8 @@
 
     @php
         $first_product = $new_arrival->first();
-        $size = $first_product->size();
-        $photo = $first_product->photo();
+        $size = $first_product?->size();
+        $photo = $first_product?->photo();
     @endphp
     <!-- Hero Section Start -->
     <section class="mt-5 mb-10">
@@ -273,25 +273,27 @@
     <!-- Best Collection End -->
 
     <!-- Collection Arrival Start  -->
+    @if($collection_arrived)
     <section class="mt-5 mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
         <div style="width: 100%"
             class="  flex flex-col items-center justify-center py-12 bg-no-repeat bg-cover relative">
-            <img class="absolute top-0 right-0 bottom-0 left-0 w-full h-full -z-10" src="{{ $collection_arrived->collection_arrived_url }}" />
+            <img class="absolute top-0 right-0 bottom-0 left-0 w-full h-full -z-10" src="{{ $collection_arrived?->collection_arrived_url }}" />
             <h2 class="font-medium text-4xl mb-2">Collection Arrived</h2>
             <p class="mb-4 text-hard text-center">
-                {{ $collection_arrived->title }}
+                {{ $collection_arrived?->title }}
             </p>
             <p class="mb-5 text-hard">
                 Price from:
                 <span class="text-primary text-3xl font-semibold">BDT
-                    {{ number_format($collection_arrived->sizes->min('final_price'), 2) }}</span>
+                    {{ number_format($collection_arrived?->sizes->min('final_price'), 2) }}</span>
             </p>
-            <a href="{{ route('product.details', $collection_arrived->slug) }}"
+            <a href="{{ route('product.details', $collection_arrived?->slug) }}"
                 class="text-sm font-bold pb-2 border-b-2 uppercase border-black">
                 Shop Now
             </a>
-        </div>
-    </section>
+            </div>
+        </section>
+    @endif
     <!-- Collection Arrival End  -->
 
     <!-- Products Start -->
