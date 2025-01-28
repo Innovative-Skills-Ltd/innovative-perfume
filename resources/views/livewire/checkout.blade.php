@@ -30,7 +30,16 @@
                                         <span class="inline-block h-[2px] w-5 bg-primary"></span>
                                     </div>
                                     {{-- All old Data dd --}}
-                                    {{-- @dd(session()->get('errors'),$errors) --}}
+
+                                    {{-- Validation error showing    --}}
+                                    {{-- @if(session()->get('errors')) --}}
+
+                                        @foreach(session()->get('errors')->all() as $error)
+                                            <div class="text-red-500">
+                                                {{ $error }}
+                                            </div>
+                                        @endforeach
+                                    {{-- @endif --}}
                                     {{-- <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mb-5">
                                         <div>
                                             <label class="text-sm mb-1">First name</label>
