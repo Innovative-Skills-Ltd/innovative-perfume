@@ -728,6 +728,18 @@ input[type="range"]:active::-webkit-slider-thumb{
   }
 }
 
+.sr-only{
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
 .pointer-events-none{
   pointer-events: none;
 }
@@ -2280,6 +2292,10 @@ input[type="range"]:active::-webkit-slider-thumb{
 
 .shrink-0{
   flex-shrink: 0;
+}
+
+.flex-grow-0{
+  flex-grow: 0;
 }
 
 .grow{
@@ -5151,6 +5167,84 @@ h6 {
 
 /* #ab8e66 */
 
+/* Shop Button Style Start */
+
+.shop-btn {
+  color: #000;
+  background-color: transparent;
+  padding-right: 0;
+  padding-left: 0;
+  padding-top: 7px;
+  padding-bottom: 7px;
+  margin-right: 5px;
+  border-radius: 0;
+  position: relative;
+  overflow: hidden;
+  font-size: 13px;
+  text-transform: uppercase;
+  font-weight: 600;
+  text-align: center;
+  transition: all 0.4s ease 0s;
+}
+
+.shop-btn::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  border-bottom: 2px solid;
+}
+
+.shop-btn:hover {
+  color: #ab8e66;
+  background: none;
+}
+
+.shop-btn:hover::before {
+  -webkit-animation: underline-link 0.8s cubic-bezier(0.58, 0.3, 0.005, 1) 0s
+        1;
+  animation: underline-link 0.8s cubic-bezier(0.58, 0.3, 0.005, 1) 0s 1;
+}
+
+@-webkit-keyframes underline-link {
+  0% {
+    transform: translateX(0);
+  }
+
+  50% {
+    transform: translateX(100%);
+  }
+
+  50.01% {
+    transform: translateX(-100%);
+  }
+
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes underline-link {
+  0% {
+    transform: translateX(0);
+  }
+
+  50% {
+    transform: translateX(100%);
+  }
+
+  50.01% {
+    transform: translateX(-100%);
+  }
+
+  to {
+    transform: translateX(0);
+  }
+}
+
+/* Shop Button Style End */
+
 .selection\:bg-transparent *::-moz-selection{
   background-color: transparent;
 }
@@ -5379,6 +5473,11 @@ h6 {
   background-color: unset;
 }
 
+.hover\:bg-black:hover{
+  --tw-bg-opacity: 1;
+  background-color: rgb(0 0 0 / var(--tw-bg-opacity));
+}
+
 .hover\:bg-gray-200:hover{
   --tw-bg-opacity: 1;
   background-color: rgb(229 231 235 / var(--tw-bg-opacity));
@@ -5392,6 +5491,11 @@ h6 {
 .hover\:bg-neutral-200:hover{
   --tw-bg-opacity: 1;
   background-color: rgb(229 229 229 / var(--tw-bg-opacity));
+}
+
+.hover\:bg-primary:hover{
+  --tw-bg-opacity: 1;
+  background-color: rgb(171 142 102 / var(--tw-bg-opacity));
 }
 
 .hover\:fill-\[\#8b8b8b\]:hover{

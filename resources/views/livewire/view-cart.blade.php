@@ -118,7 +118,7 @@
                                     <td class="py-7">
                                         <button type="button" @click="confirmDelete($el, {{ $cart->id }})"
                                             class="text-xl font-medium">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
                                                 viewBox="0 0 24 24">
                                                 <path fill="#333"
                                                     d="M7.616 20q-.691 0-1.153-.462T6 18.384V6H5V5h4v-.77h6V5h4v1h-1v12.385q0 .69-.462 1.153T16.384 20zm2.192-3h1V8h-1zm3.384 0h1V8h-1z" />

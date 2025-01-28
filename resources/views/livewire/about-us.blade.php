@@ -27,7 +27,7 @@
                             Shop the latest products right<br />
                             We have beard supplies from top brands.
                         </p>
-                        <button class="text-sm font-bold pb-2 border-b-2 uppercase border-black">
+                        <button class="shop-btn">
                             Shop Now
                         </button>
                     </div>

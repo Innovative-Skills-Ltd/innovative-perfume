@@ -93,7 +93,7 @@
                                     </div>
                                     <div>
                                         <a href="{{ route('product.details', $hero_product->slug) }}"
-                                            class="text-sm font-bold pb-2 border-b-2 uppercase border-black animate__fadeInUpBig  animate__animated">
+                                            class="shop-btn animate__fadeInUpBig  animate__animated">
                                             Shop Now
                                         </a>
                                     </div>
@@ -109,12 +109,12 @@
                         <img class="absolute top-0 bottom-0 left-0 right-0 w-full h-full -z-10"
                             src="{{ asset('images/temporary/banner-home-5.jpg') }}" />
                         <h3 x-bind:class="active ? 'top-0 opacity-100' : 'top-12 opacity-0'"
-                            class="font-semibold uppercase mb-3 text-primary relative transition-all duration-500">
+                            class="font-medium mb-3 text-2xl relative transition-all duration-500">
                             Pick Your Items
                         </h3>
                         <p class="text-secondary mb-4">Adipiscing elit curabitur senectus sem</p>
 
-                        <button class="text-sm font-bold pb-2 border-b-2 uppercase border-black">
+                        <button class="shop-btn">
                             Shop Now
                         </button>
                     </div>
@@ -128,7 +128,7 @@
                             Products</h3>
                         <p class="text-secondary mb-4">Cras pulvinar loresum dolor conse</p>
 
-                        {{-- <button class="text-sm font-bold pb-2 border-b-2 uppercase border-black">
+                        {{-- <button class="shop-btn">
                             Shop Now
                         </button> --}}
                     </div>
@@ -260,14 +260,12 @@
                         <p class="text-secondary mb-7">
                             {{ $best_product->title }}
                         </p>
-
-                        <button class="text-sm font-bold pb-2 border-b-2 uppercase border-black">
+                        <button class="shop-btn">
                             Shop Now
                         </button>
                     </div>
                 </a>
             @endforeach
-
         </div>
     </section>
     <!-- Best Collection End -->
@@ -287,8 +285,9 @@
                 <span class="text-primary text-3xl font-semibold">BDT
                     {{ number_format($collection_arrived?->sizes->min('final_price'), 2) }}</span>
             </p>
+
             <a href="{{ route('product.details', $collection_arrived?->slug) }}"
-                class="text-sm font-bold pb-2 border-b-2 uppercase border-black">
+                class="shop-btn">
                 Shop Now
             </a>
             </div>
@@ -302,22 +301,25 @@
             <!-- Category Buttons -->
             <div class="flex flex-wrap gap-5 items-center justify-center mb-14">
                 <div class="mx-5">
-                    <button class="font-medium text-lg rounded-full py-2 px-6"
-                        :class="selectedCategory === 'bestseller' ? 'bg-primary text-white' : 'bg-black text-white'"
+                    <button class="font-medium text-lg rounded-full py-2 px-6 transtion-all duration-300"
+                        :class="selectedCategory === 'bestseller' ? 'bg-primary text-white hover:bg-black' :
+                            'hover:bg-primary bg-black text-white'"
                         @click="selectedCategory = 'bestseller'">
                         Bestseller
                     </button>
                 </div>
                 <div class="mx-5">
-                    <button class="font-medium text-lg rounded-full py-2 px-6"
-                        :class="selectedCategory === 'new_arrivals' ? 'bg-primary text-white' : 'bg-black text-white'"
+                    <button class="font-medium text-lg rounded-full py-2 px-6 transtion-all duration-300"
+                        :class="selectedCategory === 'new_arrivals' ? 'bg-primary text-white hover:bg-black' :
+                            'hover:bg-primary bg-black text-white'"
                         @click="selectedCategory = 'new_arrivals'">
                         New Arrivals
                     </button>
                 </div>
                 <div class="mx-5">
-                    <button class="font-medium text-lg rounded-full py-2 px-6"
-                        :class="selectedCategory === 'top_rated' ? 'bg-primary text-white' : 'bg-black text-white'"
+                    <button class="font-medium text-lg rounded-full py-2 px-6 transtion-all duration-300"
+                        :class="selectedCategory === 'top_rated' ? 'bg-primary text-white hover:bg-black' :
+                            'hover:bg-primary bg-black text-white'"
                         @click="selectedCategory = 'top_rated'">
                         Top Rated
                     </button>
@@ -440,7 +442,7 @@
                                 fugiat reprehenderit odio consectetur sequi hic accusamus
                                 explicabo ex repudiandae perspiciatis!
                             </p>
-                            <button class="text-sm font-bold pb-2 border-b-2 uppercase border-black">
+                            <button class="shop-btn">
                                 Shop Now
                             </button>
                         </div>
@@ -464,7 +466,7 @@
                                 fugiat reprehenderit odio consectetur sequi hic accusamus
                                 explicabo ex repudiandae perspiciatis!
                             </p>
-                            <button class="text-sm font-bold pb-2 border-b-2 uppercase border-black">
+                            <button class="shop-btn">
                                 Shop Now
                             </button>
                         </div>
@@ -488,7 +490,7 @@
                                 fugiat reprehenderit odio consectetur sequi hic accusamus
                                 explicabo ex repudiandae perspiciatis!
                             </p>
-                            <button class="text-sm font-bold pb-2 border-b-2 uppercase border-black">
+                            <button class="shop-btn">
                                 Shop Now
                             </button>
                         </div>
