@@ -83,17 +83,34 @@ class OrderStore extends Component
             $this->redirect(route('login'), navigate: false);
         }
         // dd(request()->all());
-        $data = request()->validate([
+
+    //    request()->validate([
+    //         'address' => 'required|string',
+    //         'city' => 'required|string',
+    //         'post_code' => 'required',
+    //         'mobile_transaction_id' => 'nullable|string|required_if:payment_type,mobile_banking',
+    //         'bank_transaction_id' => 'nullable|string|required_if:payment_type,bank_transfer',
+    //         // 'payment_method' => 'required|in:cod',
+    //     ],[
+    //         'mobile_transaction_id.required_without' => 'The transaction id field is required when payment method is mobile banking.',
+    //         'bank_transaction_id.required_without' => 'The transaction id field is required when payment method is bank transfer.',
+    //     ]);
+
+    try {
+        $validated = request()->validate([
             'address' => 'required|string',
             'city' => 'required|string',
             'post_code' => 'required',
             'mobile_transaction_id' => 'nullable|string|required_if:payment_type,mobile_banking',
             'bank_transaction_id' => 'nullable|string|required_if:payment_type,bank_transfer',
-            // 'payment_method' => 'required|in:cod',
-        ],[
-            'mobile_transaction_id.required_without' => 'The transaction id field is required when payment method is mobile banking.',
-            'bank_transaction_id.required_without' => 'The transaction id field is required when payment method is bank transfer.',
+        ], [
+            'mobile_transaction_id.required_if' => 'The transaction id field is required when payment method is mobile banking.',
+            'bank_transaction_id.required_if' => 'The transaction id field is required when payment method is bank transfer.',
         ]);
+    } catch (\Illuminate\Validation\ValidationException $e) {
+        session()->flash('errors', $e->getMessage());
+        return back();
+    }
 
         $user = User::find($user->id);
         $request = request();
