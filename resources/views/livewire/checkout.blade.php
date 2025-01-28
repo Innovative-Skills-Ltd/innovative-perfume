@@ -76,6 +76,21 @@
                                                 class="py-2 px-5 rounded-full w-full border" />
                                         </div>
                                     </div>
+                                    <!-- NEW ROW FOR DELIVERY CHARGE CHECKBOXES -->
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mb-5">
+                                        <div>
+                                            <label class="text-sm mb-1">Delivery Charge</label>
+                                            <div class="flex items-center">
+                                                <input type="checkbox" id="insideDhaka" name="delivery_charge[]"
+                                                    value="inside_dhaka" class="mr-2" />
+                                                <label for="insideDhaka" class="mr-4">Inside Dhaka</label>
+
+                                                <input type="checkbox" id="outsideDhaka" name="delivery_charge[]"
+                                                    value="outside_dhaka" class="mr-2" />
+                                                <label for="outsideDhaka">Outside Dhaka</label>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div>
                                     <h3 class="pb-1 text-lg font-medium">Your Order</h3>
