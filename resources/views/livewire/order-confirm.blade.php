@@ -33,8 +33,8 @@
                     </th>
                     <th class="w-20 p-3 tracking-wide text-left text-[14px] text-[#FFFFFF] font-[jost] font-[500]">
                         Status</th>
-                    <th class="w-20 p-3 tracking-wide text-left text-[14px] text-[#FFFFFF] font-[jost] font-[500]">
-                        Payment Status</th>
+                    {{-- <th class="w-20 p-3 tracking-wide text-left text-[14px] text-[#FFFFFF] font-[jost] font-[500]">
+                        Payment Status</th> --}}
                 </tr>
             </thead>
             <tbody class="border-b-[1px] border-[#380D37]">
@@ -92,14 +92,14 @@
                                         {{ $order->status }}
                                     @endif
                                 </td>
-                                <td
+                                {{-- <td
                                     class="p-3 tracking-wide text-left text-[14px] whitespace-nowrap text-[#000000] font-[jost] font-[500]">
                                     {{ $order->payment_status }} <br>
                                     @if ($order->payment_status == 'unpaid')
                                         <a class="text-[#ef4a23] text-[14px]" href="{{ route('pssl', [$order->order_number]) }}">pay now</a>
                                     @endif
 
-                                </td>
+                                </td> --}}
                             </tr>
                         @endforeach
                     {{-- @endif --}}
