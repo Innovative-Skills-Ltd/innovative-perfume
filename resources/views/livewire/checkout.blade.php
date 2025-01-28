@@ -29,7 +29,8 @@
                                     <div class="mb-6">
                                         <span class="inline-block h-[2px] w-5 bg-primary"></span>
                                     </div>
-
+                                    {{-- All old Data dd --}}
+                                    {{-- @dd(session()->get('errors'),$errors) --}}
                                     {{-- <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mb-5">
                                         <div>
                                             <label class="text-sm mb-1">First name</label>
@@ -71,7 +72,7 @@
 
                                         {{-- Address --}}
                                         <div>
-                                            <label class="text-sm mb-1">Address</label>
+                                            <label class="text-sm mb-1">Address <span class="text-red-500">*</span></label>
                                             <input name="address" type="text" value='{{old('address',$address)}}'
                                                 class="py-2 px-5 rounded-full w-full border" />
                                             @error('address')
@@ -81,7 +82,7 @@
 
                                         {{-- City --}}
                                         <div>
-                                            <label class="text-sm mb-1">City</label>
+                                            <label class="text-sm mb-1">City <span class="text-red-500">*</span></label>
                                             <input name="city" type="text" value='{{old('city',$city)}}'
                                                 class="py-2 px-5 rounded-full w-full border" />
                                             @error('city')
@@ -91,7 +92,7 @@
 
                                         {{-- Zip Code --}}
                                         <div>
-                                            <label class="text-sm mb-1">Zip Code</label>
+                                            <label class="text-sm mb-1">Zip Code <span class="text-red-500">*</span></label>
                                             <input name="post_code" type="number" value='{{old('post_code',$post_code)}}'
                                                 class="py-2 px-5 rounded-full w-full border" />
                                             @error('post_code')
@@ -175,7 +176,7 @@
                                         <input type="hidden" id="paymentMethod" name="payment_method" x-model="payment.method" />
 
                                         <!-- Mobile Banking Option -->
-                                            <div class="border rounded-lg pl-6 py-4 pr-4" x-init="@if($errors->has('bank_transaction_id')) payment.type = 'bank_transfer' @else payment.type = 'mobile_banking' @endif">
+                                            <div class="border rounded-lg pl-6 py-4 pr-4" x-init="@if(old('payment_type') == 'bank_transfer') payment.type = 'bank_transfer' @else payment.type = 'mobile_banking' @endif">
                                                 <label class="flex items-center gap-4 mb-6 cursor-pointer">
                                                 <input type="radio" name="payment_type" value="mobile_banking"
                                                        x-model="payment.type" class="w-4 h-4">
@@ -190,8 +191,8 @@
                                                 <div>
                                                     <p class="font-medium mb-2">Payment Amount: ৳ {{ $total_amount }}</p>
                                                     <div>
-                                                        <label class="text-sm mb-1 block">Enter Transaction ID</label>
-                                                        <input type="text" name="mobile_transaction_id"
+                                                        <label class="text-sm mb-1 block">Enter Transaction ID <span class="text-red-500">*</span></label>
+                                                        <input type="text" name="mobile_transaction_id" value="{{old('mobile_transaction_id')}}"
                                                                class="py-2 px-5 rounded-md w-full border"
                                                                placeholder="Enter your transaction ID">
                                                         @error('mobile_transaction_id')
@@ -221,8 +222,8 @@
                                                 <div>
                                                     <p class="font-medium mb-2">Payment Amount: ৳ {{ $total_amount }}</p>
                                                     <div>
-                                                        <label class="text-sm mb-1 block">Enter Transaction ID</label>
-                                                        <input type="text" name="bank_transaction_id"
+                                                        <label class="text-sm mb-1 block">Enter Transaction ID <span class="text-red-500">*</span></label>
+                                                        <input type="text" name="bank_transaction_id" value="{{old('bank_transaction_id')}}"
                                                                class="py-2 px-5 rounded-md w-full border"
                                                                placeholder="Enter your transaction ID">
                                                         @error('bank_transaction_id')
