@@ -182,6 +182,7 @@ class Checkout extends Component
             $n['coupon'] = new Coupon();
         }
         if ($user = Auth()->user()) {
+            $n['shipping'] = Shipping::where('status','active')->get();
             $n['carts'] = Cart::with(['product'])->where('user_id', $user->id)->where('order_id', null)->latest()->get();
             $address = UserAddress::where('user_id',$user->id)->where('is_default',true)->first();
             $this->name = $user->name;
