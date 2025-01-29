@@ -549,7 +549,7 @@ class FrontendController extends Controller
             'shipping_id' => request()->shipping_id,
             'address' => $request->address,
             'city' => $request->city,
-            'post_code' => $request->post_code,
+            // 'post_code' => $request->post_code,
             'country' => 'Bangladesh',
             'name' => $user->name,
             'l_name' => $user->l_name,
