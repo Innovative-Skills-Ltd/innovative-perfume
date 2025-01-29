@@ -13,7 +13,7 @@ class AdminSidebar extends Component
      */
     public   $side_menus = [
         ['access' => ['Show Banner', 'Media Manager'],'title' => 'Banner', 'child' => [
-            ['access' => 'Media Manager','title' => 'Media Manager', 'route' => 'file-manager', 'child' => []],
+            // ['access' => 'Media Manager','title' => 'Media Manager', 'route' => 'file-manager', 'child' => []],
             ['access' => 'Show Banner','title' => 'Banners', 'route' => 'banner.*', 'child' => [
                 ['access' => 'Show Banner','title' => 'Banners', 'route' => 'banner.index'],
                 ['access' => 'Create Banner','title' => 'Add Banners', 'route' => 'banner.create']
@@ -49,14 +49,14 @@ class AdminSidebar extends Component
                 ['access' => 'Show News','title' => 'News', 'route' => 'news.index',],
                 ['access' => 'Create News','title' => 'Add News', 'route' => 'news.create']
             ]],
-            ['access' => 'Show Videos','title' => 'Videos', 'route' => 'video.*', 'child' => [
-                ['access' => 'Show Videos','title' => 'Videos', 'route' => 'video.index',],
-                ['access' => 'Create Videos','title' => 'Add Videos', 'route' => 'video.create']
-            ]],
-            ['access' => 'Show Duration','title' => 'Duration', 'route' => 'duration.*', 'child' => [
-                ['access' => 'Show Duration','title' => 'Duration', 'route' => 'duration.index',],
-                ['access' => 'Create Duration','title' => 'Add Duration', 'route' => 'duration.create']
-            ]],
+            // ['access' => 'Show Videos','title' => 'Videos', 'route' => 'video.*', 'child' => [
+            //     ['access' => 'Show Videos','title' => 'Videos', 'route' => 'video.index',],
+            //     ['access' => 'Create Videos','title' => 'Add Videos', 'route' => 'video.create']
+            // ]],
+            // ['access' => 'Show Duration','title' => 'Duration', 'route' => 'duration.*', 'child' => [
+            //     ['access' => 'Show Duration','title' => 'Duration', 'route' => 'duration.index',],
+            //     ['access' => 'Create Duration','title' => 'Add Duration', 'route' => 'duration.create']
+            // ]],
             ['access' => 'Show Shipping','title' => 'Shipping', 'route' => 'shipping.*', 'child' => [
                 ['access' => 'Show Shipping','title' => 'Shipping', 'route' => 'shipping.index',],
                 ['access' => 'Create Shipping','title' => 'Add Shipping', 'route' => 'shipping.create']
@@ -66,13 +66,13 @@ class AdminSidebar extends Component
                 ['access' => 'Show Order Status', 'title' => 'Order Status', 'route' => 'order-status.index']
             ]],
             ['access' => 'Show Review','title' => 'Reviews', 'route' => 'review.index', 'child' => []],
-            ['access' => 'Show Review','title' => 'Product Reviews', 'route' => 'productreview.index', 'child' => []],
+            // ['access' => 'Show Review','title' => 'Product Reviews', 'route' => 'productreview.index', 'child' => []],
         ]],
 
-        ['access' => ['Show Post', 'Show pCategory', 'Show Tag', 'Show Comment'],'title' => 'Posts', 'child' => [
-            ['access' => 'Show Post','title' => 'Posts', 'route' => 'post.*', 'child' => [
-                ['access' => 'Show Post','title' => 'Posts', 'route' => 'post.index'],
-                ['access' => 'Create Post','title' => 'Add Posts', 'route' => 'post.create']
+        ['access' => ['Show Post', 'Show pCategory', 'Show Tag', 'Show Comment'],'title' => 'Blogs', 'child' => [
+            ['access' => 'Show Post','title' => 'Blogs', 'route' => 'post.*', 'child' => [
+                ['access' => 'Show Post','title' => 'Blogs', 'route' => 'post.index'],
+                ['access' => 'Create Post','title' => 'Add Blogs', 'route' => 'post.create']
             ]],
             ['access' => 'Show pCategory','title' => 'Category', 'route' => 'post-category.*', 'child' => [
                 ['access' => 'Show pCategory','title' => 'Category', 'route' => 'post-category.index'],
@@ -114,7 +114,7 @@ class AdminSidebar extends Component
                 ['access' => 'Show Pixel', 'title' => 'Pixel', 'route' => 'seo.pixel.index'],
             ]],
 
-            ['access' => 'Show Cupon','title' => 'Coupon', 'route' => 'coupon.index', 'child' => []],
+            // ['access' => 'Show Cupon','title' => 'Coupon', 'route' => 'coupon.index', 'child' => []],
 
             ['access' => 'Show User','title' => 'User Management', 'route' => 'auser.*', 'child' => [
                 ['access' => 'Show User','title' => 'Users', 'route' => 'auser.users.index'],
@@ -122,10 +122,10 @@ class AdminSidebar extends Component
                 ['access' => 'Show Permission','title' => 'Permissions', 'route' => 'auser.permission'],
             ]],
 
-            ['access' => 'Setting', 'title' => 'Settings', 'route' => 'setting.*', 'child' => [
-                ['access' => 'Show Site Setting', 'title' => 'Site Setting', 'route' => 'setting.ss'],
-                ['access' => 'Show Others Setting', 'title' => 'Other Setting', 'route' => 'setting.os'],
-            ]],
+            // ['access' => 'Setting', 'title' => 'Settings', 'route' => 'setting.*', 'child' => [
+            //     ['access' => 'Show Site Setting', 'title' => 'Site Setting', 'route' => 'setting.ss'],
+            //     ['access' => 'Show Others Setting', 'title' => 'Other Setting', 'route' => 'setting.os'],
+            // ]],
         ]],
     ];
 
