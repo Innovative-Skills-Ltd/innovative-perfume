@@ -26,8 +26,8 @@
                                 <th>Order No.</th>
                                 <th>Name</th>
                                 <th>Email</th>
-                                <th>Quantity</th>
-                                <th>Charge</th>
+                                <th>Product Quantity</th>
+                                <th>Shipping Charge</th>
                                 <th>Total Amount</th>
                                 <th>Payment Status</th>
                                 <th>Status</th>
@@ -43,7 +43,7 @@
                                 <th>Name</th>
                                 <th>Email</th>
                                 <th>Total Product</th>
-                                <th>Charge</th>
+                                <th>Shipping Charge</th>
                                 <th>Total Amount</th>
                                 <th>Payment Status</th>
                                 <th>Status</th>
@@ -59,9 +59,9 @@
                                     <td>{{ $order->order_number }}</td>
                                     <td>{{ $order->user?->name }} {{ $order->user?->l_name }}</td>
                                     <td>{{ $order->user?->email }}</td>
-                                    <td>{{ $order->quantity }}</td>
+                                    <td>{{ $order->cart_info->count() }}</td>
                                     <td>{{ $order->shipping?->price }}</td>
-                                    <td>৳{{ number_format($order->amount, 2) }}</td>
+                                    <td>৳{{ number_format($order->totalAmount(), 2) }}</td>
                                     <td>
                                        {{$order->payment_status}}
                                     </td>

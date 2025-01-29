@@ -19,8 +19,8 @@
                             <th>Order No.</th>
                             <th>Name</th>
                             <th>Email</th>
-                            <th>Quantity</th>
-                            <th>Charge</th>
+                            <th>Product Quantity</th>
+                            <th>Shipping Charge</th>
                             <th>Total Amount</th>
                             <th>Status</th>
                             <th>Action</th>
@@ -32,9 +32,9 @@
                             <td>{{ $order->order_number }}</td>
                             <td>{{ $order->user?->name }} {{ $order->user?->l_name }}</td>
                             <td>{{ $order->user?->email }}</td>
-                            <td>{{ $order->quantity }}</td>
+                            <td>{{ $order->cart_info->count() }}</td>
                             <td>৳{{ $order->shipping?->price }}</td>
-                            <td>৳{{ number_format($order->amount, 2) }}</td>
+                            <td>৳{{ number_format($order->totalAmount(), 2) }}</td>
                             <td>
                                 @if ($order->status == 'New')
                                     <span class="badge badge-primary">{{ $order->status }}</span>
@@ -81,32 +81,33 @@
                                                 {{ $order->created_at->format('g : i a') }} </td>
                                         </tr>
                                         <tr>
-                                            <td>Quantity</td>
-                                            <td> : {{ $order->quantity }}</td>
+                                            <td>Product Quantity</td>
+                                            <td> : {{ $order->cart_info->count() }}</td>
                                         </tr>
                                         <tr>
                                             <td>Order Status</td>
                                             <td> : {{ $order->status }}</td>
                                         </tr>
                                         <tr>
+                                            <td>Shipping Type</td>
+                                            <td> : {{ $order->shipping?->type }}</td>
+                                        </tr>
+                                        <tr>
                                             <td>Shipping Charge</td>
                                             <td> : ৳ {{ $order->shipping?->price }}</td>
                                         </tr>
-                                        <tr>
+                                        {{-- <tr>
                                             <td>Coupon</td>
                                             <td> : ৳ {{ number_format($order->coupon, 2) }}</td>
-                                        </tr>
+                                        </tr> --}}
                                         <tr>
                                             <td>Total Amount</td>
-                                            <td> : ৳ {{ number_format($order->total_amount, 2) }}</td>
+                                            <td> : ৳ {{ number_format($order->totalAmount(), 2) }}</td>
                                         </tr>
                                         <tr>
                                             <td>Payment Method</td>
-                                            <td> : @if ($order->payment_method == 'cod')
-                                                    Cash on Delivery
-                                                @else
-                                                    Paypal
-                                                @endif
+                                            <td> :
+                                                {{ str()->title($order->payment_method) }}
                                             </td>
                                         </tr>
                                         <tr>
@@ -201,7 +202,7 @@
                                                 <td>{{ $cat->price }} /-</td>
                                                 <td> {{ $cat->discount }}</td>
                                                 <td>{{ $cat->quantity }}</td>
-                                                <td>{{ $cat->amount }} /-</td>
+                                                <td>{{ $cat->totalAmount() }} /-</td>
                                                 <td> {{ ucfirst($cat->product->brand?->title) }}</td>
                                                 <td>
                                                     @if ($cat->product->stock > 0)
@@ -212,13 +213,10 @@
                                                 </td>
                                                 <td>
 
-                                                    @if ($cat->product->photo)
-                                                        @php
-                                                            $photo = explode(',', $cat->product->photo);
-                                                            // dd($photo);
-                                                        @endphp
-                                                        <img src="{{ $photo[0] }}" class="img-fluid zoom"
-                                                            style="max-width:80px" alt="{{ $cat->product->photo }}">
+                                                    @if ($cat->product->thumbnail_url)
+
+                                                        <img src="{{ $cat->product->thumbnail_url }}" class="img-fluid zoom"
+                                                            style="max-width:80px" alt="{{ $cat->product->title }}">
                                                     @else
                                                         <img src="{{ asset('backend/img/thumbnail-default.jpg') }}"
                                                             class="img-fluid" style="max-width:80px" alt="avatar.png">
