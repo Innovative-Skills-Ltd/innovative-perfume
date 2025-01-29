@@ -37,6 +37,7 @@ class CreateOrdersTable extends Migration
             $table->string('email')->nullable();
             $table->bigInteger('phone')->nullable();
             $table->text('address')->nullable();
+            $table->string('post_code')->nullable();
             $table->string('country')->nullable();
             $table->unsignedBigInteger('coupon_dis')->default(0);
             $table->string('transaction_id')->nullable();

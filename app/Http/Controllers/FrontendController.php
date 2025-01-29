@@ -490,27 +490,42 @@ class FrontendController extends Controller
         // dd(request()->all());
         $data = request()->validate([
             'address' => 'required|string',
+            'phone' => 'required|string',
             'city' => 'required|string',
             'post_code' => 'required',
             'mobile_transaction_id' => 'nullable|string|required_if:payment_type,mobile_banking',
             'bank_transaction_id' => 'nullable|string|required_if:payment_type,bank_transfer',
+            'shipping_id' => 'required|exists:shippings,id',
             // 'payment_method' => 'required|in:cod',
+
         ],[
             'mobile_transaction_id.required_without' => 'The transaction id field is required when payment method is mobile banking.',
             'bank_transaction_id.required_without' => 'The transaction id field is required when payment method is bank transfer.',
+            'shipping_id.required' => 'Please, Select a valid shipping method.',
+            'shipping_id.exists' => 'Please, Select a valid shipping method.',
         ]);
 
-        $user = User::find($user->id);
 
-        $address =  UserAddress::where('user_id', $user->id)->where('is_default', true)->first();
-        $user->address = $request->address;
-        $user->city = $request->city;
-        $user->post_code = $request->post_code;
+        $user = User::find($user->id);
+        if(!$user->address && $request->address){
+            $user->address = $request->address;
+        }
+        if(!$user->phone && $request->phone){
+            $user->phone = $request->phone;
+        }
+        if(!$user->city && $request->city){
+            $user->city = $request->city;
+        }
+        if(!$user->post_code && $request->post_code){
+            $user->post_code = $request->post_code;
+        }
         $user->save();
 
+        $address =  UserAddress::where('user_id', $user->id)->where('is_default', true)->first();
         if (!$address) {
             UserAddress::create([
                 'address' => $request->address,
+                'phone' => $request->phone,
                 'city' => $request->city,
                 'user_id' => $user->id,
                 'post_code' => $request->post_code,
@@ -531,6 +546,15 @@ class FrontendController extends Controller
             'quantity' => $carts->count(),
             'transaction_id' => request()->mobile_transaction_id ?: request()->bank_transaction_id,
             'payment_method' => request()->payment_type,
+            'shipping_id' => request()->shipping_id,
+            'address' => $request->address,
+            'city' => $request->city,
+            'post_code' => $request->post_code,
+            'country' => 'Bangladesh',
+            'name' => $user->name,
+            'l_name' => $user->l_name,
+            'email' => $user->email,
+            'phone' => $user->phone,
             'status' => "Pending",
             'payment_status' => 'Unpaid',
         ]);

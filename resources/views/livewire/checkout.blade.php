@@ -1,4 +1,7 @@
 <div>
+    @php
+        $user = auth()->user();
+    @endphp
     <!-- CHECKOUT Start -->
     <section class="pb-20">
         <div class="mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl ">
@@ -16,8 +19,8 @@
                 <div x-data="{
                     step: 'shipping',
                     shipping: { firstName: '', lastName: '', country: '', state: '', city: '', zipCode: '', address: '' },
-                    payment: { method: 'CREDIT CARD', cardNumber: '', month: '', year: '', cvv: '' },
-                    orderConfirmed: false
+                    payment: { method: 'mobile_banking', cardNumber: '', month: '', year: '', cvv: '' },
+                    orderConfirmed: false,
                 }">
                     <!-- Shipping Start -->
                     <div x-show="step === 'shipping'" class="mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl ">
@@ -39,30 +42,42 @@
                                     <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mb-5">
                                         <div>
                                             <label class="text-sm mb-1">Address <span class="text-red-500">*</span></label>
-                                            <input name="address" type="text" value="{{ old('address') }}" class="py-2 px-5 rounded-full w-full border" />
+                                            <input name="address" type="text" value="{{ old('address') ?: $user->address }}" class="py-2 px-5 rounded-full w-full border" />
+                                        </div>
+                                        <div>
+                                            <label class="text-sm mb-1">Phone <span class="text-red-500">*</span></label>
+                                            <input name="phone" type="text" value="{{ old('phone') ?: $user->phone }}" class="py-2 px-5 rounded-full w-full border" />
                                         </div>
                                         <div>
                                             <label class="text-sm mb-1">City <span class="text-red-500">*</span></label>
-                                            <input name="city" type="text" value="{{ old('city') }}" class="py-2 px-5 rounded-full w-full border" />
+                                            <input name="city" type="text" value="{{ old('city') ?: $user->city }}" class="py-2 px-5 rounded-full w-full border" />
                                         </div>
                                         <div>
                                             <label class="text-sm mb-1">Zip Code <span class="text-red-500">*</span></label>
-                                            <input name="post_code" type="number" value="{{ old('post_code') }}" class="py-2 px-5 rounded-full w-full border" />
+                                            <input name="post_code" type="number" value="{{ old('post_code') ?: $user->post_code }}" class="py-2 px-5 rounded-full w-full border" />
                                         </div>
                                     </div>
 
+                                    @if($shipping->count() > 0)
                                     <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mb-5">
                                         <div>
                                             <label class="text-sm mb-1 font-bold">Delivery Charge:</label>
                                             <div class="flex items-center">
-                                                <input type="radio" id="insideDhaka" name="delivery_charge" value="inside_dhaka" class="mr-2" checked />
-                                                <label for="insideDhaka" class="mr-4">Inside Dhaka (70)</label>
-                                                <input type="radio" id="outsideDhaka" name="delivery_charge" value="outside_dhaka" class="mr-2" />
-                                                <label for="outsideDhaka">Outside Dhaka (130)</label>
+                                                @foreach ($shipping as $ship)
+                                                    <input type="radio"
+                                                        id="shipping_{{ $ship->id }}"
+                                                        name="shipping_id"
+                                                        value="{{ $ship->id }}"
+                                                        @checked(old('shipping_id') == $ship->id)
+                                                        data-price="{{ $ship->price }}"
+                                                        class="mr-2 shipping-radio"
+                                                        {{ $loop->first ? 'checked' : '' }} />
+                                                    <label for="shipping_{{ $ship->id }}" class="mr-4">{{ $ship->type }} (BDT {{ $ship->price }})</label>
+                                                @endforeach
                                             </div>
                                         </div>
                                     </div>
-
+                                    @endif
                                     <h3 class="pb-1 text-lg font-medium">Your Order</h3>
                                     <div class="mb-6">
                                         <span class="inline-block h-[2px] w-5 bg-primary"></span>
@@ -101,7 +116,7 @@
                     <!-- Shipping End -->
 
                     <!-- Payment Start -->
-                    <div x-show="step === 'payment'" x-transition class="mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
+                    <div x-show="step === 'payment'" x-transition class="mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl" x-init="payment.method = '{{ old('payment_type') == 'bank_transfer' ? 'bank_transfer' : 'mobile_banking' }}'">
                         <div class="border rounded px-5 md:ps-7 py-10 mb-6">
                             <h3 class="pb-1 text-lg font-medium">Payment Method</h3>
                             <div class="mb-6">
@@ -123,7 +138,7 @@
                                             <p class="font-medium mb-2">Payment Amount: BDT {{ $total_amount }}</p>
                                             <div>
                                                 <label class="text-sm mb-1 block">Enter Transaction ID <span class="text-red-500">*</span></label>
-                                                <input type="text" name="mobile_transaction_id" class="py-2 px-5 rounded-md w-full border" placeholder="Enter your transaction ID">
+                                                <input type="text" name="mobile_transaction_id" class="py-2 px-5 rounded-md w-full border" placeholder="Enter your transaction ID" value="{{ old('mobile_transaction_id') }}">
                                             </div>
                                         </div>
                                     </div>
@@ -204,34 +219,23 @@
 </div>
 
 <script>
-    window.addEventListener('DOMContentLoaded', () => {
-        const baseTotal = Number('{{ $total_amount }}');
-
-        // Define your shipping rates
-        const shippingRates = {
-            inside_dhaka: 70,
-            outside_dhaka: 130
-        };
-
-        // Grab the radio buttons and the totalPrice span
-        const deliveryRadios = document.querySelectorAll('input[name="delivery_charge"]');
+    document.addEventListener('DOMContentLoaded', function() {
+        const baseTotal = {{ $total_amount }};
         const totalPriceEl = document.getElementById('totalPrice');
+        const shippingRadios = document.querySelectorAll('.shipping-radio');
 
-        // Whenever a user changes the radio selection, update the total
-        deliveryRadios.forEach((radio) => {
-            radio.addEventListener('change', function() {
-                const selectedShipping = this.value; // 'inside_dhaka' or 'outside_dhaka'
-                const shippingCost = shippingRates[selectedShipping] || 0; // default 0 if not found
-                const newTotal = baseTotal + shippingCost;
+        function updateTotal() {
+            const selectedShipping = document.querySelector('.shipping-radio:checked');
+            const shippingPrice = selectedShipping ? parseFloat(selectedShipping.dataset.price) : 0;
+            const newTotal = baseTotal + shippingPrice;
+            totalPriceEl.textContent = newTotal;
+        }
 
-                // Update the text inside #totalPrice
-                totalPriceEl.textContent = newTotal;
-            });
+        shippingRadios.forEach(radio => {
+            radio.addEventListener('change', updateTotal);
         });
-        // If "Inside Dhaka" is checked by default:
-        const defaultRate = shippingRates['inside_dhaka'];
-        totalPriceEl.textContent = baseTotal + defaultRate;
-    });
 
-    // Convert the server-rendered total_amount into a JavaScript Number
+        // Calculate initial total with default shipping
+        updateTotal();
+    });
 </script>

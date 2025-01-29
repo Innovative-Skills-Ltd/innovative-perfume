@@ -103,17 +103,22 @@ class OrderStore extends Component
             'post_code' => 'required',
             'mobile_transaction_id' => 'nullable|string|required_if:payment_type,mobile_banking',
             'bank_transaction_id' => 'nullable|string|required_if:payment_type,bank_transfer',
+            'shipping_id' => 'required|exists:shippings,id',
         ], [
             'mobile_transaction_id.required_if' => 'Please, Fill up transaction id.',
             'bank_transaction_id.required_if' => 'Please, Fill up transaction id.',
             'address.required' => 'Please, Fill up Address.',
             'city.required' => 'Please, Fill up City.',
             'post_code.required' => 'Please, Fill up Zip Code.',
+            'shipping_id.required' => 'Please, Select a valid shipping method.',
+            'shipping_id.exists' => 'Please, Select a valid shipping method.',
         ]);
     } catch (\Illuminate\Validation\ValidationException $e) {
         session()->flash('errors', $e->errors());
         return back();
     }
+
+    // dd(request()->all());
      session()->flash('errors', []);
         $user = User::find($user->id);
         $request = request();
@@ -147,6 +152,7 @@ class OrderStore extends Component
             'quantity' => $carts->count(),
             'transaction_id' => request()->mobile_transaction_id ?: request()->bank_transaction_id,
             'payment_method' => request()->payment_type,
+            'shipping_id' => request()->shipping_id,
             'status' => "Pending",
             'payment_status' => 'Unpaid',
         ]);
