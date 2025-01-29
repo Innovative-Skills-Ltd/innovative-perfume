@@ -47,4 +47,8 @@ class Cart extends Model
     {
         return $this->belongsTo(ProductColor::class, 'color_id');
     }
+    public function totalAmount(){
+        $final_price = $this->size->final_price;
+        return $final_price * $this->quantity;
+    }
 }

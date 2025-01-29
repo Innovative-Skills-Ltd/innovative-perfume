@@ -61,4 +61,14 @@ class Order extends Model
         return $this->hasMany(InstallmentOrder::class);
     }
 
+    public function totalAmount(){
+        $carts = $this->cart_info;
+        $shipping_charge = $this->shipping?->price ?: 0;
+        $total = 0;
+        foreach($carts as $cart){
+            $total += $cart->totalAmount();
+        }
+        return $total + $shipping_charge;
+    }
+
 }
