@@ -9,16 +9,16 @@
                     <li class="text-sm font-medium uppercase">
                         <a href="#">Quick Menu</a>
                     </li>
-                    <li class="hover:underline hover:italic transition-all duration-150 cursor-pointer">
+                    <li class="transition-all duration-150 cursor-pointer">
                         <a href="{{ route('home') }}">Home</a>
                     </li>
-                    <li class="hover:underline hover:italic transition-all duration-150 cursor-pointer">
+                    <li class=" transition-all duration-150 cursor-pointer">
                         <a href="{{ route('about_us') }}">About</a>
                     </li>
-                    <li class="hover:underline hover:italic transition-all duration-150 cursor-pointer">
+                    <li class="transition-all duration-150 cursor-pointer">
                         <a href="{{ route('blogs') }}">Blogs</a>
                     </li>
-                    <li class="hover:underline hover:italic transition-all duration-150 cursor-pointer">
+                    <li class=" transition-all duration-150 cursor-pointer">
                         <a href="{{ route('user.login') }}">Login</a>
                     </li>
                 </ul>
@@ -68,7 +68,7 @@
                     <li class="text-sm font-medium uppercase">
                         <a href="#">Information</a>
                     </li>
-                    <li class="hover:underline hover:italic transition-all duration-150 cursor-pointer">
+                    <li class="transition-all duration-150 cursor-pointer">
                         <a href="{{ route('contact') }}">Contact Us</a>
                     </li>
                 </ul>
