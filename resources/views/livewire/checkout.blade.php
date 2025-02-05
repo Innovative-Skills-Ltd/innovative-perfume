@@ -53,7 +53,7 @@
                                             <input name="city" type="text" value="{{ old('city') ?: $user->city }}" class="py-2 px-5 rounded-full w-full border" />
                                         </div>
                                         <div>
-                                            <label class="text-sm mb-1">Zip Code <span class="text-red-500">*</span></label>
+                                            <label class="text-sm mb-1">Zip Code </label>
                                             <input name="post_code" type="number" value="{{ old('post_code') ?: $user->post_code }}" class="py-2 px-5 rounded-full w-full border" />
                                         </div>
                                     </div>
