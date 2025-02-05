@@ -1,5 +1,11 @@
     <!-- shopping cart Us Start -->
     <section class="pb-20">
+        <style>
+            .size-5 {
+                width: 20px;
+                height: 20px;
+            }
+        </style>
         <div class="mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl ">
             <div class="py-8 flex items-center gap-2 text-sm">
                 <a href="#">Home</a>
@@ -100,23 +106,33 @@
                                         <div class="flex">
                                             <div class="border px-1 flex items-center justify-center gap-2">
                                                 <button type="button" class="text-secondary hover:text-primary"
-                                                    @click="if(items[{{ $loop->index }}].quantity > 1) items[{{ $loop->index }}].quantity--"
-                                                    onclick="updateQuantity(this, -1)">-</button>
+                                                    @click="if(items['{{ $loop->index }}'].quantity > 1) items['{{ $loop->index }}'].quantity--"
+                                                    onclick="updateQuantity(this, -1)" >
+                                                     <!-- Minus icon -->
+                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14" />
+                                                    </svg>
+                                                </button>
                                                 <input type="number" name="product[{{ $loop->index }}][quantity]"
-                                                    x-model="items[{{ $loop->index }}].quantity"
+                                                    x-model="items['{{ $loop->index }}'].quantity"
                                                     min="1" class="w-10 text-center"
                                                     onchange="validateQuantity(this)">
                                                 <button type="button" class="text-secondary hover:text-primary"
-                                                    @click="items[{{ $loop->index }}].quantity++"
-                                                    onclick="updateQuantity(this, 1)">+</button>
+                                                    @click="items['{{ $loop->index }}'].quantity++"
+                                                    onclick="updateQuantity(this, 1)">
+                                                     <!-- Plus icon -->
+                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                                                    </svg>
+                                                </button>
                                             </div>
                                         </div>
                                     </td>
                                     <td class="p-7 ps-0">
-                                        <span class="text-xl font-medium" x-text="'BDT ' + getTotal({{ $loop->index }})"></span>
+                                        <span class="text-xl font-medium" x-text="'BDT ' + getTotal('{{ $loop->index }}')"></span>
                                     </td>
                                     <td class="py-7">
-                                        <button type="button" @click="confirmDelete($el, {{ $cart->id }})"
+                                        <button type="button" @click="confirmDelete($el, '{{ $cart->id }}')"
                                             class="text-xl font-medium">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
                                                 viewBox="0 0 24 24">
@@ -137,15 +153,15 @@
                         </div>
                         <div class="mt-7 flex items-center justify-end gap-5">
                             <a href="{{ route('shop') }}">
-                                <span class="px-5 font-semibold py-2 border rounded-full text-sm uppercase">
+                                <span class="block px-5 font-semibold py-2 border rounded-full text-sm uppercase">
                                     CONTINUE SHOPPING
                                 </span>
                             </a>
-                            <button type="submit">
-                                <button class="px-5 font-semibold py-2 rounded-full text-sm uppercase border">
+                            {{-- <button type="submit"> --}}
+                                <button type="submit" class="px-5 font-semibold py-2 rounded-full text-sm uppercase border">
                                     CHECKOUT
                                 </button>
-                            </button>
+                            {{-- </button> --}}
                         </div>
                     </div>
                 </div>

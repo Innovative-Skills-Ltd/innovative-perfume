@@ -86,6 +86,7 @@
                                                         @endphp
                                                     @endif
                                                 @endforeach
+
                                                 <div class="w-full text-left hover:bg-gray-200 cursor-pointer border-b p-4 flex justify-between"
                                                     @click="selectedCategory = '{{ $menu->slug }}'">
                                                     {{ $menu->title }}
@@ -195,18 +196,17 @@
                                             @endphp
                                         @endif
                                     @endforeach
-                                    <a href="{{ route('cate_wise.shop', [$menu->slug]) }}">
-                                        <div
-                                            class="w-full text-left hover:bg-gray-200 cursor-pointer border-b p-4 flex justify-between">
-                                            {{ $menu->title }}
-                                            @if (count($menu->child_cat) > 0 && $has_child > 0)
-                                                <!-- Chevron Icon -->
-                                                <span>&#9656;</span>
-                                            @endif
-                                        </div>
-                                    </a>
+
 
                                     @if (count($menu->child_cat) > 0 && $has_child > 0)
+
+                                    <div
+                                        class="w-full text-left hover:bg-gray-200 cursor-pointer border-b p-4 flex justify-between">
+                                        {{ $menu->title }}
+                                            <!-- Chevron Icon -->
+                                            <span>&#9656;</span>
+                                    </div>
+
                                         <!-- Submenu -->
                                         <ul x-show="subOpen" x-transition
                                             class="absolute left-full top-0 mt-0 bg-gray-100 shadow-lg w-56">
@@ -219,6 +219,15 @@
                                                 @endif
                                             @endforeach
                                         </ul>
+                                    @else
+                                        <a href="{{ route('cate_wise.shop', [$menu->slug]) }}">
+                                            <div
+                                                class="w-full text-left hover:bg-gray-200 cursor-pointer border-b p-4 flex justify-between">
+                                                {{ $menu->title }}
+                                                    <!-- Chevron Icon -->
+                                                    <span>&#9656;</span>
+                                            </div>
+                                        </a>
                                     @endif
                                 </li>
                             @endif

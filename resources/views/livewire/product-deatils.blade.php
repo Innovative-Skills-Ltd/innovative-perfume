@@ -1,4 +1,10 @@
 <div>
+    <style>
+        .size-5 {
+            width: 20px;
+            height: 20px;
+        }
+    </style>
     <!-- Product Start -->
     <section>
         <div class="mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl mt-3">
@@ -104,13 +110,11 @@
                             <div class="mt-4 mb-2 flex items-center flex-wrap">
                                 <template x-for="color in colors" :key="color.id">
                                     <div @click="selectedColor = color" :title="color.name"
-                                        :style="{ backgroundColor: color.code }"
-                                        :class="selectedColor?.id === color.id ? 'ring-2 ring-primary' : ''"
-                                        class="p-2 border mr-2 mb-4 cursor-pointer transition-all duration-300 hover:shadow-md">
+                                        :class="selectedColor?.id === color.id ? 'border-primary bg-primary text-white' : 'border-gray-200 hover:border-primary'"
+                                        class="px-3 py-2  border-2 mr-3 mb-4 cursor-pointer transition-all duration-300 hover:shadow-lg rounded-full">
                                         <!-- Color Name -->
-                                        <span x-text="color.name" class="text-sm font-medium"
-                                            :class="isLightColor(color.code) ? 'text-gray-800' : 'text-white'">
-                                        </span>
+                                        <span x-text="color.name"
+                                            class="text-sm font-medium"></span>
                                     </div>
                                 </template>
                             </div>
@@ -123,12 +127,12 @@
                         <div>
                             <div class="mb-6 flex items-center gap-5">
                                 <div class="flex items-center gap-2">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+                                    {{-- <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
                                         viewBox="0 0 24 24">
                                         <path fill="none" stroke="#333" stroke-linecap="round"
                                             stroke-linejoin="round" stroke-width="1.5"
                                             d="M7.75 3.5C5.127 3.5 3 5.76 3 8.547C3 14.125 12 20.5 12 20.5s9-6.375 9-11.953C21 5.094 18.873 3.5 16.25 3.5c-1.86 0-3.47 1.136-4.25 2.79c-.78-1.654-2.39-2.79-4.25-2.79" />
-                                    </svg>
+                                    </svg> --}}
                                     {{-- <span class="text-secondary text-sm">Add to Wishlist</span> --}}
                                 </div>
                                 <div class="flex items-center gap-2">
@@ -172,12 +176,20 @@
                                 <div class="p-2 px-4 gap-5 flex items-center rounded-full border">
                                     <span class="text-secondary cursor-pointer"
                                         @click="quantity > 1 ? quantity-- : null">
-                                        -
+                                        <!-- Minus icon -->
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14" />
+                                          </svg>
+
                                     </span>
                                     <span x-text="quantity" class="font-semibold"></span>
                                     <input type="hidden" name="quant" value="1" x-model="quantity">
                                     <span class="text-secondary cursor-pointer" @click="quantity++">
-                                        +
+                                        <!-- Plus icon -->
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                                          </svg>
+
                                     </span>
                                 </div>
                                 <div>

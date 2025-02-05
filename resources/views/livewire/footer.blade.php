@@ -1,6 +1,4 @@
 <div>
-
-
     <!-- Footer Section Start  -->
     <footer class="py-20 bg-tertiary">
         <div class="grid grid-cols-2 gap-5 md:grid-cols-3 mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
@@ -76,6 +74,7 @@
         </div>
     </footer>
     <!-- Footer Section End -->
+
     {{-- Footer Menu Start --}}
     <section class="md:hidden grid grid-cols-2 border border-t bg-white fixed bottom-0 w-full py-1 pt-2">
         <div class=" flex flex-col gap-1 items-center justify-center">
@@ -103,6 +102,7 @@
         </div>
     </section>
     {{-- Footer Menu End --}}
+
     <!-- Back To TOP Start -->
     <div id="scrollButton"
         class="w-12 h-12 rounded-full items-center justify-center fixed bottom-14 right-5 bg-primary z-[9999] hidden cursor-pointer">

@@ -492,7 +492,7 @@ class FrontendController extends Controller
             'address' => 'required|string',
             'phone' => 'required|string',
             'city' => 'required|string',
-            'post_code' => 'required',
+            'post_code' => 'nullable|numeric',
             'mobile_transaction_id' => 'nullable|string|required_if:payment_type,mobile_banking',
             'bank_transaction_id' => 'nullable|string|required_if:payment_type,bank_transfer',
             'shipping_id' => 'required|exists:shippings,id',
