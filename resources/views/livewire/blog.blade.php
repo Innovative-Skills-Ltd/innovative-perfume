@@ -108,51 +108,53 @@
                     </div>
                 @endif
             </div>
-            <div class="col-span-12 md:col-span-2 pl-4">
+            @if ($popularBlogs->count() > 0)
+                <div class="col-span-12 md:col-span-2 pl-4">
 
-                {{-- <div class="mb-12">
-                    <div class="flex items-center pb-6 gap-2">
-                        <span class="inline-block bg-primary w-6 h-[2px]"></span>
-                        <h3 class="text-sm font-semibold uppercase">CATEGORIES</h3>
-                    </div>
-                    <div class="flex flex-col gap-1">
-                        @foreach ($categories as $category)
-                            <div class="flex items-center gap-2">
-                                <input id="new-arrivals" type="checkbox" />
-                                <label for="new-arrivals" class="text-secondary">{{$category->title}}</label>
-                            </div>
-                        @endforeach
-                    </div>
-                </div> --}}
-
-                @if ($popularBlogs->count() > 0)
-                    <div class="mb-12">
+                    {{-- <div class="mb-12">
                         <div class="flex items-center pb-6 gap-2">
                             <span class="inline-block bg-primary w-6 h-[2px]"></span>
-                            <h3 class="text-sm font-semibold uppercase">
-                                Popular Articles
-                            </h3>
+                            <h3 class="text-sm font-semibold uppercase">CATEGORIES</h3>
                         </div>
                         <div class="flex flex-col gap-1">
-                            @foreach ($popularBlogs as $blog)
-                                <div class="flex gap-2 mb-5">
-                                    <img src="{{ photoFirst($blog->photo) }}"
-                                        class="w-24 h-24 object-cover" />
-                                    <div>
-                                        <h3 class="text-xs font-semibold text-secondary">
-                                            {{ $blog->cat_info->title ?? 'Uncategorized' }}
-                                        </h3>
-                                        <h6 class="text-sm font-medium mt-1">
-                                            {{ $blog->title }}
-                                        </h6>
-                                    </div>
+                            @foreach ($categories as $category)
+                                <div class="flex items-center gap-2">
+                                    <input id="new-arrivals" type="checkbox" />
+                                    <label for="new-arrivals" class="text-secondary">{{$category->title}}</label>
                                 </div>
                             @endforeach
-
                         </div>
-                    </div>
-                @endif
-            </div>
+                    </div> --}}
+
+
+                        <div class="mb-12">
+                            <div class="flex items-center pb-6 gap-2">
+                                <span class="inline-block bg-primary w-6 h-[2px]"></span>
+                                <h3 class="text-sm font-semibold uppercase">
+                                    Popular Articles
+                                </h3>
+                            </div>
+                            <div class="flex flex-col gap-1">
+                                @foreach ($popularBlogs as $blog)
+                                    <div class="flex gap-2 mb-5">
+                                        <img src="{{ photoFirst($blog->photo) }}"
+                                            class="w-24 h-24 object-cover" />
+                                        <div>
+                                            <h3 class="text-xs font-semibold text-secondary">
+                                                {{ $blog->cat_info->title ?? 'Uncategorized' }}
+                                            </h3>
+                                            <h6 class="text-sm font-medium mt-1">
+                                                {{ $blog->title }}
+                                            </h6>
+                                        </div>
+                                    </div>
+                                @endforeach
+
+                            </div>
+                        </div>
+
+                </div>
+            @endif
         </div>
     </div>
 </section>
