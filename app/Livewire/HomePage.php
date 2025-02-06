@@ -6,6 +6,7 @@ use App\Models\Banner;
 use App\Models\Category;
 use App\Models\CompanyReview;
 use App\Models\OtherSetting;
+use App\Models\Post;
 use App\Models\Product;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
@@ -162,6 +163,12 @@ class HomePage extends Component
                                 ->where('status', 'active')
                                 ->where('is_showable_to_user', 1)
                                 ->take(10)
+                                ->get();
+
+        // lates news
+        $n['latest_news'] = Post::where('status', 'active')
+                                ->orderBy('created_at', 'desc')
+                                ->limit(3)
                                 ->get();
 
         if (auth()->user()) {
