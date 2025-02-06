@@ -128,7 +128,7 @@
                                             </h3>
                                             <div>
                                                 <div
-                                                    class="flex items-center md:items-start justify-center md:justify-start w-full mb-5">
+                                                    class="mt-1 flex items-center md:items-start justify-center md:justify-start w-full mb-5">
                                                     {!! $cproduct->echoStar() !!}
                                                 </div>
                                                 <h3 class="text-sm">
@@ -248,7 +248,7 @@
                                             {{ $gproduct->title }}
                                         </h3>
                                         <div>
-                                            <div class="flex items-center justify-center w-full">
+                                            <div class="flex items-center justify-center w-full mb-2">
                                                 {!! $gproduct->echoStar() !!}
                                             </div>
                                             <h4 class="text-sm text-center pb-3">

@@ -316,7 +316,7 @@
                                         {{ $product->title }}
                                     </h3>
                                     <div>
-                                        <div class="flex items-center justify-center w-full">
+                                        <div class="flex items-center justify-center w-full mb-2">
                                             {!! $product->echoStar() !!}
                                         </div>
                                         <h4 class="text-sm text-center pb-3">
