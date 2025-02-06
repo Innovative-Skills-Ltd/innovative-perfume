@@ -48,9 +48,9 @@
                     </g>
                 </svg>
                 <div>
-                    <h3 class="mb-2 font-semibold uppercase">EU FREE DELIVERY</h3>
+                    <h3 class="mb-2 font-semibold uppercase">Flexible Delivery</h3>
                     <p class="text-secondary">
-                        Free Delivery on all order from EU with price more than $90.00
+                        We offer flexible delivery options over the country
                     </p>
                 </div>
             </div>
@@ -62,7 +62,7 @@
                 <div>
                     <h3 class="mb-2 font-semibold uppercase">Money Back Gurantee</h3>
                     <p class="text-secondary">
-                        Free Delivery on all order from EU with price more than $90.00
+                        Get your money back within 30 days if not satisfied
                     </p>
                 </div>
             </div>
@@ -76,7 +76,7 @@
                 <div>
                     <h3 class="mb-2 font-semibold uppercase">Online Support 24/7</h3>
                     <p class="text-secondary">
-                        Free Delivery on all order from EU with price more than $90.00
+                        Technical support available 24/7
                     </p>
                 </div>
             </div>
@@ -84,9 +84,9 @@
     </section>
     <!-- Services End -->
     <!-- Team Start -->
-    <section class="mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl  py-12">
+    {{-- <section class="mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl  py-12">
         <h2 class="text-xl font-semibold py-16 text-center">
-            stelina’s Important Persons
+            Our Team
         </h2>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
             <div>
@@ -108,7 +108,7 @@
                 <p class="text-secondary text-center">CEO</p>
             </div>
         </div>
-    </section>
+    </section> --}}
     <!-- Team End -->
 
 
