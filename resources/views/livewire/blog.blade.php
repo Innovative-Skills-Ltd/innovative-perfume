@@ -91,7 +91,7 @@
                                             </h3>
                                         </a>
                                         <p class="mb-5 text-secondary">
-                                            {{ Str::limit(strip_tags($relatedBlogs[$currentIndex]->description), 150) }}
+                                            {{ Str::words(strip_tags($relatedBlogs[$currentIndex]->description), 20) }}
                                         </p>
                                         <div class="flex items-center gap-3 pb-4">
                                             <img class="w-10 h-10 rounded-full border-2 border-primary/10"
