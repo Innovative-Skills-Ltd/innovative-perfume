@@ -167,7 +167,7 @@
             class="mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl  text-sm flex items-center justify-between md:justify-start gap-10">
             <!-- Dropdown Wrapper -->
             <div x-data="{ open: false }"
-                class="relative px-7 py-4 flex items-center font-bold gap-3 bg-primary text-white w-54"
+                class="relative px-7 py-1 md:py-3 lg:py-4 flex items-center font-bold gap-3 bg-primary text-white w-54"
                 @mouseenter="open = true" @mouseleave="open = false">
                 <!-- Dropdown Toggle -->
                 <div class="flex items-center gap-3">
