@@ -5,7 +5,7 @@
         }
     </style>
     <!-- Top Bar Start -->
-    <section class="bg-primary py-5">
+    <section class="bg-primary py-1 md:py-3 lg:py-5">
         <div class="mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl  flex items-center justify-between text-white">
             <span class="">Welcome to our online store!</span>
             <div class="flex items-center gap-2">
@@ -38,10 +38,10 @@
 
     <!-- Top Header Start -->
     <section>
-        <div class="mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl  flex items-center justify-between py-10">
+        <div class="mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl  flex items-center justify-between py-4 md:py-8 lg:py-10 ">
             <div>
                 <a href="{{ route('home') }}">
-                    <h2 class="font-bold text-primary text-2xl">{{ env('APP_NAME') }}</h2>
+                    <h2 class="font-bold text-primary text-xl md:text-2xl">{{ env('APP_NAME') }}</h2>
                 </a>
             </div>
             <form action="{{ route('searching_product') }}" method="get">
@@ -167,7 +167,7 @@
             class="mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl  text-sm flex items-center justify-between md:justify-start gap-10">
             <!-- Dropdown Wrapper -->
             <div x-data="{ open: false }"
-                class="relative px-7 py-4 flex items-center font-bold gap-3 bg-primary text-white w-54"
+                class="relative px-7 py-1 md:py-3 lg:py-4 flex items-center font-bold gap-3 bg-primary text-white w-54"
                 @mouseenter="open = true" @mouseleave="open = false">
                 <!-- Dropdown Toggle -->
                 <div class="flex items-center gap-3">

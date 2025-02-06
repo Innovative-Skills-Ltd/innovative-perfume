@@ -1,4 +1,4 @@
-<div class='px-[100px] max-lg:px-[45px] max-md:px-[35px] max-sm:px-[20px] mx-auto max-sm:mt-[70px] max-xl:mt-[100px]'>
+<div class='px-[100px] max-lg:px-[45px] max-md:px-[35px] max-sm:px-[20px] mx-auto max-sm:mt-[10px] max-xl:mt-[100px]'>
 
     <livewire:user-account-menu />
 

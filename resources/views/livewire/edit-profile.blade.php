@@ -1,5 +1,5 @@
-<div class='px-[100px] max-2xl:px-[70px] max-xl:px-[60px] max-lg:px-[38px] max-md:px-[35px] max-sm:px-[15px] mx-auto max-sm:mt-[70px] max-xl:mt-[100px]'>
-   
+<div class='px-[100px] max-2xl:px-[70px] max-xl:px-[60px] max-lg:px-[38px] max-md:px-[35px] max-sm:px-[15px] mx-auto max-sm:mt-[10px] max-xl:mt-[100px]'>
+
     <livewire:user-account-menu />
     {{-- <div class='grid grid-cols-5 gap-[20px] max-sm:grid-cols-2 max-lg:grid-cols-3 max-lg:w-full w-[1000px] my-[30px]'>
         <div class='flex gap-[5px] items-center'>
