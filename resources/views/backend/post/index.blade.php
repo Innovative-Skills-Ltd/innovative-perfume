@@ -30,6 +30,7 @@
                                 <th>Tag</th>
                                 <th>Author</th>
                                 <th>Photo</th>
+                                <th>Is Default</th>
                                 <th>Status</th>
                                 @canany(['Edit Post', 'Delete Post'])
                                     <th>Action</th>
@@ -44,6 +45,7 @@
                                 <th>Tag</th>
                                 <th>Author</th>
                                 <th>Photo</th>
+                                <th>Is Default</th>
                                 <th>Status</th>
                                 @canany(['Edit Post', 'Delete Post'])
                                     <th>Action</th>
@@ -81,6 +83,15 @@
                                                 style="max-width:80px" alt="avatar.png">
                                         @endif
                                     </td>
+
+                                    <td>
+                                        @if ($post->is_default)
+                                            <span class="badge badge-success">Yes</span>
+                                        @else
+                                            <span class="badge badge-danger">No</span>
+                                        @endif
+                                    </td>
+
                                     <td>
                                         @if ($post->status == 'active')
                                             <span class="badge badge-success">{{ $post->status }}</span>

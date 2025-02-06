@@ -11,9 +11,11 @@ class MatchOldPassword implements Rule
      *
      * @return void
      */
-    public function __construct()
+    protected $user;
+
+    public function __construct($user)
     {
-        //
+        $this->user = $user;
     }
 
     /**
@@ -25,7 +27,7 @@ class MatchOldPassword implements Rule
      */
     public function passes($attribute, $value)
     {
-        return Hash::check($value,auth()->user()->password);
+        return Hash::check($value, $this->user->password);
     }
 
     /**

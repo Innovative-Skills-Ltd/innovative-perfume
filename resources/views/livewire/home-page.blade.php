@@ -77,17 +77,18 @@
                                     class="swiper-slide bg-no-repeat object-cover bg- w-full p-5 md:pl-12 md:pt-44 md:pb-48 md:pr-12 flex flex-col gap-16 relative">
                                     <img src="{{ $hero_product->banner_url }}"
                                         class="absolute top-0 left-0 bottom-0 -z-10 right-0 w-full h-full" />
-                                    <div>
+                                    <div class="max-sm:max-w-[200px]">
+
                                         <h3
-                                            class="font-semibold animate__fadeInDownBig animate__animated uppercase mb-3 text-primary relative transition-all duration-500">
+                                            class="max-sm:text-xl font-semibold animate__fadeInDownBig animate__animated uppercase mb-3 text-primary relative transition-all duration-500">
                                             Sale Up To {{ $max_discount_percentage }}%
                                         </h3>
-                                        <h1 class="mb-2 text-4xl font-medium animate__fadeInLeftBig animate__animated">
+                                        <h1 class="mb-2 max-sm:text-2xl text-4xl font-medium animate__fadeInLeftBig animate__animated">
                                             {{ $hero_product->title }}
                                         </h1>
                                         <p class="text-lg font-medium animate__fadeInRightBig animate__animated">
                                             New Price:
-                                            <span class="text-3xl font-semibold text-primary">BDT
+                                            <span class="text-3xl font-semibold text-primary max-sm:block max-sm:text-xl">BDT
                                                 {{ number_format($product_size?->final_price, 2) }}</span>
                                         </p>
                                     </div>
@@ -415,91 +416,44 @@
     <!-- Services End -->
 
     <!-- Latest News Start -->
-    <section class="my-20">
-        <div class="mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl ">
-            <h3 class="pb-3 text-center text-3xl font-semibold">Our Latest News</h3>
-            <div class="text-center mb-14">
-                <span class="w-16 bg-primary inline-block h-1"></span>
-            </div>
-            <div class="swiper news-swiper pb-20">
-                <div class="swiper-wrapper pb-5">
-                    <a href="{{ route('blogs') }}" class="swiper-slide">
-                        <div>
-                            <div class="relative group">
-                                <img src="{{ asset('images/temporary/slider-blog-thumb-1.jpg') }}" class="object-cover h-96" />
-                                <div
-                                    class="bg-black top-0 right-0 left-0 absolute w-full h-96 group-hover:opacity-75 opacity-0 transition-all duration-150">
-                                </div>
-                            </div>
-                            <p class="text-hard mt-2 mb-1 text-xs font-medium">
-                                August 17,9:14 AM
-                            </p>
-                            <h3 class="mb-4 text-xl font-medium text-black">
-                                We bring you the best
-                            </h3>
-                            <p class="text-hard mb-2">
-                                Lorem ipsum dolor, sit amet consectetur adipisicing elit. A
-                                fugiat reprehenderit odio consectetur sequi hic accusamus
-                                explicabo ex repudiandae perspiciatis!
-                            </p>
-                            <button class="shop-btn">
-                                Shop Now
-                            </button>
-                        </div>
-                    </a>
-                    <a href="{{ route('blogs') }}" class="swiper-slide">
-                        <div>
-                            <div class="relative group">
-                                <img src="{{ asset('images/temporary/slider-blog-thumb-2.jpg') }}" class="object-cover h-96" />
-                                <div
-                                    class="bg-black top-0 right-0 left-0 absolute w-full h-96 group-hover:opacity-75 opacity-0 transition-all duration-150">
-                                </div>
-                            </div>
-                            <p class="text-hard mt-2 mb-1 text-xs font-medium">
-                                August 17,9:14 AM
-                            </p>
-                            <h3 class="mb-4 text-xl font-medium text-black">
-                                We bring you the best
-                            </h3>
-                            <p class="text-hard mb-2">
-                                Lorem ipsum dolor, sit amet consectetur adipisicing elit. A
-                                fugiat reprehenderit odio consectetur sequi hic accusamus
-                                explicabo ex repudiandae perspiciatis!
-                            </p>
-                            <button class="shop-btn">
-                                Shop Now
-                            </button>
-                        </div>
-                    </a>
-                    <a href="{{ route('blogs') }}" class="swiper-slide">
-                        <div>
-                            <div class="relative group">
-                                <img src="{{ asset('images/temporary/slider-blog-thumb-4.jpg') }}" class="object-cover h-96" />
-                                <div
-                                    class="bg-black top-0 right-0 left-0 absolute w-full h-96 group-hover:opacity-75 opacity-0 transition-all duration-150">
-                                </div>
-                            </div>
-                            <p class="text-hard mt-2 mb-1 text-xs font-medium">
-                                August 17,9:14 AM
-                            </p>
-                            <h3 class="mb-4 text-xl font-medium text-black">
-                                We bring you the best
-                            </h3>
-                            <p class="text-hard mb-2">
-                                Lorem ipsum dolor, sit amet consectetur adipisicing elit. A
-                                fugiat reprehenderit odio consectetur sequi hic accusamus
-                                explicabo ex repudiandae perspiciatis!
-                            </p>
-                            <button class="shop-btn">
-                                Shop Now
-                            </button>
-                        </div>
-                    </a>
+    @if ($latest_news->count() > 0)
+        <section class="my-20">
+            <div class="mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl ">
+                <h3 class="pb-3 text-center text-3xl font-semibold">Our Latest News</h3>
+                <div class="text-center mb-14">
+                    <span class="w-16 bg-primary inline-block h-1"></span>
                 </div>
-                <div class="news-swiper-pagination"></div>
+                <div class="swiper news-swiper pb-20">
+                    <div class="swiper-wrapper pb-5">
+                        @foreach ($latest_news as $news)
+                            <div class="swiper-slide">
+                                <div class="relative group">
+                                    <img src="{{ photoFirst($news->photo) }}" class="object-cover h-96" />
+                                    <div
+                                        class="bg-black top-0 right-0 left-0 absolute w-full h-96 group-hover:opacity-75 opacity-0 transition-all duration-150">
+                                    </div>
+                                </div>
+                                <p class="text-hard mt-2 mb-1 text-xs font-medium">
+                                    {{ $news->created_at->format('F d, Y') }}
+                                </p>
+                                <h3 class="mb-4 text-xl font-medium text-black">
+                                    {{ $news->title }}
+                                </h3>
+                                <p class="text-hard mb-2">
+                                    {!! Str::limit($news->summary, 150) !!}
+                                </p>
+                                <a href="{{ route('blogs', $news->slug) }}" class="shop-btn">
+                                    Read More
+                                </a>
+                            </div>
+                        @endforeach
+
+                    </div>
+                    <div class="news-swiper-pagination"></div>
+                </div>
             </div>
-        </div>
-    </section>
+        </section>
+    @endif
     <!-- Latest News End -->
     <hr />
 

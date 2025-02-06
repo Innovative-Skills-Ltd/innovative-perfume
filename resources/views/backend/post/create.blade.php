@@ -7,7 +7,7 @@
 <div class="card">
     <h5 class="card-header">Add Post</h5>
     <div class="card-body">
-      <form method="post" action="{{route('post.store')}}">
+      <form method="post" action="{{route('post.store')}}" enctype="multipart/form-data">
         {{csrf_field()}}
         <div class="form-group">
           <label for="inputTitle" class="col-form-label">Title <span class="text-danger">*</span></label>
@@ -84,6 +84,18 @@
           <span class="text-danger">{{$message}}</span>
           @enderror
         </div>
+
+        <div class="form-group">
+          <label for="is_default" class="col-form-label">Is Default</label>
+          <div class="custom-control custom-switch">
+            <input type="checkbox" class="custom-control-input" id="is_default" name="is_default" value="1">
+            <label class="custom-control-label" for="is_default"></label>
+          </div>
+          @error('is_default')
+            <span class="text-danger">{{$message}}</span>
+          @enderror
+        </div>
+
 
         <div class="form-group">
           <label for="status" class="col-form-label">Status <span class="text-danger">*</span></label>

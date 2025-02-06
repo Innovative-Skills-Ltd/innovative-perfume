@@ -9,12 +9,21 @@
     <div class="card-body">
       <form method="post" action="{{route('auser.users.store')}}">
         {{csrf_field()}}
+
         <div class="form-group">
           <label for="inputTitle" class="col-form-label">Name</label>
         <input id="inputTitle" type="text" name="name" placeholder="Enter name"  value="{{old('name')}}" class="form-control">
         @error('name')
         <span class="text-danger">{{$message}}</span>
         @enderror
+        </div>
+
+        <div class="form-group">
+            <label for="designation" class="col-form-label">Designation</label>
+            <input id="designation" type="text" name="designation" placeholder="Enter designation"  value="{{old('designation')}}" class="form-control">
+            @error('designation')
+                <span class="text-danger">{{$message}}</span>
+            @enderror
         </div>
 
         <div class="form-group">
