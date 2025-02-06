@@ -77,17 +77,18 @@
                                     class="swiper-slide bg-no-repeat object-cover bg- w-full p-5 md:pl-12 md:pt-44 md:pb-48 md:pr-12 flex flex-col gap-16 relative">
                                     <img src="{{ $hero_product->banner_url }}"
                                         class="absolute top-0 left-0 bottom-0 -z-10 right-0 w-full h-full" />
-                                    <div>
+                                    <div class="max-sm:max-w-[200px]">
+
                                         <h3
-                                            class="font-semibold animate__fadeInDownBig animate__animated uppercase mb-3 text-primary relative transition-all duration-500">
+                                            class="max-sm:text-xl font-semibold animate__fadeInDownBig animate__animated uppercase mb-3 text-primary relative transition-all duration-500">
                                             Sale Up To {{ $max_discount_percentage }}%
                                         </h3>
-                                        <h1 class="mb-2 text-4xl font-medium animate__fadeInLeftBig animate__animated">
+                                        <h1 class="mb-2 max-sm:text-2xl text-4xl font-medium animate__fadeInLeftBig animate__animated">
                                             {{ $hero_product->title }}
                                         </h1>
                                         <p class="text-lg font-medium animate__fadeInRightBig animate__animated">
                                             New Price:
-                                            <span class="text-3xl font-semibold text-primary">BDT
+                                            <span class="text-3xl font-semibold text-primary max-sm:block max-sm:text-xl">BDT
                                                 {{ number_format($product_size?->final_price, 2) }}</span>
                                         </p>
                                     </div>
