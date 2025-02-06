@@ -440,7 +440,7 @@
                                     {{ $news->title }}
                                 </h3>
                                 <p class="text-hard mb-2">
-                                    {!! Str::limit($news->summary, 150) !!}
+                                    {!! Str::words($news->summary, 30) !!}
                                 </p>
                                 <a href="{{ route('blogs', $news->slug) }}" class="shop-btn">
                                     Read More
