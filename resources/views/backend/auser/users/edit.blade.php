@@ -19,6 +19,14 @@
         </div>
 
         <div class="form-group">
+            <label for="designation" class="col-form-label">Designation</label>
+            <input id="designation" type="text" name="designation" placeholder="Enter designation"  value="{{$user->designation}}" class="form-control">
+            @error('designation')
+                <span class="text-danger">{{$message}}</span>
+            @enderror
+        </div>
+
+        <div class="form-group">
             <label for="inputEmail" class="col-form-label">Email</label>
           <input id="inputEmail" type="email" name="email" placeholder="Enter email"  value="{{$user->email}}" class="form-control">
           @error('email')

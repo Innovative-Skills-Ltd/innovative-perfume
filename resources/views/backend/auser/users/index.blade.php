@@ -25,6 +25,7 @@
                         <tr>
                             <th>S.N.</th>
                             <th>Name</th>
+                            <th>Designation</th>
                             <th>Email</th>
                             <th>Photo</th>
                             <th>Join Date</th>
@@ -37,6 +38,7 @@
                         <tr>
                             <th>S.N.</th>
                             <th>Name</th>
+                            <th>Designation</th>
                             <th>Email</th>
                             <th>Photo</th>
                             <th>Join Date</th>
@@ -50,6 +52,7 @@
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $user->name }}</td>
+                                <td>{{ $user->designation }}</td>
                                 <td>{{ $user->email }}</td>
                                 <td>
                                     @if ($user->photo)
@@ -74,6 +77,17 @@
                                         class="float-left mr-1 btn btn-primary btn-sm"
                                         style="height:30px; width:30px;border-radius:50%" data-toggle="tooltip"
                                         title="edit" data-placement="bottom"><i class="fas fa-edit"></i></a>
+
+                                    <!-- Password Change -->
+                                    <a href="{{ route('auser.users.change-password', $user->id) }}"
+                                        class="float-left mr-1 btn btn-primary btn-sm"
+                                        style="height:30px; width:30px;border-radius:50%"
+                                        data-toggle="tooltip"
+                                        title="Password Change"
+                                        data-placement="bottom">
+                                        <i class="fas fa-key"></i>
+                                    </a>
+
                                     <form method="POST" action="{{ route('auser.users.destroy', [$user->id]) }}">
                                         @csrf
                                         @method('delete')

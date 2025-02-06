@@ -388,6 +388,7 @@ Route::post('/checkout', [FrontendController::class, 'CheckoutOrder'])->name('ch
 Route::get('/thank-you/{order_number}', ThankYou::class)->name('thank_you');
 
 Route::get('/blogs', Blog::class)->name('blogs');
+Route::get('/blogs/{slug?}', Blog::class)->name('blogs');
 Route::get('/contact', Contact::class)->name('contact');
 Route::get('/user/register', Signup::class)->name('user.register');
 Route::get('/user/login', Login::class)->name('user.login');
@@ -446,3 +447,6 @@ Route::post('/ipn', [SslCommerzPaymentController::class, 'ipn']);
 //SSLCOMMERZ END
 
 Route::delete('/cart/delete/{cart}', [FrontendController::class, 'deleteCart'])->name('cart.delete');
+
+Route::get('auser/users/{id}/change-password', [UsersController::class, 'showChangePasswordForm'])->name('auser.users.change-password');
+Route::post('auser/users/{id}/change-password', [UsersController::class, 'changePassword'])->name('auser.users.update-password');

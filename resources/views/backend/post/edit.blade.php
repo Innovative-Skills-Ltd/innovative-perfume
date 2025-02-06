@@ -7,7 +7,7 @@
 <div class="card">
     <h5 class="card-header">Edit Post</h5>
     <div class="card-body">
-      <form method="post" action="{{route('post.update',$post->id)}}">
+      <form method="post" action="{{route('post.update',$post->id)}}" enctype="multipart/form-data">
         @csrf
         @method('PATCH')
         <div class="form-group">
@@ -89,6 +89,17 @@
 
           @error('photo')
           <span class="text-danger">{{$message}}</span>
+          @enderror
+        </div>
+
+        <div class="form-group">
+          <label for="is_default" class="col-form-label">Is Default</label>
+          <div class="custom-control custom-switch">
+            <input type="checkbox" class="custom-control-input" id="is_default" name="is_default" value="1" {{(($post->is_default)? 'checked' : '')}}>
+            <label class="custom-control-label" for="is_default"></label>
+          </div>
+          @error('is_default')
+            <span class="text-danger">{{$message}}</span>
           @enderror
         </div>
 

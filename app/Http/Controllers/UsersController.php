@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\User;
 use Spatie\Permission\Models\Role;
+use App\Rules\MatchOldPassword;
 
 class UsersController extends Controller
 {
@@ -58,7 +59,7 @@ class UsersController extends Controller
             'password'=>'string|required',
             'role'=>'required',
             'status'=>'required|in:active,inactive',
-            'photo'=>'nullable|string',
+            'photo'=>'required|string',
         ]);
         // dd($request->all());
         $data=$request->all();
@@ -161,5 +162,33 @@ class UsersController extends Controller
             request()->session()->flash('error','There is an error while deleting users');
         }
         return redirect()->route('auser.users.index');
+    }
+
+    public function showChangePasswordForm($id)
+    {
+        $this->ccan('Edit User'); // Keeping consistent with your existing permission checks
+
+        $user = User::findOrFail($id);
+        return view('backend.auser.users.change-password', compact('user'));
+    }
+
+    public function changePassword(Request $request, $id)
+    {
+        $this->ccan('Edit User');
+
+        $user = User::findOrFail($id);
+
+        $request->validate([
+            'current_password' => ['required', new MatchOldPassword($user)],
+            'new_password' => ['required', 'min:6'],
+            'new_confirm_password' => ['same:new_password'],
+        ]);
+
+        $user->update([
+            'password' => Hash::make($request->new_password)
+        ]);
+
+        return redirect()->route('auser.users.index')
+            ->with('success', 'Password successfully changed');
     }
 }

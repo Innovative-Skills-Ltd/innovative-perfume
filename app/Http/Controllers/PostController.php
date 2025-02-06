@@ -60,13 +60,14 @@ class PostController extends Controller
             'quote'=>'string|nullable',
             'summary'=>'string|required',
             'description'=>'string|nullable',
-            'photo'=>'string|nullable',
+            'photo'=>'required|string',
+            'is_default'=>'nullable|boolean',
             'tags'=>'nullable',
             'added_by'=>'nullable',
             'post_cat_id'=>'required',
             'status'=>'required|in:active,inactive'
         ]);
-
+        dd($request->photo);
         $data=$request->all();
 
         $slug=Str::slug($request->title);
@@ -141,7 +142,8 @@ class PostController extends Controller
             'quote'=>'string|nullable',
             'summary'=>'string|required',
             'description'=>'string|nullable',
-            'photo'=>'string|nullable',
+            'photo'=>'nullable|string',
+            'is_default'=>'nullable|boolean',
             'tags'=>'nullable',
             'added_by'=>'nullable',
             'post_cat_id'=>'required',
@@ -149,6 +151,7 @@ class PostController extends Controller
         ]);
 
         $data=$request->all();
+        $data['is_default']=$request->is_default ? 1 : 0;
         $tags=$request->input('tags');
         // return $tags;
         if($tags){

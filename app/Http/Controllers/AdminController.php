@@ -108,6 +108,7 @@ class AdminController extends Controller
     public function changePassword(){
         return view('backend.layouts.changePassword');
     }
+
     public function changPasswordStore(Request $request)
     {
         $request->validate([
