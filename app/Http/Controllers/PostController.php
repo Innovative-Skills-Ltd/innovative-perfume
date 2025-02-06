@@ -67,7 +67,6 @@ class PostController extends Controller
             'post_cat_id'=>'required',
             'status'=>'required|in:active,inactive'
         ]);
-        dd($request->photo);
         $data=$request->all();
 
         $slug=Str::slug($request->title);
