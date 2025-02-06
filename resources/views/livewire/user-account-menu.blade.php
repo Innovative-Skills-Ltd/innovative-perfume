@@ -15,8 +15,8 @@
          <div class='h-[2px] bg-[#764A8733]'></div>
 
          {{-- user image and name  --}}
-        <div class='flex gap-[10px] items-center my-[20px]'>
-            <div class='flex gap-[10px] items-center my-[20px]'>
+        <div class='flex gap-[10px] items-center my-[10px]'>
+            <div class='flex gap-[10px] items-center my-[10px]'>
                 <style>
                     @media (max-width:530px) {
                         .hello {

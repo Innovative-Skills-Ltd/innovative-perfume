@@ -7646,6 +7646,10 @@ h6 {
     margin-top: 2rem;
   }
 
+  .md\:mb-5{
+    margin-bottom: 1.25rem;
+  }
+
   .md\:block{
     display: block;
   }
@@ -7731,6 +7735,11 @@ h6 {
     padding-bottom: 2rem;
   }
 
+  .md\:py-4{
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+  }
+
   .md\:pb-48{
     padding-bottom: 12rem;
   }
@@ -7780,6 +7789,10 @@ h6 {
 }
 
 @media (min-width: 1024px){
+  .lg\:mb-10{
+    margin-bottom: 2.5rem;
+  }
+
   .lg\:flex{
     display: flex;
   }
@@ -7802,6 +7815,11 @@ h6 {
   .lg\:py-5{
     padding-top: 1.25rem;
     padding-bottom: 1.25rem;
+  }
+
+  .lg\:py-8{
+    padding-top: 2rem;
+    padding-bottom: 2rem;
   }
 }
 
