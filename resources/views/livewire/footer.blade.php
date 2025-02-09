@@ -76,7 +76,7 @@
     <!-- Footer Section End -->
 
     {{-- Footer Menu Start --}}
-    <section class="md:hidden grid grid-cols-2 border border-t bg-white fixed bottom-0 w-full py-1 pt-2">
+    <section class="md:hidden grid grid-cols-2 border border-t bg-white fixed bottom-0 w-full py-1 ">
         <div class=" flex flex-col gap-1 items-center justify-center">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 512 512">
                 <path fill="currentColor"
@@ -84,7 +84,7 @@
                 <path fill="currentColor"
                     d="m490.91 244.15l-74.8-71.56V64a16 16 0 0 0-16-16h-48a16 16 0 0 0-16 16v32l-57.92-55.38C272.77 35.14 264.71 32 256 32c-8.68 0-16.72 3.14-22.14 8.63l-212.7 203.5c-6.22 6-7 15.87-1.34 22.37A16 16 0 0 0 43 267.56L250.5 69.28a8 8 0 0 1 11.06 0l207.52 198.28a16 16 0 0 0 22.59-.44c6.14-6.36 5.63-16.86-.76-22.97" />
             </svg>
-            <span>Home</span>
+            {{-- <span>Home</span> --}}
         </div>
         <div class=" flex flex-col gap-1 items-center justify-center">
             <div class="relative">
@@ -98,7 +98,7 @@
                     0
                 </div>
             </div>
-            <span>Cart</span>
+            {{-- <span>Cart</span> --}}
         </div>
     </section>
     {{-- Footer Menu End --}}
