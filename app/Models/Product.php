@@ -17,6 +17,7 @@ class Product extends Model
         'slug',
         'title',
         'photo',
+        'bottle_images',
         'mpn',
         'summary',
         'description',
@@ -57,11 +58,16 @@ class Product extends Model
         'average_rating' => 'integer'
     ];
 
-    protected $appends = ['photo_formatted','banner_url','thumbnail_url','best_collection_url','collection_arrived_url','instagram_url'];
+    protected $appends = ['photo_formatted','banner_url','thumbnail_url','best_collection_url','collection_arrived_url','instagram_url','bottle_image_formatted'];
 
     public function getPhotoFormattedAttribute()
     {
         return explode(',', $this->photo);
+    }
+
+    public function getBottleImageFormattedAttribute()
+    {
+        return explode(',', $this->bottle_images);
     }
 
     static public function orderByFinalpriceAsc()

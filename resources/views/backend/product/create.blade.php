@@ -502,6 +502,23 @@
                         </div>
                     </div>
 
+                    {{-- bottle image  --}}
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="photo" class="col-form-label">Bottle Images<span class="text-danger">*</span> </label>
+                            <div class="input-group is-invalid">
+                                <div class="custom-file">
+                                    <label class="custom-file-label" for="bottle_image">Choose file...</label>
+                                    <input name="bottle_image[]" type="file" class="custom-file-input" id="bottle_image" required multiple>
+                                </div>
+                            </div>
+                            <div id="bottle_image_show" class="d-flex"></div>
+                            @error('bottle_image')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
+                    </div>
+
                     {{-- Banner Image --}}
                     <div class="col-md-4">
                         <div class="form-group">
@@ -593,7 +610,7 @@
                         <span class="text-danger">{{ $message }}</span>
                     @enderror
                 </div>
-                
+
                 <div class="mb-3 form-group">
                     <button type="reset" class="btn btn-warning">Reset</button>
                     <button class="btn btn-success" type="submit">Submit</button>
@@ -786,6 +803,37 @@
 
                 function photoShow() {
                     $('#photo_show').html(images_div);
+                }
+
+            });
+
+
+            //bottle image show
+            $('#bottle_image').on('change', function(event) {
+                let previews = [];
+                let img = [];
+                let images_div = '';
+                console.log('bottle images');
+                let photo_length = event.target.files.length;
+                let inti = 0;
+                for (const file of event.target.files) {
+                    ++inti;
+                    const reader = new FileReader()
+                    reader.onload = (e) => {
+                        // console.log(e.target.result);
+                        previews.push(e.target.result);
+                        images_div +=
+                            `<img src='${e.target.result}' alt='Not Found' class='img-thumbnail rounded h-150px'>`;
+                        if (inti == photo_length) {
+                            photoShow();
+                        }
+                        // console.log(images_div);
+                    }
+                    reader.readAsDataURL(file);
+
+                }
+                function photoShow() {
+                    $('#bottle_image_show').html(images_div);
                 }
 
             });

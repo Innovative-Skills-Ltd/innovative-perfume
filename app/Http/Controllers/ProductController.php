@@ -100,7 +100,7 @@ class ProductController extends Controller
         $this->ccan('Create Product');
         // dd($request->all());
         DB::beginTransaction();
-        try {
+        // try {
             $data = $request->validated();
 
             $data['slug'] = Str::slug($data['title']);
@@ -159,7 +159,23 @@ class ProductController extends Controller
                     $data['photo'] = $data['photo'] . $image_url . ($loop >= $photo_count ? '' : ',');
                 }
             }
-            // dd($data);
+
+            // bottle images Processing
+            if ($images = $request->file('bottle_image')) {
+                $data['bottle_images'] = '';
+                $name = Str::of($request->title)->before(' ');
+                $loop = 0;
+                $photo_count = count($images);
+                foreach ($images as $photo) {
+                    ++$loop;
+                    $rand = rand(1, 999999);
+                    $named = $name . $rand . '.' . $photo->extension();
+                    $path = Storage::putFileAs('laptops', $photo, $named);
+                    $image_url = asset('/storage/' . $path);
+                    $data['bottle_images'] = $data['bottle_images'] . $image_url . ($loop >= $photo_count ? '' : ',');
+                }
+            }
+
             // Create product
             $product = Product::create($data);
 
@@ -187,10 +203,10 @@ class ProductController extends Controller
 
             DB::commit();
             return redirect()->route('product.index')->with('success', 'Product successfully created');
-        } catch (\Exception $e) {
-            DB::rollback();
-            return redirect()->back()->with('error', $e->getMessage());
-        }
+        // } catch (\Exception $e) {
+        //     DB::rollback();
+        //     return redirect()->back()->with('error', $e->getMessage());
+        // }
     }
 
     /**
@@ -273,7 +289,7 @@ class ProductController extends Controller
                     unset($data[$field]);
                 }
             }
-            // dd($request->remaining_photos);
+
             // Handle removed photos
             if ($request->has('remaining_photos')) {
                 $remainingPhotos = $request->remaining_photos;
@@ -310,7 +326,48 @@ class ProductController extends Controller
                     $currentPhotos[] = $image_url;
                 }
                 $new_photo = implode(',', $currentPhotos);
-                $data['photo'] = $data['photo'] ? ($data['photo'] . ',' . $new_photo ) : $new_photo;    
+                $data['photo'] = $data['photo'] ? ($data['photo'] . ',' . $new_photo ) : $new_photo;
+                // dd($data['photo'],$new_photo);
+
+            }
+
+            // Handle removed bottle images
+            if ($request->has('remaining_bottle_images')) {
+                $remainingPhotos = $request->remaining_bottle_images;
+                // Update photo field with remaining photos
+                $data['bottle_images'] = implode(',', $remainingPhotos);
+
+                //delete old photos
+                $oldPhotos = explode(',', $product->bottle_images);
+
+                $deleted_photos = [];
+                foreach($oldPhotos as $oldPhoto) {
+
+                    if(!in_array($oldPhoto, $remainingPhotos)) {
+                        $path = 'laptops/' . basename($oldPhoto);
+                        if(Storage::exists($path)) {
+                            Storage::delete($path);
+                            $deleted_photos[] = $oldPhoto;
+                        }
+                    }
+                }
+            }else{
+                $data['photo'] = '';
+            }
+
+             // Handle new bottle images
+             if ($images = $request->file('bottle_image')) {
+                $name = Str::of($request->title)->before(' ');
+
+                foreach ($images as $photo) {
+                    $rand = rand(1, 999999);
+                    $named = $name . $rand . '.' . $photo->extension();
+                    $path = Storage::putFileAs('laptops', $photo, $named);
+                    $image_url = asset('/storage/' . $path);
+                    $currentPhotos[] = $image_url;
+                }
+                $new_photo = implode(',', $currentPhotos);
+                $data['bottle_images'] = $data['bottle_images'] ? ($data['bottle_images'] . ',' . $new_photo ) : $new_photo;
                 // dd($data['photo'],$new_photo);
 
             }

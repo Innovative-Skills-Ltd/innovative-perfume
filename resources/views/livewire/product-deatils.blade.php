@@ -141,7 +141,17 @@
                                         <path fill="#333"
                                             d="M27 3H5a2.003 2.003 0 0 0-2 2v22a2.003 2.003 0 0 0 2 2h22a2.003 2.003 0 0 0 2-2V5a2.003 2.003 0 0 0-2-2m0 7h-6V5h6Zm-8-2h-6V5h6Zm0 2v8h-6v-8Zm-8 12H5V12h6Zm2-2h6v7h-6Zm8-8h6v4h-6ZM11 5v5H5V5ZM5 24h6v3H5Zm16 3v-9h6v9Z" />
                                     </svg>
-                                    <div x-data="{ open: false }">
+                                    <div x-data="{
+                                        open: false,
+                                        currentSlide: 0,
+                                        images: {{ json_encode($product->bottle_image_formatted) }},
+                                        nextSlide() {
+                                            this.currentSlide = (this.currentSlide + 1) % this.images.length;
+                                        },
+                                        prevSlide() {
+                                            this.currentSlide = (this.currentSlide - 1 + this.images.length) % this.images.length;
+                                        }
+                                    }">
                                         <!-- Trigger Button -->
                                         <span class="text-secondary text-sm cursor-pointer" @click="open = true">View
                                             Size Chart</span>
@@ -150,11 +160,11 @@
                                         <div style="display: none" x-show="open"
                                             class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50"
                                             @click.away="open = false" x-transition>
-                                            <div class="bg-white p-4 rounded-lg shadow-lg max-w-md">
+                                            <div class="bg-white p-4 rounded-lg shadow-lg max-w-3xl w-full">
                                                 <!-- Close Button -->
                                                 <div class="relative">
                                                     <button type="button"
-                                                        class="absolute top-0 right-0 bg-black rounded-full text-white text-xs"
+                                                        class="absolute top-2 right-2 z-10 bg-black rounded-full text-white text-xs p-1"
                                                         @click="open = false">
                                                         <svg xmlns="http://www.w3.org/2000/svg" width="24"
                                                             height="24" viewBox="0 0 24 24">
@@ -163,8 +173,41 @@
                                                                 d="m8 8l4 4m0 0l4 4m-4-4l4-4m-4 4l-4 4" />
                                                         </svg>
                                                     </button>
-                                                    <img src="https://dreamingtheme.kiendaotac.com/html/stelina/assets/images/size-chart.jpg"
-                                                        alt="Size Chart" class="w-full h-full" />
+
+                                                    <!-- Slider Container -->
+                                                    <div class="relative">
+                                                        <template x-for="(image, index) in images" :key="index">
+                                                            <div x-show="currentSlide === index"
+                                                                 class="transition-opacity duration-300"
+                                                                 >
+                                                                <img :src="image" class="w-full h-[500px] object-contain" :alt="`Bottle Image ${index + 1}`">
+                                                            </div>
+                                                        </template>
+
+                                                        <!-- Navigation Buttons -->
+                                                        <button @click="prevSlide" type="button"
+                                                            class="absolute left-2 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-50 text-white p-2 rounded-full">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                                                            </svg>
+                                                        </button>
+                                                        <button @click="nextSlide" type="button"
+                                                            class="absolute right-2 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-50 text-white p-2 rounded-full">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                                                            </svg>
+                                                        </button>
+
+                                                        <!-- Dots Navigation -->
+                                                        <div class="absolute bottom-4 left-0 right-0 flex justify-center space-x-2">
+                                                            <template x-for="(image, index) in images" :key="index">
+                                                                <button type="button" @click="currentSlide = index"
+                                                                    :class="{'bg-white': currentSlide === index, 'bg-gray-400': currentSlide !== index}"
+                                                                    class="w-2 h-2 rounded-full transition-colors duration-200">
+                                                                </button>
+                                                            </template>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>

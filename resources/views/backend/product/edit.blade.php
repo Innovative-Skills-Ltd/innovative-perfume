@@ -326,6 +326,41 @@
                         </div>
                     </div>
 
+                      {{-- Product Bottle Images --}}
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="bottle_image" class="col-form-label">Bottle Images<span class="text-danger">*</span></label>
+                            <div class="input-group is-invalid">
+                                <div class="custom-file">
+                                    <label class="custom-file-label" for="bottle_image">Choose file...</label>
+                                    <input name="bottle_image[]" type="file" class="custom-file-input" id="bottle_image" multiple>
+                                </div>
+                            </div>
+                            <div id="bottle_image_show" class="d-flex mt-2">
+                                {{-- @dd(count($product->photo_formatted),$product->photo) --}}
+                                {{-- @dd($product->bottle_images,$product->bottle_image_formatted) --}}
+                                @if($product->bottle_images)
+
+                                    @foreach($product->bottle_image_formatted as $bottle_image)
+                                        <div class="position-relative mr-2">
+                                            <img src="{{ $bottle_image }}" class="img-thumbnail" style="max-height: 100px">
+                                            <input type="hidden" name="remaining_bottle_images[]" value="{{ $bottle_image }}">
+                                            <button type="button" class="btn btn-danger btn-sm position-absolute"
+                                                    style="top: 0; right: 0;" onclick="removeBottleImage(this)">×</button>
+                                        </div>
+                                    @endforeach
+                                @endif
+
+                            </div>
+                            <div id="new_bottle_image_show" class="d-flex mt-2">
+
+                            </div>
+                            @error('bottle_image')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
+                    </div>
+
                     {{-- Banner Image --}}
                     <div class="col-md-4">
                         <div class="form-group">
@@ -762,6 +797,36 @@
                 }
             });
 
+            //bottle image show
+            $('#bottle_image').on('change', function(event) {
+                let previews = [];
+                let img = [];
+                let images_div = '';
+                console.log(event.target.files);
+                let photo_length = event.target.files.length;
+                let inti = 0;
+                for (const file of event.target.files) {
+                    ++inti;
+                    const reader = new FileReader()
+                    reader.onload = (e) => {
+                        // console.log(e.target.result);
+                        previews.push(e.target.result);
+                        images_div +=
+                            `<img src='${e.target.result}' alt='Not Found' class='img-thumbnail rounded h-150px'>`;
+                        if (inti == photo_length) {
+                            bottleImageShow();
+                        }
+                        // console.log(images_div);
+                    }
+                    reader.readAsDataURL(file);
+
+                }
+
+                function bottleImageShow() {
+                    $('#new_bottle_image_show').html(images_div);
+                }
+            });
+
             let sizeIndex = $('#size-rows .row').length - 1;
 
             // Calculate final price
@@ -833,6 +898,20 @@
             document.querySelector('form').appendChild(input);
             console.log(input);
             photoDiv.remove();
+        }
+
+        function removeBottleImage(button) {
+            const bottleImageDiv = $(button).closest('.position-relative');
+            const bottleImageUrl = bottleImageDiv.find('input[name="remaining_bottle_images[]"]').val();
+
+            // Add to removed_bottle_images array
+            const input = document.createElement('input');
+            input.type = 'hidden';
+            input.name = 'removed_bottle_images[]';
+            input.value = bottleImageUrl;
+            document.querySelector('form').appendChild(input);
+            console.log(input);
+            bottleImageDiv.remove();
         }
 
         function previewImage(input, previewId) {
