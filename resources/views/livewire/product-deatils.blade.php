@@ -135,6 +135,7 @@
                                     </svg> --}}
                                     {{-- <span class="text-secondary text-sm">Add to Wishlist</span> --}}
                                 </div>
+                                {{-- @dd($product->bottle_image_formatted) --}}
                                 <div class="flex items-center gap-2">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
                                         viewBox="0 0 32 32">
@@ -158,7 +159,7 @@
 
                                         <!-- Modal -->
                                         <div style="display: none" x-show="open"
-                                            class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50"
+                                            class="fixed z-50 inset-0 flex items-center justify-center bg-black bg-opacity-50"
                                             @click.away="open = false" x-transition>
                                             <div class="bg-white p-4 rounded-lg shadow-lg max-w-3xl w-full">
                                                 <!-- Close Button -->
@@ -174,40 +175,49 @@
                                                         </svg>
                                                     </button>
 
-                                                    <!-- Slider Container -->
-                                                    <div class="relative">
-                                                        <template x-for="(image, index) in images" :key="index">
-                                                            <div x-show="currentSlide === index"
-                                                                 class="transition-opacity duration-300"
-                                                                 >
-                                                                <img :src="image" class="w-full h-[500px] object-contain" :alt="`Bottle Image ${index + 1}`">
-                                                            </div>
-                                                        </template>
-
-                                                        <!-- Navigation Buttons -->
-                                                        <button @click="prevSlide" type="button"
-                                                            class="absolute left-2 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-50 text-white p-2 rounded-full">
-                                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
-                                                            </svg>
-                                                        </button>
-                                                        <button @click="nextSlide" type="button"
-                                                            class="absolute right-2 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-50 text-white p-2 rounded-full">
-                                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-                                                            </svg>
-                                                        </button>
-
-                                                        <!-- Dots Navigation -->
-                                                        <div class="absolute bottom-4 left-0 right-0 flex justify-center space-x-2">
+                                                    <!-- Content -->
+                                                    <template x-if="images.length > 0 && images[0] != ''">
+                                                        <!-- Slider Container -->
+                                                        <div class="relative">
                                                             <template x-for="(image, index) in images" :key="index">
-                                                                <button type="button" @click="currentSlide = index"
-                                                                    :class="{'bg-white': currentSlide === index, 'bg-gray-400': currentSlide !== index}"
-                                                                    class="w-2 h-2 rounded-full transition-colors duration-200">
-                                                                </button>
+                                                                <div x-show="currentSlide === index"
+                                                                    class="transition-opacity duration-300">
+                                                                    <img :src="image" class="w-full h-[500px] object-contain" :alt="`Bottle Image ${index + 1}`">
+                                                                </div>
                                                             </template>
+
+                                                            <!-- Navigation Buttons -->
+                                                            <button @click="prevSlide" type="button"
+                                                                class="absolute left-2 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-50 text-white p-2 rounded-full">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                                                                </svg>
+                                                            </button>
+                                                            <button @click="nextSlide" type="button"
+                                                                class="absolute right-2 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-50 text-white p-2 rounded-full">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                                                                </svg>
+                                                            </button>
+
+                                                            <!-- Dots Navigation -->
+                                                            <div class="absolute bottom-4 left-0 right-0 flex justify-center space-x-2">
+                                                                <template x-for="(image, index) in images" :key="index">
+                                                                    <button type="button" @click="currentSlide = index"
+                                                                        :class="{'bg-white': currentSlide === index, 'bg-gray-400': currentSlide !== index}"
+                                                                        class="w-2 h-2 rounded-full transition-colors duration-200">
+                                                                    </button>
+                                                                </template>
+                                                            </div>
                                                         </div>
-                                                    </div>
+                                                    </template>
+
+                                                    <!-- No Images Message -->
+                                                    <template x-if="images.length === 0 || images[0] == ''">
+                                                        <div class="flex items-center justify-center h-[300px]">
+                                                            <p class="text-gray-500 text-lg">No bottle images available</p>
+                                                        </div>
+                                                    </template>
                                                 </div>
                                             </div>
                                         </div>
