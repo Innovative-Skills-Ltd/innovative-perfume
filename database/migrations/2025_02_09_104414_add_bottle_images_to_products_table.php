@@ -11,9 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('posts', function (Blueprint $table) {
-            $table->boolean('is_default')->default(false);
-            $table->integer('view_count')->default(0);
+        Schema::table('products', function (Blueprint $table) {
+           $table->text('bottle_images')->nullable();
         });
     }
 
@@ -22,9 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('posts', function (Blueprint $table) {
-            $table->dropColumn('is_default');
-            $table->dropColumn('view_count');
+        Schema::table('products', function (Blueprint $table) {
+            $table->dropColumn('bottle_images');
         });
     }
 };

@@ -620,7 +620,7 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header">
-                                <h4>Product Images</h4>
+                                <h4>Product Images (thumbnail, banner, best collection, collection arrived, instagram)</h4>
                             </div>
                             <div class="card-body">
                                 <div class="row">
@@ -668,6 +668,18 @@
                         </div>
                     </div>
                 </div>
+
+                {{-- Bottole images  --}}
+                <section class="mt-5">
+                    <h1 class="text-center" style="text-decoration: underline">Bottle Images</h1>
+                    <div class="text-center">
+
+                        @foreach ($product->bottle_image_formatted as $bottle_image)
+                            <img src="{{ $bottle_image }}" class="mx-auto rounded img-fluid img-thumbnail"
+                                alt="{{ $product->title }}">
+                        @endforeach
+                    </div>
+                </section>
             @endif
 
         </div>
