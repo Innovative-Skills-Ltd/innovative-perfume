@@ -38,14 +38,14 @@ class Blog extends Component
 
         //related blogs
         $this->relatedBlogs = Post::where('status', 'active')
-                        ->where('post_cat_id', $this->default_blog->post_cat_id)
-                        ->where('id', '!=', $this->default_blog->id)
+                        ->where('post_cat_id', $this->default_blog?->post_cat_id)
+                        ->where('id', '!=', $this->default_blog?->id)
                         ->limit(15)
                         ->get();
 
         //popular blogs
         $this->popularBlogs = Post::where('status', 'active')
-                        ->where('id', '!=', $this->default_blog->id)
+                        ->where('id', '!=', $this->default_blog?->id)
                         ->orderBy('view_count', 'desc')
                         ->limit(10)
                         ->get();
