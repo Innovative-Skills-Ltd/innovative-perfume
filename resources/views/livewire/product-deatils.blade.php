@@ -318,7 +318,7 @@
                         <div class="flex-grow">
                             @php
                                 $ratings = [5, 4, 3, 2, 1];
-                                $maxReviews = max($product->productReviews->countBy('rate')->values()->toArray());
+                                $maxReviews = $product->productReviews->countBy('rate')->max();
                             @endphp
 
                             @foreach($ratings as $rating)
