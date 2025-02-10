@@ -17,7 +17,7 @@
                 </div>
                 <div>
                     <p class="text-sm text-gray-600">Order Date</p>
-                    <p class="font-medium">{{ $order->created_at->format('d M Y') }}</p>
+                    <p class="font-medium">{{ $order->created_at->format('d M Y h:i A') }}</p>
                 </div>
                 <div>
                     <p class="text-sm text-gray-600">Payment Status</p>
@@ -45,7 +45,15 @@
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-gray-200">
+                        @php
+
+                            $sub_total = 0;
+                        @endphp
                         @foreach($order->cart_info as $item)
+                        @php
+                            $sub_total += $item->totalAmount();
+                        @endphp
+
                             <tr>
                                 <td class="px-4 py-4">
                                     <div class="flex items-center">
@@ -55,6 +63,7 @@
                                         </div>
                                     </div>
                                 </td>
+
                                 <td class="px-4 py-4">{{ number_format($item->price, 2) }}৳</td>
                                 <td class="px-4 py-4">{{ number_format($item->discount, 2) }}৳</td>
                                 <td class="px-4 py-4">{{ $item->quantity }}</td>
@@ -67,16 +76,18 @@
         </div>
 
         <!-- Add this after the Order Items table section -->
-        <div class="flex justify-end mb-4">
-            <button type="button"
-                    class="inline-flex items-center px-4 py-2 bg-[#380D37] text-white rounded-md hover:bg-[#380D37]/80"
-                    onclick="Livewire.dispatch('openModal', { component: 'order-review-modal', arguments: { orderId: '{{ $order->id }}' }})">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
-                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                </svg>
-                Write a Review
-            </button>
-        </div>
+        @if ($order->status == 'delivered')
+            <div class="flex justify-end mb-4">
+                <button type="button"
+                        class="inline-flex items-center px-4 py-2 bg-[#380D37] text-white rounded-md hover:bg-[#380D37]/80"
+                        onclick="Livewire.dispatch('openModal', { component: 'order-review-modal', arguments: { orderId: '{{ $order->id }}' }})">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                    </svg>
+                    Write a Review
+                </button>
+            </div>
+        @endif
 
         <!-- Order Totals -->
         <div class="mb-6">
@@ -84,7 +95,7 @@
             <div class="border rounded-lg p-4">
                 <div class="flex justify-between py-2">
                     <span>Subtotal</span>
-                    <span>{{ number_format($order->sub_total, 2) }}৳</span>
+                    <span>{{ number_format($sub_total, 2) }}৳</span>
                 </div>
                 <div class="flex justify-between py-2">
                     <span>Shipping</span>
