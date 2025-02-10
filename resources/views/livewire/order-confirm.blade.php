@@ -57,7 +57,7 @@
                                 </td>
                                 <td
                                     class="p-3 tracking-wide text-left text-[14px] whitespace-nowrap text-[#000000] font-[jost] font-[500]">
-                                    {{ $order->created_at?->format('d M Y h:i A') }}
+                                    {{ $order->created_at?->timezone('Asia/Dhaka')->format('d M Y h:i A') }}
                                 </td>
                                 <td
                                     class="p-3 tracking-wide text-left text-[14px] whitespace-nowrap text-[#000000] font-[jost] font-[500]">
