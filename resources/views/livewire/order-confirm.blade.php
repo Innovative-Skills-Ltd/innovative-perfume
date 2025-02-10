@@ -101,7 +101,7 @@
                 @endforeach
             </tbody>
         </table>
-        {{-- {{ $orders->links() }} --}}
+        {{ $orders->links() }}
     </div>
     <div class='h-[2px] bg-[#764A8733] mt-[200px]'></div>
 </div>
