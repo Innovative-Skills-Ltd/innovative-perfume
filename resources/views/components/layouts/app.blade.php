@@ -91,6 +91,7 @@
     <script src="{{ asset('library/swiper/swiper.min.js') }}"></script>
     <script src="{{ asset('library/tailwind-eliment/te.min.js') }}"></script>
     <!-- Initialize Swiper -->
+    <livewire:wire-elements-modal />
 </body>
 
 </html>
