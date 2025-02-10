@@ -48,7 +48,7 @@
                             <tr>
                                 <td class="px-4 py-4">
                                     <div class="flex items-center">
-                                        <img src="{{ $item->product->photo }}" alt="{{ $item->product->title }}" class="w-16 h-16 object-cover rounded">
+                                        <img src="{{ $item->product->thumbnail_url }}" alt="{{ $item->product->title }}" class="w-16 h-16 object-cover rounded">
                                         <div class="ml-4">
                                             <p class="font-medium">{{ $item->product->title }}</p>
                                         </div>
