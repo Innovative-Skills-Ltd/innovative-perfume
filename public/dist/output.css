@@ -3603,10 +3603,6 @@ input[type="range"]:active::-webkit-slider-thumb{
   background-color: rgb(250 204 21 / var(--tw-bg-opacity));
 }
 
-.bg-\[\#380D37\]\/10{
-  background-color: rgb(56 13 55 / 0.1);
-}
-
 .bg-opacity-50{
   --tw-bg-opacity: 0.5;
 }
