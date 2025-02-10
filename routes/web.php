@@ -86,6 +86,7 @@ use App\Livewire\ViewCart;
 use App\Livewire\Wishlist;
 use Illuminate\Support\Facades\Auth;
 use \UniSharp\LaravelFilemanager\Lfm;
+use App\Livewire\OrderShow;
 
 /*
     |--------------------------------------------------------------------------
@@ -450,3 +451,5 @@ Route::delete('/cart/delete/{cart}', [FrontendController::class, 'deleteCart'])-
 
 Route::get('auser/users/{id}/change-password', [UsersController::class, 'showChangePasswordForm'])->name('auser.users.change-password');
 Route::post('auser/users/{id}/change-password', [UsersController::class, 'changePassword'])->name('auser.users.update-password');
+
+Route::get('/order/{id}/show', OrderShow::class)->name('oc.show');

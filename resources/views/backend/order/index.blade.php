@@ -66,9 +66,9 @@
                                        {{$order->payment_status}}
                                     </td>
                                     <td>
-                                        @if ($order->status == 'New')
+                                        @if ($order->status == 'Pending')
                                             <span class="badge badge-primary">{{ $order->status }}</span>
-                                        @elseif($order->status == 'Processing')
+                                        @elseif($order->status == 'Shipped')
                                             <span class="badge badge-warning">{{ $order->status }}</span>
                                         @elseif($order->status == 'Delivered')
                                             <span class="badge badge-success">{{ $order->status }}</span>

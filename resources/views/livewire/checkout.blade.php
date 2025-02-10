@@ -40,19 +40,19 @@
                                     <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mb-5">
                                         <div>
                                             <label class="text-sm mb-1">Address <span class="text-red-500">*</span></label>
-                                            <input name="address" type="text" value="{{ old('address') ?: $user->address }}" class="py-2 px-5 rounded-full w-full border" />
+                                            <input name="address" type="text" value="{{ old('address') ?: $address }}" class="py-2 px-5 rounded-full w-full border" />
                                         </div>
                                         <div>
                                             <label class="text-sm mb-1">Phone <span class="text-red-500">*</span></label>
-                                            <input name="phone" type="text" value="{{ old('phone') ?: $user->phone }}" class="py-2 px-5 rounded-full w-full border" />
+                                            <input name="phone" type="text" value="{{ old('phone') ?: $phone }}" class="py-2 px-5 rounded-full w-full border" />
                                         </div>
                                         <div>
                                             <label class="text-sm mb-1">City <span class="text-red-500">*</span></label>
-                                            <input name="city" type="text" value="{{ old('city') ?: $user->city }}" class="py-2 px-5 rounded-full w-full border" />
+                                            <input name="city" type="text" value="{{ old('city') ?: $city }}" class="py-2 px-5 rounded-full w-full border" />
                                         </div>
                                         <div>
                                             <label class="text-sm mb-1">Zip Code </label>
-                                            <input name="post_code" type="number" value="{{ old('post_code') ?: $user->post_code }}" class="py-2 px-5 rounded-full w-full border" />
+                                            <input name="post_code" type="number" value="{{ old('post_code') ?: $post_code }}" class="py-2 px-5 rounded-full w-full border" />
                                         </div>
                                     </div>
 
