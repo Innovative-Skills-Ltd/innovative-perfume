@@ -76,7 +76,7 @@
         </div>
 
         <!-- Add this after the Order Items table section -->
-        @if ($order->status == 'delivered')
+        @if ($order->status == 'Delivered')
             <div class="flex justify-end mb-4">
                 <button type="button"
                         class="inline-flex items-center px-4 py-2 bg-[#380D37] text-white rounded-md hover:bg-[#380D37]/80"
