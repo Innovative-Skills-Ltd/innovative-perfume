@@ -12,11 +12,11 @@ class OrderConfirm extends Component
 {
     public function render()
     {
-        // $n['orders'] = Order::with(['cart_info', 'cart_info.product'])
-        //             ->where('user_id',auth()->user()->id)
-        //             ->orderBy('id','desc')
-        //             ->get();
-        $n['orders'] = Order::with(['order_status', 'shipping'])->orderBy('id', 'desc')->paginate(10);
+
+        $n['orders'] = Order::with(['order_status', 'shipping'])
+                        ->where('user_id', auth()->user()->id)
+                        ->orderBy('id', 'desc')
+                        ->paginate(10);
 
         return view('livewire.order-confirm',$n);
     }
