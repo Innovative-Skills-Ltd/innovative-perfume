@@ -57,11 +57,11 @@
                                 </td>
                                 <td
                                     class="p-3 tracking-wide text-left text-[14px] whitespace-nowrap text-[#000000] font-[jost] font-[500]">
-                                    {{ $order->created_at->format('d M Y') }}
+                                    {{ $order->created_at?->format('d M Y') }}
                                 </td>
                                 <td
                                     class="p-3 tracking-wide text-left text-[14px] whitespace-nowrap text-[#000000] font-[jost] font-[500]">
-                                        {{ $order->cart_info->count() }}</td>
+                                        {{ $order->cart_info?->count() }}</td>
                                 <td
                                     class="p-3 tracking-wide text-left text-[14px] whitespace-nowrap text-[#000000] font-[jost] font-[500]">
                                     <span class="bg-[#F2F2F2] px-8 py-2">{{ $order->shipping?->price }}</span>
