@@ -5,9 +5,9 @@
     <form wire:submit='addressSave'>
         <div class='flex max-lg:border-[2px] max-lg:border-[#353535] max-md:w-full max-lg:w-[545px] max-lg:mx-auto max-lg:py-[20px] max-md:px-[35px] max-lg:px-[40px] max-sm:pl-[30px] max-lg:rounded-[4px] mt-[20px] gap-[20px]'>
             <div>
-                <div class=''>
+                {{-- <div class=''>
                     <h1 class='text-[20px] text-[#000000] font-[Inter] font-[500] leading-[24.2px]'>Address:</h1>
-                </div>
+                </div> --}}
 
                 {{-- address  --}}
                 <div class="flex gap-[40px] items-center">
@@ -41,7 +41,7 @@
                 </div>
             </div>
 
-            <div class='max-lg:hidden translate-y-[20px]'>
+            {{-- <div class='max-lg:hidden translate-y-[20px]'>
                 <div>
                     <h1
                         class='text-[16px] text-[#353535] font-[jost] font-[500] leading-[23.12px] tracking-[3%] my-[5px]'>
@@ -59,7 +59,7 @@
                     <label for="no"
                         class='text-[16px] text-[#353535] font-[jost] font-[500] leading-[23.12px] tracking-[3%] my-[5px]'>No.</label>
                 </div>
-            </div>
+            </div> --}}
         </div>
         {{-- button  --}}
         <div class='mt-4'>

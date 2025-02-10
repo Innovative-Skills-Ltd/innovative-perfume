@@ -184,7 +184,8 @@ class Checkout extends Component
         if ($user = Auth()->user()) {
             $n['shipping'] = Shipping::where('status','active')->get();
             $n['carts'] = Cart::with(['product'])->where('user_id', $user->id)->where('order_id', null)->latest()->get();
-            $address = UserAddress::where('user_id',$user->id)->where('is_default',true)->first();
+            $address = UserAddress::where('user_id',$user->id)->first();
+
             $this->name = $user->name;
             $this->l_name = $user->l_name;
             $this->email = $user->email;
@@ -193,6 +194,7 @@ class Checkout extends Component
             $this->city = $address?->city;
             $this->post_code = $address?->post_code;
             $this->divission_id = $user?->divission_id;
+            
         } else {
             $n['carts'] = Cart::with(['product'])->where('ip', request()->ip())->where('order_id', null)->latest()->get();
         }
