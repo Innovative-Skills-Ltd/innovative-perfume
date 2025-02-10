@@ -39,6 +39,7 @@
                         <tr>
                             <th class="px-4 py-2 text-left text-sm font-medium text-gray-500">Product</th>
                             <th class="px-4 py-2 text-left text-sm font-medium text-gray-500">Price</th>
+                            <th class="px-4 py-2 text-left text-sm font-medium text-gray-500">Discount</th>
                             <th class="px-4 py-2 text-left text-sm font-medium text-gray-500">Quantity</th>
                             <th class="px-4 py-2 text-left text-sm font-medium text-gray-500">Total</th>
                         </tr>
@@ -55,8 +56,9 @@
                                     </div>
                                 </td>
                                 <td class="px-4 py-4">{{ number_format($item->price, 2) }}৳</td>
+                                <td class="px-4 py-4">{{ number_format($item->discount, 2) }}৳</td>
                                 <td class="px-4 py-4">{{ $item->quantity }}</td>
-                                <td class="px-4 py-4">{{ number_format($item->amount, 2) }}৳</td>
+                                <td class="px-4 py-4">{{ number_format($item->totalAmount(), 2) }}৳</td>
                             </tr>
                         @endforeach
                     </tbody>
