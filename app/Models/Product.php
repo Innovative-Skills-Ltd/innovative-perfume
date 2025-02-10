@@ -250,14 +250,14 @@ class Product extends Model
         }
     }
 
-    public function reviews()
+    public function productReviews()
     {
         return $this->hasMany(ProductReview::class);
     }
 
     public function avgRating()
     {
-        return $this->reviews()?->avg('rate');
+        return $this->productReviews()?->avg('rate');
     }
 
     public function echoStar(){
