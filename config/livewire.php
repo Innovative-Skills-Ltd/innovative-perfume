@@ -113,7 +113,7 @@ return [
     |
     */
 
-    'inject_assets' => true,
+    // 'inject_assets' => true,
 
     /*
     |---------------------------------------------------------------------------
@@ -142,7 +142,7 @@ return [
     |
     */
 
-    'inject_morph_markers' => true,
+    // 'inject_morph_markers' => true,
 
     /*
     |---------------------------------------------------------------------------
@@ -155,5 +155,5 @@ return [
     |
     */
 
-    'pagination_theme' => 'tailwind',
+    // 'pagination_theme' => 'tailwind',
 ];
