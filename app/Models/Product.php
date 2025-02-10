@@ -252,7 +252,7 @@ class Product extends Model
 
     public function productReviews()
     {
-        return $this->hasMany(ProductReview::class)->where('status', 'active');
+        return $this->hasMany(ProductReview::class);
     }
 
     public function avgRating()
