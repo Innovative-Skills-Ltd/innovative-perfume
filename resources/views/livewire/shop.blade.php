@@ -272,14 +272,20 @@
                     {{-- Pagination --}}
                     <div class="flex items-center justify-center gap-2 mt-10">
                         {{-- Previous Page --}}
-                        <div onclick="submitPage({{ $products->currentPage() - 1 }})"
-                            class="w-10 h-10 rounded-full border flex items-center justify-center font-medium cursor-pointer {{ $products->onFirstPage() ? 'opacity-50 cursor-not-allowed' : '' }}">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                viewBox="0 0 24 24">
-                                <path fill="none" stroke="currentColor" stroke-linecap="round"
-                                    stroke-linejoin="round" d="m14 7l-5 5l5 5" />
-                            </svg>
-                        </div>
+                        @if (!$products->onFirstPage())
+                            <div onclick="submitPage({{ $products->currentPage() - 1 }})"
+                                class="w-10 h-10 rounded-full border flex items-center justify-center font-medium cursor-pointer">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24">
+                                    <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" d="m14 7l-5 5l5 5" />
+                                </svg>
+                            </div>
+                        @else
+                            <div class="w-10 h-10 rounded-full border flex items-center justify-center font-medium opacity-50 cursor-not-allowed">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24">
+                                    <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" d="m14 7l-5 5l5 5" />
+                                </svg>
+                            </div>
+                        @endif
 
                         {{-- Page Numbers --}}
                         @for ($i = 1; $i <= $products->lastPage(); $i++)
@@ -290,14 +296,20 @@
                         @endfor
 
                         {{-- Next Page --}}
-                        <div onclick="submitPage({{ $products->currentPage() + 1 }})"
-                            class="w-10 h-10 rounded-full border flex items-center justify-center font-medium cursor-pointer {{ $products->hasMorePages() ? '' : 'opacity-50 cursor-not-allowed' }}">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                viewBox="0 0 24 24">
-                                <path fill="currentColor"
-                                    d="m13.292 12l-4.6-4.6l.708-.708L14.708 12L9.4 17.308l-.708-.708z" />
-                            </svg>
-                        </div>
+                        @if ($products->hasMorePages())
+                            <div onclick="submitPage({{ $products->currentPage() + 1 }})"
+                                class="w-10 h-10 rounded-full border flex items-center justify-center font-medium cursor-pointer">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24">
+                                    <path fill="currentColor" d="m13.292 12l-4.6-4.6l.708-.708L14.708 12L9.4 17.308l-.708-.708z" />
+                                </svg>
+                            </div>
+                        @else
+                            <div class="w-10 h-10 rounded-full border flex items-center justify-center font-medium opacity-50 cursor-not-allowed">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24">
+                                    <path fill="currentColor" d="m13.292 12l-4.6-4.6l.708-.708L14.708 12L9.4 17.308l-.708-.708z" />
+                                </svg>
+                            </div>
+                        @endif
                     </div>
 
                     {{-- Add hidden input for page number --}}
