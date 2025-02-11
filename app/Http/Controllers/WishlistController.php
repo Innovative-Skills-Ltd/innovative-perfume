@@ -35,7 +35,7 @@ class WishlistController extends Controller
 
         if($already_wishlist) {
             $already_wishlist->delete();
-            $wishlistCount = Wishlist::count();
+            $wishlistCount = Wishlist::where('product_id', $product->id)->count();
             return response()->json([
                 'success' => true,
                 'message' => 'Removed from wishlist',
@@ -51,7 +51,7 @@ class WishlistController extends Controller
         $wishlist->amount = $wishlist->price * $wishlist->quantity;
         $wishlist->save();
 
-        $wishlistCount = Wishlist::count();
+        $wishlistCount = Wishlist::where('product_id', $product->id)->count();
 
         return response()->json([
             'success' => true,

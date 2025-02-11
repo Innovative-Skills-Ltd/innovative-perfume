@@ -131,8 +131,8 @@
                                 @if(auth()->check())
                                     <div
                                         x-data="{
-                                            isWishlisted: @json($product->wishlists?->where('user_id', auth()->user()->id)?->count() > 0 ? true : false),
-                                            wishlistCount: @json($product->wishlists?->count()),
+                                            isWishlisted: @json($product->wishlists?->where('product_id', $product->id)?->where('user_id', auth()->user()->id)?->count() > 0 ? true : false),
+                                            wishlistCount: @json($product->wishlists?->where('product_id', $product->id)?->count()),
                                             toggleWishlist() {
                                                 fetch(`/wishlist/{{ $product->slug }}`)
                                                     .then(response => response.json())
