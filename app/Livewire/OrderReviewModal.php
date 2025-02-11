@@ -2,46 +2,68 @@
 
 namespace App\Livewire;
 
-use App\Models\Order;
+use App\Models\Product;
 use App\Models\ProductReview;
+use App\Notifications\StatusNotification;
+use App\User;
 use LivewireUI\Modal\ModalComponent;
 use Livewire\Attributes\Rule;
+use Notification;
 
 class OrderReviewModal extends ModalComponent
 {
-    public $orderId;
-    public $order;
+    public $product_id;
+    public $product;
 
-    #[Rule('required|integer|min:1|max:5')]
+    #[Rule('required|integer|min:1|max:5', message: 'Please select a rating')]
     public $rating = 5;
 
-    #[Rule('required|string|min:10')]
+    #[Rule('required|string|min:10', message: 'Review must be at least 10 characters')]
     public $review = '';
 
-    public function mount($orderId)
+    public function mount($product_id)
     {
-        $this->orderId = $orderId;
-        $this->order = Order::with('cart_info.product')->findOrFail($orderId);
+        $this->product_id = $product_id;
+        $this->product = Product::findOrFail($product_id);
     }
 
     public function submitReview()
     {
         $this->validate();
 
-        foreach($this->order->cart_info as $item) {
-            ProductReview::create([
-                'user_id' => auth()->id(),
-                'product_id' => $item->product->id,
+        $user = auth()->user();
+
+        // Check if review already exists
+        $existingReview = ProductReview::where([
+            'user_id' => $user->id,
+            'product_id' => $this->product_id,
+        ])->first();
+
+        // if (!$existingReview) {
+            $status = ProductReview::create([
+                'user_id' => $user->id,
+                'product_id' => $this->product_id,
                 'rate' => $this->rating,
                 'review' => $this->review,
                 'status' => 'active',
-                'f_name' => auth()->user()->name,
+                'f_name' => $user->name,
                 'l_name' => '',
                 'ip' => request()->ip()
             ]);
-        }
 
-        $this->dispatch('review-submitted');
+            if ($status) {
+                // Notify admin about new review
+                $this->js("alert('Thank you for your review!')");
+            } else {
+                $this->js("alert('Something went wrong. Please try again.')");
+            }
+        // } else {
+        //     $this->dispatch('notify', [
+        //         'type' => 'error',
+        //         'message' => 'You have already reviewed this product'
+        //     ]);
+        // }
+
         $this->closeModal();
     }
 

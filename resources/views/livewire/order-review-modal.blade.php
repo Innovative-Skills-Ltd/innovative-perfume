@@ -1,7 +1,7 @@
 <div class="p-6 max-w-2xl mx-auto bg-white rounded-lg">
     <!-- Header -->
     <div class="border-b pb-4 mb-6">
-        <h2 class="text-2xl font-semibold text-[#380D37]">Write a Review</h2>
+        <h2 class="text-2xl font-semibold text-[#380D37]">Review for {{ $product->title }}</h2>
         <p class="text-gray-600 mt-1">Share your experience with this product</p>
     </div>
 
