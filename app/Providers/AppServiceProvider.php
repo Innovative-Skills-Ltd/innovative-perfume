@@ -34,6 +34,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        DB::statement("SET sql_mode=(SELECT REPLACE(@@sql_mode,'ONLY_FULL_GROUP_BY',''));");
+
         $n = [];
         if (Schema::hasTable('settings')) {
             $n['setting'] = Settings::first();
