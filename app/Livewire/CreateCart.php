@@ -5,6 +5,7 @@ namespace App\Livewire;
 use App\Models\Cart;
 use App\Models\Coupon;
 use App\Models\Product;
+use App\Models\ProductSize;
 use App\Models\Wishlist;
 use Illuminate\Support\Facades\Session;
 use Livewire\Component;
@@ -50,12 +51,17 @@ class CreateCart extends Component
             $already_cart->save();
 
         }else{
-           $size = $this->product->sizes->where('is_show',1)->first();
+           $size = ProductSize::find(request()->size_id);
+        //    dd(request()->all(),$size);
+           if(!$size){
+            session()->flash('error','Please select size!.');
+            return $this->redirect(route('vcart'),navigate:false);
+           }
             $cart = new Cart;
             $cart->user_id = $this->user->id;
             $cart->product_id = $this->product->id;
             $cart->color_id = request()->color_id;
-            $cart->size_id = request()->size_id;
+            $cart->size_id = $size->id;
             $cart->price = $size->price;
             $cart->discount = $size->discount;
             $cart->quantity = request()->quant;

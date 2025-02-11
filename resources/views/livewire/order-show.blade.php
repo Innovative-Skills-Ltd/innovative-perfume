@@ -17,7 +17,7 @@
                 </div>
                 <div>
                     <p class="text-sm text-gray-600">Order Date</p>
-                    <p class="font-medium">{{ $order->created_at->format('d M Y h:i A') }}</p>
+                    <p class="font-medium">{{ $order->created_at?->timezone(env('APP_TIMEZONE'))?->format('d M Y h:i A') }}</p>
                 </div>
                 <div>
                     <p class="text-sm text-gray-600">Payment Status</p>
@@ -42,7 +42,7 @@
                             <th class="px-4 py-2 text-left text-sm font-medium text-gray-500">Discount</th>
                             <th class="px-4 py-2 text-left text-sm font-medium text-gray-500">Quantity</th>
                             <th class="px-4 py-2 text-left text-sm font-medium text-gray-500">Total</th>
-                            <th class="px-4 py-2  text-sm font-medium text-gray-500 text-center    ">Review</th>
+                            <th class="px-4 py-2  text-sm font-medium text-gray-500 text-center">Review</th>
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-gray-200">

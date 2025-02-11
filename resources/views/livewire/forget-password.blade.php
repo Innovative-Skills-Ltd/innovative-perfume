@@ -25,8 +25,12 @@
                     @enderror
                 </div>
                 <div class="my-[20px] w-full">
+
+                    @if ($error_msg)
+                        <div class="text-red-500 text-sm">{{ $error_msg }}</div>
+                    @endif
                     <button
-                        class="w-full font-[jost] font-[500] text-[16px] text-[#fff] bg-gradient-to-r from-[#380D37] to-[#DC275C] py-[18px] rounded-[5px]">
+                        class="w-full font-[jost] font-[500] text-[16px] text-[#fff] bg-[#ab8e66] py-[18px] rounded-[5px]">
                         Reset Password
                         <div wire:loading
                             class="inline-block h-6 w-6 mr-2 animate-spin rounded-full border-4 border-solid border-current border-r-transparent align-[-0.125em] text-success motion-reduce:animate-[spin_1.5s_linear_infinite]"
