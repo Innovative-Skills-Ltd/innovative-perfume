@@ -18,7 +18,7 @@
 
                  <div class="password-input flex items-center justify-between gap-[10px] rounded-[5px] bg-[#F2F2F2] py-[14px] pl-[15px] pr-[15px] w-full">
                     <input wire:model='password' name="password" data-eyeicon="eyeicon1"
-                    class="password italic bg-[#F2F2F2] text-[14px] text-[#353535] font-[jost] font-[500]"
+                    class="password italic bg-[#F2F2F2] text-[14px] text-[#353535] font-[jost] font-[500] border-none outline-none focus:outline-none focus:border-none active:outline-none active:border-none"
                     type="password" placeholder="New Password">
                     <img class="eyeicon toggle-eye w-[20px] h-[20px] max-sm:w-[15px] max-sm:h-[15px]"
                                 data-eyeicon="eyeicon1" src="/storage/product/eyeclose.svg">
@@ -33,7 +33,7 @@
                 <div class="mb-[20px] w-full password-container">
                     <div class="password-input flex items-center justify-between gap-[10px] rounded-[5px] bg-[#F2F2F2] py-[14px] pl-[15px] pr-[15px] w-full">
                         <input wire:model='confirmed' data-eyeicon="eyeicon2"
-                        class="password italic bg-[#F2F2F2] text-[14px] text-[#353535] font-[jost] font-[500]"
+                        class="password italic bg-[#F2F2F2] text-[14px] text-[#353535] font-[jost] font-[500] border-none outline-none focus:outline-none focus:border-none active:outline-none active:border-none"
                         type="password" placeholder="Confirm Password">
                     <img class="eyeicon toggle-eye w-[20px] h-[20px] max-sm:w-[15px] max-sm:h-[15px]"
                             data-eyeicon="eyeicon2" src="/storage/product/eyeclose.svg">

@@ -5835,6 +5835,10 @@ h6 {
   border-radius: 50%;
 }
 
+.focus\:border-none:focus{
+  border-style: none;
+}
+
 .focus\:\!border-\[\#14a44d\]:focus{
   --tw-border-opacity: 1 !important;
   border-color: rgb(20 164 77 / var(--tw-border-opacity)) !important;
@@ -6139,6 +6143,10 @@ h6 {
   background-color: transparent;
 }
 
+.active\:border-none:active{
+  border-style: none;
+}
+
 .active\:bg-\[\#380D37\]:active{
   --tw-bg-opacity: 1;
   background-color: rgb(56 13 55 / var(--tw-bg-opacity));
@@ -6173,6 +6181,11 @@ h6 {
   --tw-shadow: 0 8px 9px -4px rgba(59,113,202,0.3),0 4px 18px 0 rgba(59,113,202,0.2);
   --tw-shadow-colored: 0 8px 9px -4px var(--tw-shadow-color), 0 4px 18px 0 var(--tw-shadow-color);
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+
+.active\:outline-none:active{
+  outline: 2px solid transparent;
+  outline-offset: 2px;
 }
 
 .disabled\:text-slate-300:disabled{
