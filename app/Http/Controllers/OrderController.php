@@ -13,6 +13,7 @@ use Notification;
 use App\Http\Helper;
 use Illuminate\Support\Str;
 use App\Notifications\StatusNotification;
+use Carbon\Carbon;
 
 class OrderController extends Controller
 {
@@ -296,6 +297,39 @@ class OrderController extends Controller
             $monthName = date('F', mktime(0, 0, 0, $i, 1));
             $data[$monthName] = (!empty($result[$i])) ? number_format((float)($result[$i]), 2, '.', '') : 0.0;
         }
+        return $data;
+    }
+
+    public function incomeChartWeekly(Request $request)
+    {
+        $week = Carbon::now()->startOfWeek();
+
+        $items = Order::with(['cart_info'])
+            ->whereBetween('created_at', [
+                $week->copy()->startOfWeek(),
+                $week->copy()->endOfWeek()
+            ])
+            ->where('status', 'delivered')
+            ->get()
+            ->groupBy(function ($d) {
+                return Carbon::parse($d->created_at)->format('l'); // Returns day name
+            });
+
+        $result = [];
+        foreach ($items as $day => $item_collections) {
+            foreach ($item_collections as $item) {
+                $amount = $item->cart_info->sum('amount');
+                isset($result[$day]) ? $result[$day] += $amount : $result[$day] = $amount;
+            }
+        }
+
+        // Ensure all days of week are included
+        $data = [];
+        $days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+        foreach ($days as $day) {
+            $data[$day] = (!empty($result[$day])) ? number_format((float)($result[$day]), 2, '.', '') : 0.0;
+        }
+
         return $data;
     }
 }

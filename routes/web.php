@@ -165,6 +165,7 @@ Route::get('/wishlist-delete/{id}', [WishlistController::class, 'wishlistDelete'
 Route::post('/cart/order', [OrderController::class, 'store'])->name('cart.order');
 Route::get('/order/pdf/{id}', [OrderController::class, 'pdf'])->name('order.pdf');
 Route::get('/income', [OrderController::class, 'incomeChart'])->name('product.order.income');
+Route::get('/income-chart-weekly', [OrderController::class, 'incomeChartWeekly'])->name('product.order.income_chart.weekly');
 // Route::get('/user/chart',[AdminController::class, 'userPieChart'])->name('user.piechart');
 Route::get('/product-grids', [FrontendController::class, 'productGrids'])->name('product-grids');
 Route::get('/product-lists', [FrontendController::class, 'productLists'])->name('product-lists');
