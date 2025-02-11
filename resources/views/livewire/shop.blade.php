@@ -76,8 +76,10 @@
                                     class="border group-hover:border-[#ab8e66] transition-all duration-300 grid grid-cols-1 md:grid-cols-12">
                                     <div class="  md:col-span-10 grid grid-cols-12 gap-5">
                                         <div class="relative w-full col-span-12 md:col-span-3">
+                                           <a href="{{ route('product.details', $cproduct->slug) }}">
                                             <img src="{{ $cproduct->thumbnail_url }}"
-                                                class="mx-auto object-contain h-[300px]" />
+                                            class="mx-auto object-contain h-[300px]" />
+                                           </a>
                                             <div class="top-0 left-0 right-0 bottom-0 m-auto absolute h-[300px]">
                                                 <div class="h-full flex items-center justify-center">
                                                     <div
@@ -121,7 +123,7 @@
                                         <div
                                             class="col-span-12 md:col-span-9 flex flex-col items-center md:items-start justify-center md:justify-start">
                                             <h3 class="text-primary text-lg font-medium text-center mt-5">
-                                                {{ $cproduct->title }}
+                                               <a href="{{ route('product.details', $cproduct->slug) }}">{{ $cproduct->title }}</a>
                                             </h3>
                                             <div>
                                                 <div
@@ -160,7 +162,7 @@
                                             @endif
                                         </h3>
                                         <h4 class="flex items-center gap-1 text-sm">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                            {{-- <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                                 viewBox="0 0 24 24">
                                                 <g fill="none" stroke="currentColor" stroke-linecap="round"
                                                     stroke-width="1.5">
@@ -172,8 +174,8 @@
                                                     <path
                                                         d="M15 9h5.61a.6.6 0 0 1 .548.356l1.79 4.028a.6.6 0 0 1 .052.243V16.4a.6.6 0 0 1-.6.6h-1.9M15 17h1" />
                                                 </g>
-                                            </svg>
-                                            <span>Free Delivery</span>
+                                            </svg> --}}
+                                            {{-- <span>Free Delivery</span> --}}
                                         </h4>
                                         <a href="{{ route('create_cart', $cproduct->slug) }}/?color_id={{ $cproduct->colors->first()->id }}&size_id={{ $cproduct->sizes->first()->id }}&quant=1">
                                             <button type="button"
