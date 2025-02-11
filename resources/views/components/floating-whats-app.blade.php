@@ -40,7 +40,7 @@
         }
     </style>
 
-    <a href="https://wa.me/{{ $phoneNumber }}{{ $message ? '?text=' . urlencode($message) : '' }}"
+    <a href="https://wa.me/{{ $phoneNumber }}"
        target="_blank"
        class="whatsapp-float shadow-lg hover:shadow-xl">
         <span class="whatsapp-icon">
