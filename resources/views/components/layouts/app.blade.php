@@ -87,11 +87,14 @@
             }
         });
     </script>
+
     <script src="{{ asset('frontend/owl-carousel-libraries/owl.carousel.min.js') }}"></script>
     <script src="{{ asset('library/swiper/swiper.min.js') }}"></script>
     <script src="{{ asset('library/tailwind-eliment/te.min.js') }}"></script>
     <!-- Initialize Swiper -->
     <livewire:wire-elements-modal />
+
+    <x-floating-whats-app :phoneNumber="config('services.whatsapp')" :message="config('')" />
 </body>
 
 </html>
