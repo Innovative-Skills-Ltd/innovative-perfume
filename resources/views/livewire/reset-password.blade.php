@@ -15,8 +15,8 @@
                     </span>
                 </div>
                 <div class="mb-[20px] w-full password-container">
-              
-                 <div class="password-input flex items-center gap-[10px] rounded-[5px] bg-[#F2F2F2] py-[14px] pl-[15px] pr-[15px] w-full">
+
+                 <div class="password-input flex items-center justify-between gap-[10px] rounded-[5px] bg-[#F2F2F2] py-[14px] pl-[15px] pr-[15px] w-full">
                     <input wire:model='password' name="password" data-eyeicon="eyeicon1"
                     class="password italic bg-[#F2F2F2] text-[14px] text-[#353535] font-[jost] font-[500]"
                     type="password" placeholder="New Password">
@@ -29,9 +29,9 @@
                 @enderror
                  </div>
                  </div>
-           
+
                 <div class="mb-[20px] w-full password-container">
-                    <div class="password-input flex items-center gap-[10px] rounded-[5px] bg-[#F2F2F2] py-[14px] pl-[15px] pr-[15px] w-full">
+                    <div class="password-input flex items-center justify-between gap-[10px] rounded-[5px] bg-[#F2F2F2] py-[14px] pl-[15px] pr-[15px] w-full">
                         <input wire:model='confirmed' data-eyeicon="eyeicon2"
                         class="password italic bg-[#F2F2F2] text-[14px] text-[#353535] font-[jost] font-[500]"
                         type="password" placeholder="Confirm Password">
@@ -46,7 +46,7 @@
                 </div>
                 <div class="my-[20px] w-full">
                     <button
-                        class="w-full font-[jost] font-[500] text-[16px] text-[#fff] bg-gradient-to-r from-[#380D37] to-[#DC275C] py-[18px] rounded-[5px]">
+                        class="w-full font-[jost] font-[500] text-[16px] text-[#fff] bg-[#ab8e66] py-[18px] rounded-[5px]">
                         Change Password
                     </button>
                 </div>
@@ -60,11 +60,11 @@
                 $('.toggle-eye').click(function() {
                     var passwordId = $(this).data('eyeicon');
                     var passwordInput = $('[data-eyeicon="' + passwordId + '"]');
-    
+
                     if (passwordInput.length && passwordInput.prop('type')) {
                         var passwordType = passwordInput.prop('type');
                         var newType = (passwordType === 'password') ? 'text' : 'password';
-    
+
                         passwordInput.prop('type', newType);
                         $(this).attr('src', '/storage/product/' + (newType === 'password' ? 'eyeclose' : 'eyeopen') + '.svg');
                     }

@@ -24,7 +24,7 @@ class ForgetPassword extends Component
     public function save()
     {
         $this->validate();
-
+        // dd($this->email);
         try {
             Mail::to($this->email)->send(new PasswordSendMail($this->email));
             session()->flash('success', "Password reset link sent to your email");

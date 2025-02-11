@@ -11,7 +11,7 @@
                     LogIn
                 </a>
                 <a href="{{ route('user.register') }}" type="button" id="login_btn"
-                    class="default  text-[16px] max-sm:text-[14px] focus:outline-none bg-[#380D37] text-[#fff] py-[12px] max-sm:py-[6px] font-[jost] font-[600] w-full text-center rounded-[5px]">
+                    class="default  text-[16px] max-sm:text-[14px] focus:outline-none bg-[#ab8e66] text-[#fff] py-[12px] max-sm:py-[6px] font-[jost] font-[600] w-full text-center rounded-[5px]">
                     Register
                 </a>
             </div>
@@ -40,7 +40,7 @@
                 </div>
                 <div>
                     <button
-                        class='text-[16px] max-sm:text-[14px] text-[#FFFFFF] font-[jost] font-[700] leading-[23.12px] w-full h-[23px] max-sm:h-[23px] rounded-[4px] py-[28px] max-sm:py-[20px] my-[15px] max-sm:my-[8px] flex justify-center items-center bg-gradient-to-r from-[#380D37] to-[#DC275C]'>
+                        class='text-[16px] max-sm:text-[14px] text-[#FFFFFF] font-[jost] font-[700] leading-[23.12px] w-full h-[23px] max-sm:h-[23px] rounded-[4px] py-[28px] max-sm:py-[20px] my-[15px] max-sm:my-[8px] flex justify-center items-center bg-[#ab8e66]'>
                         Submit
                          <div wire:loading
                             class="inline-block h-6 w-6 mr-2 animate-spin rounded-full border-4 border-solid border-current border-r-transparent align-[-0.125em] text-success motion-reduce:animate-[spin_1.5s_linear_infinite]"
