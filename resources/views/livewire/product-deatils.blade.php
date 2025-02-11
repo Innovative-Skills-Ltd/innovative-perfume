@@ -550,7 +550,7 @@
         </section>
     @endif
     <!-- Products End -->
-    <x-floating-whats-app :message="'I\'m interested in ' . $product->title" />
+   
 </div>
 
 <!-- Add this Alpine.js function to check color brightness -->
