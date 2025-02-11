@@ -137,14 +137,16 @@
                             <div class="flex flex-col gap-1">
                                 @foreach ($popularBlogs as $blog)
                                     <div class="flex gap-2 mb-5">
-                                        <img src="{{ photoFirst($blog->photo) }}"
+                                        <a href="{{ route('blogs', $blog->slug) }}">
+                                            <img src="{{ photoFirst($blog->photo) }}"
                                             class="w-24 h-24 object-cover" />
+                                        </a>
                                         <div>
                                             <h3 class="text-xs font-semibold text-secondary">
                                                 {{ $blog->cat_info->title ?? 'Uncategorized' }}
                                             </h3>
                                             <h6 class="text-sm font-medium mt-1">
-                                                {{ $blog->title }}
+                                               <a href="{{ route('blogs', $blog->slug) }}">{{ $blog->title }}</a>
                                             </h6>
                                         </div>
                                     </div>

@@ -287,6 +287,10 @@ class Product extends Model
     {
         return $this->hasMany(ProductSize::class);
     }
+    public function product_sizes()
+    {
+        return $this->hasMany(ProductSize::class);
+    }
 
     public function scopeBestSellers($query)
     {

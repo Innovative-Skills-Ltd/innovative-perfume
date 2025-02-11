@@ -44,5 +44,8 @@ return [
         'client_secret' => env('f_client_secret'), //Facebook Secret
         'redirect' => env('f_redirect'),
      ],
+    'whatsapp' => [
+        'number' => env('WHATSAPP_NUMBER', '+880 1720-932414'),
+    ],
 
 ];
