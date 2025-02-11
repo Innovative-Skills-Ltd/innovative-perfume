@@ -160,7 +160,9 @@ Route::get('/cart', function () {
 Route::get('/wishlist', function () {
     return view('frontend.pages.wishlist');
 })->name('wishlist');
-Route::get('/wishlist/{slug}', [WishlistController::class, 'wishlist'])->name('add-to-wishlist')->middleware('user');
+Route::get('/wishlist/{slug}', [WishlistController::class, 'wishlist'])
+    ->name('wishlist.toggle')
+    ->middleware('auth');
 Route::get('/wishlist-delete/{id}', [WishlistController::class, 'wishlistDelete'])->name('wishlist-delete');
 Route::post('/cart/order', [OrderController::class, 'store'])->name('cart.order');
 Route::get('/order/pdf/{id}', [OrderController::class, 'pdf'])->name('order.pdf');
