@@ -126,16 +126,60 @@
                         <!-- Keep existing static buttons -->
                         <div>
                             <div class="mb-6 flex items-center gap-5">
-                                <div class="flex items-center gap-2">
-                                    {{-- <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
-                                        viewBox="0 0 24 24">
-                                        <path fill="none" stroke="#333" stroke-linecap="round"
-                                            stroke-linejoin="round" stroke-width="1.5"
-                                            d="M7.75 3.5C5.127 3.5 3 5.76 3 8.547C3 14.125 12 20.5 12 20.5s9-6.375 9-11.953C21 5.094 18.873 3.5 16.25 3.5c-1.86 0-3.47 1.136-4.25 2.79c-.78-1.654-2.39-2.79-4.25-2.79" />
-                                    </svg> --}}
-                                    {{-- <span class="text-secondary text-sm">Add to Wishlist</span> --}}
-                                </div>
-                                {{-- @dd($product->bottle_image_formatted) --}}
+                                {{-- @dd($product->wishlists?->where('user_id', auth()->user()->id)?->count(),$product->wishlists, $product) --}}
+                                {{-- wishlist button  --}}
+                                @if(auth()->check())
+                                    <div
+                                        x-data="{
+                                            isWishlisted: @json($product->wishlists?->where('user_id', auth()->user()->id)?->count() > 0 ? true : false),
+                                            wishlistCount: @json($product->wishlists?->count()),
+                                            toggleWishlist() {
+                                                fetch(`/wishlist/{{ $product->slug }}`)
+                                                    .then(response => response.json())
+                                                    .then(data => {
+                                                        if(data.success) {
+                                                            this.isWishlisted = !this.isWishlisted;
+                                                            this.wishlistCount = data.wishlistCount;
+
+                                                            if(this.isWishlisted) {
+                                                                alert('Added to wishlist!');
+                                                            } else {
+                                                                alert('Removed from wishlist!');
+                                                            }
+                                                        } else {
+                                                            alert(data.message);
+                                                        }
+                                                    });
+                                            }
+                                        }"
+                                        class="flex items-center gap-2 cursor-pointer relative"
+                                        @click="toggleWishlist"
+                                    >
+                                        <div class="relative">
+                                            <div class="flex items-center">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                                    <path
+                                                        :fill="isWishlisted ? '#FF4B91' : 'none'"
+                                                        :stroke="isWishlisted ? '#FF4B91' : '#333'"
+                                                        stroke-linecap="round"
+                                                        stroke-linejoin="round"
+                                                        stroke-width="1.5"
+                                                        d="M7.75 3.5C5.127 3.5 3 5.76 3 8.547C3 14.125 12 20.5 12 20.5s9-6.375 9-11.953C21 5.094 18.873 3.5 16.25 3.5c-1.86 0-3.47 1.136-4.25 2.79c-.78-1.654-2.39-2.79-4.25-2.79"
+                                                    />
+                                                </svg>
+                                                <span x-show="wishlistCount > 0" x-text="'('+wishlistCount+')'"></span>
+                                            </div>
+                                            <!-- Wishlist Count Badge -->
+                                            {{-- <div
+                                                x-show="wishlistCount > 0"
+                                                x-text="wishlistCount"
+                                                class="absolute -top-2 -right-2 bg-[#DC275C] text-white text-xs rounded-full w-5 h-5 flex items-center justify-center"
+                                            ></div> --}}
+                                        </div>
+                                        <span class="text-secondary text-sm" x-text="isWishlisted ? 'Added to Wishlist' : 'Add to Wishlist'"></span>
+                                    </div>
+                                @endif
+                                {{-- bottle image sliders   --}}
                                 <div class="flex items-center gap-2">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
                                         viewBox="0 0 32 32">

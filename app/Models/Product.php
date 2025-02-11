@@ -195,7 +195,7 @@ class Product extends Model
 
     public function wishlists()
     {
-        return $this->hasMany(Wishlist::class)->whereNotNull('cart_id');
+        return $this->hasMany(Wishlist::class, 'product_id','id');
     }
 
     public function brand()

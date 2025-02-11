@@ -93,7 +93,6 @@
           <!-- Card Header - Dropdown -->
           <div class="flex-row py-3 card-header d-flex align-items-center justify-content-between">
             <h6 class="m-0 font-weight-bold text-primary">Earnings Overview</h6>
-
           </div>
           <!-- Card Body -->
           <div class="card-body">
@@ -146,6 +145,7 @@
   {{-- line chart --}}
   <script type="text/javascript">
     const url = "{{route('product.order.income')}}";
+    const url_weekly = "{{route('product.order.income_chart.weekly')}}";
     // Set new default font family and font color to mimic Bootstrap's default styling
     Chart.defaults.global.defaultFontFamily = 'Nunito', '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
     Chart.defaults.global.defaultFontColor = '#858796';
@@ -178,16 +178,17 @@
       // Area Chart Example
       var ctx = document.getElementById("myAreaChart");
 
-        axios.get(url)
+      //this report for weekly
+        axios.get(url_weekly)
               .then(function (response) {
                 const data_keys = Object.keys(response.data);
                 const data_values = Object.values(response.data);
                 var myLineChart = new Chart(ctx, {
                   type: 'line',
                   data: {
-                    labels: data_keys, // ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+                    labels: data_keys, // Will now show days of the week
                     datasets: [{
-                      label: "Earnings",
+                      label: "Weekly Earnings",  // Changed label
                       lineTension: 0.3,
                       backgroundColor: "rgba(78, 115, 223, 0.05)",
                       borderColor: "rgba(78, 115, 223, 1)",
@@ -199,7 +200,7 @@
                       pointHoverBorderColor: "rgba(78, 115, 223, 1)",
                       pointHitRadius: 10,
                       pointBorderWidth: 2,
-                      data:data_values,// [0, 10000, 5000, 15000, 10000, 20000, 15000, 25000, 20000, 30000, 25000, 40000],
+                      data: data_values,
                     }],
                   },
                   options: {
@@ -215,14 +216,14 @@
                     scales: {
                       xAxes: [{
                         time: {
-                          unit: 'date'
+                          unit: 'day'  // Changed to day
                         },
                         gridLines: {
                           display: false,
                           drawBorder: false
                         },
                         ticks: {
-                          maxTicksLimit: 7
+                          maxTicksLimit: 7  // Show all 7 days
                         }
                       }],
                       yAxes: [{
@@ -274,6 +275,12 @@
               //   vm.answer = 'Error! Could not reach the API. ' + error
               console.log(error)
               });
+
+
+
+
+
+
 
   </script>
 @endpush

@@ -160,11 +160,14 @@ Route::get('/cart', function () {
 Route::get('/wishlist', function () {
     return view('frontend.pages.wishlist');
 })->name('wishlist');
-Route::get('/wishlist/{slug}', [WishlistController::class, 'wishlist'])->name('add-to-wishlist')->middleware('user');
+Route::get('/wishlist/{slug}', [WishlistController::class, 'wishlist'])
+    ->name('wishlist.toggle')
+    ->middleware('auth');
 Route::get('/wishlist-delete/{id}', [WishlistController::class, 'wishlistDelete'])->name('wishlist-delete');
 Route::post('/cart/order', [OrderController::class, 'store'])->name('cart.order');
 Route::get('/order/pdf/{id}', [OrderController::class, 'pdf'])->name('order.pdf');
 Route::get('/income', [OrderController::class, 'incomeChart'])->name('product.order.income');
+Route::get('/income-chart-weekly', [OrderController::class, 'incomeChartWeekly'])->name('product.order.income_chart.weekly');
 // Route::get('/user/chart',[AdminController::class, 'userPieChart'])->name('user.piechart');
 Route::get('/product-grids', [FrontendController::class, 'productGrids'])->name('product-grids');
 Route::get('/product-lists', [FrontendController::class, 'productLists'])->name('product-lists');

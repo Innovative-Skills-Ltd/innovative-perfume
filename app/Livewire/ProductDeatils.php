@@ -5,6 +5,7 @@ namespace App\Livewire;
 use App\Models\Product;
 use App\Models\ProductReview;
 use App\Models\RecentViewedProduct;
+use App\Models\Wishlist;
 use Livewire\Attributes\Rule;
 use Livewire\Component;
 use Livewire\Attributes\Title;
@@ -14,7 +15,8 @@ use Livewire\Attributes\Title;
 class ProductDeatils extends Component
 {
     public $slug;
-    // public $product;
+    public $isWishlisted = false;
+    public $product;
 
     public $payment_process = 'one_time';
 
@@ -50,13 +52,16 @@ class ProductDeatils extends Component
         return $this->redirect(route('single_checkout', [$slug]), navigate: true);
     }
 
-    public function mount()
+    public function mount($slug)
     {
-        
-       $product = Product::with('cat_info', 'sub_cat_info', 'brand','sizes','sizes.size')
+
+
+       $product = Product::with('cat_info', 'sub_cat_info', 'brand', 'sizes', 'sizes.size', 'colors', 'colors.color','wishlists')
                 ->where('slug', $this->slug)
                 ->where('is_showable_to_user',1)
                 ->first();
+
+        $this->product = $product;
 
         // url set to cache for login
         session(['login_previous_url' => request()->url()]);
@@ -83,19 +88,19 @@ class ProductDeatils extends Component
     public function render()
     {
 
-        $n['product'] = Product::with('cat_info', 'sub_cat_info', 'brand', 'sizes', 'sizes.size', 'colors', 'colors.color')
-                        ->where('slug', $this->slug)
-                        ->where('is_showable_to_user',1)
-                        ->first();
+        // $n['product'] = Product::with('cat_info', 'sub_cat_info', 'brand', 'sizes', 'sizes.size', 'colors', 'colors.color')
+        //                 ->where('slug', $this->slug)
+        //                 ->where('is_showable_to_user',1)
+        //                 ->first();
         $n['recent_views'] = RecentViewedProduct::get();
         $n['product_reviews'] = ProductReview::with('images')
-                                ->where('product_id', $n['product']->id)
+                                ->where('product_id', $this->product->id)
                                 ->where('status', 'active')
                                 ->get();
         $n['related_products'] = Product::where('status', 'active')
-                                    ->where('cat_id', $n['product']->cat_id)
+                                    ->where('cat_id', $this->product->cat_id)
                                     // ->where('is_showable_to_user',1)
-                                    ->where('id', '!=', $n['product']->id)
+                                    ->where('id', '!=', $this->product->id)
                                     ->get();
         return view('livewire.product-deatils', $n);
     }
