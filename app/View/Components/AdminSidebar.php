@@ -45,10 +45,10 @@ class AdminSidebar extends Component
                 ['access' => 'Show Brand','title' => 'Brands', 'route' => 'brand.index',],
                 ['access' => 'Create Brand','title' => 'Add Brands', 'route' => 'brand.create']
             ]],
-            ['access' => 'Show News','title' => 'News', 'route' => 'news.*', 'child' => [
-                ['access' => 'Show News','title' => 'News', 'route' => 'news.index',],
-                ['access' => 'Create News','title' => 'Add News', 'route' => 'news.create']
-            ]],
+            // ['access' => 'Show News','title' => 'News', 'route' => 'news.*', 'child' => [
+            //     ['access' => 'Show News','title' => 'News', 'route' => 'news.index',],
+            //     ['access' => 'Create News','title' => 'Add News', 'route' => 'news.create']
+            // ]],
             // ['access' => 'Show Videos','title' => 'Videos', 'route' => 'video.*', 'child' => [
             //     ['access' => 'Show Videos','title' => 'Videos', 'route' => 'video.index',],
             //     ['access' => 'Create Videos','title' => 'Add Videos', 'route' => 'video.create']
@@ -65,7 +65,7 @@ class AdminSidebar extends Component
                 ['access' => 'Show Order', 'title' => 'Order', 'route' => 'order.index',],
                 ['access' => 'Show Order Status', 'title' => 'Order Status', 'route' => 'order-status.index']
             ]],
-            ['access' => 'Show Review','title' => 'Reviews', 'route' => 'review.index', 'child' => []],
+            // ['access' => 'Show Review','title' => 'Reviews', 'route' => 'review.index', 'child' => []],
             // ['access' => 'Show Review','title' => 'Product Reviews', 'route' => 'productreview.index', 'child' => []],
         ]],
 
@@ -82,7 +82,7 @@ class AdminSidebar extends Component
                 ['access' => 'Show Tag','title' => 'Tags', 'route' => 'post-tag.index'],
                 ['access' => 'Create Tag','title' => 'Add Tags', 'route' => 'post-tag.create']
             ]],
-            ['access' => 'Show Comment','title' => 'Comments', 'route' => 'comment.index', 'child' => []],
+            // ['access' => 'Show Comment','title' => 'Comments', 'route' => 'comment.index', 'child' => []],
         ]],
 
         //Report
@@ -98,14 +98,14 @@ class AdminSidebar extends Component
             ]],
 
             // Sale Report
-            ['access' => 'Sale Report','title' => 'Sale Report', 'route' => 'report.sale.*', 'child' => [
-                ['access' => 'Sale Report Daily','title' => 'Daily', 'route' => 'report.sale.daily'],
-                ['access' => 'Sale Report Weekly','title' => 'Weekly', 'route' => 'report.sale.weekly'],
-                ['access' => 'Sale Report Monthly','title' => 'Monthly', 'route' => 'report.sale.monthly'],
-                ['access' => 'Sale Report Yearly','title' => 'Yearly', 'route' => 'report.sale.yearly'],
-                ['access' => 'Date Wise Sale Report','title' => 'Date Wise', 'route' => 'report.sale.datewise'],
-                ['access' => 'Overall Sale Report','title' => 'Overall', 'route' => 'report.sale.overall'],
-            ]],
+                // ['access' => 'Sale Report','title' => 'Sale Report', 'route' => 'report.sale.*', 'child' => [
+                //     ['access' => 'Sale Report Daily','title' => 'Daily', 'route' => 'report.sale.daily'],
+                //     ['access' => 'Sale Report Weekly','title' => 'Weekly', 'route' => 'report.sale.weekly'],
+                //     ['access' => 'Sale Report Monthly','title' => 'Monthly', 'route' => 'report.sale.monthly'],
+                //     ['access' => 'Sale Report Yearly','title' => 'Yearly', 'route' => 'report.sale.yearly'],
+                //     ['access' => 'Date Wise Sale Report','title' => 'Date Wise', 'route' => 'report.sale.datewise'],
+                //     ['access' => 'Overall Sale Report','title' => 'Overall', 'route' => 'report.sale.overall'],
+                // ]],
         ]],
 
         ['access' => ['Show Cupon', 'Show User', 'Setting'],'title' => 'General Settings', 'child' => [
