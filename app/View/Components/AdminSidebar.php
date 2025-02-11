@@ -89,12 +89,12 @@ class AdminSidebar extends Component
         ['access' => ['Sales Report', 'Customer Purchase History', 'Order Report', 'Inventory Report'],'title' => 'Report', 'child' => [
             // Order Report
             ['access' => 'Order Report','title' => 'Order Report', 'route' => 'report.order.*', 'child' => [
-                ['access' => 'Order Report Daily','title' => 'Daily', 'route' => 'report.order.daily'],
-                ['access' => 'Order Report Weekly','title' => 'Weekly', 'route' => 'report.order.weekly'],
+                // ['access' => 'Order Report Daily','title' => 'Daily', 'route' => 'report.order.daily'],
+                // ['access' => 'Order Report Weekly','title' => 'Weekly', 'route' => 'report.order.weekly'],
                 ['access' => 'Order Report Monthly','title' => 'Monthly', 'route' => 'report.order.monthly'],
-                ['access' => 'Order Report Yearly','title' => 'Yearly', 'route' => 'report.order.yearly'],
-                ['access' => 'Date Wise Order Report','title' => 'Date Wise', 'route' => 'report.order.datewise'],
-                ['access' => 'Product Wise Order Report','title' => 'Product Wise', 'route' => 'report.order.productwise'],
+                // ['access' => 'Order Report Yearly','title' => 'Yearly', 'route' => 'report.order.yearly'],
+                // ['access' => 'Date Wise Order Report','title' => 'Date Wise', 'route' => 'report.order.datewise'],
+                // ['access' => 'Product Wise Order Report','title' => 'Product Wise', 'route' => 'report.order.productwise'],
             ]],
 
             // Sale Report
