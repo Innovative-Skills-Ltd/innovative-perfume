@@ -3,19 +3,18 @@
     <style>
         .whatsapp-float {
             position: fixed;
-            top: 50%; /* Position vertically in the middle */
+            bottom: 120px; /* Position above the typical "Back to Top" button */
             right: 20px;
-            transform: translateY(-50%); /* Center the element vertically */
             z-index: 1000;
             transition: all 0.3s ease;
         }
 
         .whatsapp-float:hover {
-            transform: translateY(-50%) scale(1.1); /* Maintain vertical centering while scaling */
+            transform: scale(1.1);
         }
     </style>
 
-    <a title="Live Chat" href="https://wa.me/{{ $phoneNumber }}{{ $message ? '?text=' . urlencode($message) : '' }}"
+    <a href="https://wa.me/{{ $phoneNumber }}{{ $message ? '?text=' . urlencode($message) : '' }}"
        target="_blank"
        class="whatsapp-float bg-[#25D366] p-3 rounded-full shadow-lg hover:shadow-xl">
         <svg xmlns="http://www.w3.org/2000/svg"
