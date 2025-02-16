@@ -1,6 +1,6 @@
 <div>
     <!-- Footer Section Start  -->
-    <footer class="py-20 bg-tertiary">
+    <footer class="pt-20 bg-tertiary">
         <div class="grid grid-cols-2 gap-5 md:grid-cols-3 mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
             <div class="md:order-1">
                 <ul class="flex items-center flex-col justify-center gap-1">
