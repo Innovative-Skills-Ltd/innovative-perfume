@@ -90,12 +90,12 @@
                                                 <div class="w-full text-left hover:bg-gray-200 cursor-pointer border-b p-4 flex justify-between"
                                                     @click="selectedCategory = '{{ $menu->slug }}'">
                                                     {{ $menu->title }}
-                                                    @if (count($menu->child_cat) > 0 && $has_child > 0)
+                                                    {{-- @if (count($menu->child_cat) > 0 && $has_child > 0)
                                                         <span>&#9656;</span>
-                                                    @endif
+                                                    @endif --}}
                                                 </div>
                                                 <!-- Submenu -->
-                                                @if (count($menu->child_cat) > 0 && $has_child > 0)
+                                                {{-- @if (count($menu->child_cat) > 0 && $has_child > 0)
                                                     <ul x-show="subOpen" x-transition
                                                         class="absolute left-full top-0 mt-0 bg-gray-100 shadow-lg w-56">
                                                         @foreach ($menu->child_cat as $menu2)
@@ -107,7 +107,7 @@
                                                             @endif
                                                         @endforeach
                                                     </ul>
-                                                @endif
+                                                @endif --}}
                                             </li>
                                         @endif
                                     @endforeach

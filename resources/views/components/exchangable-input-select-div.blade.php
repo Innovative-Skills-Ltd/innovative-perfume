@@ -1,5 +1,5 @@
 <div class="form-group">
-    <label for="{{ $attributes['label_for'] }}">{{ $attributes['label_title'] }} <span class="text-danger">*</span></label>
+    <label for="{{ $attributes['label_for'] }}">{{ $attributes['label_title'] }} </label>
 
     <div class="input-group mb-3">
         <select name="{{ $attributes['label_for'] }}_id" class="exchangable_select form-control"
