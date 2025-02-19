@@ -1,7 +1,7 @@
 name: 🚀 Deploy to perfume live
 on:
  push:
-  branches: develop
+  branches: develops
 
 jobs:
   web-deploy:
