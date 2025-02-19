@@ -82,6 +82,7 @@
                                     <td>{{ $product->sizes?->where('is_show',1)?->first()?->size->size }}</td>
                                     <td>{{ $product->sizes?->where('is_show',1)?->first()?->price }} /-</td>
                                     <td> {{ $product->sizes?->where('is_show',1)?->first()?->discount }} /- OFF</td>
+                                    <td>{{ $product->sizes?->where('is_show',1)?->first()?->final_price }} /-</td>
                                     <td> {{ ucfirst($product->brand?->title) }}</td>
                                     <td>
                                         @if ($product->stock > 0)
