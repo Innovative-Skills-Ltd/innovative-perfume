@@ -26,7 +26,6 @@ class CreateUsersTable extends Migration
             $table->integer('post_code')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password')->nullable();
-            // $table->string('decrypt_password')->nullable();
             $table->string('photo')->nullable();
             $table->bigInteger('social_id')->nullable();
             $table->string('role')->default('user');
