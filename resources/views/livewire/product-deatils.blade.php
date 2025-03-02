@@ -140,6 +140,19 @@
                                             isWishlisted: @json($product->wishlists?->where('product_id', $product->id)?->where('user_id', auth()->user()->id)?->count() > 0 ? true : false),
                                             wishlistCount: @json($product->wishlists?->where('product_id', $product->id)?->count()),
                                             toggleWishlist() {
+
+                                                if (typeof fbq !== 'undefined') {
+                                                    fbq('track', 'AddToWishlist', {
+                                                        content_ids: [{{ $product->id }}],
+                                                        content_name: '{{ $product->title }}',
+                                                        content_type: 'product',
+                                                        currency: 'BDT',
+                                                        contents: [{
+                                                            id: {{ $product->id }},
+                                                        }]
+                                                    });
+                                                }
+
                                                 fetch(`/wishlist/{{ $product->slug }}`)
                                                     .then(response => response.json())
                                                     .then(data => {
@@ -297,7 +310,23 @@
                                 </div>
                                 <div>
                                     <span class="cursor-pointer">
-                                        <button class="p-2 px-4 text-xs rounded-full bg-primary text-white font-bold">
+                                        <button class="p-2 px-4 text-xs rounded-full bg-primary text-white font-bold"
+                                        @click="
+                                                if (typeof fbq !== 'undefined') {
+                                                    fbq('track', 'AddToCart', {
+                                                        content_ids: [{{ $product->id }}],
+                                                        content_name: '{{ $product->title }}',
+                                                        content_type: 'product',
+                                                        value: selectedSize?.final_price || 0,
+                                                        currency: 'BDT',
+                                                        contents: [{
+                                                            id: {{ $product->id }},
+                                                            quantity: quantity,
+                                                            price: selectedSize?.final_price || 0
+                                                        }]
+                                                    });
+                                                }
+                                            ">
                                             ADD TO CART
                                         </button>
                                     </span>
@@ -475,15 +504,15 @@
                     <span class="w-10 h-1 bg-primary inline-block"></span>
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-4 gap-5">
-                    @foreach ($related_products as $product)
-                        <a href="{{ route('product.details', $product->slug) }}">
+                    @foreach ($related_products as $rproduct)
+                        <a href="{{ route('product.details', $rproduct->slug) }}">
                             <div class="group cursor-pointer">
                                 <div class="border group-hover:border-[#ab8e66] transition-all duration-300">
                                     <div class="relative w-full">
                                         @php
-                                            $photo = explode(',', $product->photo);
+                                            $photo = explode(',', $rproduct->photo);
                                         @endphp
-                                        <img src="{{ $product->thumbnail_url }}" class=" mx-auto object-contain h-[300px]" />
+                                        <img src="{{ $rproduct->thumbnail_url }}" class=" mx-auto object-contain h-[300px]" />
                                         <div class="top-0 left-0 right-0 bottom-0 m-auto absolute h-full">
                                             <div class="h-[300px] flex items-center justify-center">
                                                 <div
@@ -524,19 +553,19 @@
                                         </div>
                                     </div>
                                     <h3 class="text-primary text-lg font-medium text-center mt-5 mb-2">
-                                        {{ $product->title }}
+                                        {{ $rproduct->title }}
                                     </h3>
                                     <div>
                                         <div class="flex items-center justify-center w-full mb-2">
-                                            {!! $product->echoStar() !!}
+                                            {!! $rproduct->echoStar() !!}
                                         </div>
                                         <h4 class="text-sm text-center pb-3">
-                                            @if ($product->isDiscount())
-                                                <del class="">{{ $product->defaultsize()?->price }}</del>
+                                            @if ($rproduct->isDiscount())
+                                                <del class="">{{ $rproduct->defaultsize()?->price }}</del>
                                             @endif
 
                                             <span
-                                                class="font-bold text-black">{{ $product->defaultsize()?->final_price }}</span>
+                                                class="font-bold text-black">{{ $rproduct->defaultsize()?->final_price }}</span>
 
                                         </h4>
                                     </div>
@@ -550,11 +579,20 @@
         </section>
     @endif
     <!-- Products End -->
-   
+
 </div>
 
 <!-- Add this Alpine.js function to check color brightness -->
 <script>
+     // Facebook Pixel - Content view event
+     if (typeof fbq !== 'undefined') {
+            fbq('track', 'ContentView', {
+                content_ids: [{{ $product->id }}],
+                content_name: "{{ $product->title }}",
+                content_type: 'product',
+            });
+        }
+
     function isLightColor(color) {
         const hex = color.replace('#', '');
         const r = parseInt(hex.substr(0, 2), 16);

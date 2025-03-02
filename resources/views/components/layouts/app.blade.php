@@ -4,8 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    {{-- sentry video error  --}}
-    <script src="https://js.sentry-cdn.com/93dc89a5646af7515c353ded6b155415.min.js" crossorigin="anonymous"></script>
+
 
     <!-- Open Graph meta tags for sharing -->
     <meta property="og:title" content="{{ ENV('APP_NAME') }}">
@@ -23,7 +22,26 @@
     <link rel="stylesheet" href="{{ asset('library/swiper/swiper.min.css') }}" />
     <link rel="stylesheet" type="text/css" href="{{ asset('frontend/owl-carousel-libraries/owl.carousel.min.css') }}">
     <link rel="stylesheet" href="{{ asset('dist/output.css') }}">
-    {{-- <link rel="stylesheet" href="{{ asset('frontend/css/cstyle.css') }}">   --}}
+
+    <!-- Meta Pixel Code -->
+    <script>
+        !function(f,b,e,v,n,t,s)
+        {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+        n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+        if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+        n.queue=[];t=b.createElement(e);t.async=!0;
+        t.src=v;s=b.getElementsByTagName(e)[0];
+        s.parentNode.insertBefore(t,s)}(window, document,'script',
+        'https://connect.facebook.net/en_US/fbevents.js');
+        fbq('init', '1160226848964556');
+        fbq('track', 'PageView');
+    </script>
+    <noscript>
+        <img height="1" width="1" style="display:none"
+        src="https://www.facebook.com/tr?id=1160226848964556&ev=PageView&noscript=1"
+        />
+    </noscript>
+        <!-- End Meta Pixel Code -->
 </head>
 
 <body>
