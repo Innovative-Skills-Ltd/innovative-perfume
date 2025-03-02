@@ -46,5 +46,32 @@
     </section>
 
     <!-- cHECKOUT End -->
+    <script>
+        // Facebook Pixel - Purchase event
+        if (typeof fbq !== 'undefined') {
+            const orderItems = @json($order->cart_info);
+            const contents = [];
+
+            orderItems.forEach(cart => {
+                contents.push({
+                    id: cart.product.id,
+                    product_name: cart.product.title,
+                    quantity: cart.quantity,
+                    price: cart.price,
+                    name: cart.product.title,
+                    variant: cart.size?.size,
+                    color: cart.color?.color
+                });
+            });
+
+            fbq('track', 'Purchase', {
+                content_type: 'product',
+                value: "{{ $order->amount }}",
+                currency: 'BDT',
+                contents: contents
+            });
+        }
+    </script>
 
 </div>
+

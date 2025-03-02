@@ -169,6 +169,7 @@
 
     @push('scripts')
         <script>
+
             // Make sure CSRF token is available for AJAX requests
             $.ajaxSetup({
                 headers: {

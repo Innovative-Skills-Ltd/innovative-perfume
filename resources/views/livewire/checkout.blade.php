@@ -213,27 +213,39 @@
     </section>
 
     <!-- cHECKOUT End -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const baseTotal = {{ $total_amount }};
+            const totalPriceEl = document.getElementById('totalPrice');
+            const shippingRadios = document.querySelectorAll('.shipping-radio');
+            console.log(typeof fbq);
+            // Facebook Pixel - InitiateCheckout event
+            if (typeof fbq !== 'undefined') {
+                fbq('track', 'InitiateCheckout', {
+                    content_ids: [{{ implode(',', $carts->pluck('product.id')->toArray()) }}],
+                    content_type: 'product',
+                    content_name: ["{{ implode(',', $carts->pluck('product.title')->toArray()) }}"],
+                    value: {{ $total_amount }},
+                    currency: 'BDT'
+                });
+            }
+            function updateTotal() {
+                const selectedShipping = document.querySelector('.shipping-radio:checked');
+                const shippingPrice = selectedShipping ? parseFloat(selectedShipping.dataset.price) : 0;
+                const newTotal = baseTotal + shippingPrice;
+                totalPriceEl.textContent = newTotal;
+            }
 
+            shippingRadios.forEach(radio => {
+                radio.addEventListener('change', updateTotal);
+            });
+
+            // Calculate initial total with default shipping
+            updateTotal();
+        });
+    </script>
 </div>
 
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const baseTotal = {{ $total_amount }};
-        const totalPriceEl = document.getElementById('totalPrice');
-        const shippingRadios = document.querySelectorAll('.shipping-radio');
 
-        function updateTotal() {
-            const selectedShipping = document.querySelector('.shipping-radio:checked');
-            const shippingPrice = selectedShipping ? parseFloat(selectedShipping.dataset.price) : 0;
-            const newTotal = baseTotal + shippingPrice;
-            totalPriceEl.textContent = newTotal;
-        }
 
-        shippingRadios.forEach(radio => {
-            radio.addEventListener('change', updateTotal);
-        });
 
-        // Calculate initial total with default shipping
-        updateTotal();
-    });
-</script>
