@@ -15,8 +15,8 @@ class AdminSidebar extends Component
         ['access' => ['Show Banner', 'Media Manager'],'title' => 'Banner', 'child' => [
             // ['access' => 'Media Manager','title' => 'Media Manager', 'route' => 'file-manager', 'child' => []],
             ['access' => 'Show Banner','title' => 'Banners', 'route' => 'banner.*', 'child' => [
-                ['access' => 'Show Banner','title' => 'Banners', 'route' => 'banner.index'],
-                ['access' => 'Create Banner','title' => 'Add Banners', 'route' => 'banner.create']
+                ['access' => 'Show Banner','title' => 'Offer Banners', 'route' => 'banner.index'],
+                ['access' => 'Create Banner','title' => 'Add Offer Banners', 'route' => 'banner.create']
             ]]
         ]],
 

@@ -1,13 +1,13 @@
 @extends('backend.layouts.master')
 @push('title')
-    Add Banner
+    Add Offer Banner
 @endpush
-@section('title','E-SHOP || Banner Create')
+@section('title','E-SHOP || Offer Banner Create')
 
 @section('main-content')
 
 <div class="card">
-    <h5 class="card-header">Add Banner</h5>
+    <h5 class="card-header">Add Offer Banner</h5>
     <div class="card-body">
       <form method="post" action="{{route('banner.store')}}">
         {{csrf_field()}}
@@ -20,8 +20,8 @@
         </div>
 
         <div class="form-group">
-          <label for="inputDesc" class="col-form-label">Description</label>
-          <textarea class="form-control" id="description" name="description">{{old('description')}}</textarea>
+          <label for="inputDesc" class="col-form-label">Short Description</label>
+          <input type="text" class="form-control"  name="description" value="{{old('description')}}">
           @error('description')
           <span class="text-danger">{{$message}}</span>
           @enderror
