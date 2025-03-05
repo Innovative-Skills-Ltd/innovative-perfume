@@ -83,6 +83,12 @@ class HomePage extends Component
         //banner products
         $n['banner_products'] = Product::bannerProducts()->get();
 
+        //Static Offer Banner
+        $n['offer_banner'] = Banner::where('status','active')
+                                        ->limit(2)
+                                        ->orderBy('id','desc')
+                                        ->get();
+
         //deal of the day
         $n['deal_of_the_day'] = Product::where('status','active')
                                         ->where('is_featured',true)
@@ -111,65 +117,12 @@ class HomePage extends Component
         $n['instagram_products'] = Product::instagramProducts()->latest()->get()->take(10);
 
 
-
-
-        //========== old code ============
-        // Get featured products with their default sizes for hero section
-        $n['hero_products'] = Product::with(['sizes', 'sizes.size'])
-        ->whereHas('sizes', function($q) {
-            $q->where('is_show', true);
-        })
-        ->where('status', 'active')
-        ->where('is_showable_to_user', 1)
-        ->where('is_featured', true)  // Assuming you want to show featured products
-        ->orderBy('serial', 'desc')
-        ->take(2)  // For two slides
-        ->get();
-
-
-        $n['news'] = DB::table('news')->where('status','active')->orderBy('serial','desc')->get();
-        $pd = Product::orderBy('views')
-                        ->where('is_showable_to_user',1)
-                        // ->orderBy('serial','desc')
-                        ->get();
-        // $n['new_arrival'] = $pd->whereBetween('created_at', [Carbon::now()->subDays($os->new_product), Carbon::now()]);
-        $n['new_arrival'] = Product::where('status','active')
-                                    ->where('is_showable_to_user',1)
-                                    ->orderBy('serial','desc')
-                                    ->get()
-                                    ->take(10);
-        $n['features'] = $pd;
-
-
-        // $n['gamming_laptops'] = Category::with('products')->find(4);
-        $n['dpds'] = Product::where('status', 'active')
-                            ->where('is_showable_to_user',1)
-                            ->orderBy('serial','desc')
-                            ->get();
-        // $n['menus'] = Category::with('child_cat')->where('status', 'active')->where('is_parent', 1)->orderBy('title', 'ASC')->get();
-
-
-        // Best Sellers
-        $n['bestsellers'] = Product::bestSellers()
-                                  ->with(['sizes', 'sizes.size'])
-                                  ->where('status', 'active')
-                                  ->where('is_showable_to_user', 1)
-                                  ->take(10)
-                                  ->get();
-
-        // Top Rated
-        $n['top_rated'] = Product::topRated()
-                                ->with(['sizes', 'sizes.size'])
-                                ->where('status', 'active')
-                                ->where('is_showable_to_user', 1)
-                                ->take(10)
-                                ->get();
-
         // lates news
         $n['latest_news'] = Post::where('status', 'active')
-                                ->orderBy('created_at', 'desc')
-                                ->limit(3)
-                                ->get();
+            ->orderBy('created_at', 'desc')
+            ->limit(3)
+            ->get();
+
 
         if (auth()->user()) {
             $this->name = auth()->user()->name;

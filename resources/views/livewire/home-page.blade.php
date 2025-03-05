@@ -53,11 +53,7 @@
         }
     </style>
 
-    @php
-        $first_product = $new_arrival->first();
-        $size = $first_product?->size();
-        $photo = $first_product?->photo();
-    @endphp
+
     <!-- Hero Section Start -->
     <section class="mt-5 mb-10">
         <div class="mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl ">
@@ -105,35 +101,44 @@
                     </div>
                 </div>
 
-                <a href="{{ route('shop') }}">
-                    <div style="width: 100%; height: 298px" class="bg-no-repeat py-14 pl-7 pr-40 relative">
-                        <img class="absolute top-0 bottom-0 left-0 right-0 w-full h-full -z-10"
-                            src="{{ asset('images/temporary/banner-home-5.jpg') }}" />
-                        <h3 x-bind:class="active ? 'top-0 opacity-100' : 'top-12 opacity-0'"
-                            class="font-medium mb-3 text-2xl relative transition-all duration-500">
-                            Pick Your Items
-                        </h3>
-                        <p class="text-secondary mb-4">Adipiscing elit curabitur senectus sem</p>
 
-                        <button class="shop-btn">
-                            Shop Now
-                        </button>
-                    </div>
-                </a>
+                    @foreach ($offer_banner as $banner)
+                        @if($loop->first)
+                            <a href="{{ route('shop') }}">
+                                <div style="width: 100%; height: 298px" class="bg-no-repeat py-14 pl-7 pr-40 relative">
+                                    <img class="absolute top-0 bottom-0 left-0 right-0 w-full h-full -z-10"
+                                        src="{{ $banner->photo }}" />
+                                    <h3 x-bind:class="active ? 'top-0 opacity-100' : 'top-12 opacity-0'"
+                                        class="font-medium mb-3 text-2xl relative transition-all duration-500">
+                                        {{ $banner->title }}
+                                    </h3>
+                                    <p class="text-secondary mb-4">
+                                        {{ $banner->description }}
+                                    </p>
 
-                <a href="#bestseller">
-                    <div style="width: 100%; height: 298px" class="bg-no-repeat py-14 pl-7 pr-40 relative">
-                        <img class="absolute top-0 bottom-0 left-0 right-0 w-full h-full -z-10"
-                            src="{{ asset('images/temporary/banner-home-6.jpg') }}" />
-                        <h3 class="text-2xl mb-2 font-bold">Best Of
-                            Products</h3>
-                        <p class="text-secondary mb-4">Cras pulvinar loresum dolor conse</p>
+                                    <button class="shop-btn">
+                                        Shop Now
+                                    </button>
+                                </div>
+                            </a>
+                        @endif
+                        @if($loop->last)
+                            <a href="#bestseller">
+                                <div style="width: 100%; height: 298px" class="bg-no-repeat py-14 pl-7 pr-40 relative">
+                                    <img class="absolute top-0 bottom-0 left-0 right-0 w-full h-full -z-10"
+                                        src="{{ $banner->photo }}" />
+                                    <h3 class="text-2xl mb-2 font-bold">
+                                        {{ $banner->title }}
+                                    </h3>
+                                    <p class="text-secondary mb-4">
+                                        {{ $banner->description }}
+                                    </p>
+                                </div>
+                            </a>
+                        @endif
+                    @endforeach
 
-                        {{-- <button class="shop-btn">
-                            Shop Now
-                        </button> --}}
-                    </div>
-                </a>
+
             </div>
         </div>
     </section>
@@ -511,7 +516,7 @@
             selectedCategory: 'new_arrivals',
             products: {
 
-                new_arrivals: @json($new_arrival),
+                new_arrivals: @json($new_arrivals),
 
             },
             get filteredProducts() {
